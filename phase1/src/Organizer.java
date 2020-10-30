@@ -1,2 +1,2 @@
-public class Organizer extends UserFacade {
+public class Organizer extends User {
 }

@@ -1,2 +1,2 @@
-public class Attendee extends UserFacade {
+public class Attendee extends User {
 }

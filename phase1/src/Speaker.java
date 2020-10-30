@@ -1,2 +1,2 @@
-public class Speaker extends UserFacade {
+public class Speaker extends User {
 }
