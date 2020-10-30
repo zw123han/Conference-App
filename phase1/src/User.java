@@ -14,7 +14,8 @@ public abstract class User{
     }
 
     public User(){
-        System.out.println("Information needed: name, user name and password");
+        //Work in Progress. Want to catch missing information and inform user. May be omitted in future release.
+        System.out.println("Missing information: name, user name or password");
     }
 
 }
