@@ -1,11 +1,5 @@
 public class SpeakerTests {
 
-    private boolean canLogIn(){
-        //Can login.
-
-        return false;
-    }
-
     private boolean canRetrieveEvents(){
         //Can retrieve list of all events they are giving
 

@@ -1,11 +1,5 @@
 public class AttendeeTest {
 
-    private boolean canLogIn(){
-        //Can login.
-
-        return false;
-    }
-
     private boolean canRetrieveAllEvents(){
         //Can retrieve list of all events that they can sign up to.
 

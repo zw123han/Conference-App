@@ -1,11 +1,5 @@
 public class OrganizerTests {
 
-    private boolean canLogIn(){
-        //Can login.
-
-        return false;
-    }
-
     private boolean canCreateSpeakerAccounts(){
         //Can create speaker accounts.
 
