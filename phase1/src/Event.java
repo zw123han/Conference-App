@@ -32,14 +32,25 @@ public class Event {
         return speaker;
     }
 
-    public boolean addUser(String user){
-        if (signedUpUsers.contains(user)){
+    public boolean addUser(String username){
+        if (signedUpUsers.contains(username)){
             return false;
         }
-        signedUpUsers.add(user);
+        signedUpUsers.add(username);
         return true;
     }
 
+    public boolean removeUser(String username){
+        if (signedUpUsers.contains(username)){
+            signedUpUsers.remove(username);
+            return true;
+        }
+        return false;
+    }
+
+    public boolean hasUser(String username){
+        return this.signedUpUsers.contains(username);
+    }
 
 
 }
