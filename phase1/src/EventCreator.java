@@ -9,7 +9,7 @@ public class EventCreator {
     }
 
     public boolean createEvent(String name, String room, LocalDateTime time, Speaker speaker) {
-        ArrayList<Event> events = this.em.getEvents();
+        ArrayList<Event> events = this.em.getEventsList();
         for (Event event : events) {
             if ((event.getRoom() == room && event.getTime() == time) ||
                     (event.getTime() == time && event.getSpeaker().getUserName() == speaker.getUserName())) {
