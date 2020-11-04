@@ -9,12 +9,10 @@ public class Chatter {
     }
 
     public Chatroom getChatroom(ArrayList<User> users){
-        if (chatrooms.containsKey(users)){
-            return chatrooms.get(users);
-        }else{
+        if (!chatrooms.containsKey(users)){
             createChatroom(users);
-            return chatrooms.get(users);
         }
+        return chatrooms.get(users);
     }
 
     public void createChatroom(ArrayList<User> users){
