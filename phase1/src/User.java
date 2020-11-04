@@ -1,7 +1,9 @@
 import java.util.ArrayList;
 import java.util.Objects;
+import java.util.Observable;
+import java.util.Observer;
 
-public abstract class User {
+public abstract class User implements Observer {
     private String name, userName, hashPassword;
 
     private ArrayList<Event> events;
@@ -47,7 +49,7 @@ public abstract class User {
     public void removeEvent(Event evt) { events.remove(evt); }
 
     public ArrayList<Event> getEvents() {
-        return events.clone();
+        return (ArrayList<Event>) events.clone(); //casted to avoid error. Is this correct?
     }
 
     //public void addFriend(User friend) { friends.add(friend); }
@@ -61,6 +63,8 @@ public abstract class User {
     public abstract boolean isOrganizer();
 
     public abstract boolean isSpeaker();
+
+    public void update(Observable o){}
 
 }
 
