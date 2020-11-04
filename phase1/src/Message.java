@@ -1,9 +1,9 @@
-import java.util.Date;
+import java.time.*;
 // Update the implementation of dates to convert to local timezone
 
 public class Message{
     private String message, sender = null;
-    private Date date = new Date();
+    private ZonedDateTime time = ZonedDateTime.now();
 
     public Message(String message, String sender) {
         this.message = message;
@@ -18,8 +18,7 @@ public class Message{
         return sender;
     }
 
-    public Date getDate() {
-        return date;
+    public LocalDateTime getDate() {
+        return time.toLocalDateTime();
     }
-
 }
