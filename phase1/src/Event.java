@@ -51,6 +51,8 @@ public class Event {
     public boolean hasUser(String username){
         return this.signedUpUsers.contains(username);
     }
-
+    public int numberOfSignedUpUsers() {
+        return this.signedUpUsers.size();
+    }
 
 }
