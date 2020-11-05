@@ -8,16 +8,16 @@ public class EventCreator {
         this.em = em;
     }
 
-    public boolean createEvent(String name, String room, LocalDateTime time, Speaker speaker) {
+    public boolean createEvent(String name, String room, LocalDateTime time, Speaker speaker, int capacity) {
         ArrayList<Event> events = this.em.getEventsList();
         for (Event event : events) {
-            if ((event.getRoom() == room && event.getTime() == time) ||
-                    (event.getTime() == time && event.getSpeaker().getUserName() == speaker.getUserName())) {
+            if ((event.getRoom().equals(room) && event.getTime() == time) ||
+                    (event.getTime() == time && event.getSpeaker().getUserName().equals(speaker.getUserName()))) {
                 return false;
             }
         }
-        Event ev = new Event(name, room, time, speaker);
-        this.em.createEvent(name, room, time, speaker);
+        Event ev = new Event(name, room, time, speaker, capacity);
+        this.em.createEvent(name, room, time, speaker, capacity);
         return true;
     }
 }
