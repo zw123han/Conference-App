@@ -1,13 +1,10 @@
 import java.util.ArrayList;
-import java.util.Objects;
-import java.util.Observable;
-import java.util.Observer;
 
-public abstract class User implements Observer {
+public abstract class User{
     private String name, userName, hashPassword;
 
     private ArrayList<Integer> events;
-    private ArrayList<String> friends;
+    private ArrayList<User> friends;
 
     public User(String name, String userName, String hashPassword){
         this.name = name;
@@ -15,17 +12,7 @@ public abstract class User implements Observer {
         this.hashPassword = hashPassword;
     }
 
-    public User(String x, String y){
-        //Work in Progress. May be omitted in future.
-        System.out.println("Error. Missing: password");
-    }
-
-    public User(String x){
-        //Work in Progress. May be omitted in future.
-        System.out.println("Error. Missing: name, username or password");
-    }
-
-   public User(){
+    public User(){
         //Work in Progress. May be omitted in future.
         System.out.println("Error. Missing: name, user name and password");
     }
@@ -38,7 +25,7 @@ public abstract class User implements Observer {
 
     public void setPassword(String hashPassword){ this.hashPassword = hashPassword; }
 
-    public void addEvent(Event evt) {
+    public void addEvent(Integer evt) {
         events.add(evt);
     }
 
@@ -52,15 +39,12 @@ public abstract class User implements Observer {
 
     public void removeFriend(User friend) { friends.remove(friend); }
 
-    public ArrayList<User> getFriends() { return friends.clone(); }
+    public ArrayList<User> getFriends() { return (ArrayList<User>) friends.clone(); }
 
     public abstract boolean isAttendee();
 
     public abstract boolean isOrganizer();
 
     public abstract boolean isSpeaker();
-
-    public void update(Observable o){}
-
 }
 
