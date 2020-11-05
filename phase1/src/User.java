@@ -25,11 +25,9 @@ public abstract class User{
 
     public void setPassword(String hashPassword){ this.hashPassword = hashPassword; }
 
-    public void addEvent(Integer evt) {
-        events.add(evt);
-    }
+    public void addEvent(Integer evt) { events.add(evt); }
 
-    public void removeEvent(Event evt) { events.remove(evt); }
+    public void removeEvent(Integer evt) { events.remove(evt); }
 
     public ArrayList<Event> getEvents() {
         return (ArrayList<Event>) events.clone(); //casted to avoid error. Is this correct?
@@ -41,10 +39,10 @@ public abstract class User{
 
     public ArrayList<User> getFriends() { return (ArrayList<User>) friends.clone(); }
 
-    public abstract boolean isAttendee();
+    //public abstract boolean isAttendee();
 
-    public abstract boolean isOrganizer();
+    //public abstract boolean isOrganizer();
 
-    public abstract boolean isSpeaker();
+    //public abstract boolean isSpeaker();
 }
 
