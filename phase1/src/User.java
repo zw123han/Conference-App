@@ -6,8 +6,8 @@ import java.util.Observer;
 public abstract class User implements Observer {
     private String name, userName, hashPassword;
 
-    private ArrayList<Event> events;
-    //private ArrayList<User> friends;
+    private ArrayList<Integer> events;
+    private ArrayList<String> friends;
 
     public User(String name, String userName, String hashPassword){
         this.name = name;
@@ -32,15 +32,11 @@ public abstract class User implements Observer {
 
     public String getName(){ return name; }
 
-    //public void setName(String name){ this.name = name; }
-
     public String getUserName(){ return userName; }
-
-    //public void setUserName(String userName){ this.userName = userName; }
 
     public String getPassword(){ return hashPassword; }
 
-    //public void setPassword(String hashPassword){ this.hashPassword = hashPassword; }
+    public void setPassword(String hashPassword){ this.hashPassword = hashPassword; }
 
     public void addEvent(Event evt) {
         events.add(evt);
@@ -52,11 +48,11 @@ public abstract class User implements Observer {
         return (ArrayList<Event>) events.clone(); //casted to avoid error. Is this correct?
     }
 
-    //public void addFriend(User friend) { friends.add(friend); }
+    public void addFriend(User friend) { friends.add(friend); }
 
-    //public void removeFriend(User friend) { friends.remove(friend); }
+    public void removeFriend(User friend) { friends.remove(friend); }
 
-    //public ArrayList<User> getFriends() { return friends.clone(); }
+    public ArrayList<User> getFriends() { return friends.clone(); }
 
     public abstract boolean isAttendee();
 
