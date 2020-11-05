@@ -15,8 +15,8 @@ public class EventManager {
         this.events = new HashMap<String, Event>();
     }
 
-    public void createEvent(String name, String room, LocalDateTime time, Speaker speaker) {
-        Event ev = new Event(name, room, time, speaker);
+    public void createEvent(String name, String room, LocalDateTime time, Speaker speaker, int capacity) {
+        Event ev = new Event(name, room, time, speaker, capacity);
         this.events.put(ev.getName(), ev);
     }
 

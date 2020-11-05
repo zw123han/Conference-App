@@ -7,13 +7,15 @@ public class Event {
     private String room;
     private LocalDateTime time;
     private Speaker speaker;
+    private int capacity;
     private ArrayList<String> signedUpUsers = new ArrayList<String>();
 
-    public Event(String name, String room, LocalDateTime time, Speaker speaker){
+    public Event(String name, String room, LocalDateTime time, Speaker speaker, int capacity){
         this.name = name;
         this.room = room;
         this.time = time;
         this.speaker = speaker;
+        this.capacity = 2;
     }
 
     public String getName(){
@@ -30,6 +32,10 @@ public class Event {
 
     public Speaker getSpeaker(){
         return speaker;
+    }
+
+    public int getCapacity(){
+        return capacity;
     }
 
     public boolean addUser(String username){
@@ -51,7 +57,8 @@ public class Event {
     public boolean hasUser(String username){
         return this.signedUpUsers.contains(username);
     }
-    public int numberOfSignedUpUsers() {
+
+    public int getNumberOfSignedUpUsers() {
         return this.signedUpUsers.size();
     }
 

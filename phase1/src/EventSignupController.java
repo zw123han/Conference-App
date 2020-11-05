@@ -14,7 +14,7 @@ public class EventSignupController {
     public boolean signUserUp(User user, String event_name){
         HashMap<String, Event> nameToEventDict = em.getEventsMap();
         Event this_event = nameToEventDict.get(event_name);
-        if(this_event.hasUser(user.getUserName()) || !(this_event.numberOfSignedUpUsers() < 2)){
+        if(this_event.hasUser(user.getUserName()) || !(this_event.getNumberOfSignedUpUsers() < this_event.getCapacity())){
             return false;
         }
         es.signUserUp(user, this_event);
