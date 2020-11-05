@@ -4,7 +4,7 @@ public abstract class User{
     private String name, userName, hashPassword;
 
     private ArrayList<Integer> events;
-    private ArrayList<User> friends;
+    private ArrayList<String> friends;
 
     public User(String name, String userName, String hashPassword){
         this.name = name;
@@ -29,20 +29,15 @@ public abstract class User{
 
     public void removeEvent(Integer evt) { events.remove(evt); }
 
-    public ArrayList<Event> getEvents() {
-        return (ArrayList<Event>) events.clone(); //casted to avoid error. Is this correct?
+    public ArrayList<Integer> getEvents() {
+        return (ArrayList<Integer>) events.clone(); //casted to avoid error. Is this correct?
     }
 
-    public void addFriend(User friend) { friends.add(friend); }
+    public void addFriend(String friend) { friends.add(friend); }
 
-    public void removeFriend(User friend) { friends.remove(friend); }
+    public void removeFriend(String friend) { friends.remove(friend); }
 
-    public ArrayList<User> getFriends() { return (ArrayList<User>) friends.clone(); }
+    public ArrayList<String> getFriends() { return (ArrayList<String>) friends.clone(); }
 
-    //public abstract boolean isAttendee();
-
-    //public abstract boolean isOrganizer();
-
-    //public abstract boolean isSpeaker();
 }
 
