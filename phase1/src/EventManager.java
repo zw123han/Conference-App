@@ -27,4 +27,8 @@ public class EventManager {
     public HashMap<String, Event> getEventsMap() {
         return this.events;
     }
+
+    public Event getEventByID(String id) {
+        return events.get(id);
+    }
 }
