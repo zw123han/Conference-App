@@ -16,7 +16,7 @@ public class Chatter {
     }
 
     public void createChatroom(ArrayList<String> usernames){
-        chatrooms.put(usernames, new Chatroom(usernames));
+        chatrooms.put(usernames, new Chatroom());
     }
 
     public void sendOne(ArrayList<String> users, Message message) {
