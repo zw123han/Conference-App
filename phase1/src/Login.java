@@ -8,10 +8,12 @@ public class Login {
     }
 
     private boolean loginAble(User user, String password){
-        if (!registrar.userExisting(user.getName())){
-            return false;
-        }
+        userExists(user.getName(), password);
         return Arrays.equals(password.getBytes(),Base64.getDecoder().decode(user.getPassword()));
+    }
+
+    public boolean userExists(String username, String password) {
+        return registrar.userExisting(username);
     }
 
     public User attemptLogin(String username, String password){
@@ -22,4 +24,5 @@ public class Login {
         System.out.println("Username not found or incorrect password");
         return null;
     }
+
 }
