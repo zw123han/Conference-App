@@ -1,3 +1,5 @@
+import java.util.ArrayList;
+
 public class Registrar {
 
     private ArrayList<User> users;
@@ -29,6 +31,9 @@ public class Registrar {
             }
         }
         return arr;
+    }
+    public boolean userExisting(String username){
+        return getUserByUserName(username) != null;
     }
 
 }
