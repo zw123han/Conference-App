@@ -1,5 +1,4 @@
-import java.util.ArrayList;
-import java.util.HashMap;
+import java.util.*;
 
 public class Chatter {
     private HashMap<ArrayList<String>, Chatroom> chatrooms;
@@ -9,6 +8,7 @@ public class Chatter {
     }
 
     public Chatroom getChatroom(ArrayList<String> usernames){
+        Collections.sort(usernames);
         if (!chatrooms.containsKey(usernames)){
             createChatroom(usernames);
         }
