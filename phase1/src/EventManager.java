@@ -28,7 +28,4 @@ public class EventManager {
         return this.events;
     }
 
-    public Event getEventByID(String id) {
-        return events.get(id);
-    }
 }
