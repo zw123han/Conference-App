@@ -1,4 +1,3 @@
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.lang.*;
 
@@ -8,7 +7,16 @@ public class Registrar {
 //    private ArrayList<Organizer> organizers;
 //    private ArrayList<Speaker> speakers;
     private ArrayList<User> users;
-    private int numUsers;
+
+    //Constructor used when loading from a file
+    public Registrar(ArrayList<User> users) {
+        this.users = users;
+    }
+
+    //Constructor used when not loading from a file
+    public Registrar() {
+        this.users = new ArrayList<User>();
+    }
 
     public boolean createUser(String name, String userName, String password, String type) {
         User user;
@@ -25,7 +33,6 @@ public class Registrar {
             return false;
         }
         users.add(user);
-        numUsers++;
         return true;
     }
 
