@@ -11,9 +11,9 @@ public class EventSignupController {
         this.em = em;
     }
 
-    public boolean signUserUp(User user, String event_name){
-        HashMap<String, Event> nameToEventDict = em.getEventsMap();
-        Event this_event = nameToEventDict.get(event_name);
+    public boolean signUserUp(User user, Long event_id){
+        HashMap<Long, Event> nameToEventDict = em.getEventsMap();
+        Event this_event = nameToEventDict.get(event_id);
         if(this_event.hasUser(user.getUserName()) || !(this_event.getNumberOfSignedUpUsers() < this_event.getCapacity())){
             return false;
         }
@@ -21,9 +21,9 @@ public class EventSignupController {
         return true;
     }
 
-    public boolean removeUser(User user, String event_name){
-        HashMap<String, Event> nameToEventDict = em.getEventsMap();
-        Event this_event = nameToEventDict.get(event_name);
+    public boolean removeUser(User user, Long event_id){
+        HashMap<Long, Event> nameToEventDict = em.getEventsMap();
+        Event this_event = nameToEventDict.get(event_id);
         if(!this_event.hasUser(user.getUserName())){
             return false;
         }

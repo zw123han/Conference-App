@@ -24,7 +24,7 @@ public class EventManager {
         return new ArrayList(this.events.values());
     }
 
-    public HashMap<String, Event> getEventsMap() {
+    public HashMap<Long, Event> getEventsMap() {
         return this.events;
     }
 

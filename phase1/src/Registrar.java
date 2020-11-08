@@ -24,7 +24,7 @@ public class Registrar {
     }
 
     public ArrayList<User> getUsersByType(String type) {
-        User[] arr = new User[numUsers];
+        ArrayList<User> arr = new ArrayList<User>();
         for (User user : users) {
             if (user instanceof Class.forName(type)) {
                 arr.add(user);
