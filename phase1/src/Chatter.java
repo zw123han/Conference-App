@@ -19,7 +19,7 @@ public class Chatter {
         chatrooms.put(usernames, new Chatroom(usernames));
     }
 
-    public void send(ArrayList<String> users, Message message) {
+    public void sendOne(ArrayList<String> users, Message message) {
         getChatroom(users).sendMessage(message);
     }
 
@@ -28,7 +28,7 @@ public class Chatter {
             ArrayList<String> recipients = new ArrayList<>();
             recipients.add(user);
             recipients.add(message.getSender());
-            send(recipients, message);
+            sendOne(recipients, message);
         }
     }
 }
