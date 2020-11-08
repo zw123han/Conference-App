@@ -14,4 +14,8 @@ public class Chatroom {
     public void sendMessage(Message message){
         history.add(message);
     }
+
+    public ArrayList<Message> getHistory(){
+        return history;
+    }
 }
