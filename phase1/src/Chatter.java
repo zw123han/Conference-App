@@ -18,4 +18,9 @@ public class Chatter {
     public void createChatroom(ArrayList<String> usernames){
         chatrooms.put(usernames, new Chatroom(usernames));
     }
+    public void send(ArrayList<String> users, Message message) {
+        if (!chatrooms.containsKey(users)) {
+            getChatroom(users).sendMessage(message);
+        }
+    }
 }
