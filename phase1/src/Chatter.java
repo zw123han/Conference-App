@@ -16,15 +16,15 @@ public class Chatter {
     }
 
     public void createChatroom(ArrayList<String> usernames){
-        chatrooms.put(usernames, new Chatroom(usernames));
+        chatrooms.put(usernames, new Chatroom());
     }
 
     public void sendOne(ArrayList<String> users, Message message) {
         getChatroom(users).sendMessage(message);
     }
 
-    public void sendAll(ArrayList<String> users, Message message) {
-        for (String user : users) {
+    public void sendAll(Event event, Message message) {
+        for (String user : event.getSignedUpUsers()) {
             ArrayList<String> recipients = new ArrayList<>();
             recipients.add(user);
             recipients.add(message.getSender());

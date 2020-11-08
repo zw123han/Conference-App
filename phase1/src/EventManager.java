@@ -27,4 +27,5 @@ public class EventManager {
     public HashMap<String, Event> getEventsMap() {
         return this.events;
     }
+
 }
