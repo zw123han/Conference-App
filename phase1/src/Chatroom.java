@@ -1,13 +1,13 @@
 import java.lang.reflect.Array;
-import java.util.ArrayList;
-import java.util.Observable;
+import java.util.*;
 
 public class Chatroom {
     private ArrayList<String> usernames;
     private ArrayList<Message> history;
 
     public Chatroom(ArrayList<String> usernames){
-        this.usernames = Array.sort(usernames);
+        Collections.sort(usernames);
+        this.usernames = usernames;
         this.history = new ArrayList<Message>();
     }
 
