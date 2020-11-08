@@ -8,9 +8,9 @@ public class Chatter {
         this.chatrooms = new HashMap<ArrayList<String>, Chatroom>();
     }
 
-    public Chatroom getChatroom(ArrayList<String> username){
-        if (!chatrooms.containsKey(username)){
-            createChatroom(username);
+    public Chatroom getChatroom(ArrayList<String> usernames){
+        if (!chatrooms.containsKey(usernames)){
+            createChatroom(usernames);
         }
         return chatrooms.get(usernames);
     }
