@@ -1,9 +1,7 @@
 public class Attendee extends User {
 
-    //public isAttendee() { if this.getClass()return true; }
-
-    //public isOrganizer() { return false; }
-
-    //public isSpeaker() { return false; }
+    public Attendee(String name, String userName, String password) {
+        super(name, userName, password);
+    }
 
 }

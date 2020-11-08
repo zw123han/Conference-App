@@ -1,13 +1,15 @@
+import java.util.Scanner;
+
 public class LoginPresenter {
 
     private Scanner sc;
 
     public LoginPresenter() {
-        this.sc = new Scanner(system.in);
+        this.sc = new Scanner(System.in);
     }
 
-    public String promptLogin() {
-        String[] credentials = new Array[2];
+    public String[] promptLogin() {
+        String[] credentials = new String[2];
 
         System.out.println("Welcome to this Tech Conference app. Please enter your username and password.");
         System.out.println("Enter username");
@@ -21,8 +23,8 @@ public class LoginPresenter {
         return credentials;
     }
 
-    public String failedLogin() {
-        System.out.println("We're sorry, ")
+    public void failedLogin() {
+        System.out.println("We're sorry, ");
     }
 
 }

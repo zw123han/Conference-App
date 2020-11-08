@@ -8,11 +8,11 @@ public class CredentialsController {
         this.registrar = registrar;
     }
 
-    public boolean createUser(String name, String username, String password){
+    public boolean createUser(String name, String username, String password, String type){
         if(registrar.userExisting(username)){
             return false;
         }
-        registrar.createUser(name, username, Base64.getEncoder().encodeToString(password.getBytes()));
+        registrar.createUser(name, username, Base64.getEncoder().encodeToString(password.getBytes()), type);
         return true;
     }
 
