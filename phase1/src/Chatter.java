@@ -2,20 +2,20 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 public class Chatter {
-    private HashMap<ArrayList<User>, Chatroom> chatrooms;
+    private HashMap<ArrayList<String>, Chatroom> chatrooms;
 
     public Chatter(){
-        this.chatrooms = new HashMap<ArrayList<User>, Chatroom>();
+        this.chatrooms = new HashMap<ArrayList<String>, Chatroom>();
     }
 
-    public Chatroom getChatroom(ArrayList<User> users){
-        if (!chatrooms.containsKey(users)){
-            createChatroom(users);
+    public Chatroom getChatroom(ArrayList<String> username){
+        if (!chatrooms.containsKey(username)){
+            createChatroom(username);
         }
-        return chatrooms.get(users);
+        return chatrooms.get(usernames);
     }
 
-    public void createChatroom(ArrayList<User> users){
-        chatrooms.put(users, new Chatroom(users));
+    public void createChatroom(ArrayList<String> usernames){
+        chatrooms.put(usernames, new Chatroom(usernames));
     }
 }
