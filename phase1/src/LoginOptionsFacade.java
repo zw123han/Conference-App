@@ -20,8 +20,9 @@ public class LoginOptionsFacade {
         return credentialsController.resetPassword(username, currentPassword, newPassword);
     }
 
-    public void login(String username, String password){
+    public boolean login(String username, String password){
         this.user = login.attemptLogin(username, password);
+        return true;
     }
 
     public boolean logout(){
@@ -29,7 +30,10 @@ public class LoginOptionsFacade {
         return true;
     }
 
-    public User getUser(){
+    public User getUser() throws EmptyUserException{
+        if (this.user == null){
+            throw new EmptyUserException();
+        }
         return this.user;
     }
 }
