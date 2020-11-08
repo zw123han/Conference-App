@@ -18,7 +18,17 @@ public class Chatter {
     public void createChatroom(ArrayList<String> usernames){
         chatrooms.put(usernames, new Chatroom(usernames));
     }
+
     public void send(ArrayList<String> users, Message message) {
         getChatroom(users).sendMessage(message);
+    }
+
+    public void sendAll(ArrayList<String> users, Message message) {
+        for (String user : users) {
+            ArrayList<String> recipients = new ArrayList<>();
+            recipients.add(user);
+            recipients.add(message.getSender());
+            send(recipients, message);
+        }
     }
 }
