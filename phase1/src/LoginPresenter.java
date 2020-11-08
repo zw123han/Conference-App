@@ -31,6 +31,9 @@ public class LoginPresenter {
     public void failedLogin() {
         System.out.println("We're sorry, ");
     }
+    public void successfulLogin(){
+        System.out.println("Successfully logged in");
+    }
     public void userCreated() {
         System.out.println("Account created");
     }

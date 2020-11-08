@@ -29,7 +29,7 @@ public class ConferenceSimulator {
         }
         if (!(facade.login(username, password))) {
             loginPresenter.failedLogin();
-        }
+        } else loginPresenter.successfulLogin();
 
 
 
