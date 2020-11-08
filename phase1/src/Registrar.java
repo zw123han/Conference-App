@@ -32,6 +32,7 @@ public class Registrar {
         }
         return arr;
     }
+
     public boolean userExisting(String username){
         return getUserByUserName(username) != null;
     }
