@@ -1,7 +1,7 @@
-public class ChatroomController {
+public class ChatController {
     private Chatroom chatroom;
 
-    ChatroomController(Chatroom chatroom) {
+    public ChatController(Chatroom chatroom) {
         this.chatroom = chatroom;
     }
 
