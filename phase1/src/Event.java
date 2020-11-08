@@ -62,4 +62,8 @@ public class Event {
         return this.signedUpUsers.size();
     }
 
+    public ArrayList<String> getSignedUpUsers(){
+        return signedUpUsers;
+    }
+
 }

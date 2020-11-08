@@ -23,8 +23,8 @@ public class Chatter {
         getChatroom(users).sendMessage(message);
     }
 
-    public void sendAll(ArrayList<String> users, Message message) {
-        for (String user : users) {
+    public void sendAll(Event event, Message message) {
+        for (String user : event.getSignedUpUsers()) {
             ArrayList<String> recipients = new ArrayList<>();
             recipients.add(user);
             recipients.add(message.getSender());
