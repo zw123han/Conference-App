@@ -1,5 +1,7 @@
 import java.util.ArrayList;
 import java.time.*;
+import java.util.Date;
+import java.util.Calendar;
 
 public class Event {
 
@@ -9,6 +11,7 @@ public class Event {
     private Speaker speaker;
     private int capacity;
     private ArrayList<String> signedUpUsers = new ArrayList<String>();
+    private long id;
 
     public Event(String name, String room, LocalDateTime time, Speaker speaker, int capacity){
         this.name = name;
@@ -16,7 +19,13 @@ public class Event {
         this.time = time;
         this.speaker = speaker;
         this.capacity = 2;
+
+        Calendar c = Calendar.getInstance();
+        Date d = c.getTime();
+        this.id = d.getTime();
     }
+
+    public long getId() { return id; }
 
     public String getName(){
         return name;

@@ -3,7 +3,7 @@ import java.util.ArrayList;
 public abstract class User{
     private String name, userName, hashPassword;
 
-    private ArrayList<Integer> events;
+    private ArrayList<Long> events;
     private ArrayList<String> friends;
 
     public User(String name, String userName, String hashPassword){
@@ -25,12 +25,12 @@ public abstract class User{
 
     public void setPassword(String hashPassword){ this.hashPassword = hashPassword; }
 
-    public void addEvent(Integer evt) { events.add(evt); }
+    public void addEvent(Long evt) { events.add(evt); }
 
-    public void removeEvent(Integer evt) { events.remove(evt); }
+    public void removeEvent(Long evt) { events.remove(evt); }
 
-    public ArrayList<Integer> getEvents() {
-        return (ArrayList<Integer>) events.clone(); //casted to avoid error. Is this correct?
+    public ArrayList<Long> getEvents() {
+        return (ArrayList<Long>) events.clone(); //casted to avoid error. Is this correct?
     }
 
     public void addFriend(String friend) { friends.add(friend); }

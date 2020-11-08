@@ -3,21 +3,21 @@ import java.time.*;
 
 public class EventManager {
 
-    private HashMap<String, Event> events;
+    private HashMap<Long, Event> events;
 
     public EventManager(ArrayList<Event> events) {
         for(Event ev: events){
-            this.events.put(ev.getName(), ev);
+            this.events.put(ev.getId(), ev);
         }
     }
 
     public EventManager() {
-        this.events = new HashMap<String, Event>();
+        this.events = new HashMap<Long, Event>();
     }
 
     public void createEvent(String name, String room, LocalDateTime time, Speaker speaker, int capacity) {
         Event ev = new Event(name, room, time, speaker, capacity);
-        this.events.put(ev.getName(), ev);
+        this.events.put(ev.getId(), ev);
     }
 
     public ArrayList<Event> getEventsList() {
@@ -28,4 +28,7 @@ public class EventManager {
         return this.events;
     }
 
+    public Event getEventById(long id) {
+        return this.events.get(id);
+    }
 }
