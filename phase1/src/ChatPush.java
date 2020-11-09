@@ -6,7 +6,7 @@ public class ChatPush {
         Writer writer = new FileWriter("chatlog.txt");
     }
 
-    public void storeChat(){
+    public void storeChat(ChatroomManager chatroomManager){
         Writer writer = new FileWriter("chatlog.txt");
         clearChat();
     }

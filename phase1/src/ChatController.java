@@ -1,7 +1,6 @@
 import java.util.ArrayList;
 
 public class ChatController {
-    private ChatroomManager cm = new ChatroomManager();
 
     private boolean isInEvent(User user, String recipient, EventManager em) {
         for (Long evt : user.getEvents()) {
@@ -29,19 +28,29 @@ public class ChatController {
         if (message.length() == 0) {
             throw new EmptyMessageException("Message cannot be empty.");
         }
+        ChatPull pull = new ChatPull();
+        pull.readChatlog();
+        ChatroomManager cm = pull.getChatroomManager();
         Message msg = new Message(message, user.getUserName());
         ArrayList<String> recipients = new ArrayList<>();
         recipients.add(user.getUserName());
         recipients.add(recipient);
         cm.sendOne(recipients, msg);
+        ChatPush push = new ChatPush();
+        push.storeChat(cm);
     }
 
     public void sendMessage(User user, Long evt, String message, EventManager em) throws EmptyMessageException {
         if (message.length() == 0) {
             throw new EmptyMessageException("Message cannot be empty.");
         }
+        ChatPull pull = new ChatPull();
+        pull.readChatlog();
+        ChatroomManager cm = pull.getChatroomManager();
         Message msg = new Message(message, user.getUserName());
         Event event = em.getEventById(evt);
         cm.sendAll(event, msg);
+        ChatPush push = new ChatPush();
+        push.storeChat(cm);
     }
 }
