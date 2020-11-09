@@ -1,9 +1,9 @@
 import java.util.*;
 
-public class Chatter {
+public class ChatroomManager {
     private HashMap<ArrayList<String>, Chatroom> chatrooms;
 
-    public Chatter(){
+    public ChatroomManager(){
         this.chatrooms = new HashMap<ArrayList<String>, Chatroom>();
     }
 

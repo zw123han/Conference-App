@@ -1,22 +1,14 @@
-import sun.invoke.empty.Empty;
-
 import java.util.*;
 
 public class ChatPresenter {
-    private ChatController cc;
+    private ChatController cc = new ChatController();
     private EventManager em;
     private Scanner sc = new Scanner(System.in);
     private String recipient;
 
-    public ChatPresenter(ChatController cc, EventManager em) {
+    public ChatPresenter(EventManager em) {
         this.cc = cc;
         this.em = em;
-    }
-
-    private void checkMessage(String message) throws EmptyMessageException {
-        if (message.length() == 0) {
-            throw new EmptyMessageException("Message cannot be empty.");
-        }
     }
 
     private void isAuthorized(User user, String choice) throws UserNotAuthorizedException {
@@ -87,14 +79,12 @@ public class ChatPresenter {
         while (true) {
             try {
                 System.out.println("Enter message\n$back to exit");
-                String msg = sc.nextLine();
+                String message = sc.nextLine();
                 if (recipient.equals("$back")) {
                     break;
                 }
-                checkMessage(msg);
-                Message message = new Message(msg, user.getUserName());
                 if (type.equals("One")) {
-                    cc.sendMessage(user, destination, message, em);
+                    cc.sendMessage(user, destination, message);
                 } else if (type.equals("All")) {
                     Long event_id = Long.valueOf(destination);
                     cc.sendMessage(user, event_id, message, em);
