@@ -43,5 +43,9 @@ public abstract class User{
         return friends.contains(friend);
     }
 
+    public boolean isUser(User user) {
+        return userName.equals(user.getUserName());
+    }
+
 }
 

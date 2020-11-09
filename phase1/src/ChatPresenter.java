@@ -45,7 +45,7 @@ public class ChatPresenter {
                 if (recipient.equals("$back")) {
                     break;
                 }
-                cc.canMessage(user, event_id);
+                cc.canMessage(user, event_id, em);
                 promptMessage(user, evt, "All");
                 break;
             } catch (EventNotFoundException e) {
@@ -70,6 +70,7 @@ public class ChatPresenter {
                     Long event_id = Long.valueOf(destination);
                     cc.sendMessage(user, event_id, message, em);
                 }
+                System.out.println("Message sent!");
                 break;
             } catch (EmptyMessageException e) {
                 System.out.println("Enter a valid message.");

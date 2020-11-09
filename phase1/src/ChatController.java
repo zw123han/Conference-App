@@ -14,13 +14,14 @@ public class ChatController {
 
     public void canMessage(User user, String recipient, EventManager em) throws UserNotFoundException {
         if (!user.hasFriend(recipient) || (user instanceof Organizer && !isInEvent(user, recipient, em))) {
-            throw new UserNotFoundException("You are not authorized to message this user");
+            throw new UserNotFoundException("User not found.");
         }
     }
 
-    public void canMessage(User user, Long evt) throws EventNotFoundException {
-        if (!user.getEvents().contains(evt)) {
-            throw new EventNotFoundException("You are not authorized to message users from this event.");
+    public void canMessage(User user, Long evt, EventManager em) throws EventNotFoundException {
+        if (!em.hasEvent(evt) ||
+                !(em.hasEvent(evt) && user instanceof Speaker && em.getEventById(evt).getSpeaker().isUser(user))) {
+            throw new EventNotFoundException("Event not found.");
         }
     }
 

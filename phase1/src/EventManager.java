@@ -31,4 +31,8 @@ public class EventManager {
     public Event getEventById(long id) {
         return this.events.get(id);
     }
+
+    public boolean hasEvent(long id) {
+        return this.events.containsKey(id);
+    }
 }
