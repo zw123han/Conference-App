@@ -8,13 +8,13 @@ public class Login {
     }
 
     private boolean loginAble(User user, String password){
-        if (!(userExists(user.getName(), password))) {
+        if (!(userExists(user.getName()))) {
             return false;
         }
         return Arrays.equals(password.getBytes(),Base64.getDecoder().decode(user.getPassword()));
     }
 
-    public boolean userExists(String username, String password) {
+    public boolean userExists(String username) {
         return registrar.userExisting(username);
     }
 
