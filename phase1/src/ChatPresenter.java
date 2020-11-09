@@ -19,10 +19,38 @@ public class ChatPresenter {
         }
     }
 
+    private void isAuthorized(User user, String choice) throws UserNotAuthorizedException {
+        if ((user instanceof Speaker && choice.equals("1")) || (user instanceof Attendee && choice.equals("2"))) {
+            throw new UserNotAuthorizedException("This action cannot be performed.");
+        }
+    }
+
+    public void promptChatChoice(User user) {
+        while (true) {
+            try {
+                System.out.println("1 Direct message\n2 Group message\n$back to exit");
+                String choice = sc.nextLine();
+                if (choice.equals("$back")) {
+                    break;
+                }
+                isAuthorized(user, choice);
+                if (choice.equals("1")) {
+                    promptRecipient(user);
+                }
+                else if (choice.equals("2")) {
+                    promptEvent(user);
+                }
+                break;
+            } catch (UserNotAuthorizedException e) {
+                System.out.println("Please enter a valid command.");
+            }
+        }
+    }
+
     public void promptRecipient(User user) {
         while (true) {
             try {
-                System.out.println("Send to username ($back to exit):");
+                System.out.println("Enter recipient username\n$back to exit");
                 String recipient = sc.nextLine();
                 if (recipient.equals("$back")) {
                     break;
@@ -31,7 +59,7 @@ public class ChatPresenter {
                 promptMessage(user, recipient, "One");
                 break;
             } catch (UserNotFoundException e) {
-                System.out.println("Enter a valid recipient from your list of friends.");
+                System.out.println("Please enter a valid recipient from your list of friends.");
             }
         }
     }
@@ -39,7 +67,7 @@ public class ChatPresenter {
     public void promptEvent(User user) {
         while (true) {
             try {
-                System.out.println("Send to event ID ($back to exit):");
+                System.out.println("Enter event ID\n$back to exit");
                 String evt = sc.nextLine();
                 Long event_id = Long.valueOf(evt);
                 if (recipient.equals("$back")) {
@@ -49,7 +77,7 @@ public class ChatPresenter {
                 promptMessage(user, evt, "All");
                 break;
             } catch (EventNotFoundException e) {
-                System.out.println("Enter a valid event ID from your list of events.");
+                System.out.println("Please enter a valid event ID from your list of events.");
             }
         }
     }
@@ -70,7 +98,7 @@ public class ChatPresenter {
                     Long event_id = Long.valueOf(destination);
                     cc.sendMessage(user, event_id, message, em);
                 }
-                System.out.println("Message sent!");
+                System.out.println("Message sent.");
                 break;
             } catch (EmptyMessageException e) {
                 System.out.println("Enter a valid message.");
