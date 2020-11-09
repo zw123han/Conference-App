@@ -8,7 +8,9 @@ public class Login {
     }
 
     private boolean loginAble(User user, String password){
-        userExists(user.getName(), password);
+        if (!(userExists(user.getName(), password))) {
+            return false;
+        }
         return Arrays.equals(password.getBytes(),Base64.getDecoder().decode(user.getPassword()));
     }
 
