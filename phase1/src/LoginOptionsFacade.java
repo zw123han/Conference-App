@@ -12,7 +12,6 @@ public class LoginOptionsFacade {
     }
 
     public boolean createUser(String name, String username, String password, String type){
-        // Check if name is an actual attendee from gateway class file
         return credentialsController.createUser(name, username, password, type);
     }
 
