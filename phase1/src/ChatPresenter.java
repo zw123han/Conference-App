@@ -20,7 +20,8 @@ public class ChatPresenter {
     }
 
     private void isAuthorized(User user, String choice) throws UserNotAuthorizedException {
-        if ((user instanceof Speaker && choice.equals("1")) || (user instanceof Attendee && choice.equals("2"))) {
+        if ((user instanceof Speaker && choice.equals("1")) || (user instanceof Attendee && choice.equals("2")) ||
+                (!choice.equals("1") && !choice.equals("2"))) {
             throw new UserNotAuthorizedException("This action cannot be performed.");
         }
     }
