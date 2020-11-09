@@ -30,7 +30,7 @@ public abstract class User{
     public void removeEvent(Long evt) { events.remove(evt); }
 
     public ArrayList<Long> getEvents() {
-        return (ArrayList<Long>) events.clone(); //casted to avoid error. Is this correct?
+        return (ArrayList<Long>) events.clone();
     }
 
     public void addFriend(String friend) { friends.add(friend); }
