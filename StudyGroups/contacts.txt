@@ -1,5 +1,6 @@
 Contact Information
 Discord server -> https://discord.gg/QHdQmff
+Project Plan -> https://csc207-team.monday.com/boards/833811927/activity_log
 
 1. Ziwen Han
     ziwen.han@mail.utoronto.ca

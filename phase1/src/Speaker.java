@@ -10,6 +10,6 @@ public class Speaker extends User {
 
     public ArrayList<Long> getTalks(){ return talks; } // return list of talks this user is giving
 
-    public void setTalks(Long talkId){ talks.add(talkId); }
+    public void addTalk(Long talkId){ talks.add(talkId); }
 
 }
