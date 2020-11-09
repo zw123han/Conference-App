@@ -1,12 +1,11 @@
 import java.util.*;
 
-public class ChatPresenter {
+public class OutboxPresenter {
     private ChatController cc = new ChatController();
     private EventManager em;
     private Scanner sc = new Scanner(System.in);
-    private String recipient;
 
-    public ChatPresenter(EventManager em) {
+    public OutboxPresenter(EventManager em) {
         this.cc = cc;
         this.em = em;
     }
@@ -63,7 +62,7 @@ public class ChatPresenter {
                 System.out.println("Enter event ID\n$back to exit");
                 String evt = sc.nextLine();
                 Long event_id = Long.valueOf(evt);
-                if (recipient.equals("$back")) {
+                if (evt.equals("$back")) {
                     break;
                 }
                 cc.canMessage(user, event_id, em);
@@ -80,7 +79,7 @@ public class ChatPresenter {
             try {
                 System.out.println("Enter message\n$back to exit");
                 String message = sc.nextLine();
-                if (recipient.equals("$back")) {
+                if (message.equals("$back")) {
                     break;
                 }
                 if (type.equals("One")) {
