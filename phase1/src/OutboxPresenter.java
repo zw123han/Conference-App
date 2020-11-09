@@ -4,9 +4,10 @@ public class OutboxPresenter {
     private ChatController cc = new ChatController();
     private EventManager em;
     private Scanner sc = new Scanner(System.in);
+    private User user;
 
-    public OutboxPresenter(EventManager em) {
-        this.cc = cc;
+    public OutboxPresenter(EventManager em, User user) {
+        this.user = user;
         this.em = em;
     }
 
@@ -17,7 +18,7 @@ public class OutboxPresenter {
         }
     }
 
-    public void promptChatChoice(User user) {
+    public void promptChatChoice() {
         while (true) {
             try {
                 System.out.println("1 Direct message\n2 Group message\n$back to exit");
@@ -27,10 +28,10 @@ public class OutboxPresenter {
                 }
                 isAuthorized(user, choice);
                 if (choice.equals("1")) {
-                    promptRecipient(user);
+                    promptRecipient();
                 }
                 else if (choice.equals("2")) {
-                    promptEvent(user);
+                    promptEvent();
                 }
                 break;
             } catch (UserNotAuthorizedException e) {
@@ -39,7 +40,7 @@ public class OutboxPresenter {
         }
     }
 
-    public void promptRecipient(User user) {
+    public void promptRecipient() {
         while (true) {
             try {
                 System.out.println("Enter recipient username\n$back to exit");
@@ -48,7 +49,7 @@ public class OutboxPresenter {
                     break;
                 }
                 cc.canMessage(user, recipient, em);
-                promptMessage(user, recipient, "One");
+                promptMessage(recipient, "One");
                 break;
             } catch (UserNotFoundException e) {
                 System.out.println("Please enter a valid recipient from your list of friends.");
@@ -56,7 +57,7 @@ public class OutboxPresenter {
         }
     }
 
-    public void promptEvent(User user) {
+    public void promptEvent() {
         while (true) {
             try {
                 System.out.println("Enter event ID\n$back to exit");
@@ -66,7 +67,7 @@ public class OutboxPresenter {
                     break;
                 }
                 cc.canMessage(user, event_id, em);
-                promptMessage(user, evt, "All");
+                promptMessage(evt, "All");
                 break;
             } catch (EventNotFoundException e) {
                 System.out.println("Please enter a valid event ID from your list of events.");
@@ -74,7 +75,7 @@ public class OutboxPresenter {
         }
     }
 
-    public void promptMessage(User user, String destination, String type) {
+    public void promptMessage(String destination, String type) {
         while (true) {
             try {
                 System.out.println("Enter message\n$back to exit");
