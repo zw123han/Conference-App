@@ -12,26 +12,28 @@ public class ChatController {
         return false;
     }
 
-    public boolean canSendOne(User user, String recipient, Message message, EventManager em) {
-        if ((user instanceof Attendee && user.getFriends().contains(recipient)) ||
-                (user instanceof Organizer &&
-                        (user.getFriends().contains(recipient) || isInEvent(user, recipient, em)))){
-            ArrayList<String> recipients = new ArrayList<>();
-            recipients.add(user.getUserName());
-            recipients.add(recipient);
-            chatter.sendOne(recipients, message);
-            return true;
+    public void canMessage(User user, String recipient, EventManager em) throws UserNotFoundException {
+        if (!user.hasFriend(recipient) || (user instanceof Organizer && !isInEvent(user, recipient, em))) {
+            throw new UserNotFoundException("User not found.");
         }
-        return false;
     }
 
-    public boolean canSendAll(User user, Long evt, Message message, EventManager em) {
-        if ((user instanceof Organizer || user instanceof Speaker) && user.getEvents().contains(evt)) {
-            Event event = em.getEventById(evt);
-            chatter.sendAll(event, message);
-            return true;
+    public void canMessage(User user, Long evt, EventManager em) throws EventNotFoundException {
+        if (!em.hasEvent(evt) ||
+                !(em.hasEvent(evt) && user instanceof Speaker && em.getEventById(evt).getSpeaker().isUser(user))) {
+            throw new EventNotFoundException("Event not found.");
         }
-        return false;
     }
 
+    public void sendMessage(User user, String recipient, Message message, EventManager em)  {
+        ArrayList<String> recipients = new ArrayList<>();
+        recipients.add(user.getUserName());
+        recipients.add(recipient);
+        chatter.sendOne(recipients, message);
+    }
+
+    public void sendMessage(User user, Long evt, Message message, EventManager em) {
+        Event event = em.getEventById(evt);
+        chatter.sendAll(event, message);
+    }
 }

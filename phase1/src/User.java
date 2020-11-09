@@ -39,5 +39,13 @@ public abstract class User{
 
     public ArrayList<String> getFriends() { return (ArrayList<String>) friends.clone(); }
 
+    public boolean hasFriend(String friend) {
+        return friends.contains(friend);
+    }
+
+    public boolean isUser(User user) {
+        return userName.equals(user.getUserName());
+    }
+
 }
 
