@@ -2,7 +2,7 @@ import java.time.*;
 // Update the implementation of dates to convert to local timezone
 
 public class Message{
-    private String message, sender = null;
+    private String message, sender;
     private ZonedDateTime time = ZonedDateTime.now();
 
     public Message(String message, String sender) {
