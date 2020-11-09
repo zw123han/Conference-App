@@ -20,13 +20,13 @@ public class Registrar {
 
     public boolean createUser(String name, String userName, String password, String type) {
         User user;
-        if (type.toLowerCase() == "attendee") {
+        if (type.toLowerCase().equals("attendee")) {
             user = new Attendee(name, userName, password);
             //attendees.add(new Attendee(name, userName, password));
-        } else if (type.toLowerCase() == "organizer") {
+        } else if (type.toLowerCase().equals("organizer")) {
             user = new Organizer(name, userName, password);
             //organizers.add(new Organizer(name, userName, password));
-        } else if (type.toLowerCase() == "speaker"){
+        } else if (type.toLowerCase().equals("speaker")){
             user = new Speaker(name, userName, password);
             //speakers.add(new Speaker(name, userName, password));
         } else {
@@ -38,13 +38,12 @@ public class Registrar {
 
     public User getUserByUserName(String userName) {
         for (User user : users) {
-            if (user.getUserName()==userName) {
+            if (user.getUserName().equals(userName)) {
                 return user;
             }
         }
         return null;
     }
-
     public ArrayList<User> getUsers() {
         return users;
     }
