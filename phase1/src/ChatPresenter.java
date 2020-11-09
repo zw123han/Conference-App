@@ -101,9 +101,8 @@ public class ChatPresenter {
                 System.out.println("Message sent.");
                 break;
             } catch (EmptyMessageException e) {
-                System.out.println("Please a valid message.");
+                System.out.println("Please enter a non-empty message.");
             }
         }
     }
-
 }
