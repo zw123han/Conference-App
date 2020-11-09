@@ -85,7 +85,7 @@ public class ChatPresenter {
     public void promptMessage(User user, String destination, String type) {
         while (true) {
             try {
-                System.out.println("Message ($back to exit):");
+                System.out.println("Enter message\n$back to exit");
                 String msg = sc.nextLine();
                 if (recipient.equals("$back")) {
                     break;
@@ -101,7 +101,7 @@ public class ChatPresenter {
                 System.out.println("Message sent.");
                 break;
             } catch (EmptyMessageException e) {
-                System.out.println("Enter a valid message.");
+                System.out.println("Please a valid message.");
             }
         }
     }
