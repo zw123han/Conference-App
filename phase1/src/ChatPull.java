@@ -5,7 +5,7 @@ public class ChatPull {
     ChatroomManager chatroomManager = new ChatroomManager();
 
     public void readChatlog(){
-        Reader reader = new FileReader("chatlog.txt")
+        Reader reader = new FileReader("chatlog.txt");
 
     }
 
