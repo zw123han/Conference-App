@@ -6,21 +6,18 @@ public class ConferenceSimulator {
     private LoginPresenter loginPresenter;
 //    private LoginController loginController;
     private UserOptionsPresenter userOptionsPresenter;
-    private CredentialsController credentialsController;
-    private Login login;
 
     public ConferenceSimulator() {
         this.registrar = new Registrar();
         this.loginPresenter = new LoginPresenter();
 //        this.loginController = new LoginController();
-        this.login = new Login(registrar);
-        this.credentialsController = new CredentialsController(registrar);
+
     }
 
     public void run(){
         // Must get filepath
         // Maybe we can put the login code into a new class
-        LoginOptionsFacade facade = new LoginOptionsFacade(credentialsController, login, registrar);
+        LoginOptionsFacade facade = new LoginOptionsFacade(registrar);
         ReadEvents reader = new ReadEvents(filepath);
         String name = loginPresenter.getName();
         ArrayList<String> nameType = reader.findName(name); // A list of two elements, name and type from a gateway.

@@ -5,7 +5,7 @@ public class LoginOptionsFacade {
     private Login login;
     private User user;
 
-    public LoginOptionsFacade(CredentialsController credentialsController, Login login, Registrar registrar){
+    public LoginOptionsFacade(Registrar registrar){
         this.credentialsController = new CredentialsController(registrar);
         this.login = new Login(registrar);
         this.user = null;
