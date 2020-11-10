@@ -20,7 +20,7 @@ public class ConferenceSimulator {
         LoginOptionsFacade facade = new LoginOptionsFacade(registrar);
         ReadEvents reader = new ReadEvents("filepath");
         LoginUI ui = new LoginUI(facade);
-        ui.loginOptions(showHomeScreen, reader);
+        //ui.loginOptions(showHomeScreen, reader);
 
 
 
@@ -28,7 +28,7 @@ public class ConferenceSimulator {
         //userOptionsPresenter.displayOptions(facade); // this could go inside show homescreen
 
         // Don't forget to check if user is logged out from facade
-        reader.storeEvents("filepath");
+        //reader.storeEvents("filepath");
 
     }
     // Put these into separate gateways, and use UserOptionsPresenter as a facade for these gateways
