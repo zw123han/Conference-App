@@ -46,13 +46,13 @@ public class ConferenceSimulator {
             } else {
                 loginPresenter.successfulLogin();
                 this.showHomeScreen();
-            };
+            }
         }
 
         //userOptionsPresenter.displayOptions(facade); // this could go inside show homescreen
 
         // Don't forget to check if user is logged out from facade
-        reader.storeEvents("filepath");
+        //reader.storeEvents("filepath", );
 
     }
 
