@@ -11,17 +11,17 @@ public class ChatController {
         return false;
     }
 
+    private boolean validateMessage(String message) {
+        return message.length() != 0;
+    }
+
     public boolean canMessage(User user, String recipient, EventManager em) {
         return user.hasFriend(recipient) && (!(user instanceof Organizer) || isInEvent(user, recipient, em));
     }
 
     public boolean canMessage(User user, Long evt, EventManager em) {
-        return em.hasEvent(evt) &&
+        return em.hasEvent(evt) ||
                 (em.hasEvent(evt) && user instanceof Speaker && em.getEventById(evt).getSpeaker().isUser(user));
-    }
-
-    public boolean validateMessage(String message) {
-        return message.length() != 0;
     }
 
     public boolean sendMessage(User user, String recipient, String message, EventManager em) {
