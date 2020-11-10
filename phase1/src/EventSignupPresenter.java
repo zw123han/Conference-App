@@ -1,3 +1,7 @@
+import java.time.format.DateTimeFormatter;
+import java.time.format.FormatStyle;
+import java.util.HashMap;
+
 public class EventSignupPresenter {
     private EventManager em;
     private EventSignup es;
@@ -30,6 +34,21 @@ public class EventSignupPresenter {
             }
         } catch (EventNotFoundException e) {
             System.out.println(e.toString());
+        }
+    }
+
+    public void viewEvents(){
+        System.out.println("Available Events: ");
+        for(Event ev: this.em.getEventsList()){
+            if(!ev.isFull()) {
+                System.out.println("Name: " + ev.getName());
+                System.out.println("id: " + ev.getId());
+                System.out.println("Time: " + DateTimeFormatter.ofLocalizedDateTime(
+                        FormatStyle.SHORT)
+                        .format(ev.getTime()));
+                System.out.println("Room: " + ev.getRoom());
+                System.out.println("------------------------");
+            }
         }
     }
 }

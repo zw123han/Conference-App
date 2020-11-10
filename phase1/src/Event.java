@@ -63,6 +63,11 @@ public class Event {
         return false;
     }
 
+    public boolean isFull(){
+        return this.capacity == this.signedUpUsers.size();
+    }
+
+
     public boolean hasUser(String username){
         return this.signedUpUsers.contains(username);
     }
