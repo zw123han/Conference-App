@@ -1,10 +1,11 @@
+import java.io.Serializable;
 import java.util.*;
 
-public class ChatroomManager {
+public class ChatroomManager implements Serializable {
     private HashMap<ArrayList<String>, Chatroom> chatrooms;
 
     public ChatroomManager(){
-        this.chatrooms = new HashMap<ArrayList<String>, Chatroom>();
+        this.chatrooms = new HashMap<>();
     }
 
     public Chatroom getChatroom(ArrayList<String> usernames){
@@ -13,6 +14,27 @@ public class ChatroomManager {
             createChatroom(usernames);
         }
         return chatrooms.get(usernames);
+    }
+
+    public Chatroom getChatroom(User user, String recipient){
+        ArrayList<String> recipients = new ArrayList<>();
+        recipients.add(user.getUserName());
+        recipients.add(recipient);
+        Collections.sort(recipients);
+        if (!chatrooms.containsKey(recipients)){
+            createChatroom(recipients);
+        }
+        return chatrooms.get(recipients);
+    }
+
+    public HashMap<ArrayList<String>, Chatroom> getAllChatrooms(User user) {
+        HashMap<ArrayList<String>, Chatroom> cms = new HashMap<>();
+        for (ArrayList<String> key : chatrooms.keySet()) {
+            if (key.contains(user.getUserName())) {
+                cms.put(key, getChatroom(key));
+            }
+        }
+        return cms;
     }
 
     public void createChatroom(ArrayList<String> usernames){
@@ -30,5 +52,18 @@ public class ChatroomManager {
             recipients.add(message.getSender());
             sendOne(recipients, message);
         }
+    }
+
+    public boolean hasChatroom(ArrayList<String> usernames) {
+        Collections.sort(usernames);
+        return chatrooms.containsKey(usernames);
+    }
+
+    public boolean hasChatroom(User user, String recipient) {
+        ArrayList<String> recipients = new ArrayList<>();
+        recipients.add(user.getUserName());
+        recipients.add(recipient);
+        Collections.sort(recipients);
+        return chatrooms.containsKey(recipients);
     }
 }

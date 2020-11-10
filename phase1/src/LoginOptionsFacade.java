@@ -1,4 +1,5 @@
 import java.util.Base64;
+import java.util.Scanner;
 
 public class LoginOptionsFacade {
     private CredentialsController credentialsController;
@@ -10,6 +11,7 @@ public class LoginOptionsFacade {
         this.login = new Login(registrar);
         this.user = null;
     }
+
 
     public boolean createUser(String name, String username, String password, String type){
         return credentialsController.createUser(name, username, password, type);
@@ -33,10 +35,6 @@ public class LoginOptionsFacade {
         return true;
     }
 
-    public User getUser() throws EmptyUserException{
-        if (this.user == null){
-            throw new EmptyUserException();
-        }
-        return this.user;
-    }
+    public User getUser(){
+        return this.user;}
 }
