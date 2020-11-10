@@ -6,6 +6,7 @@ public class ConferenceSimulator {
     private LoginPresenter loginPresenter;
 //    private LoginController loginController;
     private UserOptionsPresenter userOptionsPresenter;
+    private User currentUser;
 
     public ConferenceSimulator() {
         this.registrar = new Registrar();
@@ -45,9 +46,13 @@ public class ConferenceSimulator {
                 loginPresenter.failedLogin();
             } else {
                 loginPresenter.successfulLogin();
+                currentUser = facade.getUser();
                 this.showHomeScreen();
             };
         }
+
+
+
 
         //userOptionsPresenter.displayOptions(facade); // this could go inside show homescreen
 
