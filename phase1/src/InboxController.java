@@ -6,13 +6,12 @@ public class InboxController {
     private ChatController cc = new ChatController();
     private InboxPresenter ip = new InboxPresenter();
     private Scanner sc = new Scanner(System.in);
-    private EventManager em;
     private User user;
 
-    public InboxController(User user, EventManager em) {
+    public InboxController(User user) {
         this.user = user;
-        this.em = em; // TODO: update this when read events is implemented
     }
+
     private ArrayList<String> getUsersTalkto(User user, ChatroomManager cm) {
         ArrayList<String> users = new ArrayList<>();
         HashMap<ArrayList<String>, Chatroom> cms = cm.getAllChatrooms(user);
@@ -59,7 +58,7 @@ public class InboxController {
     }
 
     public void promptReply(User user, String recipient) {
-        OutboxController oc = new OutboxController(user, em);
+        OutboxController oc = new OutboxController(user);
         oc.promptMessage(recipient);
         ChatPull pull = new ChatPull();
         ChatroomManager cm = pull.getChatroomManager();

@@ -21,23 +21,22 @@ public class OutboxPresenter {
         }
     }
 
-    public void eventMenu(Speaker user) {
+    public void eventMenu(Speaker user, EventManager em) {
         System.out.println("EVENTS:");
         ArrayList<Long> events = user.getTalks();
-        int n = 1;
-        for (Long event : events) {
-            System.out.println(n + ". " + event);
-            n += 1;
+        for (Long evt_id : events) {
+            Event event = em.getEventById(evt_id);
+            System.out.println(event.getName() + " (" + event.getId() + ")");
+            System.out.println("Time: " + event.getTime() + " | " + "Room: " + event.getRoom() + "\n");
         }
     }
 
     public void eventMenu(EventManager em) {
         System.out.println("EVENTS:");
         ArrayList<Event> events = em.getEventsList();
-        int n = 1;
         for (Event event : events) {
-            System.out.println(n + ". " + event.getId());
-            n += 1;
+            System.out.println(event.getName() + " (" + event.getId() + ")");
+            System.out.println("Time: " + event.getTime() + " | " + "Room: " + event.getRoom() + "\n");
         }
     }
 

@@ -9,9 +9,11 @@ public class OutboxController {
     private Scanner sc = new Scanner(System.in);
     private User user;
 
-    public OutboxController(User user, EventManager em) {
+    public OutboxController(User user) {
         this.user = user;
-        this.em = em; // TODO: update this when read events is implemented
+        ReadEvents reader = new ReadEvents("filepath");
+        ArrayList<Event> re = new ArrayList<>(reader.readEvents());
+        this.em = new EventManager(re);
     }
 
     public void promptChatChoice() {
@@ -50,7 +52,7 @@ public class OutboxController {
 
     public void promptEvent() {
         if (user instanceof Speaker) {
-            op.eventMenu((Speaker)user);
+            op.eventMenu((Speaker)user, em);
         } else if (user instanceof Organizer) {
             op.eventMenu(em);
         }
