@@ -6,10 +6,12 @@ public class EventSignup{
 
 
     public void signUserUp(User user, Event event){
+        user.addEvent(event.getId());
         event.addUser(user.getUserName());
     }
 
     public void removeUser(User user, Event event){
+        user.removeEvent(event.getId());
         event.removeUser(user.getUserName());
     }
 

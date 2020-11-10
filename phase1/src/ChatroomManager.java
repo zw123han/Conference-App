@@ -1,9 +1,9 @@
 import java.util.*;
 
-public class Chatter {
+public class ChatroomManager {
     private HashMap<ArrayList<String>, Chatroom> chatrooms;
 
-    public Chatter(){
+    public ChatroomManager(){
         this.chatrooms = new HashMap<ArrayList<String>, Chatroom>();
     }
 
@@ -13,6 +13,17 @@ public class Chatter {
             createChatroom(usernames);
         }
         return chatrooms.get(usernames);
+    }
+
+    public Chatroom getChatroom(User user, String recipient){
+        ArrayList<String> recipients = new ArrayList<>();
+        recipients.add(user.getUserName());
+        recipients.add(recipient);
+        Collections.sort(recipients);
+        if (!chatrooms.containsKey(recipients)){
+            createChatroom(recipients);
+        }
+        return chatrooms.get(recipients);
     }
 
     public void createChatroom(ArrayList<String> usernames){
@@ -30,5 +41,18 @@ public class Chatter {
             recipients.add(message.getSender());
             sendOne(recipients, message);
         }
+    }
+
+    public boolean hasChatroom(ArrayList<String> usernames) {
+        Collections.sort(usernames);
+        return chatrooms.containsKey(usernames);
+    }
+
+    public boolean hasChatroom(User user, String recipient) {
+        ArrayList<String> recipients = new ArrayList<>();
+        recipients.add(user.getUserName());
+        recipients.add(recipient);
+        Collections.sort(recipients);
+        return chatrooms.containsKey(recipients);
     }
 }

@@ -19,11 +19,13 @@ public class Login {
     }
 
     public User attemptLogin(String username, String password){
+        if (!userExists(username, password)){
+            return null;
+        }
         User user = registrar.getUserByUserName(username);
         if (loginAble(user, password)) {
             return user;
         }
-        System.out.println("Username not found or incorrect password");
         return null;
     }
 

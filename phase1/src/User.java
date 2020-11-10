@@ -1,7 +1,7 @@
 import java.util.ArrayList;
 
 public abstract class User{
-    private String name, userName, hashPassword;
+    private String name, userName, hashPassword, type;
 
     private ArrayList<Long> events;
     private ArrayList<String> friends;
@@ -17,6 +17,8 @@ public abstract class User{
         System.out.println("Error. Missing: name, user name and password");
     }
 
+    public String getType() { return type; }
+
     public String getName(){ return name; }
 
     public String getUserName(){ return userName; }
@@ -30,7 +32,7 @@ public abstract class User{
     public void removeEvent(Long evt) { events.remove(evt); }
 
     public ArrayList<Long> getEvents() {
-        return (ArrayList<Long>) events.clone(); //casted to avoid error. Is this correct?
+        return (ArrayList<Long>) events.clone();
     }
 
     public void addFriend(String friend) { friends.add(friend); }

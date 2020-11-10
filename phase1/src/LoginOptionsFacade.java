@@ -5,14 +5,13 @@ public class LoginOptionsFacade {
     private Login login;
     private User user;
 
-    public LoginOptionsFacade(CredentialsController credentialsController, Login login, Registrar registrar){
+    public LoginOptionsFacade(Registrar registrar){
         this.credentialsController = new CredentialsController(registrar);
         this.login = new Login(registrar);
         this.user = null;
     }
 
     public boolean createUser(String name, String username, String password, String type){
-        // Check if name is an actual attendee from gateway class file
         return credentialsController.createUser(name, username, password, type);
     }
 

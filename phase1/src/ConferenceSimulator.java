@@ -1,37 +1,83 @@
+import java.util.ArrayList;
+
 public class ConferenceSimulator {
 
     private Registrar registrar;
     private LoginPresenter loginPresenter;
 //    private LoginController loginController;
-    private CredentialsController credentialsController;
-    private Login login;
+    private UserOptionsPresenter userOptionsPresenter;
+    private User currentUser;
 
     public ConferenceSimulator() {
         this.registrar = new Registrar();
         this.loginPresenter = new LoginPresenter();
 //        this.loginController = new LoginController();
-        this.login = new Login(registrar);
-        this.credentialsController = new CredentialsController(registrar);
+
     }
 
     public void run(){
-        LoginOptionsFacade facade = new LoginOptionsFacade(credentialsController, login, registrar);
+        // Must get filepath
+        // Maybe we can put the login code into a new class
+        LoginOptionsFacade facade = new LoginOptionsFacade(registrar);
+        ReadEvents reader = new ReadEvents("filepath");
+        String name = loginPresenter.getName();
+        ArrayList<String> nameType = reader.findName(name); // A list of two elements, name and type from a gateway.
 
-        String[] loginInput = loginPresenter.promptLogin();
-        String name = loginInput[0];
-        String username = loginInput[1];
-        String password = loginInput[2];
-        String type = loginInput[3];
-
-        if (!(facade.userExists(username, password))) {
-            facade.createUser(name, username, password, type);
-            loginPresenter.userCreated();
+        if(nameType == null){
+            loginPresenter.noSuchPerson();
         }
-        if (!(facade.login(username, password))) {
-            loginPresenter.failedLogin();
-        } else loginPresenter.successfulLogin();
+
+        if (!loginPresenter.inquireExistingAccount()) {
+            String[] loginInput = loginPresenter.promptAccountCreation(name);
+            String username = loginInput[0];
+            String password = loginInput[1];
+            String type = nameType.get(1);
+
+            if (facade.createUser(name, username, password, type)) {
+                loginPresenter.userCreated();
+            }
+            loginPresenter.usernameTaken();
+        }
+        else{
+            String[] loginInput = loginPresenter.promptLogin();
+            String username = loginInput[0];
+            String password = loginInput[1];
+            if (!(facade.login(username, password))) {
+                loginPresenter.failedLogin();
+            } else {
+                loginPresenter.successfulLogin(); // User is always defined here
+                currentUser = facade.getUser();
+                this.showHomeScreen();
+            };
+        }
 
 
+
+
+        //userOptionsPresenter.displayOptions(facade); // this could go inside show homescreen
+
+        // Don't forget to check if user is logged out from facade
+        reader.storeEvents("filepath");
+
+    }
+    // Put these into separate gateways, and use UserOptionsPresenter as a facade for these gateways
+    private void showHomeScreen(){
+        //prints required homescreen depending on user.
+
+    }
+
+    private void showEventsScreen(){
+        //shows all events User is part of.
+
+    }
+
+    private void showMessageScreen(){
+        //shows messenger screen for user.
+
+    }
+
+    private void showCreateEventsScreen(){
+        //shows screen to create and update events. Only for organizer.
 
     }
 
