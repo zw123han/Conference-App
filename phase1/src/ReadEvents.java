@@ -24,6 +24,7 @@ public class ReadEvents {
             ObjectInputStream objectinputstream = new ObjectInputStream(streamIn);
             events.addAll((List<Event>) objectinputstream.readObject());
             objectinputstream.close();
+            streamIn.close();
             return events;
         } catch (Exception e) {
             e.printStackTrace();

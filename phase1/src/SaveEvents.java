@@ -18,6 +18,7 @@ public class SaveEvents {
             ObjectOutputStream objectOS = new ObjectOutputStream(streamOut);
             objectOS.writeObject(evList);
             objectOS.close();
+            streamOut.close();
         } catch (Exception e) {
             e.printStackTrace();
         }
