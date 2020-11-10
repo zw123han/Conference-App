@@ -11,88 +11,76 @@ public class OutboxPresenter {
         this.em = em;
     }
 
-    private void isAuthorized(User user, String choice) throws UserNotAuthorizedException {
-        if ((user instanceof Speaker && choice.equals("1")) || (user instanceof Attendee && choice.equals("2")) ||
-                (!choice.equals("1") && !choice.equals("2"))) {
-            throw new UserNotAuthorizedException("This action cannot be performed.");
-        }
-    }
-
     public void promptChatChoice() {
-        while (true) {
-            try {
-                System.out.println("1 Direct message\n2 Group message\n$back to exit");
-                String choice = sc.nextLine();
-                if (choice.equals("$back")) {
-                    break;
-                }
-                isAuthorized(user, choice);
-                if (choice.equals("1")) {
-                    promptRecipient();
-                }
-                else if (choice.equals("2")) {
-                    promptEvent();
-                }
-                break;
-            } catch (UserNotAuthorizedException e) {
+        System.out.println("1 Direct message\n2 Group message\n$back to exit");
+        String choice = sc.nextLine();
+        while (!choice.equals("$back")) {
+            if (choice.equals("1")) {
+                promptRecipient();
+            }
+            else if (choice.equals("2")) {
+                promptEvent();
+            } else {
                 System.out.println("Please enter a valid command.");
+                System.out.println("1 Direct message\n2 Group message\n$back to exit");
+                choice = sc.nextLine();
             }
         }
     }
 
     public void promptRecipient() {
-        while (true) {
-            try {
-                System.out.println("Enter recipient username\n$back to exit");
-                String recipient = sc.nextLine();
-                if (recipient.equals("$back")) {
-                    break;
-                }
-                cc.canMessage(user, recipient, em);
-                promptMessage(recipient, "One");
-                break;
-            } catch (UserNotFoundException e) {
+        System.out.println("Enter recipient username\n$back to exit");
+        String recipient = sc.nextLine();
+        while (!recipient.equals("$back")) {
+            if (cc.canMessage(user, recipient, em)) {
+                promptMessage(recipient);
+            } else {
                 System.out.println("Please enter a valid recipient from your list of friends.");
+                System.out.println("Enter recipient username\n$back to exit");
+                recipient = sc.nextLine();
             }
         }
     }
 
     public void promptEvent() {
-        while (true) {
-            try {
-                System.out.println("Enter event ID\n$back to exit");
-                String evt = sc.nextLine();
-                Long event_id = Long.valueOf(evt);
-                if (evt.equals("$back")) {
-                    break;
-                }
-                cc.canMessage(user, event_id, em);
-                promptMessage(evt, "All");
-                break;
-            } catch (EventNotFoundException e) {
+        System.out.println("Enter event ID\n$back to exit");
+        String evt = sc.nextLine();
+        while (!evt.equals("$back")) {
+            Long event_id = Long.valueOf(evt);
+            if (cc.canMessage(user, event_id, em)) {
+                promptMessage(event_id);
+            } else {
                 System.out.println("Please enter a valid event ID from your list of events.");
+                System.out.println("Enter event ID\n$back to exit");
+                evt = sc.nextLine();
             }
         }
     }
 
-    public void promptMessage(String destination, String type) {
-        while (true) {
-            try {
-                System.out.println("Enter message\n$back to exit");
-                String message = sc.nextLine();
-                if (message.equals("$back")) {
-                    break;
-                }
-                if (type.equals("One")) {
-                    cc.sendMessage(user, destination, message);
-                } else if (type.equals("All")) {
-                    Long event_id = Long.valueOf(destination);
-                    cc.sendMessage(user, event_id, message, em);
-                }
+    public void promptMessage(String destination) {
+        System.out.println("Enter message\n$back to exit");
+        String message = sc.nextLine();
+        while (!message.equals("$back")) {
+            if (cc.sendMessage(user, destination, message, em)) {
                 System.out.println("Message sent.");
-                break;
-            } catch (EmptyMessageException e) {
-                System.out.println("Please enter a non-empty message.");
+            } else {
+                System.out.println("Invalid message.");
+                System.out.println("Enter message\n$back to exit");
+                message = sc.nextLine();
+            }
+        }
+    }
+
+    public void promptMessage(Long event_id) {
+        System.out.println("Enter message\n$back to exit");
+        String message = sc.nextLine();
+        while (!message.equals("$back")) {
+            if (cc.sendMessage(user, event_id, message, em)) {
+                System.out.println("Message sent.");
+            } else {
+                System.out.println("Invalid message.");
+                System.out.println("Enter message\n$back to exit");
+                message = sc.nextLine();
             }
         }
     }
