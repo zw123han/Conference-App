@@ -1,3 +1,4 @@
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 public class ChatController {
@@ -24,7 +25,19 @@ public class ChatController {
                 (em.hasEvent(evt) && user instanceof Speaker && em.getEventById(evt).getSpeaker().isUser(user));
     }
 
-    public boolean sendMessage(User user, String recipient, String message, EventManager em) {
+    public boolean canReply(User user, String recipient, ChatroomManager cm) {
+        if (cm.hasChatroom(user, recipient)) {
+            ArrayList<Message> history = cm.getChatroom(user, recipient).getHistory();
+            for (Message m : history) {
+                if (!m.getSender().equals(recipient)) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+    public boolean sendMessage(User user, String recipient, String message) {
         if (validateMessage(message)) {
             ChatPull pull = new ChatPull();
             pull.readChatlog();

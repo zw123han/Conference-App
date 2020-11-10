@@ -20,11 +20,10 @@ public class OutboxPresenter {
             }
             else if (choice.equals("2")) {
                 promptEvent();
-            } else {
-                System.out.println("Please enter a valid command.");
-                System.out.println("1 Direct message\n2 Group message\n$back to exit");
-                choice = sc.nextLine();
             }
+            System.out.println("Please enter a valid command.");
+            System.out.println("1 Direct message\n2 Group message\n$back to exit");
+            choice = sc.nextLine();
         }
     }
 
@@ -34,11 +33,11 @@ public class OutboxPresenter {
         while (!recipient.equals("$back")) {
             if (cc.canMessage(user, recipient, em)) {
                 promptMessage(recipient);
-            } else {
-                System.out.println("Please enter a valid recipient from your list of friends.");
-                System.out.println("Enter recipient username\n$back to exit");
-                recipient = sc.nextLine();
+                recipient = "$back";
             }
+            System.out.println("Please enter a valid recipient from your list of friends.");
+            System.out.println("Enter recipient username\n$back to exit");
+            recipient = sc.nextLine();
         }
     }
 
@@ -49,11 +48,12 @@ public class OutboxPresenter {
             Long event_id = Long.valueOf(evt);
             if (cc.canMessage(user, event_id, em)) {
                 promptMessage(event_id);
-            } else {
-                System.out.println("Please enter a valid event ID from your list of events.");
-                System.out.println("Enter event ID\n$back to exit");
-                evt = sc.nextLine();
+                evt = "$back";
             }
+            System.out.println("Please enter a valid event ID from your list of events.");
+            System.out.println("Enter event ID\n$back to exit");
+            evt = sc.nextLine();
+
         }
     }
 
@@ -61,13 +61,13 @@ public class OutboxPresenter {
         System.out.println("Enter message\n$back to exit");
         String message = sc.nextLine();
         while (!message.equals("$back")) {
-            if (cc.sendMessage(user, destination, message, em)) {
-                System.out.println("Message sent.");
-            } else {
-                System.out.println("Invalid message.");
-                System.out.println("Enter message\n$back to exit");
-                message = sc.nextLine();
+            if (cc.sendMessage(user, destination, message)) {
+                System.out.println("Message successfully sent.");
+                message = "$back";
             }
+            System.out.println("Invalid message.");
+            System.out.println("Enter message\n$back to exit");
+            message = sc.nextLine();
         }
     }
 
@@ -76,12 +76,12 @@ public class OutboxPresenter {
         String message = sc.nextLine();
         while (!message.equals("$back")) {
             if (cc.sendMessage(user, event_id, message, em)) {
-                System.out.println("Message sent.");
-            } else {
-                System.out.println("Invalid message.");
-                System.out.println("Enter message\n$back to exit");
-                message = sc.nextLine();
+                System.out.println("Message successfully sent.");
+                message = "$back";
             }
+            System.out.println("Invalid message.");
+            System.out.println("Enter message\n$back to exit");
+            message = sc.nextLine();
         }
     }
 }
