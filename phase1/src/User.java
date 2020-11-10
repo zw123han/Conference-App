@@ -1,7 +1,7 @@
 import java.util.ArrayList;
 
 public abstract class User{
-    private String name, userName, hashPassword;
+    private String name, userName, hashPassword, type;
 
     private ArrayList<Long> events;
     private ArrayList<String> friends;
@@ -16,6 +16,8 @@ public abstract class User{
         //Work in Progress. May be omitted in future.
         System.out.println("Error. Missing: name, user name and password");
     }
+
+    public String getType() { return type; }
 
     public String getName(){ return name; }
 
