@@ -10,7 +10,9 @@ public class Registrar {
 
     //Constructor used when loading from a file
     public Registrar(ArrayList<User> users) {
-        this.users = users;
+        for (User user: users) {
+            createUser(user.getName(), user.getUserName(), user.getPassword(), user.getType());
+        }
     }
 
     //Constructor used when not loading from a file
