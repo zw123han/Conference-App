@@ -1,18 +1,13 @@
 import java.util.ArrayList;
 
 public class ReadEvents {
+    // Put into readUsers
     private ArrayList<ArrayList<String>> namesTypes; // Each inner list is [name, type]
     private ArrayList<Event> events;
 
     public ReadEvents(String filepath){
         // Reads a txt/ser file then stores it
     }
-
-    public void storeEvents(String filepath){
-        // Stores all event info into a txt/ser file
-        // Have a separate storage for a ser file.
-    }
-
 
     public ArrayList<Event> getEvents(){
         return events;
