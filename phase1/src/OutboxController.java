@@ -1,3 +1,5 @@
+import com.sun.tools.corba.se.idl.constExpr.Or;
+
 import java.util.*;
 
 public class OutboxController {
@@ -7,16 +9,16 @@ public class OutboxController {
     private Scanner sc = new Scanner(System.in);
     private User user;
 
-    public OutboxController(EventManager em, User user) {
+    public OutboxController(User user, EventManager em) {
         this.user = user;
-        this.em = em; // update this when read events is implemented
+        this.em = em; // TODO: update this when read events is implemented
     }
 
     public void promptChatChoice() {
         op.menuDisplay();
         op.commandPrompt("prompt");
         String choice = sc.nextLine();
-        while (!choice.equals("$back")) {
+        while (!choice.equals("$q")) {
             if (choice.equals("1")) {
                 promptRecipient();
             }
@@ -31,11 +33,13 @@ public class OutboxController {
     }
 
     public void promptRecipient() {
+        op.friendMenu(user);
         op.commandPrompt("username");
         String recipient = sc.nextLine();
-        while (!recipient.equals("$back")) {
+        while (!recipient.equals("$q")) {
             if (cc.canMessage(user, recipient, em)) {
                 promptMessage(recipient);
+                recipient = "$q";
             } else {
                 op.invalidCommand("username");
                 op.commandPrompt("username");
@@ -45,12 +49,18 @@ public class OutboxController {
     }
 
     public void promptEvent() {
+        if (user instanceof Speaker) {
+            op.eventMenu((Speaker)user);
+        } else if (user instanceof Organizer) {
+            op.eventMenu(em);
+        }
         op.commandPrompt("event ID");
         String evt = sc.nextLine();
-        while (!evt.equals("$back")) {
+        while (!evt.equals("$q")) {
             Long event_id = Long.valueOf(evt);
             if (cc.canMessage(user, event_id, em)) {
                 promptMessage(event_id);
+                evt = "$q";
             } else {
                 op.invalidCommand("event ID");
                 op.commandPrompt("event ID");
@@ -62,9 +72,10 @@ public class OutboxController {
     public void promptMessage(String destination) {
         op.commandPrompt("message");
         String message = sc.nextLine();
-        while (!message.equals("$back")) {
+        while (!message.equals("$q")) {
             if (cc.sendMessage(user, destination, message)) {
                 System.out.println("Message successfully sent.");
+                message = "$q";
             } else {
                 op.invalidCommand("message");
                 op.commandPrompt("message");
@@ -76,9 +87,10 @@ public class OutboxController {
     public void promptMessage(Long event_id) {
         op.commandPrompt("message");
         String message = sc.nextLine();
-        while (!message.equals("$back")) {
+        while (!message.equals("$q")) {
             if (cc.sendMessage(user, event_id, message, em)) {
                 op.success();
+                message = "$q";
             } else {
                 op.invalidCommand("message");
                 op.commandPrompt("message");

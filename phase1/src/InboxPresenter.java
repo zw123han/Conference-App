@@ -1,32 +1,29 @@
-import java.util.Scanner;
 import java.util.*;
 
 public class InboxPresenter {
-    private ChatController cc = new ChatController();
-    private ChatroomManager cm;
-    private Scanner sc = new Scanner(System.in);
-    private User user;
 
-    public InboxPresenter(User user, ChatroomManager cm) {
-        this.user = user;
-        this.cm = cm;
+    public void exitMessage() {
+        System.out.println("$q to exit.");
     }
 
-    public void promptChatChoice() {
-        System.out.println("Enter username to view chat history\n$back to exit");
-        String recipient = sc.nextLine();
-        while (!recipient.equals("$back")) {
-            if (user.hasFriend(recipient) && cm.hasChatroom(user, recipient)) {
-                //allows client to view chat
-            } else {
-                System.out.println("Invalid username.");
-                System.out.println("Enter username to view chat history\n$back to exit");
-                recipient = sc.nextLine();
-            }
+    public void menuDisplay(ArrayList<String> friends) {
+        System.out.println("CHAT HISTORY:");
+        int n = 1;
+        for (String friend : friends) {
+            System.out.println(n + ". " + friend);
+            n += 1;
         }
     }
 
-    // prototype message display format
+    public void invalidCommand(String field) {
+        System.out.println(field + " not valid.");
+    }
+
+    public void commandPrompt(String field) {
+        System.out.println("Enter a valid " + field + ".");
+        exitMessage();
+    }
+
     public void chatView(Chatroom cm) {
         ArrayList<Message> history = cm.getHistory();
         for (Message m : history) {
