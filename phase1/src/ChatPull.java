@@ -1,11 +1,7 @@
-import java.io.FileReader;
-import java.io.Reader;
-
 public class ChatPull {
-    ChatroomManager chatroomManager = new ChatroomManager();
+    ChatroomManager chatroomManager;
 
     public void readChatlog(){
-        Reader reader = new FileReader("chatlog.txt");
 
     }
 
