@@ -1,7 +1,8 @@
+import java.io.Serializable;
 import java.util.*;
 import java.time.*;
 
-public class EventManager {
+public class EventManager implements Serializable {
 
     private HashMap<Long, Event> events;
 

@@ -3,16 +3,11 @@ import java.lang.*;
 
 public class Registrar {
 
-//    private ArrayList<Attendee> attendees;
-//    private ArrayList<Organizer> organizers;
-//    private ArrayList<Speaker> speakers;
     private ArrayList<User> users;
 
     //Constructor used when loading from a file
     public Registrar(ArrayList<User> users) {
-        for (User user: users) {
-            createUser(user.getName(), user.getUserName(), user.getPassword(), user.getType());
-        }
+        this.users = users;
     }
 
     //Constructor used when not loading from a file
@@ -49,17 +44,6 @@ public class Registrar {
     public ArrayList<User> getUsers() {
         return users;
     }
-
-//    public ArrayList<User> getUsersByType(String type) {
-//        if (type.toLowerCase() == "attendee") {
-//            return attendees;
-//        } else if (type.toLowerCase() == "organizer") {
-//            return organizers;
-//        } else if (type.toLowerCase() == "speaker") {
-//            return speakers;
-//        }
-//        return null
-//    }
 
     public boolean userExisting(String username){
         return getUserByUserName(username) != null;

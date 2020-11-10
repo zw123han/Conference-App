@@ -1,13 +1,20 @@
-import java.io.FileWriter;
-import java.io.Writer;
+import java.io.FileOutputStream;
+import java.io.ObjectOutputStream;
 
 public class ChatPush {
     public void clearChat(){
-        Writer writer = new FileWriter("chatlog.txt");
+
     }
 
     public void storeChat(ChatroomManager chatroomManager){
-        Writer writer = new FileWriter("chatlog.txt");
-        clearChat();
+        try {
+            clearChat();
+            FileOutputStream fileOut = new FileOutputStream("chatlog.ser");
+            ObjectOutputStream objectOut = new ObjectOutputStream(fileOut);
+            objectOut.writeObject(chatroomManager);
+            objectOut.close();
+        }catch(Exception e){
+
+        }
     }
 }
