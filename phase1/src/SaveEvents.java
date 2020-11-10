@@ -1,0 +1,26 @@
+import java.io.*;
+import java.util.ArrayList;
+import java.util.List;
+
+public class SaveEvents {
+    private String filepath;
+
+    public SaveEvents(String filepath) {
+        // Reads a txt/ser file then stores it
+        this.filepath = filepath;
+
+    }
+
+    public void saveEvents(ArrayList<Event> evList) {
+        List<Event> events = new ArrayList<>();
+        try {
+            FileOutputStream streamOut = new FileOutputStream(this.filepath);
+            ObjectOutputStream objectOS = new ObjectOutputStream(streamOut);
+            objectOS.writeObject(evList);
+            objectOS.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+}

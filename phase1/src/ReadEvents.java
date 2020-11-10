@@ -7,52 +7,49 @@ import java.util.List;
 
 public class ReadEvents {
     // Put into readUsers
-    private ArrayList<ArrayList<String>> namesTypes; // Each inner list is [name, type]
-    private ArrayList<Event> events;
+//    private ArrayList<ArrayList<String>> namesTypes; // Each inner list is [name, type]
+//    private ArrayList<Event> events;
+    private String filepath;
+
     public ReadEvents(String filepath) {
         // Reads a txt/ser file then stores it
+        this.filepath = filepath;
+
+    }
+
+    public List<Event> readEvents() {
+        List<Event> events = new ArrayList<>();
         try {
-            FileInputStream streamIn = new FileInputStream(filepath);
+            FileInputStream streamIn = new FileInputStream(this.filepath);
             ObjectInputStream objectinputstream = new ObjectInputStream(streamIn);
-            this.events.addAll((List<Event>) objectinputstream.readObject());
+            events.addAll((List<Event>) objectinputstream.readObject());
             objectinputstream.close();
+            return events;
         } catch (Exception e) {
             e.printStackTrace();
         }
-
-    }
-
-    public void storeEvents(String filepath, ArrayList<Event> events) {
-        // Stores all event info into a txt/ser file
-        // Have a separate storage for a ser file.
-        try {
-            FileOutputStream out = new FileOutputStream(filepath);
-            ObjectOutputStream objectOut = new ObjectOutputStream(out);
-            objectOut.writeObject(events);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-
-
-    public ArrayList<Event> getEvents() {
         return events;
     }
 
-    public ArrayList<ArrayList<String>> getNamesTypes() {
-        return namesTypes;
-    }
 
-    // Maybe we should move the method below to another class.
-    // This method is used in ConferenceSimulator.
-    public ArrayList<String> findName(String name) {
-        for (ArrayList<String> nameType : namesTypes) {
-            if (nameType.get(0).equals(name)) {
-                return nameType;
-            }
-
-        }
-        return null;
-    }
+//    public ArrayList<Event> getEvents() {
+//        return events;
+//    }
+//
+//    public ArrayList<ArrayList<String>> getNamesTypes() {
+//        return namesTypes;
+//    }
+//
+//    // Maybe we should move the method below to another class.
+//    // This method is used in ConferenceSimulator.
+//    public ArrayList<String> findName(String name) {
+//        for (ArrayList<String> nameType : namesTypes) {
+//            if (nameType.get(0).equals(name)) {
+//                return nameType;
+//            }
+//
+//        }
+//        return null;
+//    }
 
 }
