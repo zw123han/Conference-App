@@ -45,7 +45,7 @@ public class ConferenceSimulator {
             if (!(facade.login(username, password))) {
                 loginPresenter.failedLogin();
             } else {
-                loginPresenter.successfulLogin();
+                loginPresenter.successfulLogin(); // User is always defined here
                 currentUser = facade.getUser();
                 this.showHomeScreen();
             };
@@ -60,7 +60,7 @@ public class ConferenceSimulator {
         reader.storeEvents("filepath");
 
     }
-
+    // Put these into separate gateways, and use UserOptionsPresenter as a facade for these gateways
     private void showHomeScreen(){
         //prints required homescreen depending on user.
 
