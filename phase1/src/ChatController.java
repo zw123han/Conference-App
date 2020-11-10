@@ -1,4 +1,3 @@
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 public class ChatController {
@@ -27,6 +26,9 @@ public class ChatController {
 
     public boolean canReply(User user, String recipient, ChatroomManager cm) {
         if (cm.hasChatroom(user, recipient)) {
+            if (user instanceof Organizer || user instanceof Attendee) {
+                return true;
+            }
             ArrayList<Message> history = cm.getChatroom(user, recipient).getHistory();
             for (Message m : history) {
                 if (!m.getSender().equals(recipient)) {
