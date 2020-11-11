@@ -7,14 +7,17 @@ public class UserOptionsInterface {
     private LoginUI loginUI;
     private EventCreatorPresenter ecp;
     private EventSignupPresenter esp;
+    ChatMenuPresenter cmp;
     private Scanner sc = new Scanner(System.in);
     private LoginOptionsFacade loginFacade;
     // All other UIs go here too and in the constructor
 
-    public UserOptionsInterface(LoginOptionsFacade loginFacade, EventCreatorPresenter ecp, EventSignupPresenter esp){
+    public UserOptionsInterface(LoginOptionsFacade loginFacade, EventCreatorPresenter ecp, EventSignupPresenter esp,
+                                ChatMenuPresenter cmp){
         this.loginFacade = loginFacade;
         this.ecp = ecp;
         this.esp = esp;
+        this.cmp = cmp;
         this.loginUI = new LoginUI(loginFacade);
 
     }
@@ -45,7 +48,7 @@ public class UserOptionsInterface {
                     showEventScreen(esp);
                     break;
                 case "Messages":
-                    showMessageScreen(user); // don't think this is sufficient, need to revise later
+                    showMessageScreen(); // don't think this is sufficient, need to revise later
                     break;
                 case "Add Event":
                     showCreateEventsScreen(registrar);
@@ -69,7 +72,7 @@ public class UserOptionsInterface {
                     showEventScreen(esp);
                     break;
                 case "Messages":
-                    showMessageScreen(user);
+                    showMessageScreen();
                     break;
                 default:
                     System.out.println("Please input a valid option.");
@@ -147,11 +150,10 @@ public class UserOptionsInterface {
         }
 
     }
-    public void showMessageScreen(User user){ // TODO: update once user storage is determined
-        ChatMenuPresenter chatMenuPresenter = new ChatMenuPresenter();
-        chatMenuPresenter.menuDisplay();
-        chatMenuPresenter.commandPrompt("prompt");
-        Scanner sc = new Scanner(System.in);
+    public void showMessageScreen(){
+        User user = loginFacade.getUser();
+        cmp.menuDisplay();
+        cmp.commandPrompt("prompt");
         String choice = sc.nextLine();
         while (!choice.equals("$q")) {
             if (choice.equals("1")) {
@@ -161,13 +163,14 @@ public class UserOptionsInterface {
                 InboxController ic = new InboxController(user);
                 ic.promptChatChoice();
             } else {
-                chatMenuPresenter.invalidCommand("prompt");
+                cmp.invalidCommand("prompt");
             }
-            chatMenuPresenter.menuDisplay();
-            chatMenuPresenter.commandPrompt("prompt");
+            cmp.menuDisplay();
+            cmp.commandPrompt("prompt");
             choice = sc.nextLine();
         }
     }
+
     public void showOutbox(User user) {
         OutboxController oc = new OutboxController(user);
         if (user instanceof Organizer) {
@@ -178,6 +181,7 @@ public class UserOptionsInterface {
             oc.promptRecipient();
         }
     }
+
     private void login(){
         loginUI.login();
     }
