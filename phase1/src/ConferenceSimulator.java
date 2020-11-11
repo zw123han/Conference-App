@@ -10,8 +10,8 @@ public class ConferenceSimulator {
         String userFilepath = "phase1/src/userData.ser";
         String eventFilepath = "phase1/src/eventData.ser";
 
-        ReadEvents readEvents = new ReadEvents(userFilepath);
-        ReadUsers readUsers = new ReadUsers(eventFilepath);
+        ReadEvents readEvents = new ReadEvents(eventFilepath);
+        ReadUsers readUsers = new ReadUsers(userFilepath);
 
         SaveEvents saveEvents = new SaveEvents(eventFilepath);
         StoreUsers storeUsers = new StoreUsers(userFilepath);
@@ -32,6 +32,9 @@ public class ConferenceSimulator {
 
         ui.homeScreenMenu(loginFacade.getUser(), registrar);
 
+        // Static organizers from script
+        // Only have attendees create their own accounts (assume they are already signed up)
+        // Give organizers option to create any accounts other than organizers
         while (loginFacade.getUser() != null) {
             ui.homeScreenMenu(loginFacade.getUser(), registrar);
         }
