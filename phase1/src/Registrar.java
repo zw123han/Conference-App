@@ -41,7 +41,23 @@ public class Registrar {
         }
         return null;
     }
+
+    public String getUserType(String userName) {
+        User user = getUserByUserName(userName);
+        return user.getClass().getName();
+    }
+
     public ArrayList<User> getUsers() {
+        return users;
+    }
+
+    public ArrayList<User> getUsersByType(String type) {
+        ArrayList<User> users = new ArrayList<>();
+        for (User user : users) {
+            if (this.getUserType(user.getName()) == type) {
+                users.add(user);
+            }
+        }
         return users;
     }
 

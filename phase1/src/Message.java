@@ -1,4 +1,5 @@
 import java.time.*;
+import java.time.format.DateTimeFormatter;
 // Update the implementation of dates to convert to local timezone
 
 public class Message{
@@ -18,7 +19,8 @@ public class Message{
         return sender;
     }
 
-    public LocalDateTime getDate() {
-        return time.toLocalDateTime();
+    public String getDate() {
+        DateTimeFormatter d = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
+        return time.toLocalDateTime().format(d);
     }
 }
