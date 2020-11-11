@@ -10,13 +10,10 @@ public class Tests {
 
     @Test
     public void userCanRetrieveAllEvents(){
-
         john.addEvent(2147483649L);
         john.addEvent(1983748912L);
         john.addEvent(1298603183L);
-        wiggins.addTalk(2147483649L);
-        wiggins.addTalk(1983748912L);
-        wiggins.addTalk(1298603183L);
+
 
         assertTrue("the number of retrieved events should equal 3\n", john.getEvents().size() == 3);
     }
@@ -29,6 +26,10 @@ public class Tests {
     }
     @Test
     public void userCanRetrieveAllTalks(){
+        wiggins.addTalk(2147483649L);
+        wiggins.addTalk(1983748912L);
+        wiggins.addTalk(1298603183L);
+
         assertTrue("the number of retrieved talks should equal 3\n", wiggins.getTalks().size() == 3);
     }
 
