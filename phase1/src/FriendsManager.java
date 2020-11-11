@@ -2,7 +2,7 @@ import java.util.*;
 
 public class FriendsManager {
     private User user;
-    private ArrayList<String> allUsers; // TODO: implement getUserNames() in Registrar
+    private ArrayList<String> allUsers;
 
     public FriendsManager(User user, ArrayList<String> allUsers) {
         this.user = user;
