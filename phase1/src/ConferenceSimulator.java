@@ -57,7 +57,8 @@ public class ConferenceSimulator {
                 InboxController ic = new InboxController(user);
                 ic.promptChatChoice();
             } else {
-                // error message
+                chatMenuPresenter.invalidCommand("prompt");
+                chatMenuPresenter.exitMessage();
                 choice = sc.nextLine();
             }
         }
