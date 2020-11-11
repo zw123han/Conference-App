@@ -26,8 +26,8 @@ public class LoginOptionsFacade {
         return true;
     }
 
-    public boolean userExists(String username, String password) {
-        return login.userExists(username, password);
+    public boolean userExists(String username) {
+        return login.userExists(username);
     }
 
     public boolean logout(){

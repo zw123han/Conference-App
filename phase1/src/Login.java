@@ -19,7 +19,7 @@ public class Login {
     }
 
     public User attemptLogin(String username, String password){
-        if (!userExists(username, password)){
+        if (!userExists(username)){
             return null;
         }
         User user = registrar.getUserByUserName(username);
