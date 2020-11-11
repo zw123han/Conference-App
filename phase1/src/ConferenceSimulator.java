@@ -50,23 +50,28 @@ public class ConferenceSimulator {
         String choice = sc.nextLine();
         while (!choice.equals("$q")) {
             if (choice.equals("1")) {
-                OutboxController oc = new OutboxController(user);
-                if (user instanceof Organizer) {
-                    oc.promptChatChoice();
-                } else if (user instanceof Speaker) {
-                    oc.promptEvent();
-                } else if (user instanceof Attendee) {
-                    oc.promptRecipient();
-                }
+                showOutbox(user);
             }
             else if (choice.equals("2")) {
                 InboxController ic = new InboxController(user);
                 ic.promptChatChoice();
             } else {
                 chatMenuPresenter.invalidCommand("prompt");
-                chatMenuPresenter.exitMessage();
-                choice = sc.nextLine();
             }
+            chatMenuPresenter.menuDisplay();
+            chatMenuPresenter.commandPrompt("prompt");
+            choice = sc.nextLine();
+        }
+    }
+
+    public void showOutbox(User user) {
+        OutboxController oc = new OutboxController(user);
+        if (user instanceof Organizer) {
+            oc.promptChatChoice();
+        } else if (user instanceof Speaker) {
+            oc.promptEvent();
+        } else if (user instanceof Attendee) {
+            oc.promptRecipient();
         }
     }
 

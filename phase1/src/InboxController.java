@@ -37,13 +37,12 @@ public class InboxController {
         while (!recipient.equals("$q")) {
             if (friends.contains(recipient)) {
                 chatViewer(cm, recipient);
-                ip.menuDisplay(friends);
-                ip.commandPrompt("chat");
             } else {
                 ip.invalidCommand("username");
-                ip.menuDisplay(friends);
-                recipient = sc.nextLine();
             }
+            ip.menuDisplay(friends);
+            ip.commandPrompt("chat");
+            recipient = sc.nextLine();
         }
     }
 
