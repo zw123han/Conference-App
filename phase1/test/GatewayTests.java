@@ -17,7 +17,7 @@ public class GatewayTests {
             System.out.println(user.getPassword());
             System.out.println(user.getEvents());
         }
-        StoreUsers storeUsers = new StoreUsers("userData.ser");
+        StoreUsers storeUsers = new StoreUsers("phase1/src/userData.ser");
         storeUsers.store(registrar.getUsers());
         // assert statements
 
