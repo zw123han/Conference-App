@@ -24,7 +24,9 @@ public class UserOptionsInterface {
 
     public void homeScreenMenu(User user, Registrar registrar) {
         boolean retry = true;
-        showOptions(user);
+        if (loginFacade.getUser() == null) {
+            showOptions(user);
+        }
         while (loginFacade.getUser() == null && retry != false) {
             System.out.println("Please try again. If you no longer wish to continue, enter Q to exit the program");
             if (sc.nextLine() == "Q") {
@@ -33,7 +35,7 @@ public class UserOptionsInterface {
                 showOptions(user);
             }
         }
-        showOptions(user);
+        showOptions(loginFacade.getUser());
         System.out.println("\nPlease select an option listed above.");
         String choice = sc.nextLine();
         if (user instanceof Organizer) { //TODO need to implement a "go back" option
