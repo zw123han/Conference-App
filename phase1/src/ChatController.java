@@ -42,8 +42,7 @@ public class ChatController {
     public boolean sendMessage(User user, String recipient, String message) {
         if (validateMessage(message)) {
             ChatPull pull = new ChatPull();
-            pull.readChatlog();
-            ChatroomManager cm = pull.getChatroomManager();
+            ChatroomManager cm = pull.readChatlog();
             Message msg = new Message(message, user.getUserName());
             ArrayList<String> recipients = new ArrayList<>();
             recipients.add(user.getUserName());
@@ -59,8 +58,7 @@ public class ChatController {
     public boolean sendMessage(User user, Long evt, String message, EventManager em) {
         if (validateMessage(message)) {
             ChatPull pull = new ChatPull();
-            pull.readChatlog();
-            ChatroomManager cm = pull.getChatroomManager();
+            ChatroomManager cm = pull.readChatlog();
             Message msg = new Message(message, user.getUserName());
             Event event = em.getEventById(evt);
             cm.sendAll(event, msg);
