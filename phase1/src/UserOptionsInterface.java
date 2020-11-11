@@ -35,7 +35,7 @@ public class UserOptionsInterface {
                     showEventScreen(esp);
                     break;
                 case "Messages":
-                    showMessageScreen(user);
+                    showMessageScreen(user); // don't think this is sufficient, need to revise later
                     break;
                 case "Add Event":
                     showCreateEventsScreen(registrar);
