@@ -11,12 +11,12 @@ public class ChatController {
         return false;
     }
 
-    private boolean validateMessage(String message) {
+    public boolean validateMessage(String message) {
         return message.length() != 0;
     }
 
     public boolean canMessage(User user, String recipient, EventManager em) {
-        return user.hasFriend(recipient) && (!(user instanceof Organizer) || isInEvent(user, recipient, em));
+        return (user.hasFriend(recipient) && !(user instanceof Organizer)) || isInEvent(user, recipient, em);
     }
 
     public boolean canMessage(User user, Long evt, EventManager em) {
@@ -39,33 +39,25 @@ public class ChatController {
         return false;
     }
 
-    public boolean sendMessage(User user, String recipient, String message) {
-        if (validateMessage(message)) {
-            ChatPull pull = new ChatPull();
-            ChatroomManager cm = pull.readChatlog();
-            Message msg = new Message(message, user.getUserName());
-            ArrayList<String> recipients = new ArrayList<>();
-            recipients.add(user.getUserName());
-            recipients.add(recipient);
-            cm.sendOne(recipients, msg);
-            ChatPush push = new ChatPush();
-            push.storeChat(cm);
-            return true;
-        }
-        return false;
+    public void sendMessage(User user, String recipient, String message) {
+        ChatPull pull = new ChatPull();
+        ChatroomManager cm = pull.readChatlog();
+        Message msg = new Message(message, user.getUserName());
+        ArrayList<String> recipients = new ArrayList<>();
+        recipients.add(user.getUserName());
+        recipients.add(recipient);
+        cm.sendOne(recipients, msg);
+        ChatPush push = new ChatPush();
+        push.storeChat(cm);
     }
 
-    public boolean sendMessage(User user, Long evt, String message, EventManager em) {
-        if (validateMessage(message)) {
-            ChatPull pull = new ChatPull();
-            ChatroomManager cm = pull.readChatlog();
-            Message msg = new Message(message, user.getUserName());
-            Event event = em.getEventById(evt);
-            cm.sendAll(event, msg);
-            ChatPush push = new ChatPush();
-            push.storeChat(cm);
-            return true;
-        }
-        return false;
+    public void sendMessage(User user, Long evt, String message, EventManager em) {
+        ChatPull pull = new ChatPull();
+        ChatroomManager cm = pull.readChatlog();
+        Message msg = new Message(message, user.getUserName());
+        Event event = em.getEventById(evt);
+        cm.sendAll(event, msg);
+        ChatPush push = new ChatPush();
+        push.storeChat(cm);
     }
 }

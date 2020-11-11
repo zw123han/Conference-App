@@ -25,6 +25,8 @@ public class OutboxController {
             }
             else if (choice.equals("2")) {
                 promptEvent();
+            } else if (choice.equals("3")) {
+                promptSpeaker();
             } else {
                 op.invalidCommand("prompt");
                 op.menuDisplay();
@@ -49,22 +51,73 @@ public class OutboxController {
         }
     }
 
+    private boolean canSendSpeakers(ArrayList<String> speakers) {
+        boolean result = true;
+        for (String speaker : speakers) {
+            if (!cc.canMessage(user, speaker, em)) {
+                result = false;
+            }
+        }
+        return result;
+    }
+
+    private ArrayList<String> convertSpeakers(String speakers) {
+        String[] speakerArray = speakers.split(" ", 0);
+        return new ArrayList<>(Arrays.asList(speakerArray));
+    }
+
+    public void promptSpeaker() {
+        op.speakerMenu(em);
+        op.commandPrompt("speaker username (separate usernames with a space)");
+        String speakers = sc.nextLine();
+        while (!speakers.equals("$q")) {
+            ArrayList<String> speakerArrayList = convertSpeakers(speakers);
+            if (canSendSpeakers(speakerArrayList)) {
+                promptMessage(speakerArrayList);
+                speakers = "$q";
+            } else {
+                op.invalidCommand("username");
+                op.commandPrompt("speaker username (separate usernames with a space)");
+                speakers = sc.nextLine();
+            }
+        }
+    }
+
+    private ArrayList<Long> convertLong(String longs) {
+        String[] longArray = longs.split(" ", 0);
+        ArrayList<Long> longArrayList = new ArrayList<>();
+        for (String s : longArray) {
+            longArrayList.add(Long.valueOf(s));
+        }
+        return longArrayList;
+    }
+
+    private boolean canSendEvents(ArrayList<Long> event_ids) {
+        boolean result = true;
+        for (Long event_id : event_ids) {
+            if (!cc.canMessage(user, event_id, em)) {
+                result = false;
+            }
+        }
+        return result;
+    }
+
     public void promptEvent() {
         if (user instanceof Speaker) {
             op.eventMenu((Speaker)user, em);
         } else if (user instanceof Organizer) {
             op.eventMenu(em);
         }
-        op.commandPrompt("event ID");
+        op.commandPrompt("event ID (separate IDs with a space)");
         String evt = sc.nextLine();
         while (!evt.equals("$q")) {
-            Long event_id = Long.valueOf(evt);
-            if (cc.canMessage(user, event_id, em)) {
-                promptMessage(event_id);
+            ArrayList<Long> event_ids = convertLong(evt);
+            if (canSendEvents(event_ids)) {
+                promptEventMessage(event_ids);
                 evt = "$q";
             } else {
                 op.invalidCommand("event ID");
-                op.commandPrompt("event ID");
+                op.commandPrompt("event ID (separate IDs with a space)");
                 evt = sc.nextLine();
             }
         }
@@ -74,8 +127,9 @@ public class OutboxController {
         op.commandPrompt("message");
         String message = sc.nextLine();
         while (!message.equals("$q")) {
-            if (cc.sendMessage(user, destination, message)) {
-                System.out.println("Message successfully sent.");
+            if (cc.validateMessage(message)) {
+                cc.sendMessage(user, destination, message);
+                op.success();
                 message = "$q";
             } else {
                 op.invalidCommand("message");
@@ -85,11 +139,32 @@ public class OutboxController {
         }
     }
 
-    public void promptMessage(Long event_id) {
+    public void promptEventMessage(ArrayList<Long> event_ids) {
         op.commandPrompt("message");
         String message = sc.nextLine();
         while (!message.equals("$q")) {
-            if (cc.sendMessage(user, event_id, message, em)) {
+            if (cc.validateMessage(message)) {
+                for (Long event_id : event_ids) {
+                    cc.sendMessage(user, event_id, message, em);
+                }
+                op.success();
+                message = "$q";
+            } else {
+                op.invalidCommand("message");
+                op.commandPrompt("message");
+                message = sc.nextLine();
+            }
+        }
+    }
+
+    public void promptMessage(ArrayList<String> speakers) {
+        op.commandPrompt("message");
+        String message = sc.nextLine();
+        while (!message.equals("$q")) {
+            if (cc.validateMessage(message)) {
+                for (String speaker : speakers) {
+                    cc.sendMessage(user, speaker, message);
+                }
                 op.success();
                 message = "$q";
             } else {
