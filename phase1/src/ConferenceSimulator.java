@@ -35,6 +35,8 @@ public class ConferenceSimulator {
         // Static organizers from script
         // Only have attendees create their own accounts (assume they are already signed up)
         // Give organizers option to create any accounts other than organizers
+        registrar.createUser("nithilan", "nithilan2", "manimaran", "organizer");
+        System.out.println(registrar.getUserByUserName("nithilan2"));
         do {
             ui.homeScreenMenu(loginFacade.getUser(), registrar);
         } while (loginFacade.getUser() != null);

@@ -77,6 +77,9 @@ public class UserOptionsInterface {
                 case "Messages":
                     showMessageScreen();
                     break;
+                case "Add Event":
+                    showCreateEventsScreen(registrar);
+                    break;
                 default:
                     System.out.println("Please input a valid option.");
                     break;
@@ -124,19 +127,27 @@ public class UserOptionsInterface {
     }
     public void showCreateEventsScreen(Registrar registrar){
         System.out.println("Please input the event you want to create: name, room, capacity, time(yyyy-MM-dd HH:mm:ss), speaker");
+        System.out.println("name:");
         String name = sc.nextLine();
+        System.out.println("room:");
         String room = sc.nextLine();
-        int capacity = sc.nextInt();
-        String time = sc.nextLine();
+        System.out.println("capacity:");
+        int capacity = Integer.parseInt(sc.nextLine());
+        System.out.println("date format(yyyy-MM-dd HH:mm):");
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
-        LocalDateTime time1 = LocalDateTime.parse(time, formatter);
-
+        String time = sc.nextLine();
+        System.out.println("list of speakers:");
+        for(User s: registrar.getUsersByType("Speaker")){
+            System.out.println("name: " + s.getName());
+            System.out.println("username: "+ s.getUserName());
+        }
+        System.out.println("Username of speaker:");
         String speaker = sc.nextLine();
         User user = registrar.getUserByUserName(speaker);
         if (user instanceof Speaker) {
-            ecp.promptEventCreation(name, room, time1, (Speaker) user, capacity );
+            ecp.promptEventCreation(name, room, LocalDateTime.parse(time, formatter), (Speaker) user, capacity );
         } else {
-            System.out.println("Please input a valid Speaker");
+            System.out.println("Please input a valid Speaker. If you dont have any, please create a speaker account.");
         }
     }
     public void showCreateSpeakerScreen() {
