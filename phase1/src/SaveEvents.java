@@ -6,7 +6,6 @@ public class SaveEvents {
     private String filepath;
 
     public SaveEvents(String filepath) {
-        // Reads a txt/ser file then stores it
         this.filepath = filepath;
 
     }
