@@ -18,18 +18,20 @@ public class ConferenceSimulator {
 
         Registrar registrar = new Registrar(readUsers.read());
         EventManager eventManager = new EventManager(readEvents.read());
-
+        EventSignup eventSignup = new EventSignup();
 
         LoginOptionsFacade loginFacade = new LoginOptionsFacade(registrar);
+        EventCreatorPresenter eventCreatorPresenter = new EventCreatorPresenter(eventManager);
+        EventSignupPresenter eventSignupPresenter = new EventSignupPresenter(eventSignup, eventManager);
         // Other controllers with presenters go here
 
-        UserOptionsInterface ui = new UserOptionsInterface(loginFacade);
+        UserOptionsInterface ui = new UserOptionsInterface(loginFacade, eventCreatorPresenter, eventSignupPresenter);
         // Other UIs go into this ui
 
-        ui.showOptions(loginFacade.getUser());
+        ui.homeScreenMenu(loginFacade.getUser(), registrar);
 
 
-        // When program finishes running, save everything. How do we make it so that it autosaves upon exiting?
+        // When program finishes running, save everything. How do we make it so that it autosaves upon exiting? -> good question
         storeUsers.store(registrar.getUsers());
         saveEvents.saveEvents(eventManager.getEventsList());
 

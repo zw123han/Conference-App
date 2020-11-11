@@ -11,17 +11,67 @@ public class UserOptionsInterface {
     private LoginOptionsFacade loginFacade;
     // All other UIs go here too and in the constructor
 
-    public UserOptionsInterface(LoginOptionsFacade loginFacade){
+    public UserOptionsInterface(LoginOptionsFacade loginFacade, EventCreatorPresenter ecp, EventSignupPresenter esp){
         this.loginFacade = loginFacade;
+        this.ecp = ecp;
+        this.esp = esp;
         this.loginUI = new LoginUI(loginFacade);
 
+    }
+
+    public void homeScreenMenu(User user, Registrar registrar) {
+        showOptions(user);
+        System.out.println("Please select an option listed above.");
+        String choice = sc.nextLine();
+        if (user instanceof Organizer) { //TODO need to implement a "go back" option
+            switch (choice) {
+                case "Logout":
+                    logout();
+                    break;
+                case "Change password":
+                    changePassword();
+                    break;
+                case "Events":
+                    showEventScreen(esp);
+                    break;
+                case "Messages":
+                    showMessageScreen(user);
+                    break;
+                case "Add Event":
+                    showCreateEventsScreen(registrar);
+                    break;
+                case "Add Speaker":
+                    showCreateSpeakerScreen();
+                    break;
+                default:
+                    System.out.println("Please input a valid option.");
+                    break;
+            }
+        } else if (user instanceof Speaker) {
+            switch (choice) {
+                case "Logout":
+                    logout();
+                    break;
+                case "Change password":
+                    changePassword();
+                    break;
+                case "Events":
+                    showEventScreen(esp);
+                    break;
+                case "Messages":
+                    showMessageScreen(user);
+                    break;
+                default:
+                    System.out.println("Please input a valid option.");
+                    break;
+            }
+        }
     }
     private void generalOptions(){
         System.out.println("Logout");
         System.out.println("Events");
         System.out.println("Messages");
     }
-
     public void showOptions(User user){
         if (user == null){
             login();
@@ -43,11 +93,11 @@ public class UserOptionsInterface {
         esp.usersEvents(loginFacade.getUser());
         System.out.println("\nWould you like to add or leave an event?");
         String choice = sc.nextLine();
-        if (choice == "add") {
+        if (choice.equals("add")) {
             System.out.println("Please input the event_id");
             String event_id = sc.nextLine();
             esp.joinEvent(loginFacade.getUser(), event_id);
-        } else if (choice == "leave") {
+        } else if (choice.equals("leave")) {
             System.out.println("Please input the event_id");
             String event_id = sc.nextLine();
             esp.leaveEvent(loginFacade.getUser(), event_id);
@@ -72,16 +122,16 @@ public class UserOptionsInterface {
             System.out.println("Please input a valid Speaker");
         }
     }
-    public void showCreateSpeakerScreen(Registrar registrar) {
+    public void showCreateSpeakerScreen() {
         System.out.println("Please input the speaker account you wish to create: name, userName, password");
         String name = sc.nextLine();
         String userName = sc.nextLine();
         String password = sc.nextLine();
 
-        if (registrar.userExisting(userName)) {
+        if (loginFacade.userExists(userName)) {
             System.out.println("Username already exists, please create another one");
         } else {
-            registrar.createUser(name, userName, password, "speaker");
+            loginFacade.createUser(name, userName, password, "speaker");
             System.out.println("Speaker account created successfully ");
         }
 
@@ -126,4 +176,5 @@ public class UserOptionsInterface {
     private void changePassword(){
         loginUI.changePassword();
     }
+
 }
