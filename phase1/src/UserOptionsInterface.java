@@ -57,7 +57,7 @@ public class UserOptionsInterface {
                     System.out.println("Please input a valid option.");
                     break;
             }
-        } else if (user instanceof Speaker) {
+        } else {
             switch (choice) {
                 case "Logout":
                     logout();
