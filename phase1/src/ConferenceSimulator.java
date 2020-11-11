@@ -43,7 +43,9 @@ public class ConferenceSimulator {
     }
 
     private void showMessageScreen(User user){ // TODO: update once user storage is determined
-        // insert presenter here
+        ChatMenuPresenter chatMenuPresenter = new ChatMenuPresenter();
+        chatMenuPresenter.menuDisplay();
+        chatMenuPresenter.commandPrompt("prompt");
         Scanner sc = new Scanner(System.in);
         String choice = sc.nextLine();
         while (!choice.equals("$q")) {
