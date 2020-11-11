@@ -8,8 +8,7 @@ public class LoginPresenter {
     public String confirmLogout(){
         return "Are you sure you want to logout? Y/N. Default N.";
     }
-    public String promptAccountUsername(){
-        return "Enter username:";}
+    public String promptAccountUsername(){ return "Enter username:"; }
 
     public String promptAccountPassword(){
         return "Enter password:";}
@@ -27,7 +26,7 @@ public class LoginPresenter {
         return "Successfully logged out.";
     }
     public String failedLogin() {
-        return "We're sorry, credentials incorrect.";
+        return "We're sorry, your credentials are incorrect.";
     }
     public String successfulLogin(){
         return "Successfully logged in.";

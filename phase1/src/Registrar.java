@@ -12,7 +12,7 @@ public class Registrar {
 
     //Constructor used when not loading from a file
     public Registrar() {
-        this.users = new ArrayList<User>();
+        this.users = new ArrayList<>();
     }
 
     public boolean createUser(String name, String userName, String password, String type) {

@@ -13,7 +13,7 @@ public class StoreUsers {
 
     public void store(ArrayList<User> userList) {
         try {
-            FileOutputStream fileOut = new FileOutputStream("phase1/src/userData.ser");
+            FileOutputStream fileOut = new FileOutputStream(this.filepath);
             ObjectOutputStream out = new ObjectOutputStream(fileOut);
             for (User user : userList) {
                 out.writeObject(user);

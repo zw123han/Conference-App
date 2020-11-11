@@ -1,9 +1,6 @@
 import java.io.FileInputStream;
-import java.io.FileOutputStream;
 import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
 import java.util.ArrayList;
-import java.util.List;
 
 public class ReadEvents {
     private String filepath;
@@ -27,26 +24,5 @@ public class ReadEvents {
         }
         return events;
     }
-
-
-//    public ArrayList<Event> getEvents() {
-//        return events;
-//    }
-//
-//    public ArrayList<ArrayList<String>> getNamesTypes() {
-//        return namesTypes;
-//    }
-//
-//    // Maybe we should move the method below to another class.
-//    // This method is used in ConferenceSimulator.
-//    public ArrayList<String> findName(String name) {
-//        for (ArrayList<String> nameType : namesTypes) {
-//            if (nameType.get(0).equals(name)) {
-//                return nameType;
-//            }
-//
-//        }
-//        return null;
-//    }
 
 }

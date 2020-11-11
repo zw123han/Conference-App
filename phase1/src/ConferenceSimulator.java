@@ -30,6 +30,9 @@ public class ConferenceSimulator {
 
         ui.homeScreenMenu(loginFacade.getUser(), registrar);
 
+        while (loginFacade.getUser() != null) {
+            ui.homeScreenMenu(loginFacade.getUser(), registrar);
+        }
 
         // When program finishes running, save everything. How do we make it so that it autosaves upon exiting? -> good question
         storeUsers.store(registrar.getUsers());

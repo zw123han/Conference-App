@@ -20,6 +20,16 @@ public class UserOptionsInterface {
     }
 
     public void homeScreenMenu(User user, Registrar registrar) {
+        boolean retry = true;
+        showOptions(user);
+        while (loginFacade.getUser() == null && retry != false) {
+            System.out.println("Please try again. If you no longer wish to continue, enter Q to exit the program");
+            if (sc.nextLine() == "Q") {
+                retry = false;
+            } else {
+                showOptions(user);
+            }
+        }
         showOptions(user);
         System.out.println("\nPlease select an option listed above.");
         String choice = sc.nextLine();
@@ -71,6 +81,7 @@ public class UserOptionsInterface {
         System.out.println("Logout");
         System.out.println("Events");
         System.out.println("Messages");
+        System.out.println("Change password");
     }
     public void showOptions(User user){
         if (user == null){
