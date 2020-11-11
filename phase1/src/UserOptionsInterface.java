@@ -21,7 +21,7 @@ public class UserOptionsInterface {
 
     public void homeScreenMenu(User user, Registrar registrar) {
         showOptions(user);
-        System.out.println("Please select an option listed above.");
+        System.out.println("\nPlease select an option listed above.");
         String choice = sc.nextLine();
         if (user instanceof Organizer) { //TODO need to implement a "go back" option
             switch (choice) {
