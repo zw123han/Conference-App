@@ -10,7 +10,7 @@ public class OutboxController {
 
     public OutboxController(User user) {
         this.user = user;
-        ReadEvents reader = new ReadEvents("filepath");
+        ReadEvents reader = new ReadEvents("phase1/src/eventData.ser");
         ArrayList<Event> re = new ArrayList<>(reader.read());
         this.em = new EventManager(re);
     }
