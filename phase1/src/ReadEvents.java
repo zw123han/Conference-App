@@ -6,23 +6,19 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ReadEvents {
-    // Put into readUsers
-//    private ArrayList<ArrayList<String>> namesTypes; // Each inner list is [name, type]
-//    private ArrayList<Event> events;
     private String filepath;
 
     public ReadEvents(String filepath) {
-        // Reads a txt/ser file then stores it
         this.filepath = filepath;
 
     }
 
-    public List<Event> readEvents() {
-        List<Event> events = new ArrayList<>();
+    public ArrayList<Event> read() {
+        ArrayList<Event> events = new ArrayList<>();
         try {
             FileInputStream streamIn = new FileInputStream(this.filepath);
             ObjectInputStream objectinputstream = new ObjectInputStream(streamIn);
-            events.addAll((List<Event>) objectinputstream.readObject());
+            events.addAll((ArrayList<Event>) objectinputstream.readObject());
             objectinputstream.close();
             streamIn.close();
             return events;

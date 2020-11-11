@@ -2,36 +2,44 @@ import java.util.*;
 
 public class ConferenceSimulator {
 
-    private Registrar registrar;
-    private LoginPresenter loginPresenter;
-//    private LoginController loginController;
-    private UserOptionsPresenter userOptionsPresenter;
-
     public ConferenceSimulator() {
-        this.registrar = new Registrar();
-        this.loginPresenter = new LoginPresenter();
-//        this.loginController = new LoginController();
-
     }
 
     public void run(){
-        // Must get filepath
-        // Maybe we can put the login code into a new class
-        LoginOptionsFacade facade = new LoginOptionsFacade(registrar);
-        ReadEvents reader = new ReadEvents("filepath");
-        LoginUI ui = new LoginUI(facade);
-        //ui.loginOptions(showHomeScreen, reader);
+
+        String userFilepath = "phase1/src/userData.ser";
+        String eventFilepath = "phase1/src/eventData.ser";
+
+        ReadEvents readEvents = new ReadEvents(userFilepath);
+        ReadUsers readUsers = new ReadUsers(eventFilepath);
+
+        SaveEvents saveEvents = new SaveEvents(eventFilepath);
+        StoreUsers storeUsers = new StoreUsers(userFilepath);
+
+        Registrar registrar = new Registrar(readUsers.read());
+        EventManager eventManager = new EventManager(readEvents.read());
 
 
+        LoginOptionsFacade loginFacade = new LoginOptionsFacade(registrar);
+        // Other controllers with presenters go here
+
+        UserOptionsInterface ui = new UserOptionsInterface(loginFacade);
+        // Other UIs go into this ui
+
+        ui.showOptions(loginFacade.getUser());
 
 
-        //userOptionsPresenter.displayOptions(facade); // this could go inside show homescreen
+        // When program finishes running, save everything. How do we make it so that it autosaves upon exiting?
+        storeUsers.store(registrar.getUsers());
+        saveEvents.saveEvents(eventManager.getEventsList());
 
-        // Don't forget to check if user is logged out from facade
-        //reader.storeEvents("filepath");
 
     }
-    // Put these into separate gateways, and use UserOptionsPresenter as a facade for these gateways
+
+
+
+
+    // Can we move all of this into new classes?
     private void showHomeScreen(){
         //prints required homescreen depending on user.
 

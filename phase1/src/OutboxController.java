@@ -11,7 +11,7 @@ public class OutboxController {
     public OutboxController(User user) {
         this.user = user;
         ReadEvents reader = new ReadEvents("filepath");
-        ArrayList<Event> re = new ArrayList<>(reader.readEvents());
+        ArrayList<Event> re = new ArrayList<>(reader.read());
         this.em = new EventManager(re);
     }
 
