@@ -1,10 +1,6 @@
 import java.util.*;
 
-public class InboxPresenter {
-
-    public void exitMessage() {
-        System.out.println("$q to exit.");
-    }
+public class InboxPresenter extends CommandPresenter {
 
     public void menuDisplay(ArrayList<String> friends) {
         System.out.println("CHAT HISTORY:");
@@ -13,15 +9,6 @@ public class InboxPresenter {
             System.out.println(n + ". " + friend);
             n += 1;
         }
-    }
-
-    public void invalidCommand(String field) {
-        System.out.println(field + " not valid.");
-    }
-
-    public void commandPrompt(String field) {
-        System.out.println("Enter a valid " + field + ".");
-        exitMessage();
     }
 
     public void chatView(Chatroom cm) {
