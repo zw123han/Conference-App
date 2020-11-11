@@ -3,8 +3,17 @@ import java.util.*;
 public class OutboxPresenter extends CommandPresenter{
 
     public void menuDisplay() {
-        System.out.println("1 Direct message\n2 Group message");
+        System.out.println("1 Message users\n2 Group message\n3 Message speakers");
         exitMessage();
+    }
+
+    public void speakerMenu(EventManager em) {
+        System.out.println("SPEAKERS:");
+        ArrayList<Event> events = em.getEventsList();
+        for (Event event : events) {
+            System.out.println(event.getSpeaker().getUserName() +
+                    " | Event (" + event.getId() + "): " + event.getName());
+        }
     }
 
     public void friendMenu(User user) {

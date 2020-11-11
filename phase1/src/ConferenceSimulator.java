@@ -51,7 +51,13 @@ public class ConferenceSimulator {
         while (!choice.equals("$q")) {
             if (choice.equals("1")) {
                 OutboxController oc = new OutboxController(user);
-                oc.promptChatChoice();
+                if (user instanceof Organizer) {
+                    oc.promptChatChoice();
+                } else if (user instanceof Speaker) {
+                    oc.promptEvent();
+                } else if (user instanceof Attendee) {
+                    oc.promptRecipient();
+                }
             }
             else if (choice.equals("2")) {
                 InboxController ic = new InboxController(user);
