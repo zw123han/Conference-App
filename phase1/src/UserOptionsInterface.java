@@ -38,53 +38,53 @@ public class UserOptionsInterface {
         String choice = sc.nextLine();
         if (user instanceof Organizer) { //TODO need to implement a "go back" option
             switch (choice) {
-                case "Logout":
+                case "1":
                     logout();
                     break;
-                case "Change password":
+                case "2":
                     changePassword();
                     break;
-                case "Events":
+                case "3":
                     showEventScreen(esp);
                     break;
-                case "Messages":
+                case "4":
                     showMessageScreen(); // don't think this is sufficient, need to revise later
                     break;
-                case "Add Event":
+                case "5":
                     showCreateEventsScreen(registrar);
                     break;
-                case "Add Speaker":
+                case "6":
                     showCreateSpeakerScreen();
                     break;
                 default:
-                    System.out.println("Please input a valid option.");
+                    System.out.println("Please input a valid option(1-6).");
                     break;
             }
         } else {
             switch (choice) {
-                case "Logout":
+                case "1":
                     logout();
                     break;
-                case "Change password":
+                case "2":
                     changePassword();
                     break;
-                case "Events":
+                case "3":
                     showEventScreen(esp);
                     break;
-                case "Messages":
+                case "4":
                     showMessageScreen();
                     break;
                 default:
-                    System.out.println("Please input a valid option.");
+                    System.out.println("Please input a valid option(1-4).");
                     break;
             }
         }
     }
     private void generalOptions(){
-        System.out.println("Logout");
-        System.out.println("Events");
-        System.out.println("Messages");
-        System.out.println("Change password");
+        System.out.println("1) Logout");
+        System.out.println("2) Events");
+        System.out.println("3) Messages");
+        System.out.println("4) Change password");
     }
     public void showOptions(User user){
         if (user == null){
@@ -95,8 +95,8 @@ public class UserOptionsInterface {
         }
         else if (user instanceof Organizer){
             generalOptions();
-            System.out.println("Add Event");
-            System.out.println("Add Speaker");
+            System.out.println("5) Add Event");
+            System.out.println("6) Add Speaker");
         }
         else if (user instanceof Speaker){
             generalOptions();
