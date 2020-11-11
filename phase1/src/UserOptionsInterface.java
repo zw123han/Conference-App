@@ -55,7 +55,7 @@ public class UserOptionsInterface {
             System.out.println("Please enter a valid input (add or leave)");
         }
     }
-    private void showCreateEventsScreen(Registrar registrar){
+    public void showCreateEventsScreen(Registrar registrar){
         System.out.println("Please input the event you want to create: name, room, capacity, time(yyyy-MM-dd HH:mm:ss), speaker");
         String name = sc.nextLine();
         String room = sc.nextLine();
@@ -69,10 +69,10 @@ public class UserOptionsInterface {
         if (user instanceof Speaker) {
             ecp.promptEventCreation(name, room, time1, (Speaker) user, capacity );
         } else {
-            System.out.println("Please input a valid Speaker username");
+            System.out.println("Please input a valid Speaker");
         }
     }
-    private void showCreateSpeakerScreen(Registrar registrar) {
+    public void showCreateSpeakerScreen(Registrar registrar) {
         System.out.println("Please input the speaker account you wish to create: name, userName, password");
         String name = sc.nextLine();
         String userName = sc.nextLine();
@@ -81,9 +81,41 @@ public class UserOptionsInterface {
         if (registrar.userExisting(userName)) {
             System.out.println("Username already exists, please create another one");
         } else {
+            registrar.createUser(name, userName, password, "speaker");
             System.out.println("Speaker account created successfully ");
         }
 
+    }
+    public void showMessageScreen(User user){ // TODO: update once user storage is determined
+        ChatMenuPresenter chatMenuPresenter = new ChatMenuPresenter();
+        chatMenuPresenter.menuDisplay();
+        chatMenuPresenter.commandPrompt("prompt");
+        Scanner sc = new Scanner(System.in);
+        String choice = sc.nextLine();
+        while (!choice.equals("$q")) {
+            if (choice.equals("1")) {
+                showOutbox(user);
+            }
+            else if (choice.equals("2")) {
+                InboxController ic = new InboxController(user);
+                ic.promptChatChoice();
+            } else {
+                chatMenuPresenter.invalidCommand("prompt");
+            }
+            chatMenuPresenter.menuDisplay();
+            chatMenuPresenter.commandPrompt("prompt");
+            choice = sc.nextLine();
+        }
+    }
+    public void showOutbox(User user) {
+        OutboxController oc = new OutboxController(user);
+        if (user instanceof Organizer) {
+            oc.promptChatChoice();
+        } else if (user instanceof Speaker) {
+            oc.promptEvent();
+        } else if (user instanceof Attendee) {
+            oc.promptRecipient();
+        }
     }
     private void login(){
         loginUI.login();

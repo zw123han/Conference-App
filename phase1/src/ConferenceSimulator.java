@@ -49,43 +49,4 @@ public class ConferenceSimulator {
         //shows all events User is part of.
 
     }
-
-    private void showMessageScreen(User user){ // TODO: update once user storage is determined
-        ChatMenuPresenter chatMenuPresenter = new ChatMenuPresenter();
-        chatMenuPresenter.menuDisplay();
-        chatMenuPresenter.commandPrompt("prompt");
-        Scanner sc = new Scanner(System.in);
-        String choice = sc.nextLine();
-        while (!choice.equals("$q")) {
-            if (choice.equals("1")) {
-                showOutbox(user);
-            }
-            else if (choice.equals("2")) {
-                InboxController ic = new InboxController(user);
-                ic.promptChatChoice();
-            } else {
-                chatMenuPresenter.invalidCommand("prompt");
-            }
-            chatMenuPresenter.menuDisplay();
-            chatMenuPresenter.commandPrompt("prompt");
-            choice = sc.nextLine();
-        }
-    }
-
-    public void showOutbox(User user) {
-        OutboxController oc = new OutboxController(user);
-        if (user instanceof Organizer) {
-            oc.promptChatChoice();
-        } else if (user instanceof Speaker) {
-            oc.promptEvent();
-        } else if (user instanceof Attendee) {
-            oc.promptRecipient();
-        }
-    }
-
-    private void showCreateEventsScreen(){
-        //shows screen to create and update events. Only for organizer.
-
-    }
-
 }
