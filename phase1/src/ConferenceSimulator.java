@@ -23,9 +23,11 @@ public class ConferenceSimulator {
         LoginOptionsFacade loginFacade = new LoginOptionsFacade(registrar);
         EventCreatorPresenter eventCreatorPresenter = new EventCreatorPresenter(eventManager);
         EventSignupPresenter eventSignupPresenter = new EventSignupPresenter(eventSignup, eventManager);
+        ChatMenuPresenter chatMenuPresenter = new ChatMenuPresenter();
         // Other controllers with presenters go here
 
-        UserOptionsInterface ui = new UserOptionsInterface(loginFacade, eventCreatorPresenter, eventSignupPresenter);
+        UserOptionsInterface ui = new UserOptionsInterface(loginFacade, eventCreatorPresenter, eventSignupPresenter,
+                chatMenuPresenter);
         // Other UIs go into this ui
 
         ui.homeScreenMenu(loginFacade.getUser(), registrar);
