@@ -29,7 +29,7 @@ public class InboxController {
 
     public void promptChatChoice() {
         ChatPull pull = new ChatPull();
-        ChatroomManager cm = pull.getChatroomManager();
+        ChatroomManager cm = pull.readChatlog();
         ArrayList<String> friends = getUsersTalkto(user, cm);
         ip.menuDisplay(friends);
         ip.commandPrompt("chat");
@@ -63,7 +63,7 @@ public class InboxController {
         OutboxController oc = new OutboxController(user);
         oc.promptMessage(recipient);
         ChatPull pull = new ChatPull();
-        ChatroomManager cm = pull.getChatroomManager();
+        ChatroomManager cm = pull.readChatlog();
         ip.chatView(cm.getChatroom(user, recipient));
     }
 }
