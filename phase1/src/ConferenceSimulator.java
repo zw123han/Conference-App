@@ -1,4 +1,4 @@
-import java.util.ArrayList;
+import java.util.*;
 
 public class ConferenceSimulator {
 
@@ -42,9 +42,26 @@ public class ConferenceSimulator {
 
     }
 
-    private void showMessageScreen(){
-        //shows messenger screen for user.
-
+    private void showMessageScreen(User user){ // TODO: update once user storage is determined
+        ChatMenuPresenter chatMenuPresenter = new ChatMenuPresenter();
+        chatMenuPresenter.menuDisplay();
+        chatMenuPresenter.commandPrompt("prompt");
+        Scanner sc = new Scanner(System.in);
+        String choice = sc.nextLine();
+        while (!choice.equals("$q")) {
+            if (choice.equals("1")) {
+                OutboxController oc = new OutboxController(user);
+                oc.promptChatChoice();
+            }
+            else if (choice.equals("2")) {
+                InboxController ic = new InboxController(user);
+                ic.promptChatChoice();
+            } else {
+                chatMenuPresenter.invalidCommand("prompt");
+                chatMenuPresenter.exitMessage();
+                choice = sc.nextLine();
+            }
+        }
     }
 
     private void showCreateEventsScreen(){

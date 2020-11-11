@@ -1,10 +1,6 @@
 import java.util.*;
 
-public class OutboxPresenter {
-
-    public void exitMessage() {
-        System.out.println("$q to exit.");
-    }
+public class OutboxPresenter extends CommandPresenter{
 
     public void menuDisplay() {
         System.out.println("1 Direct message\n2 Group message");
@@ -38,15 +34,6 @@ public class OutboxPresenter {
             System.out.println(event.getName() + " (" + event.getId() + ")");
             System.out.println("Time: " + event.getTime() + " | " + "Room: " + event.getRoom() + "\n");
         }
-    }
-
-    public void invalidCommand(String field) {
-        System.out.println(field + " not valid.");
-    }
-
-    public void commandPrompt(String field) {
-        System.out.println("Enter a valid " + field + ".\n$back to exit");
-        exitMessage();
     }
 
     public void success() {

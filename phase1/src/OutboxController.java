@@ -1,4 +1,3 @@
-import com.sun.tools.corba.se.idl.constExpr.Or;
 
 import java.util.*;
 
@@ -27,7 +26,7 @@ public class OutboxController {
             else if (choice.equals("2")) {
                 promptEvent();
             } else {
-                op.invalidCommand("command");
+                op.invalidCommand("prompt");
                 op.menuDisplay();
                 choice = sc.nextLine();
             }
