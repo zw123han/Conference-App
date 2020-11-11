@@ -12,7 +12,6 @@ public class SaveEvents {
     }
 
     public void saveEvents(ArrayList<Event> evList) {
-        List<Event> events = new ArrayList<>();
         try {
             FileOutputStream streamOut = new FileOutputStream(this.filepath);
             ObjectOutputStream objectOS = new ObjectOutputStream(streamOut);

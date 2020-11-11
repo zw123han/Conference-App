@@ -23,11 +23,8 @@ public class ReadUsers {
             fileIn.close();
         } catch (IOException e) {
             System.out.println("Error reading from file");
-            e.printStackTrace();
-            return null;
         } catch (ClassNotFoundException e) {
             System.out.println("Class not found");
-            return null;
         }
         return users;
     }
