@@ -5,14 +5,6 @@ public abstract class CommandPresenter {
         System.out.println("$q to exit.");
     }
 
-    public void menuDisplay(ArrayList<String> options) {
-        int n = 1;
-        for (String option : options) {
-            System.out.println(n + " " + option);
-        }
-        exitMessage();
-    }
-
     public void invalidCommand(String field) {
         System.out.println(field + " not valid.");
     }
