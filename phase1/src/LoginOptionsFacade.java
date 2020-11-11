@@ -23,7 +23,10 @@ public class LoginOptionsFacade {
 
     public boolean login(String username, String password){
         this.user = login.attemptLogin(username, password);
-        return true;
+        if(this.user != null){
+            return true;
+        }
+        return false;
     }
 
     public boolean userExists(String username) {

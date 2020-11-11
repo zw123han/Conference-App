@@ -5,7 +5,7 @@ public class ConferenceSimulator {
     public ConferenceSimulator() {
     }
 
-    public void run(){
+    public void run() {
 
         String userFilepath = "phase1/src/userData.ser";
         String eventFilepath = "phase1/src/eventData.ser";
@@ -30,14 +30,14 @@ public class ConferenceSimulator {
                 chatMenuPresenter);
         // Other UIs go into this ui
 
-        ui.homeScreenMenu(loginFacade.getUser(), registrar);
+        //ui.homeScreenMenu(loginFacade.getUser(), registrar);
 
         // Static organizers from script
         // Only have attendees create their own accounts (assume they are already signed up)
         // Give organizers option to create any accounts other than organizers
-        while (loginFacade.getUser() != null) {
+        do {
             ui.homeScreenMenu(loginFacade.getUser(), registrar);
-        }
+        } while (loginFacade.getUser() != null);
 
         // When program finishes running, save everything. How do we make it so that it autosaves upon exiting? -> good question
         storeUsers.store(registrar.getUsers());

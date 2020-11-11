@@ -28,9 +28,10 @@ public class UserOptionsInterface {
             showOptions(user);
         }
         while (loginFacade.getUser() == null && retry != false) {
-            System.out.println("Please try again. If you no longer wish to continue, enter Q to exit the program");
-            if (sc.nextLine() == "Q") {
+            System.out.println("Please hit enter to try again. If you no longer wish to continue, enter Q to exit the program");
+            if (sc.nextLine().equals("Q")) {
                 retry = false;
+                return;
             } else {
                 showOptions(user);
             }
@@ -186,6 +187,7 @@ public class UserOptionsInterface {
 
     private void login(){
         loginUI.login();
+        //this.homeScreenMenu(loginFacade.getUser(), registrar);
     }
     private void logout(){
         loginUI.logout();
