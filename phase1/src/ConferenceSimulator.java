@@ -45,18 +45,4 @@ public class ConferenceSimulator {
 
 
     }
-
-
-
-
-    // Can we move all of this into new classes?
-    private void showHomeScreen(){
-        //prints required homescreen depending on user.
-
-    }
-
-    private void showEventsScreen(){
-        //shows all events User is part of.
-
-    }
 }
