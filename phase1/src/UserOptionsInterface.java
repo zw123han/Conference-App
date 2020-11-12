@@ -54,7 +54,7 @@ public class UserOptionsInterface {
                     showEventScreen(esp);
                     break;
                 case "3":
-                    showMessageScreen(registrar); // don't think this is sufficient, need to revise later
+                    showMessageScreen(registrar, user);
                     break;
                 case "4":
                     changePassword();
@@ -81,7 +81,7 @@ public class UserOptionsInterface {
                     showEventScreen(esp);
                     break;
                 case "3":
-                    showMessageScreen(registrar);
+                    showMessageScreen(registrar, user);
                     break;
                 case "4":
                     changePassword();
@@ -190,8 +190,7 @@ public class UserOptionsInterface {
             choice = sc.nextLine();
         }
     }
-    public void showMessageScreen(Registrar reg){
-        User user = loginFacade.getUser();
+    public void showMessageScreen(Registrar reg, User user){
         cmp.menuDisplay();
         cmp.commandPrompt("prompt");
         String choice = sc.nextLine();

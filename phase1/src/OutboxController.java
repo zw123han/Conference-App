@@ -46,7 +46,6 @@ public class OutboxController {
             recipient = recipient.replace("@", "");
             if (cc.canMessage(user, recipient, reg)) {
                 promptMessage(recipient);
-                recipient = "$q";
             } else {
                 op.invalidCommand("username");
             }
@@ -125,7 +124,6 @@ public class OutboxController {
             ArrayList<Long> event_ids = convertLong(evt);
             if (canSendEvents(event_ids)) {
                 promptEventMessage(event_ids);
-                evt = "$q";
             } else {
                 op.invalidCommand("event ID");
             }
