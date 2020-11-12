@@ -6,7 +6,7 @@ public class Speaker extends User {
 
     public Speaker(String name, String userName, String password) {
         super(name, userName, password);
-        this.talks = new ArrayList<>();
+        this.talks = new ArrayList<Long>();
     }
 
     public ArrayList<Long> getTalks() {
