@@ -7,9 +7,11 @@ public class InboxController {
     private InboxPresenter ip = new InboxPresenter();
     private Scanner sc = new Scanner(System.in);
     private User user;
+    private Registrar reg;
 
-    public InboxController(User user) {
+    public InboxController(Registrar reg, User user) {
         this.user = user;
+        this.reg = reg;
     }
 
     private ArrayList<String> getUsersTalkto(User user, ChatroomManager cm) {
@@ -59,7 +61,7 @@ public class InboxController {
     }
 
     public void promptReply(User user, String recipient) {
-        OutboxController oc = new OutboxController(user);
+        OutboxController oc = new OutboxController(reg, user);
         oc.promptMessage(recipient);
         ChatPull pull = new ChatPull();
         ChatroomManager cm = pull.readChatlog();
