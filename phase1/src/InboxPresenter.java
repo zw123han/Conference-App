@@ -14,7 +14,7 @@ public class InboxPresenter extends CommandPresenter {
         ArrayList<Message> history = cm.getHistory();
         for (Message m : history) {
             String sender = m.getSender();
-            System.out.println("From: " + reg.getUserByUserName(sender) + " (@" + sender + ")");
+            System.out.println("From: " + reg.getUserByUserName(sender).getName() + " (@" + sender + ")");
             System.out.println("Sent: " + m.getDate());
             messageFormatter(m.getMessage());
             System.out.println("\n");
@@ -24,10 +24,10 @@ public class InboxPresenter extends CommandPresenter {
     public void messageFormatter(String message) {
         StringBuilder sbm = new StringBuilder(message);
         int i = 0;
-        while (i + 50 < sbm.length()) {
-            int firstSpace = sbm.indexOf(" ", i + 50);
+        while (i + 80 < sbm.length()) {
+            int firstSpace = sbm.indexOf(" ", i + 80);
             sbm.replace(firstSpace,  firstSpace + 1, "\n");
-            i += 50;
+            i += 80;
         }
         System.out.println(sbm);
     }

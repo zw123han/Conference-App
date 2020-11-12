@@ -8,7 +8,7 @@ public class EventCreator {
         this.em = em;
     }
 
-    public boolean createEvent(String name, String room, LocalDateTime start_time, Speaker speaker, int capacity)
+    public boolean createEvent(String name, String room, LocalDateTime start_time, String speaker, int capacity)
             throws EventCreationFailureException {
         ArrayList<Event> events = this.em.getEventsList();
         for (Event event : events) {
@@ -19,7 +19,7 @@ public class EventCreator {
                     (end_time.isAfter(lower) && end_time.isBefore(upper)) || (start_time.isEqual(lower))){
                 if ((event.getRoom().equals(room))) {
                     throw new EventCreationFailureException("This room is taken for this time");
-                } else if (event.getSpeaker().equals(speaker.getUserName())) {
+                } else if (event.getSpeaker().equals(speaker)) {
                     throw new EventCreationFailureException("This speaker is unavailable for this time");
                 }
             }
