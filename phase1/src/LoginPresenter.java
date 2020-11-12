@@ -43,5 +43,5 @@ public class LoginPresenter {
     public String successfulAccountCreation(){
         return "Account successfully created. Please login to continue.";
     }
-
+    public String failedLogoff(){return "You are already logged off.";};
 }

@@ -74,8 +74,12 @@ public class LoginUI {
 
     public void logout() {
         if (confirmLogout()) {
-            loginOptionsFacade.logout();
-            System.out.println(loginPresenter.loggedOff());
+            if (loginOptionsFacade.logout()){
+
+            System.out.println(loginPresenter.loggedOff());}
+            else{
+                System.out.println(loginPresenter.failedLogoff());
+            }
         }
     }
     public void changePassword() {

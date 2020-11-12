@@ -31,6 +31,9 @@ public class LoginOptionsFacade {
     }
 
     public boolean logout(){
+        if (this.user==null){
+            return false;
+        }
         this.user = null;
         return true;
     }
