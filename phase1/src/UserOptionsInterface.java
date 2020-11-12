@@ -82,9 +82,6 @@ public class UserOptionsInterface {
                     break;
                 case "5":
                     showFriends(registrar, user);
-                case "6":
-                    showCreateEventsScreen(registrar);
-                    break;
                 default:
                     System.out.println("Please input a valid option(1-6).");
                     break;
