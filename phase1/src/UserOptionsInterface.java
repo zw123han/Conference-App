@@ -28,9 +28,10 @@ public class UserOptionsInterface {
             showOptions(user);
         }
         while (loginFacade.getUser() == null && retry != false) {
-            System.out.println("Please try again. If you no longer wish to continue, enter Q to exit the program");
-            if (sc.nextLine() == "Q") {
+            System.out.println("Please hit enter to try again. If you no longer wish to continue, enter Q to exit the program");
+            if (sc.nextLine().equals("Q")) {
                 retry = false;
+                return;
             } else {
                 showOptions(user);
             }
@@ -38,55 +39,58 @@ public class UserOptionsInterface {
         showOptions(loginFacade.getUser());
         System.out.println("\nPlease select an option listed above.");
         String choice = sc.nextLine();
-        if (user instanceof Organizer) { //TODO need to implement a "go back" option
+        if (user instanceof Organizer) {
             switch (choice) {
-                case "Logout":
+                case "1":
                     logout();
                     break;
-                case "Change password":
+                case "2":
                     changePassword();
                     break;
-                case "Events":
+                case "3":
                     showEventScreen(esp);
                     break;
-                case "Messages":
+                case "4":
                     showMessageScreen(); // don't think this is sufficient, need to revise later
                     break;
-                case "Add Event":
+                case "5":
                     showCreateEventsScreen(registrar);
                     break;
-                case "Add Speaker":
+                case "6":
                     showCreateSpeakerScreen();
                     break;
                 default:
-                    System.out.println("Please input a valid option.");
+                    System.out.println("Please input a valid option(1-6).");
                     break;
             }
         } else {
             switch (choice) {
-                case "Logout":
+                case "1":
                     logout();
                     break;
-                case "Change password":
+                case "2":
                     changePassword();
                     break;
-                case "Events":
+                case "3":
                     showEventScreen(esp);
                     break;
-                case "Messages":
+                case "4":
                     showMessageScreen();
                     break;
+                case "5":
+                    showCreateEventsScreen(registrar);
+                    break;
                 default:
-                    System.out.println("Please input a valid option.");
+                    System.out.println("Please input a valid option(1-5).");
                     break;
             }
         }
     }
     private void generalOptions(){
-        System.out.println("Logout");
-        System.out.println("Events");
-        System.out.println("Messages");
-        System.out.println("Change password");
+        System.out.println("1) Logout");
+        System.out.println("2) Events");
+        System.out.println("3) Messages");
+        System.out.println("4) Change password");
     }
     public void showOptions(User user){
         if (user == null){
@@ -97,8 +101,8 @@ public class UserOptionsInterface {
         }
         else if (user instanceof Organizer){
             generalOptions();
-            System.out.println("Add Event");
-            System.out.println("Add Speaker");
+            System.out.println("5) Add Event");
+            System.out.println("6) Add Speaker");
         }
         else if (user instanceof Speaker){
             generalOptions();
@@ -123,19 +127,27 @@ public class UserOptionsInterface {
     }
     public void showCreateEventsScreen(Registrar registrar){
         System.out.println("Please input the event you want to create: name, room, capacity, time(yyyy-MM-dd HH:mm:ss), speaker");
+        System.out.println("name:");
         String name = sc.nextLine();
+        System.out.println("room:");
         String room = sc.nextLine();
-        int capacity = sc.nextInt();
-        String time = sc.nextLine();
+        System.out.println("capacity:");
+        int capacity = Integer.parseInt(sc.nextLine());
+        System.out.println("date format(yyyy-MM-dd HH:mm):");
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
-        LocalDateTime time1 = LocalDateTime.parse(time, formatter);
-
+        String time = sc.nextLine();
+        System.out.println("list of speakers:");
+        for(User s: registrar.getUsersByType("Speaker")){
+            System.out.println("name: " + s.getName());
+            System.out.println("username: "+ s.getUserName());
+        }
+        System.out.println("Username of speaker:");
         String speaker = sc.nextLine();
         User user = registrar.getUserByUserName(speaker);
         if (user instanceof Speaker) {
-            ecp.promptEventCreation(name, room, time1, (Speaker) user, capacity );
+            ecp.promptEventCreation(name, room, LocalDateTime.parse(time, formatter), (Speaker) user, capacity );
         } else {
-            System.out.println("Please input a valid Speaker");
+            System.out.println("Please input a valid Speaker. If you dont have any, please create a speaker account.");
         }
     }
     public void showCreateSpeakerScreen() {
@@ -186,6 +198,7 @@ public class UserOptionsInterface {
 
     private void login(){
         loginUI.login();
+        //this.homeScreenMenu(loginFacade.getUser(), registrar);
     }
     private void logout(){
         loginUI.logout();

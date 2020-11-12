@@ -1,9 +1,10 @@
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.time.*;
 import java.util.Date;
 import java.util.Calendar;
 
-public class Event {
+public class Event implements Serializable {
 
     private String name;
     private String room;

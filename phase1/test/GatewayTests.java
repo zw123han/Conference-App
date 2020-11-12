@@ -17,15 +17,15 @@ public class GatewayTests {
             System.out.println(user.getPassword());
             System.out.println(user.getEvents());
         }
-        StoreUsers storeUsers = new StoreUsers(registrar);
-        storeUsers.store();
+        StoreUsers storeUsers = new StoreUsers("phase1/src/userData.ser");
+        storeUsers.store(registrar.getUsers());
         // assert statements
 
     }
 
     @Test
     public void readUsersTest() {
-        ReadUsers readUsers = new ReadUsers();
+        ReadUsers readUsers = new ReadUsers("userData.ser");
         ArrayList<User> users = readUsers.read();
         System.out.println(users);
 
