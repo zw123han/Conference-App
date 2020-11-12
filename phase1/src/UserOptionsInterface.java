@@ -61,6 +61,7 @@ public class UserOptionsInterface {
                     break;
                 case "5":
                     showFriends(registrar, user);
+                    break;
                 case "6":
                     showCreateEventsScreen(registrar);
                     break;
@@ -87,6 +88,7 @@ public class UserOptionsInterface {
                     break;
                 case "5":
                     showFriends(registrar, user);
+                    break;
                 default:
                     System.out.println("Please input a valid option(1-5).");
                     break;
@@ -174,14 +176,19 @@ public class UserOptionsInterface {
     public void showFriends(Registrar registrar, User user) {
         FriendsController fc = new FriendsController(registrar,fp);
         fp.viewFriends(user); //shows user a list of all their friends
-        System.out.print(fp.AddOrRemovev());
+        System.out.println(fp.AddOrRemove());
         String choice = sc.nextLine();
-        if (choice.equals("1")) {
-            fc.addFriends(user); // will prompt the user for who they wanna add
-        } else if (choice.equals("2")) {
-            fc.removeFriends(user);
+        while (!choice.equals("$q")) {
+            if (choice.equals("1")) {
+                fc.addFriends(user); // will prompt the user for who they wanna add
+            } else if (choice.equals("2")) {
+                fc.removeFriends(user);
+            }else{
+                cmp.invalidCommand("prompt");
+            }
+            System.out.println(fp.AddOrRemove());
+            choice = sc.nextLine();
         }
-
     }
     public void showMessageScreen(Registrar reg){
         User user = loginFacade.getUser();

@@ -12,12 +12,12 @@ public class FriendsPresenter {
     public String userRemoved() {
         return "User has been removed from your friends list.";
     }
-    public String notyourFriend() {return "Can't remove non friends from friends list";}
+    public String notYourFriend() {return "Can't remove non friends from friends list";}
     public String enterUser() {
         return "Please enter the username";
     }
-    public String AddOrRemovev() {
-        return "Would you like to add or remove a friend? Enter 1 to add, 2 to remove.";
+    public String AddOrRemove() {
+        return "Would you like to add or remove a friend? Enter 1 to add, 2 to remove. Enter $q to exit";
     }
 
     public void viewFriends(User user) {

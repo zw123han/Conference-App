@@ -11,7 +11,7 @@ public class FriendsController {
         this.friendsPresenter = friendsPresenter;
     }
    public void addFriends(User user) {
-        friendsPresenter.enterUser();
+        System.out.println(friendsPresenter.enterUser());
         String other_user = sc.nextLine();
         if (friendsManager.addFriend(user, other_user)) {
             System.out.println(friendsPresenter.userAdded());
@@ -27,12 +27,12 @@ public class FriendsController {
 
     }
     public void removeFriends(User user) {
-        friendsPresenter.enterUser();
+        System.out.println(friendsPresenter.enterUser());
         String other_user = sc.nextLine();
         if (friendsManager.removeFriend(user, other_user)) {
-            System.out.println(friendsPresenter.notyourFriend());
-        } else {
             System.out.println(friendsPresenter.userRemoved());
+        } else {
+            System.out.println(friendsPresenter.notYourFriend());
         }
     }
 
