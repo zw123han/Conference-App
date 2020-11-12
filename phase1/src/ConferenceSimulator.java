@@ -20,6 +20,10 @@ public class ConferenceSimulator {
         EventManager eventManager = new EventManager(readEvents.read());
         EventSignup eventSignup = new EventSignup();
 
+        // Make admin accounts
+        OrganizerCreationScript organizerCreationScript = new OrganizerCreationScript();
+        organizerCreationScript.createOrganizers(registrar, userFilepath);
+
         LoginOptionsFacade loginFacade = new LoginOptionsFacade(registrar);
         EventCreatorPresenter eventCreatorPresenter = new EventCreatorPresenter(eventManager);
         EventSignupPresenter eventSignupPresenter = new EventSignupPresenter(eventSignup, eventManager);
