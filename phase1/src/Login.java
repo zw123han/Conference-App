@@ -11,8 +11,7 @@ public class Login {
         if (!(userExists(user.getUserName()))) {
             return false;
         }
-        //return Arrays.equals(Base64.getEncoder().encode(password.getBytes()), user.getPassword().getBytes());
-        return password.equals(user.getPassword());
+        return Arrays.equals(Base64.getEncoder().encode(password.getBytes()), user.getPassword().getBytes());
     }
 
     public boolean userExists(String username) {
