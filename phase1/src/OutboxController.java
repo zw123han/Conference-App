@@ -29,9 +29,10 @@ public class OutboxController {
                 promptSpeaker();
             } else {
                 op.invalidCommand("prompt");
-                op.menuDisplay();
-                choice = sc.nextLine();
             }
+            op.menuDisplay();
+            op.commandPrompt("prompt");
+            choice = sc.nextLine();
         }
     }
 
@@ -45,6 +46,7 @@ public class OutboxController {
                 recipient = "$q";
             } else {
                 op.invalidCommand("username");
+                op.friendMenu(user);
                 op.commandPrompt("username");
                 recipient = sc.nextLine();
             }
@@ -77,6 +79,7 @@ public class OutboxController {
                 speakers = "$q";
             } else {
                 op.invalidCommand("username");
+                op.speakerMenu(em);
                 op.commandPrompt("speaker username (separate usernames with a space)");
                 speakers = sc.nextLine();
             }
@@ -102,12 +105,16 @@ public class OutboxController {
         return result;
     }
 
-    public void promptEvent() {
+    private void loadEventMenu(User user) {
         if (user instanceof Speaker) {
             op.eventMenu((Speaker)user, em);
         } else if (user instanceof Organizer) {
             op.eventMenu(em);
         }
+    }
+
+    public void promptEvent() {
+        loadEventMenu(user);
         op.commandPrompt("event ID (separate IDs with a space)");
         String evt = sc.nextLine();
         while (!evt.equals("$q")) {
@@ -117,6 +124,7 @@ public class OutboxController {
                 evt = "$q";
             } else {
                 op.invalidCommand("event ID");
+                loadEventMenu(user);
                 op.commandPrompt("event ID (separate IDs with a space)");
                 evt = sc.nextLine();
             }
@@ -124,7 +132,7 @@ public class OutboxController {
     }
 
     public void promptMessage(String destination) {
-        op.commandPrompt("message");
+        op.commandPrompt("message (requires at least 1 character)");
         String message = sc.nextLine();
         while (!message.equals("$q")) {
             if (cc.validateMessage(message)) {
@@ -133,14 +141,14 @@ public class OutboxController {
                 message = "$q";
             } else {
                 op.invalidCommand("message");
-                op.commandPrompt("message");
+                op.commandPrompt("message (requires at least 1 character)");
                 message = sc.nextLine();
             }
         }
     }
 
     public void promptEventMessage(ArrayList<Long> event_ids) {
-        op.commandPrompt("message");
+        op.commandPrompt("message (requires at least 1 character)");
         String message = sc.nextLine();
         while (!message.equals("$q")) {
             if (cc.validateMessage(message)) {
@@ -151,14 +159,14 @@ public class OutboxController {
                 message = "$q";
             } else {
                 op.invalidCommand("message");
-                op.commandPrompt("message");
+                op.commandPrompt("message (requires at least 1 character)");
                 message = sc.nextLine();
             }
         }
     }
 
     public void promptMessage(ArrayList<String> speakers) {
-        op.commandPrompt("message");
+        op.commandPrompt("message (requires at least 1 character)");
         String message = sc.nextLine();
         while (!message.equals("$q")) {
             if (cc.validateMessage(message)) {
@@ -169,7 +177,7 @@ public class OutboxController {
                 message = "$q";
             } else {
                 op.invalidCommand("message");
-                op.commandPrompt("message");
+                op.commandPrompt("message (requires at least 1 character)");
                 message = sc.nextLine();
             }
         }

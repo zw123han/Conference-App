@@ -10,7 +10,7 @@ public abstract class CommandPresenter {
     }
 
     public void commandPrompt(String field) {
-        System.out.println("Enter a valid " + field);
+        System.out.println("Enter a valid " + field + ".");
         exitMessage();
     }
 }
