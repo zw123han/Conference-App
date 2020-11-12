@@ -40,25 +40,27 @@ public class OutboxController {
 
     public void promptRecipient() {
         op.friendMenu(reg, user);
-        op.commandPrompt("username (string after the @)");
+        op.commandPrompt("username");
         String recipient = sc.nextLine();
         while (!recipient.equals("$q")) {
-            if (cc.canMessage(user, recipient, em)) {
+            recipient = recipient.replace("@", "");
+            if (cc.canMessage(user, recipient, reg)) {
                 promptMessage(recipient);
                 recipient = "$q";
             } else {
                 op.invalidCommand("username");
-                op.friendMenu(reg, user);
-                op.commandPrompt("(string after the @)");
-                recipient = sc.nextLine();
             }
+            op.friendMenu(reg, user);
+            op.commandPrompt("username");
+            recipient = sc.nextLine();
+
         }
     }
 
     private boolean canSendSpeakers(ArrayList<String> speakers) {
         boolean result = true;
         for (String speaker : speakers) {
-            if (!cc.canMessage(user, speaker, em)) {
+            if (!cc.canMessage(user, speaker, reg)) {
                 result = false;
             }
         }
@@ -72,19 +74,19 @@ public class OutboxController {
 
     public void promptSpeaker() {
         op.speakerMenu(reg, em);
-        op.commandPrompt("speaker username (string after the @, separate usernames with a space)");
+        op.commandPrompt("speaker username (separate usernames with a space)");
         String speakers = sc.nextLine();
         while (!speakers.equals("$q")) {
+            speakers = speakers.replace("@", "");
             ArrayList<String> speakerArrayList = convertSpeakers(speakers);
             if (canSendSpeakers(speakerArrayList)) {
                 promptMessage(speakerArrayList);
-                speakers = "$q";
             } else {
                 op.invalidCommand("username");
-                op.speakerMenu(reg, em);
-                op.commandPrompt("speaker username (string after the @, separate usernames with a space)");
-                speakers = sc.nextLine();
             }
+            op.speakerMenu(reg, em);
+            op.commandPrompt("speaker username (string after the @, separate usernames with a space)");
+            speakers = sc.nextLine();
         }
     }
 
@@ -126,10 +128,10 @@ public class OutboxController {
                 evt = "$q";
             } else {
                 op.invalidCommand("event ID");
-                loadEventMenu(user);
-                op.commandPrompt("event ID (separate IDs with a space)");
-                evt = sc.nextLine();
             }
+            loadEventMenu(user);
+            op.commandPrompt("event ID (separate IDs with a space)");
+            evt = sc.nextLine();
         }
     }
 

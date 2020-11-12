@@ -34,9 +34,10 @@ public class InboxController {
         ChatroomManager cm = pull.readChatlog();
         ArrayList<String> friends = getUsersTalkto(user, cm);
         ip.menuDisplay(reg, friends);
-        ip.commandPrompt("username (string after the @)");
+        ip.commandPrompt("username");
         String recipient = sc.nextLine();
         while (!recipient.equals("$q")) {
+            recipient = recipient.replace("@", "");
             if (friends.contains(recipient)) {
                 chatViewer(cm, recipient);
             } else {
