@@ -21,7 +21,7 @@ public class ChatController {
 
     public boolean canMessage(User user, Long evt, EventManager em) {
         return em.hasEvent(evt) ||
-                (em.hasEvent(evt) && user instanceof Speaker && em.getEventById(evt).getSpeaker() == user.getName());
+                (em.hasEvent(evt) && user instanceof Speaker && em.getEventById(evt).getSpeaker().equals(user.getName()));
     }
 
     public boolean canReply(User user, String recipient, ChatroomManager cm) {
