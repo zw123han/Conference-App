@@ -7,9 +7,10 @@ public class UserOptionsInterface {
     private LoginUI loginUI;
     private EventCreatorPresenter ecp;
     private EventSignupPresenter esp;
-    ChatMenuPresenter cmp;
+    private ChatMenuPresenter cmp;
     private Scanner sc = new Scanner(System.in);
     private LoginOptionsFacade loginFacade;
+    private FriendsPresenter fp;
     // All other UIs go here too and in the constructor
 
     public UserOptionsInterface(LoginOptionsFacade loginFacade, EventCreatorPresenter ecp, EventSignupPresenter esp,
@@ -54,9 +55,11 @@ public class UserOptionsInterface {
                     showMessageScreen(); // don't think this is sufficient, need to revise later
                     break;
                 case "5":
+                    // the view friends
+                case "6":
                     showCreateEventsScreen(registrar);
                     break;
-                case "6":
+                case "7":
                     showCreateSpeakerScreen();
                     break;
                 default:
@@ -78,6 +81,8 @@ public class UserOptionsInterface {
                     showMessageScreen();
                     break;
                 case "5":
+                    //the view friends
+                case "6":
                     showCreateEventsScreen(registrar);
                     break;
                 default:
@@ -91,6 +96,7 @@ public class UserOptionsInterface {
         System.out.println("2) Events");
         System.out.println("3) Messages");
         System.out.println("4) Change password");
+        System.out.println("5) Friends");
     }
     public void showOptions(User user){
         if (user == null){
@@ -101,8 +107,8 @@ public class UserOptionsInterface {
         }
         else if (user instanceof Organizer){
             generalOptions();
-            System.out.println("5) Add Event");
-            System.out.println("6) Add Speaker");
+            System.out.println("6) Add Event");
+            System.out.println("7) Add Speaker");
         }
         else if (user instanceof Speaker){
             generalOptions();
@@ -147,7 +153,7 @@ public class UserOptionsInterface {
         if (user instanceof Speaker) {
             ecp.promptEventCreation(name, room, LocalDateTime.parse(time, formatter), (Speaker) user, capacity );
         } else {
-            System.out.println("Please input a valid Speaker. If you dont have any, please create a speaker account.");
+            System.out.println("Please input a valid Speaker. If you don't have any, please create a speaker account.");
         }
     }
     public void showCreateSpeakerScreen() {
@@ -161,6 +167,20 @@ public class UserOptionsInterface {
         } else {
             loginFacade.createUser(name, userName, password, "speaker");
             System.out.println("Speaker account created successfully ");
+        }
+    }
+    public void showFriends(Registrar registrar, User user) {
+        FriendsController fc = new FriendsController(registrar,fp);
+        fp.viewFriends(user); //shows user a list of all their friends
+
+        fp.AddOrRemovev();
+        String choice = sc.nextLine();
+        if (choice.equals("1")) {
+            fp.enterUser();
+            fc.addFriends(user); // will prompt the user for who they wanna add
+        } else {
+            fp.enterUser();
+            fc.removeFriends(user);
         }
 
     }
