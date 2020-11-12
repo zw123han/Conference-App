@@ -122,7 +122,7 @@ public class UserOptionsInterface {
         esp.usersEvents(loginFacade.getUser());
         System.out.println("\nWould you like to join or leave an event? Press Q to go back.");
         String choice = sc.nextLine();
-        if (choice.toLowerCase().equals("add")) {
+        if (choice.toLowerCase().equals("join")) {
             System.out.println("Please input the event_id");
             String event_id = sc.nextLine();
             esp.joinEvent(loginFacade.getUser(), event_id);
@@ -133,7 +133,7 @@ public class UserOptionsInterface {
         } else if (choice.toLowerCase().equals("q")) {
             return;
         } else {
-            System.out.println("Please enter a valid input (add or leave)");
+            System.out.println("Please enter a valid input (join or leave)");
         }
     }
     public void showCreateEventsScreen(Registrar registrar){
