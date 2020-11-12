@@ -10,12 +10,25 @@ public class InboxPresenter extends CommandPresenter {
         System.out.println("\n");
     }
 
-    public void chatView(Chatroom cm) {
+    public void chatView(Registrar reg, Chatroom cm) {
         ArrayList<Message> history = cm.getHistory();
         for (Message m : history) {
-            System.out.println("From: " + m.getSender());
+            String sender = m.getSender();
+            System.out.println("From: " + reg.getUserByUserName(sender) + " (@" + sender + ")");
             System.out.println("Sent: " + m.getDate());
-            System.out.println(m.getMessage() + "\n");
+            messageFormatter(m.getMessage());
+            System.out.println("\n");
         }
+    }
+
+    public void messageFormatter(String message) {
+        StringBuilder sbm = new StringBuilder(message);
+        int i = 0;
+        while (i + 50 < sbm.length()) {
+            int firstSpace = sbm.indexOf(" ", i + 50);
+            sbm.replace(firstSpace,  firstSpace + 1, "\n");
+            i += 50;
+        }
+        System.out.println(sbm);
     }
 }
