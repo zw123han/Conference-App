@@ -56,7 +56,7 @@ public class UserOptionsInterface {
                     changePassword();
                     break;
                 case "5":
-                    showFriends(registrar, user);
+                    showFriends(registrar);
                 case "6":
                     showCreateEventsScreen(registrar);
                     break;
@@ -82,7 +82,7 @@ public class UserOptionsInterface {
                     changePassword();
                     break;
                 case "5":
-                    showFriends(registrar, user);
+                    showFriends(registrar);
                 default:
                     System.out.println("Please input a valid option(1-6).");
                     break;
@@ -167,7 +167,8 @@ public class UserOptionsInterface {
             System.out.println("Speaker account created successfully ");
         }
     }
-    public void showFriends(Registrar registrar, User user) {
+    public void showFriends(Registrar registrar) {
+        User user = loginFacade.getUser();
         FriendsController fc = new FriendsController(registrar,fp);
         fp.viewFriends(user); //shows user a list of all their friends
         fp.AddOrRemovev();
