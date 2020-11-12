@@ -63,7 +63,7 @@ public class UserOptionsInterface {
                     showCreateSpeakerScreen();
                     break;
                 default:
-                    System.out.println("Please input a valid option(1-6).");
+                    System.out.println("Please input a valid option(1-7).");
                     break;
             }
         } else {
@@ -86,7 +86,7 @@ public class UserOptionsInterface {
                     showCreateEventsScreen(registrar);
                     break;
                 default:
-                    System.out.println("Please input a valid option(1-5).");
+                    System.out.println("Please input a valid option(1-6).");
                     break;
             }
         }
