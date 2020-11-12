@@ -45,7 +45,7 @@ public class ConferenceSimulator {
             do {
                 ui.loggedIn(loginFacade.getUser(), registrar);
             } while (loginFacade.getUser() != null);
-            System.out.println("Press Q to close the program, or any other key to continue.");
+            System.out.println("Are you sure you want to close the program? Press Q to close.");
             exit = sc.nextLine().equals("Q");
         } while (!exit);
 
