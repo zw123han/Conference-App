@@ -120,20 +120,22 @@ public class UserOptionsInterface {
     public void showEventScreen(EventSignupPresenter esp) {
         esp.viewEvents();
         esp.usersEvents(loginFacade.getUser());
-        System.out.println("\nWould you like to join or leave an event? Press Q to go back.");
+        System.out.println("\nWould you like to join or leave an event? Press q to go back.");
         String choice = sc.nextLine();
-        if (choice.toLowerCase().equals("join")) {
-            System.out.println("Please input the event_id");
-            String event_id = sc.nextLine();
-            esp.joinEvent(loginFacade.getUser(), event_id);
-        } else if (choice.toLowerCase().equals("leave")) {
-            System.out.println("Please input the event_id");
-            String event_id = sc.nextLine();
-            esp.leaveEvent(loginFacade.getUser(), event_id);
-        } else if (choice.toLowerCase().equals("q")) {
-            return;
-        } else {
-            System.out.println("Please enter a valid input (join or leave)");
+        while (!choice.equals("q")) {
+            if (choice.toLowerCase().equals("join")) {
+                System.out.println("Please input the event_id");
+                String event_id = sc.nextLine();
+                esp.joinEvent(loginFacade.getUser(), event_id);
+            } else if (choice.toLowerCase().equals("leave")) {
+                System.out.println("Please input the event_id");
+                String event_id = sc.nextLine();
+                esp.leaveEvent(loginFacade.getUser(), event_id);
+            } else {
+                System.out.println("Please enter a valid input (join or leave)");
+            }
+            System.out.println("\nWould you like to join or leave an event? Press q to go back.");
+            choice = sc.nextLine();
         }
     }
     public void showCreateEventsScreen(Registrar registrar){
