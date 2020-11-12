@@ -44,7 +44,7 @@ public class InboxController {
                 ip.invalidCommand("username");
             }
             ip.menuDisplay(reg, friends);
-            ip.commandPrompt("username (string after the @)");
+            ip.commandPrompt("username");
             recipient = sc.nextLine();
         }
     }
