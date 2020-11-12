@@ -38,9 +38,16 @@ public class ConferenceSimulator {
         // Static organizers from script
         // Only have attendees create their own accounts (assume they are already signed up)
         // Give organizers option to create any accounts other than organizers
-        do {
-            ui.loggedIn(loginFacade.getUser(), registrar);
-        } while (loginFacade.getUser() != null);
+
+        Scanner sc = new Scanner(System.in);
+        boolean exit = false;
+        do{
+            do {
+                ui.loggedIn(loginFacade.getUser(), registrar);
+            } while (loginFacade.getUser() != null);
+            System.out.println("Press Q to close the program, or any other key to continue.");
+            exit = sc.nextLine().equals("Q");
+        } while (!exit);
 
         storeUsers.store(registrar.getUsers());
         saveEvents.saveEvents(eventManager.getEventsList());
