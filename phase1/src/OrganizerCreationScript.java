@@ -9,8 +9,8 @@ public class OrganizerCreationScript {
 
         // creates second organizer user with friend
         User user = registrar.getUserByUserName("User");
-        FriendsManager fm = new FriendsManager(user, registrar);
-        fm.addFriend("Admin");
+        FriendsManager fm = new FriendsManager(registrar);
+        fm.addFriend(user, "Admin");
 
         //If you wish to create more organizers, use credentialsController.createUser
 

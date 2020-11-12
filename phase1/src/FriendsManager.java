@@ -1,23 +1,27 @@
 import java.util.*;
 
 public class FriendsManager {
-    private ArrayList<String> allUsers; // TODO: implement getUserNames() in Registrar
+    private Registrar reg;
 
-    public FriendsManager(Registrar registrar) {
-        this.allUsers = registrar.getUserNames();
+    public FriendsManager(Registrar reg) {
+        this.reg = reg;
     }
 
-    public boolean addFriend(User user, String other_user) {
-        if (!user.hasFriend(other_user) && allUsers.contains(other_user)) {
-            user.addFriend(other_user);
+    public boolean addFriend(User user, String username) {
+        if (!user.hasFriend(username) && reg.userExisting(username) && !username.equals(user.getUserName())) {
+            user.addFriend(username);
+            User other = reg.getUserByUserName(username);
+            other.addFriend(user.getUserName());
             return true;
         }
         return false;
     }
 
-    public boolean removeFriend(User user, String other_user) {
-        if (user.hasFriend(other_user)) {
-            user.removeFriend(other_user);
+    public boolean removeFriend(User user, String username) {
+        if (user.hasFriend(username)) {
+            user.removeFriend(username);
+            User other = reg.getUserByUserName(username);
+            other.removeFriend(user.getUserName());
             return true;
         }
         return false;

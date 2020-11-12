@@ -9,10 +9,10 @@ public class ChatPush {
             ObjectOutputStream objectOut = new ObjectOutputStream(fileOut);
             objectOut.writeObject(chatroomManager);
             objectOut.close();
+            fileOut.close();
             System.out.println("Successfully saved chat.");
         }catch(Exception e){
             System.out.println("Chat saving failed.");
-            e.printStackTrace();
         }
     }
 }
