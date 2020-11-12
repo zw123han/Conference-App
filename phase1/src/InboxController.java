@@ -33,8 +33,8 @@ public class InboxController {
         ChatPull pull = new ChatPull();
         ChatroomManager cm = pull.readChatlog();
         ArrayList<String> friends = getUsersTalkto(user, cm);
-        ip.menuDisplay(friends);
-        ip.commandPrompt("chat");
+        ip.menuDisplay(reg, friends);
+        ip.commandPrompt("username (name after the @)");
         String recipient = sc.nextLine();
         while (!recipient.equals("$q")) {
             if (friends.contains(recipient)) {
@@ -42,8 +42,8 @@ public class InboxController {
             } else {
                 ip.invalidCommand("username");
             }
-            ip.menuDisplay(friends);
-            ip.commandPrompt("chat");
+            ip.menuDisplay(reg, friends);
+            ip.commandPrompt("username (name after the @)");
             recipient = sc.nextLine();
         }
     }

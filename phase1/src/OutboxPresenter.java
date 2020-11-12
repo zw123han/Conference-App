@@ -10,7 +10,7 @@ public class OutboxPresenter extends CommandPresenter{
         System.out.println("\nSPEAKERS:");
         ArrayList<Event> events = em.getEventsList();
         for (Event event : events) {
-            System.out.println(event.getSpeaker());
+            System.out.println(event.getSpeaker().getUserName());
             System.out.println(event.getName() + " (id: " + event.getId() + ")\n");
         }
     }
