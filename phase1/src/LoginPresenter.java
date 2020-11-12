@@ -1,6 +1,12 @@
 public class LoginPresenter {
     public String notLoggedInOptions(){
-        return "You are not currently logged in. Press Y to login, or any other key to exit";
+        return "Press Y to login, or any other key to exit";
+    }
+    public String inquireAccount(){
+        return "Press C to create a new account, press L to login to an existing account, or any other key to exit.";
+    }
+    public String confirmMakeAccount(){
+        return "Press Y to create an account, or any other key to exit.";
     }
     public String confirmChangePassword(){
         return "Are you sure you want to change your password? Y/N. Default N.";
@@ -8,8 +14,8 @@ public class LoginPresenter {
     public String confirmLogout(){
         return "Are you sure you want to logout? Y/N. Default N.";
     }
+    public String promptName(){return "Enter your real name";}
     public String promptAccountUsername(){ return "Enter username:"; }
-
     public String promptAccountPassword(){
         return "Enter password:";}
     public String promptOldPassword(){
@@ -28,8 +34,14 @@ public class LoginPresenter {
     public String failedLogin() {
         return "We're sorry, your credentials are incorrect.";
     }
+    public String usernameTaken(){
+        return "We're sorry, that username is taken. Please try again.";
+    }
     public String successfulLogin(){
         return "Successfully logged in.";
+    }
+    public String successfulAccountCreation(){
+        return "Account successfully created. Please login to continue.";
     }
 
 }
