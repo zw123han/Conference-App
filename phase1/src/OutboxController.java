@@ -39,8 +39,8 @@ public class OutboxController {
     }
 
     public void promptRecipient() {
-        op.friendMenu(user);
-        op.commandPrompt("username");
+        op.friendMenu(reg, user);
+        op.commandPrompt("username (name after the @)");
         String recipient = sc.nextLine();
         while (!recipient.equals("$q")) {
             if (cc.canMessage(user, recipient, em)) {
@@ -48,8 +48,8 @@ public class OutboxController {
                 recipient = "$q";
             } else {
                 op.invalidCommand("username");
-                op.friendMenu(user);
-                op.commandPrompt("username");
+                op.friendMenu(reg, user);
+                op.commandPrompt("(name after the @)");
                 recipient = sc.nextLine();
             }
         }
@@ -71,8 +71,8 @@ public class OutboxController {
     }
 
     public void promptSpeaker() {
-        op.speakerMenu(em);
-        op.commandPrompt("speaker username (separate usernames with a space)");
+        op.speakerMenu(reg, em);
+        op.commandPrompt("speaker username (name after the @, separate usernames with a space)");
         String speakers = sc.nextLine();
         while (!speakers.equals("$q")) {
             ArrayList<String> speakerArrayList = convertSpeakers(speakers);
@@ -81,8 +81,8 @@ public class OutboxController {
                 speakers = "$q";
             } else {
                 op.invalidCommand("username");
-                op.speakerMenu(em);
-                op.commandPrompt("speaker username (separate usernames with a space)");
+                op.speakerMenu(reg, em);
+                op.commandPrompt("speaker username (name after the @, separate usernames with a space)");
                 speakers = sc.nextLine();
             }
         }

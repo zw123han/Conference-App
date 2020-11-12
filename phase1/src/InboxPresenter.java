@@ -2,10 +2,10 @@ import java.util.*;
 
 public class InboxPresenter extends CommandPresenter {
 
-    public void menuDisplay(ArrayList<String> friends) {
+    public void menuDisplay(Registrar reg, ArrayList<String> friends) {
         System.out.println("\nCHAT HISTORY:");
         for (String friend : friends) {
-            System.out.println(friend);
+            System.out.println(reg.getUserByUserName(friend).getName() + " (@" + friend + ")");
         }
         System.out.println("\n");
     }

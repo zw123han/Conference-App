@@ -6,21 +6,29 @@ public class OutboxPresenter extends CommandPresenter{
         System.out.println("\n1) Message users\n2) Group message\n3) Message speakers\n");
     }
 
-    public void speakerMenu(EventManager em) {
+    public void speakerMenu(Registrar reg, EventManager em) {
         System.out.println("\nSPEAKERS:");
+        ArrayList<String> speakers = new ArrayList<>();
         ArrayList<Event> events = em.getEventsList();
         for (Event event : events) {
-            System.out.println(event.getSpeaker().getUserName());
-            System.out.println(event.getName() + " (id: " + event.getId() + ")\n");
+            String name = event.getSpeaker().getUserName();
+            if (!speakers.contains(name)) {
+                speakers.add(name);
+            }
         }
+        for (String s : speakers) {
+            System.out.println(reg.getUserByUserName(s).getName() + " (@" + s + ")");
+        }
+        System.out.println("\n");
     }
 
-    public void friendMenu(User user) {
+    public void friendMenu(Registrar reg, User user) {
         System.out.println("\nFRIENDS:");
         ArrayList<String> friends = user.getFriends();
         for (String friend : friends) {
-            System.out.println(friend);
+            System.out.println(reg.getUserByUserName(friend).getName() + " (@" + friend + ")");
         }
+        System.out.println("\n");
     }
 
     public void eventMenu(Speaker user, EventManager em) {
