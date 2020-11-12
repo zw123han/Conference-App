@@ -17,14 +17,7 @@ public class ReadUsers {
         try {
             FileInputStream fileIn = new FileInputStream(this.filepath);
             ObjectInputStream in = new ObjectInputStream(fileIn);
-            while (!isEmpty) {
-                User user = (User) in.readObject();
-                if (user == null) {
-                    isEmpty = true;
-                } else {
-                    users.add(user);
-                }
-            }
+            users.addAll((ArrayList<User>) in.readObject());
             in.close();
             fileIn.close();
         } catch (IOException e) {
