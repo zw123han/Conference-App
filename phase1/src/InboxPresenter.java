@@ -7,18 +7,21 @@ public class InboxPresenter extends CommandPresenter {
         for (String friend : friends) {
             System.out.println(reg.getUserByUserName(friend).getName() + " (@" + friend + ")");
         }
-        System.out.println("\n");
+        if (friends.isEmpty()) {
+            System.out.println("You can't chat with any users.");
+        }
+        System.out.println("");
     }
 
     public void chatView(Registrar reg, Chatroom cm) {
         ArrayList<Message> history = cm.getHistory();
         for (Message m : history) {
             String sender = m.getSender();
-            System.out.println("\n");
-            System.out.println("From: " + reg.getUserByUserName(sender).getName() + " (@" + sender + ")");
+            System.out.println("\nFrom: " + reg.getUserByUserName(sender).getName() + " (@" + sender + ")");
             System.out.println("Sent: " + m.getDate());
             messageFormatter(m.getMessage());
         }
+        System.out.println("");
     }
 
     public void messageFormatter(String message) {

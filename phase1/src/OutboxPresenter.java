@@ -19,6 +19,10 @@ public class OutboxPresenter extends CommandPresenter{
         for (String s : speakers) {
             System.out.println(reg.getUserByUserName(s).getName() + " (@" + s + ")");
         }
+        if (events.isEmpty()) {
+            System.out.println("There are no speakers.");
+        }
+        System.out.println("");
     }
 
     public void friendMenu(Registrar reg, User user) {
@@ -27,6 +31,10 @@ public class OutboxPresenter extends CommandPresenter{
         for (String friend : friends) {
             System.out.println(reg.getUserByUserName(friend).getName() + " (@" + friend + ")");
         }
+        if (friends.isEmpty()) {
+            System.out.println("You have no friends.");
+        }
+        System.out.println("");
     }
 
     public void eventMenu(Speaker user, EventManager em) {
@@ -38,6 +46,10 @@ public class OutboxPresenter extends CommandPresenter{
             System.out.println("Time: " + event.getTime());
             System.out.println("Room: " + event.getRoom() + "\n");
         }
+        if (events.isEmpty()) {
+            System.out.println("You're not hosting any talks.");
+        }
+        System.out.println("");
     }
 
     public void eventMenu(EventManager em) {
@@ -48,6 +60,10 @@ public class OutboxPresenter extends CommandPresenter{
             System.out.println("Time: " + event.getTime());
             System.out.println("Room: " + event.getRoom() + "\n");
         }
+        if (events.isEmpty()) {
+            System.out.println("You have no events.");
+        }
+        System.out.println("");
     }
 
     public void success() {
