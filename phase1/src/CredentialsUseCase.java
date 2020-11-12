@@ -1,10 +1,10 @@
 import java.util.Arrays;
 import java.util.Base64;
 
-public class CredentialsController {
+public class CredentialsUseCase {
     private Registrar registrar;
 
-    public CredentialsController(Registrar registrar){
+    public CredentialsUseCase(Registrar registrar){
         this.registrar = registrar;
     }
 
