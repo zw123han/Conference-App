@@ -29,9 +29,16 @@ public class InboxPresenter extends CommandPresenter {
         int i = 0;
         while (i + 80 < sbm.length()) {
             int firstSpace = sbm.indexOf(" ", i + 80);
-            sbm.replace(firstSpace,  firstSpace + 1, "\n");
+            if (firstSpace != -1) {
+                sbm.replace(firstSpace, firstSpace + 1, "\n");
+            }
             i += 80;
         }
         System.out.println(sbm);
+    }
+
+    public void replyMessage() {
+        System.out.println("Press enter to reply to the message.");
+        exitMessage();
     }
 }

@@ -54,6 +54,7 @@ public class InboxController {
         while (!e.equals("$q")) {
             if (cc.canReply(user, recipient, cm)) {
                 promptReply(user, recipient);
+                break;
             }
             ip.exitMessage();
             e = sc.nextLine();
@@ -62,9 +63,19 @@ public class InboxController {
 
     public void promptReply(User user, String recipient) {
         OutboxController oc = new OutboxController(reg, user);
-        oc.promptMessage(recipient);
-        ChatPull pull = new ChatPull();
-        ChatroomManager cm = pull.readChatlog();
-        ip.chatView(reg, cm.getChatroom(user, recipient));
+        ip.replyMessage();
+        String re = sc.nextLine();
+        while (!re.equals("$q")) {
+            if (re.equals("")) {
+                oc.promptMessage(recipient);
+                ChatPull pull = new ChatPull();
+                ChatroomManager cm = pull.readChatlog();
+                ip.chatView(reg, cm.getChatroom(user, recipient));
+            } else {
+                ip.invalidCommand("prompt");
+            }
+            ip.replyMessage();
+            re = sc.nextLine();
+        }
     }
 }
