@@ -6,21 +6,35 @@ public class OutboxPresenter extends CommandPresenter{
         System.out.println("\n1) Message users\n2) Group message\n3) Message speakers\n");
     }
 
-    public void speakerMenu(EventManager em) {
+    public void speakerMenu(Registrar reg, EventManager em) {
         System.out.println("\nSPEAKERS:");
         ArrayList<Event> events = em.getEventsList();
+        ArrayList<String> speakers = new ArrayList<>();
         for (Event event : events) {
-            System.out.println(event.getSpeaker().getUserName());
-            System.out.println(event.getName() + " (id: " + event.getId() + ")\n");
+            String speaker = event.getSpeaker();
+            if (!speakers.contains(speaker)) {
+                speakers.add(speaker);
+            }
         }
+        for (String s : speakers) {
+            System.out.println(reg.getUserByUserName(s).getName() + " (@" + s + ")");
+        }
+        if (events.isEmpty()) {
+            System.out.println("There are no speakers.");
+        }
+        System.out.println("");
     }
 
-    public void friendMenu(User user) {
+    public void friendMenu(Registrar reg, User user) {
         System.out.println("\nFRIENDS:");
         ArrayList<String> friends = user.getFriends();
         for (String friend : friends) {
-            System.out.println(friend);
+            System.out.println(reg.getUserByUserName(friend).getName() + " (@" + friend + ")");
         }
+        if (friends.isEmpty()) {
+            System.out.println("You have no friends.");
+        }
+        System.out.println("");
     }
 
     public void eventMenu(Speaker user, EventManager em) {
@@ -32,6 +46,9 @@ public class OutboxPresenter extends CommandPresenter{
             System.out.println("Time: " + event.getTime());
             System.out.println("Room: " + event.getRoom() + "\n");
         }
+        if (events.isEmpty()) {
+            System.out.println("You're not hosting any talks.\n");
+        }
     }
 
     public void eventMenu(EventManager em) {
@@ -42,9 +59,12 @@ public class OutboxPresenter extends CommandPresenter{
             System.out.println("Time: " + event.getTime());
             System.out.println("Room: " + event.getRoom() + "\n");
         }
+        if (events.isEmpty()) {
+            System.out.println("You have no events.\n");
+        }
     }
 
     public void success() {
-        System.out.println("\nMessage successfully sent!\n");
+        System.out.println("\nMessage successfully sent!");
     }
 }

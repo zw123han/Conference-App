@@ -7,11 +7,12 @@ public class ChatPull {
     public ChatroomManager readChatlog(){
         ChatroomManager chatroomManager = new ChatroomManager();
         try {
-            FileInputStream fileIn = new FileInputStream("chatlog.ser");
+            FileInputStream fileIn = new FileInputStream("phase1/src/chatlog.ser");
             ObjectInputStream objectIn = new ObjectInputStream(fileIn);
             chatroomManager = (ChatroomManager) objectIn.readObject();
+            fileIn.close();
+            objectIn.close();
             System.out.println("Successfully read chat.");
-
         }catch(Exception ex){
             System.out.println("Chat read failed.");
         }

@@ -2,7 +2,7 @@ import java.util.ArrayList;
 
 public class Speaker extends User {
 
-    private ArrayList<Long> talks;
+    private ArrayList<Long> talks = new ArrayList<>();
 
     public Speaker(String name, String userName, String password) {
         super(name, userName, password);

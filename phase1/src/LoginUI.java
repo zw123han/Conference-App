@@ -24,7 +24,28 @@ public class LoginUI {
         return sc.nextLine().equals("Y");
     }
 
-    public void login(){
+    private boolean confirmCreateAccount(){
+        System.out.println(loginPresenter.confirmMakeAccount());
+        return sc.nextLine().equals("Y");
+    }
+    private void createAccount(){
+        if(confirmCreateAccount()){
+            System.out.println(loginPresenter.promptName());
+            String name = sc.nextLine();
+            System.out.println(loginPresenter.promptAccountUsername());
+            String username = sc.nextLine();
+            System.out.println(loginPresenter.promptAccountPassword());
+            String password = sc.nextLine();
+            if(loginOptionsFacade.createUser(name, username, password, "attendee")){
+                System.out.println(loginPresenter.successfulAccountCreation());
+                loginToExisting();
+            }
+            else{
+                System.out.println(loginPresenter.usernameTaken());
+            }
+        }
+    }
+    private void loginToExisting(){
         if (promptLogin()){
             System.out.println(loginPresenter.promptAccountLogin());
             System.out.println(loginPresenter.promptAccountUsername());
@@ -39,10 +60,26 @@ public class LoginUI {
             }
         }
     }
+
+    public void login(){
+        System.out.println(loginPresenter.inquireAccount());
+        String response = sc.nextLine();
+        if (response.equals("C")){
+            createAccount();
+        }
+        else if (response.equals("L")){
+            loginToExisting();
+        }
+    }
+
     public void logout() {
         if (confirmLogout()) {
-            loginOptionsFacade.logout();
-            System.out.println(loginPresenter.loggedOff());
+            if (loginOptionsFacade.logout()){
+
+            System.out.println(loginPresenter.loggedOff());}
+            else{
+                System.out.println(loginPresenter.failedLogoff());
+            }
         }
     }
     public void changePassword() {

@@ -7,7 +7,7 @@ public class EventCreatorPresenter {
         this.em = em;
     }
 
-    public String promptEventCreation(String name, String room, LocalDateTime time, Speaker speaker, int capacity) {
+    public String promptEventCreation(String name, String room, LocalDateTime time, String speaker, int capacity) {
         EventCreator ec = new EventCreator(this.em);
         try {
             if (!(ec.createEvent(name, room, time, speaker, capacity))) {
