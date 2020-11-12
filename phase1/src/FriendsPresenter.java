@@ -19,7 +19,9 @@ public class FriendsPresenter {
     public String AddOrRemovev() {
         return "Would you like to add or remove a friend? Enter 1 to add, 2 to remove.";
     }
+
     public void viewFriends(User user) {
+        System.out.println("Friends");
         ArrayList<String> friends = user.getFriends();
         System.out.println("Friends");
         System.out.println("__________\n");
