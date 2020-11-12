@@ -13,7 +13,8 @@ public class InboxPresenter extends CommandPresenter {
     public void chatView(Chatroom cm) {
         ArrayList<Message> history = cm.getHistory();
         for (Message m : history) {
-            System.out.println(m.getSender() + " | Sent: " + m.getDate());
+            System.out.println("From: " + m.getSender());
+            System.out.println("Sent: " + m.getDate());
             System.out.println(m.getMessage() + "\n");
         }
     }

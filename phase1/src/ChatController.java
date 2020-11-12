@@ -16,7 +16,7 @@ public class ChatController {
     }
 
     public boolean canMessage(User user, String recipient, EventManager em) {
-        return (user.hasFriend(recipient) && !(user instanceof Organizer)) || isInEvent(user, recipient, em);
+        return (user.hasFriend(recipient) || user instanceof Organizer);
     }
 
     public boolean canMessage(User user, Long evt, EventManager em) {

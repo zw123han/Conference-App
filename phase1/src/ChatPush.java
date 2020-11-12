@@ -12,6 +12,7 @@ public class ChatPush {
             System.out.println("Successfully saved chat.");
         }catch(Exception e){
             System.out.println("Chat saving failed.");
+            e.printStackTrace();
         }
     }
 }

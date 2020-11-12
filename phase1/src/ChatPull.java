@@ -10,8 +10,9 @@ public class ChatPull {
             FileInputStream fileIn = new FileInputStream("chatlog.ser");
             ObjectInputStream objectIn = new ObjectInputStream(fileIn);
             chatroomManager = (ChatroomManager) objectIn.readObject();
+            fileIn.close();
+            objectIn.close();
             System.out.println("Successfully read chat.");
-
         }catch(Exception ex){
             System.out.println("Chat read failed.");
         }

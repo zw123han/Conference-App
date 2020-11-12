@@ -4,6 +4,14 @@ public class OrganizerCreationScript {
         Registrar registrar = new Registrar();
         CredentialsController credentialsController = new CredentialsController(registrar);
         credentialsController.createUser("Name", "Admin", "123", "Organizer");
+
+        credentialsController.createUser("Name", "User", "123", "Organizer");
+
+        // creates second organizer user with friend
+        User user = registrar.getUserByUserName("User");
+        FriendsManager fm = new FriendsManager(user, registrar);
+        fm.addFriend("Admin");
+
         //If you wish to create more organizers, use credentialsController.createUser
 
         StoreUsers storeUsers = new StoreUsers("phase1/src/userData.ser");

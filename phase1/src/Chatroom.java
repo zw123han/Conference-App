@@ -1,10 +1,11 @@
 import java.util.*;
+import java.io.Serializable;
 
-public class Chatroom {
+public class Chatroom implements Serializable {
     private ArrayList<Message> history;
 
-    public Chatroom(){;;
-        this.history = new ArrayList<Message>();
+    public Chatroom(){
+        this.history = new ArrayList<>();
     }
 
     public void sendMessage(Message message){
