@@ -22,7 +22,7 @@ public class ConferenceSimulator {
 
         // Make admin accounts
         OrganizerCreationScript organizerCreationScript = new OrganizerCreationScript();
-        organizerCreationScript.createOrganizers(registrar, userFilepath);
+        organizerCreationScript.createOrganizers(registrar);
 
         LoginOptionsFacade loginFacade = new LoginOptionsFacade(registrar);
         EventCreatorPresenter eventCreatorPresenter = new EventCreatorPresenter(eventManager);
