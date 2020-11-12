@@ -45,5 +45,11 @@ public class ConferenceSimulator {
         storeUsers.store(registrar.getUsers());
         saveEvents.saveEvents(eventManager.getEventsList());
 
+
+        // Reset user and event data
+        // ArrayList<User> emptyUserList = new ArrayList<>();
+        // ArrayList<Event> emptyEventList = new ArrayList<>();
+        // storeUsers.store(emptyUserList);
+        // saveEvents.saveEvents(emptyEventList);
     }
 }
