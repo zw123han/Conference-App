@@ -12,8 +12,7 @@ public class OutboxController {
     public OutboxController(Registrar reg, User user) {
         this.user = user;
         ReadEvents reader = new ReadEvents("phase1/src/eventData.ser");
-        ArrayList<Event> re = new ArrayList<>(reader.read());
-        this.em = new EventManager(re);
+        this.em = new EventManager(reader.read());
         this.reg = reg;
     }
 

@@ -47,9 +47,8 @@ public class OutboxPresenter extends CommandPresenter{
             System.out.println("Room: " + event.getRoom() + "\n");
         }
         if (events.isEmpty()) {
-            System.out.println("You're not hosting any talks.");
+            System.out.println("You're not hosting any talks.\n");
         }
-        System.out.println("");
     }
 
     public void eventMenu(EventManager em) {
@@ -61,12 +60,11 @@ public class OutboxPresenter extends CommandPresenter{
             System.out.println("Room: " + event.getRoom() + "\n");
         }
         if (events.isEmpty()) {
-            System.out.println("You have no events.");
+            System.out.println("You have no events.\n");
         }
-        System.out.println("");
     }
 
     public void success() {
-        System.out.println("\nMessage successfully sent!\n");
+        System.out.println("\nMessage successfully sent!");
     }
 }
