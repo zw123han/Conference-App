@@ -35,7 +35,7 @@ public class ConferenceSimulator {
         // Only have attendees create their own accounts (assume they are already signed up)
         // Give organizers option to create any accounts other than organizers
         do {
-            ui.homeScreenMenu(loginFacade.getUser(), registrar);
+            ui.loggedIn(loginFacade.getUser(), registrar);
         } while (loginFacade.getUser() != null);
 
         storeUsers.store(registrar.getUsers());

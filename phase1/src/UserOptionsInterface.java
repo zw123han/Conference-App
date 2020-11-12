@@ -24,7 +24,7 @@ public class UserOptionsInterface {
 
     }
 
-    public void homeScreenMenu(User user, Registrar registrar) {
+    public void loggedIn(User user, Registrar registrar) {
         boolean retry = true;
         if (loginFacade.getUser() == null) {
             showOptions(user);
@@ -38,7 +38,11 @@ public class UserOptionsInterface {
                 showOptions(user);
             }
         }
-        showOptions(loginFacade.getUser());
+        homeScreenMenu(loginFacade.getUser(), registrar);
+    }
+
+    public void homeScreenMenu(User user, Registrar registrar) {
+        showOptions(user);
         System.out.println("\nPlease select an option listed above.");
         String choice = sc.nextLine();
         if (user instanceof Organizer) {
@@ -56,7 +60,7 @@ public class UserOptionsInterface {
                     changePassword();
                     break;
                 case "5":
-                    showFriends(registrar);
+                    showFriends(registrar, user);
                 case "6":
                     showCreateEventsScreen(registrar);
                     break;
@@ -82,7 +86,7 @@ public class UserOptionsInterface {
                     changePassword();
                     break;
                 case "5":
-                    showFriends(registrar);
+                    showFriends(registrar, user);
                 default:
                     System.out.println("Please input a valid option(1-5).");
                     break;
@@ -167,15 +171,14 @@ public class UserOptionsInterface {
             System.out.println("Speaker account created successfully ");
         }
     }
-    public void showFriends(Registrar registrar) {
-        User user = loginFacade.getUser();
+    public void showFriends(Registrar registrar, User user) {
         FriendsController fc = new FriendsController(registrar,fp);
         fp.viewFriends(user); //shows user a list of all their friends
-        fp.AddOrRemovev();
+        System.out.print(fp.AddOrRemovev());
         String choice = sc.nextLine();
         if (choice.equals("1")) {
             fc.addFriends(user); // will prompt the user for who they wanna add
-        } else {
+        } else if (choice.equals("2")) {
             fc.removeFriends(user);
         }
 
