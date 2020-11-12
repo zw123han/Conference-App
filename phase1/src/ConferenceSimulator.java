@@ -9,6 +9,7 @@ public class ConferenceSimulator {
 
         String userFilepath = "phase1/src/userData.ser";
         String eventFilepath = "phase1/src/eventData.ser";
+        // Should we also have chatlog filepath?
 
         ReadEvents readEvents = new ReadEvents(eventFilepath);
         ReadUsers readUsers = new ReadUsers(userFilepath);
@@ -35,7 +36,6 @@ public class ConferenceSimulator {
                 chatMenuPresenter, friendsPresenter);
         // Other UIs go into this ui
 
-        // Static organizers from script
         // Only have attendees create their own accounts (assume they are already signed up)
         // Give organizers option to create any accounts other than organizers
 
@@ -45,12 +45,12 @@ public class ConferenceSimulator {
             do {
                 ui.loggedIn(loginFacade.getUser(), registrar);
             } while (loginFacade.getUser() != null);
+            storeUsers.store(registrar.getUsers());
+            saveEvents.saveEvents(eventManager.getEventsList());
             System.out.println("Are you sure you want to close the program? Press Q to close.");
             exit = sc.nextLine().equals("Q");
         } while (!exit);
 
-        storeUsers.store(registrar.getUsers());
-        saveEvents.saveEvents(eventManager.getEventsList());
 
 
         // Reset user and event data
