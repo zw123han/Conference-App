@@ -120,7 +120,7 @@ public class UserOptionsInterface {
     public void showEventScreen(EventSignupPresenter esp) {
         esp.viewEvents();
         esp.usersEvents(loginFacade.getUser());
-        System.out.println("\nWould you like to add or leave an event? Press Q to go back.");
+        System.out.println("\nWould you like to join or leave an event? Press Q to go back.");
         String choice = sc.nextLine();
         if (choice.toLowerCase().equals("add")) {
             System.out.println("Please input the event_id");
