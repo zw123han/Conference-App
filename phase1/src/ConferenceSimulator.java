@@ -24,10 +24,11 @@ public class ConferenceSimulator {
         EventCreatorPresenter eventCreatorPresenter = new EventCreatorPresenter(eventManager);
         EventSignupPresenter eventSignupPresenter = new EventSignupPresenter(eventSignup, eventManager);
         ChatMenuPresenter chatMenuPresenter = new ChatMenuPresenter();
+        FriendsPresenter friendsPresenter = new FriendsPresenter();
         // Other controllers with presenters go here
 
         UserOptionsInterface ui = new UserOptionsInterface(loginFacade, eventCreatorPresenter, eventSignupPresenter,
-                chatMenuPresenter);
+                chatMenuPresenter, friendsPresenter);
         // Other UIs go into this ui
 
         // Static organizers from script

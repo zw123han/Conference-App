@@ -14,11 +14,12 @@ public class UserOptionsInterface {
     // All other UIs go here too and in the constructor
 
     public UserOptionsInterface(LoginOptionsFacade loginFacade, EventCreatorPresenter ecp, EventSignupPresenter esp,
-                                ChatMenuPresenter cmp){
+                                ChatMenuPresenter cmp, FriendsPresenter fp){
         this.loginFacade = loginFacade;
         this.ecp = ecp;
         this.esp = esp;
         this.cmp = cmp;
+        this.fp = fp;
         this.loginUI = new LoginUI(loginFacade);
 
     }
