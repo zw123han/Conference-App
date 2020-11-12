@@ -40,6 +40,7 @@ public class UserOptionsInterface {
     }
 
     public void homeScreenMenu(User user, Registrar registrar) {
+        System.out.println("Welcome " + user.getUserName());
         showOptions(user);
         System.out.println("\nPlease select an option listed above.");
         String choice = sc.nextLine();
@@ -186,6 +187,7 @@ public class UserOptionsInterface {
             }else{
                 cmp.invalidCommand("prompt");
             }
+            fp.viewFriends(user);
             System.out.println(fp.AddOrRemove());
             choice = sc.nextLine();
         }

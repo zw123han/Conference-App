@@ -6,11 +6,11 @@ public class FriendsPresenter {
     }
     public String noAddYourself() {return "Can't add yourself as a friend";}
     public String alreadyFriends() {return "Already friends with this user";}
-    public String userAdded() {
-        return "User has been successfully added to your friends list.";
+    public String userAdded(String username) {
+        return username + " has been successfully added to your friends list.";
     }
-    public String userRemoved() {
-        return "User has been removed from your friends list.";
+    public String userRemoved(String username) {
+        return username + " has been removed from your friends list.";
     }
     public String notYourFriend() {return "Can't remove non friends from friends list";}
     public String enterUser() {
@@ -22,7 +22,7 @@ public class FriendsPresenter {
 
     public void viewFriends(User user) {
         ArrayList<String> friends = user.getFriends();
-        System.out.println("Friends");
+        System.out.println("\nFriends");
         System.out.println("__________\n");
         if (friends.isEmpty()) {
             System.out.println("You got no friends hehe");
@@ -32,5 +32,6 @@ public class FriendsPresenter {
                 System.out.println(friend);
             }
         }
+        System.out.println("\n");
     }
 }
