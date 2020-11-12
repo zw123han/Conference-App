@@ -40,7 +40,7 @@ public class UserOptionsInterface {
     }
 
     public void homeScreenMenu(User user, Registrar registrar) {
-        System.out.println("Welcome " + user.getUserName());
+        System.out.println("\nWelcome " + user.getUserName());
         showOptions(user);
         System.out.println("\nPlease select an option listed above.");
         String choice = sc.nextLine();
