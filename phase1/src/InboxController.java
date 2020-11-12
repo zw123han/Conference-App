@@ -7,9 +7,11 @@ public class InboxController {
     private InboxPresenter ip = new InboxPresenter();
     private Scanner sc = new Scanner(System.in);
     private User user;
+    private Registrar reg;
 
-    public InboxController(User user) {
+    public InboxController(Registrar reg, User user) {
         this.user = user;
+        this.reg = reg;
     }
 
     private ArrayList<String> getUsersTalkto(User user, ChatroomManager cm) {
@@ -31,27 +33,29 @@ public class InboxController {
         ChatPull pull = new ChatPull();
         ChatroomManager cm = pull.readChatlog();
         ArrayList<String> friends = getUsersTalkto(user, cm);
-        ip.menuDisplay(friends);
-        ip.commandPrompt("chat");
+        ip.menuDisplay(reg, friends);
+        ip.commandPrompt("username");
         String recipient = sc.nextLine();
         while (!recipient.equals("$q")) {
+            recipient = recipient.replace("@", "");
             if (friends.contains(recipient)) {
                 chatViewer(cm, recipient);
             } else {
                 ip.invalidCommand("username");
             }
-            ip.menuDisplay(friends);
-            ip.commandPrompt("chat");
+            ip.menuDisplay(reg, friends);
+            ip.commandPrompt("username (string after the @)");
             recipient = sc.nextLine();
         }
     }
 
     public void chatViewer(ChatroomManager cm, String recipient) {
-        ip.chatView(cm.getChatroom(user, recipient));
+        ip.chatView(reg, cm.getChatroom(user, recipient));
         String e = "";
         while (!e.equals("$q")) {
             if (cc.canReply(user, recipient, cm)) {
                 promptReply(user, recipient);
+                break;
             }
             ip.exitMessage();
             e = sc.nextLine();
@@ -59,10 +63,20 @@ public class InboxController {
     }
 
     public void promptReply(User user, String recipient) {
-        OutboxController oc = new OutboxController(user);
-        oc.promptMessage(recipient);
-        ChatPull pull = new ChatPull();
-        ChatroomManager cm = pull.readChatlog();
-        ip.chatView(cm.getChatroom(user, recipient));
+        OutboxController oc = new OutboxController(reg, user);
+        ip.replyMessage();
+        String re = sc.nextLine();
+        while (!re.equals("$q")) {
+            if (re.equals("")) {
+                oc.promptMessage(recipient);
+                ChatPull pull = new ChatPull();
+                ChatroomManager cm = pull.readChatlog();
+                ip.chatView(reg, cm.getChatroom(user, recipient));
+            } else {
+                ip.invalidCommand("prompt");
+            }
+            ip.replyMessage();
+            re = sc.nextLine();
+        }
     }
 }

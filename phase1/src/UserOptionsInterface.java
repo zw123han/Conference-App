@@ -7,22 +7,24 @@ public class UserOptionsInterface {
     private LoginUI loginUI;
     private EventCreatorPresenter ecp;
     private EventSignupPresenter esp;
-    ChatMenuPresenter cmp;
+    private ChatMenuPresenter cmp;
     private Scanner sc = new Scanner(System.in);
     private LoginOptionsFacade loginFacade;
+    private FriendsPresenter fp;
     // All other UIs go here too and in the constructor
 
     public UserOptionsInterface(LoginOptionsFacade loginFacade, EventCreatorPresenter ecp, EventSignupPresenter esp,
-                                ChatMenuPresenter cmp){
+                                ChatMenuPresenter cmp, FriendsPresenter fp){
         this.loginFacade = loginFacade;
         this.ecp = ecp;
         this.esp = esp;
         this.cmp = cmp;
+        this.fp = fp;
         this.loginUI = new LoginUI(loginFacade);
 
     }
 
-    public void homeScreenMenu(User user, Registrar registrar) {
+    public void loggedIn(User user, Registrar registrar) {
         boolean retry = true;
         if (loginFacade.getUser() == null) {
             showOptions(user);
@@ -36,61 +38,69 @@ public class UserOptionsInterface {
                 showOptions(user);
             }
         }
-        showOptions(loginFacade.getUser());
+        homeScreenMenu(loginFacade.getUser(), registrar);
+    }
+
+    public void homeScreenMenu(User user, Registrar registrar) {
+        showOptions(user);
         System.out.println("\nPlease select an option listed above.");
         String choice = sc.nextLine();
-        if (user instanceof Organizer) { //TODO need to implement a "go back" option
+        if (user instanceof Organizer) {
             switch (choice) {
-                case "Logout":
+                case "1":
                     logout();
                     break;
-                case "Change password":
-                    changePassword();
-                    break;
-                case "Events":
+                case "2":
                     showEventScreen(esp);
                     break;
-                case "Messages":
-                    showMessageScreen(); // don't think this is sufficient, need to revise later
+                case "3":
+                    showMessageScreen(registrar, user);
                     break;
-                case "Add Event":
+                case "4":
+                    changePassword();
+                    break;
+                case "5":
+                    showFriends(registrar, user);
+                    break;
+                case "6":
                     showCreateEventsScreen(registrar);
                     break;
-                case "Add Speaker":
+                case "7":
                     showCreateSpeakerScreen();
                     break;
                 default:
-                    System.out.println("Please input a valid option.");
+                    System.out.println("Please input a valid option(1-7).");
                     break;
             }
         } else {
             switch (choice) {
-                case "Logout":
+                case "1":
                     logout();
                     break;
-                case "Change password":
-                    changePassword();
-                    break;
-                case "Events":
+                case "2":
                     showEventScreen(esp);
                     break;
-                case "Messages":
-                    showMessageScreen();
+                case "3":
+                    showMessageScreen(registrar, user);
                     break;
-                case "Add Event":
-                    showCreateEventsScreen(registrar);
+                case "4":
+                    changePassword();
+                    break;
+                case "5":
+                    showFriends(registrar, user);
                     break;
                 default:
-                    System.out.println("Please input a valid option.");
+                    System.out.println("Please input a valid option(1-5).");
                     break;
             }
         }
     }
     private void generalOptions(){
-        System.out.println("Logout");
-        System.out.println("Events");
-        System.out.println("Messages");
-        System.out.println("Change password");
+        System.out.println("1) Logout");
+        System.out.println("2) Events");
+        System.out.println("3) Messages");
+        System.out.println("4) Change password");
+        System.out.println("5) Friends");
     }
     public void showOptions(User user){
         if (user == null){
@@ -101,8 +111,8 @@ public class UserOptionsInterface {
         }
         else if (user instanceof Organizer){
             generalOptions();
-            System.out.println("Add Event");
-            System.out.println("Add Speaker");
+            System.out.println("6) Add Event");
+            System.out.println("7) Add Speaker");
         }
         else if (user instanceof Speaker){
             generalOptions();
@@ -145,9 +155,9 @@ public class UserOptionsInterface {
         String speaker = sc.nextLine();
         User user = registrar.getUserByUserName(speaker);
         if (user instanceof Speaker) {
-            ecp.promptEventCreation(name, room, LocalDateTime.parse(time, formatter), (Speaker) user, capacity );
+            ecp.promptEventCreation(name, room, LocalDateTime.parse(time, formatter), user.getUserName(), capacity );
         } else {
-            System.out.println("Please input a valid Speaker. If you dont have any, please create a speaker account.");
+            System.out.println("Please input a valid Speaker. If you don't have any, please create a speaker account.");
         }
     }
     public void showCreateSpeakerScreen() {
@@ -162,19 +172,34 @@ public class UserOptionsInterface {
             loginFacade.createUser(name, userName, password, "speaker");
             System.out.println("Speaker account created successfully ");
         }
-
     }
-    public void showMessageScreen(){
-        User user = loginFacade.getUser();
+    public void showFriends(Registrar registrar, User user) {
+        FriendsController fc = new FriendsController(registrar,fp);
+        fp.viewFriends(user); //shows user a list of all their friends
+        System.out.println(fp.AddOrRemove());
+        String choice = sc.nextLine();
+        while (!choice.equals("$q")) {
+            if (choice.equals("1")) {
+                fc.addFriends(user); // will prompt the user for who they wanna add
+            } else if (choice.equals("2")) {
+                fc.removeFriends(user);
+            }else{
+                cmp.invalidCommand("prompt");
+            }
+            System.out.println(fp.AddOrRemove());
+            choice = sc.nextLine();
+        }
+    }
+    public void showMessageScreen(Registrar reg, User user){
         cmp.menuDisplay();
         cmp.commandPrompt("prompt");
         String choice = sc.nextLine();
         while (!choice.equals("$q")) {
             if (choice.equals("1")) {
-                showOutbox(user);
+                showOutbox(reg, user);
             }
             else if (choice.equals("2")) {
-                InboxController ic = new InboxController(user);
+                InboxController ic = new InboxController(reg, user);
                 ic.promptChatChoice();
             } else {
                 cmp.invalidCommand("prompt");
@@ -185,8 +210,8 @@ public class UserOptionsInterface {
         }
     }
 
-    public void showOutbox(User user) {
-        OutboxController oc = new OutboxController(user);
+    public void showOutbox(Registrar reg, User user) {
+        OutboxController oc = new OutboxController(reg, user);
         if (user instanceof Organizer) {
             oc.promptChatChoice();
         } else if (user instanceof Speaker) {

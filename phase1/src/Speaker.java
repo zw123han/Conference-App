@@ -1,4 +1,4 @@
-import java.util.ArrayList;
+import java.util.*;
 
 public class Speaker extends User {
 
@@ -6,10 +6,15 @@ public class Speaker extends User {
 
     public Speaker(String name, String userName, String password) {
         super(name, userName, password);
+        this.talks = new ArrayList<>();
     }
 
-    public ArrayList<Long> getTalks(){ return talks; } // return list of talks this user is giving
+    public ArrayList<Long> getTalks() {
+        return talks;
+    }
 
-    public void addTalk(Long talkId){ talks.add(talkId); }
+    public void addTalk(Long talkId) {
+        talks.add(talkId);
+    }
 
 }

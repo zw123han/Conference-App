@@ -1,8 +1,8 @@
 import java.time.*;
 import java.time.format.DateTimeFormatter;
-// Update the implementation of dates to convert to local timezone
+import java.io.Serializable;
 
-public class Message{
+public class Message implements Serializable {
     private String message, sender;
     private ZonedDateTime time = ZonedDateTime.now();
 

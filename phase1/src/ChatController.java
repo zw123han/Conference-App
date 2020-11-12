@@ -15,13 +15,13 @@ public class ChatController {
         return message.length() != 0;
     }
 
-    public boolean canMessage(User user, String recipient, EventManager em) {
-        return (user.hasFriend(recipient) && !(user instanceof Organizer)) || isInEvent(user, recipient, em);
+    public boolean canMessage(User user, String recipient, Registrar reg) {
+        return ((user.hasFriend(recipient) || user instanceof Organizer) && reg.userExisting(recipient));
     }
 
     public boolean canMessage(User user, Long evt, EventManager em) {
         return em.hasEvent(evt) ||
-                (em.hasEvent(evt) && user instanceof Speaker && em.getEventById(evt).getSpeaker().isUser(user));
+                (em.hasEvent(evt) && user instanceof Speaker && em.getEventById(evt).getSpeaker().equals(user.getName()));
     }
 
     public boolean canReply(User user, String recipient, ChatroomManager cm) {

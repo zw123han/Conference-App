@@ -65,4 +65,11 @@ public class Registrar {
         return getUserByUserName(username) != null;
     }
 
+    public ArrayList<String> getUserNames(){
+        ArrayList<String> allUsernames = new ArrayList<>();
+        for (User user : users){
+            allUsernames.add(user.getUserName());
+        }
+        return allUsernames;
+    }
 }

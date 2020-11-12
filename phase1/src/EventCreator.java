@@ -3,12 +3,14 @@ import java.util.ArrayList;
 
 public class EventCreator {
     private EventManager em;
+    private Registrar reg;
 
-    public EventCreator(EventManager em) {
+    public EventCreator(EventManager em, Registrar reg) {
         this.em = em;
+        this.reg = reg;
     }
 
-    public boolean createEvent(String name, String room, LocalDateTime start_time, Speaker speaker, int capacity)
+    public boolean createEvent(String name, String room, LocalDateTime start_time, String speaker, int capacity)
             throws EventCreationFailureException {
         ArrayList<Event> events = this.em.getEventsList();
         for (Event event : events) {
@@ -19,12 +21,12 @@ public class EventCreator {
                     (end_time.isAfter(lower) && end_time.isBefore(upper)) || (start_time.isEqual(lower))){
                 if ((event.getRoom().equals(room))) {
                     throw new EventCreationFailureException("This room is taken for this time");
-                } else if (event.getSpeaker().getUserName().equals(speaker.getUserName())) {
+                } else if (event.getSpeaker().equals(speaker)) {
                     throw new EventCreationFailureException("This speaker is unavailable for this time");
                 }
             }
         }
-        this.em.createEvent(name, room, start_time, speaker, capacity);
+        this.em.createEvent(name, room, start_time, speaker, capacity, (Speaker) reg.getUserByUserName(speaker));
         return true;
     }
 }

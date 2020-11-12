@@ -3,28 +3,38 @@ import java.util.*;
 public class OutboxPresenter extends CommandPresenter{
 
     public void menuDisplay() {
-        System.out.println("\n1 Message users\n2 Group message\n3 Message speakers\n");
+        System.out.println("\n1) Message users\n2) Group message\n3) Message speakers\n");
     }
 
-    public void speakerMenu(EventManager em) {
+    public void speakerMenu(Registrar reg, EventManager em) {
         System.out.println("\nSPEAKERS:");
         ArrayList<Event> events = em.getEventsList();
+        ArrayList<String> speakers = new ArrayList<>();
         for (Event event : events) {
-            System.out.println(event.getSpeaker().getUserName() +
-                    " | Event (" + event.getId() + "): " + event.getName());
+            String speaker = event.getSpeaker();
+            if (!speakers.contains(speaker)) {
+                speakers.add(speaker);
+            }
         }
-        System.out.println("\n");
+        for (String s : speakers) {
+            System.out.println(reg.getUserByUserName(s).getName() + " (@" + s + ")");
+        }
+        if (events.isEmpty()) {
+            System.out.println("There are no speakers.");
+        }
+        System.out.println("");
     }
 
-    public void friendMenu(User user) {
+    public void friendMenu(Registrar reg, User user) {
         System.out.println("\nFRIENDS:");
         ArrayList<String> friends = user.getFriends();
-        int n = 1;
         for (String friend : friends) {
-            System.out.println(n + ". " + friend);
-            n += 1;
+            System.out.println(reg.getUserByUserName(friend).getName() + " (@" + friend + ")");
         }
-        System.out.println("\n");
+        if (friends.isEmpty()) {
+            System.out.println("You have no friends.");
+        }
+        System.out.println("");
     }
 
     public void eventMenu(Speaker user, EventManager em) {
@@ -32,23 +42,29 @@ public class OutboxPresenter extends CommandPresenter{
         ArrayList<Long> events = user.getTalks();
         for (Long evt_id : events) {
             Event event = em.getEventById(evt_id);
-            System.out.println(event.getName() + " (" + event.getId() + ")");
-            System.out.println("Time: " + event.getTime() + " | " + "Room: " + event.getRoom() + "\n");
+            System.out.println(event.getName() + " (id: " + event.getId() + ")");
+            System.out.println("Time: " + event.getTime());
+            System.out.println("Room: " + event.getRoom() + "\n");
         }
-        System.out.println("\n");
+        if (events.isEmpty()) {
+            System.out.println("You're not hosting any talks.\n");
+        }
     }
 
     public void eventMenu(EventManager em) {
         System.out.println("\nEVENTS:");
         ArrayList<Event> events = em.getEventsList();
         for (Event event : events) {
-            System.out.println(event.getName() + " (" + event.getId() + ")");
-            System.out.println("Time: " + event.getTime() + " | " + "Room: " + event.getRoom() + "\n");
+            System.out.println(event.getName() + " (id: " + event.getId() + ")");
+            System.out.println("Time: " + event.getTime());
+            System.out.println("Room: " + event.getRoom() + "\n");
         }
-        System.out.println("\n");
+        if (events.isEmpty()) {
+            System.out.println("You have no events.\n");
+        }
     }
 
     public void success() {
-        System.out.println("\nMessage successfully sent!\n");
+        System.out.println("\nMessage successfully sent!");
     }
 }
