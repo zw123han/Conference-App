@@ -55,7 +55,7 @@ public class UserOptionsInterface {
                     showMessageScreen(); // don't think this is sufficient, need to revise later
                     break;
                 case "5":
-                    // the view friends
+                    showFriends(registrar, user);
                 case "6":
                     showCreateEventsScreen(registrar);
                     break;
@@ -81,7 +81,7 @@ public class UserOptionsInterface {
                     showMessageScreen();
                     break;
                 case "5":
-                    //the view friends
+                    showFriends(registrar, user);
                 case "6":
                     showCreateEventsScreen(registrar);
                     break;
