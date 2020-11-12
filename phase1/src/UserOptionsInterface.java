@@ -39,7 +39,7 @@ public class UserOptionsInterface {
         showOptions(loginFacade.getUser());
         System.out.println("\nPlease select an option listed above.");
         String choice = sc.nextLine();
-        if (user instanceof Organizer) { //TODO need to implement a "go back" option
+        if (user instanceof Organizer) {
             switch (choice) {
                 case "1":
                     logout();
@@ -77,11 +77,11 @@ public class UserOptionsInterface {
                 case "4":
                     showMessageScreen();
                     break;
-                case "Add Event":
+                case "5":
                     showCreateEventsScreen(registrar);
                     break;
                 default:
-                    System.out.println("Please input a valid option(1-4).");
+                    System.out.println("Please input a valid option(1-5).");
                     break;
             }
         }
