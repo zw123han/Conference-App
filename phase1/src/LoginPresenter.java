@@ -32,10 +32,10 @@ public class LoginPresenter {
         return "Successfully logged out.";
     }
     public String failedLogin() {
-        return "We're sorry, your credentials are incorrect.";
+        return "We're sorry, your credentials are incorrect. Please make sure you are not entering empty credentials.";
     }
     public String usernameTaken(){
-        return "We're sorry, that username is taken. Please try again.";
+        return "We're sorry, you cannot use those credentials.";
     }
     public String successfulLogin(){
         return "Successfully logged in.";

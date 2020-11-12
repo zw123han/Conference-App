@@ -84,7 +84,7 @@ public class UserOptionsInterface {
                 case "5":
                     showFriends(registrar);
                 default:
-                    System.out.println("Please input a valid option(1-6).");
+                    System.out.println("Please input a valid option(1-5).");
                     break;
             }
         }
