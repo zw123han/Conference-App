@@ -4,7 +4,7 @@ public class FriendsPresenter {
     public String userNotFound() {
         return "This user does not exist. Please enter a valid user.";
     }
-    public String NoAddYourself() {return "Can't add yourself as a friend";}
+    public String noAddYourself() {return "Can't add yourself as a friend";}
     public String alreadyFriends() {return "Already friends with this user";}
     public String userAdded() {
         return "User has been successfully added to your friends list.";
