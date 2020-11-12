@@ -49,7 +49,7 @@ public class UserOptionsInterface {
                     showEventScreen(esp);
                     break;
                 case "3":
-                    showMessageScreen(); // don't think this is sufficient, need to revise later
+                    showMessageScreen(registrar); // don't think this is sufficient, need to revise later
                     break;
                 case "4":
                     changePassword();
@@ -75,7 +75,7 @@ public class UserOptionsInterface {
                     showEventScreen(esp);
                     break;
                 case "3":
-                    showMessageScreen();
+                    showMessageScreen(registrar);
                     break;
                 case "4":
                     changePassword();
@@ -181,17 +181,17 @@ public class UserOptionsInterface {
         }
 
     }
-    public void showMessageScreen(){
+    public void showMessageScreen(Registrar reg){
         User user = loginFacade.getUser();
         cmp.menuDisplay();
         cmp.commandPrompt("prompt");
         String choice = sc.nextLine();
         while (!choice.equals("$q")) {
             if (choice.equals("1")) {
-                showOutbox(user);
+                showOutbox(reg, user);
             }
             else if (choice.equals("2")) {
-                InboxController ic = new InboxController(user);
+                InboxController ic = new InboxController(reg, user);
                 ic.promptChatChoice();
             } else {
                 cmp.invalidCommand("prompt");
@@ -202,8 +202,8 @@ public class UserOptionsInterface {
         }
     }
 
-    public void showOutbox(User user) {
-        OutboxController oc = new OutboxController(user);
+    public void showOutbox(Registrar reg, User user) {
+        OutboxController oc = new OutboxController(reg, user);
         if (user instanceof Organizer) {
             oc.promptChatChoice();
         } else if (user instanceof Speaker) {

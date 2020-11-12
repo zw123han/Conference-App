@@ -7,12 +7,14 @@ public class OutboxController {
     private EventManager em;
     private Scanner sc = new Scanner(System.in);
     private User user;
+    private Registrar reg;
 
-    public OutboxController(User user) {
+    public OutboxController(Registrar reg, User user) {
         this.user = user;
         ReadEvents reader = new ReadEvents("phase1/src/eventData.ser");
         ArrayList<Event> re = new ArrayList<>(reader.read());
         this.em = new EventManager(re);
+        this.reg = reg;
     }
 
     public void promptChatChoice() {
