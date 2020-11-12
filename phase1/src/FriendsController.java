@@ -16,15 +16,15 @@ public class FriendsController {
         if (friendsManager.addFriend(user, other_user)) {
             System.out.println(friendsPresenter.userAdded());
         }
-        if (!(friendsManager.addFriend(user, other_user)))
-            if (!user.hasFriend(other_user)) {
+        else {
+            if (user.hasFriend(other_user)) {
                 System.out.println(friendsPresenter.alreadyFriends());
             } else if (other_user.equals(user.getUserName())) {
-                System.out.println(friendsPresenter.NoAddYourself());
+                System.out.println(friendsPresenter.noAddYourself());
             } else {
                 System.out.println(friendsPresenter.userNotFound());
             }
-
+        }
     }
     public void removeFriends(User user) {
         System.out.println(friendsPresenter.enterUser());
