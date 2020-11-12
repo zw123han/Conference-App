@@ -15,8 +15,8 @@ public class ChatController {
         return message.length() != 0;
     }
 
-    public boolean canMessage(User user, String recipient, EventManager em) {
-        return (user.hasFriend(recipient) || user instanceof Organizer);
+    public boolean canMessage(User user, String recipient, Registrar reg) {
+        return ((user.hasFriend(recipient) || user instanceof Organizer) && reg.userExisting(recipient));
     }
 
     public boolean canMessage(User user, Long evt, EventManager em) {
