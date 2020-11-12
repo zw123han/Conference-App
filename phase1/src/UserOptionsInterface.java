@@ -45,13 +45,13 @@ public class UserOptionsInterface {
                     logout();
                     break;
                 case "2":
-                    changePassword();
-                    break;
-                case "3":
                     showEventScreen(esp);
                     break;
-                case "4":
+                case "3":
                     showMessageScreen(); // don't think this is sufficient, need to revise later
+                    break;
+                case "4":
+                    changePassword();
                     break;
                 case "5":
                     showCreateEventsScreen(registrar);
