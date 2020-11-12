@@ -7,6 +7,9 @@ public class EventManager implements Serializable {
     private HashMap<Long, Event> events;
 
     public EventManager(ArrayList<Event> events) {
+        if (this.events == null) {
+            this.events = new HashMap<Long, Event>();
+        }
         for(Event ev: events){
             this.events.put(ev.getId(), ev);
         }
