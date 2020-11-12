@@ -25,14 +25,12 @@ public class UserOptionsInterface {
     }
 
     public void loggedIn(User user, Registrar registrar) {
-        boolean retry = true;
         if (loginFacade.getUser() == null) {
             showOptions(user);
         }
-        while (loginFacade.getUser() == null && retry != false) {
+        while (loginFacade.getUser() == null) {
             System.out.println("Please hit enter to try again. If you no longer wish to continue, enter Q to exit the program");
             if (sc.nextLine().equals("Q")) {
-                retry = false;
                 return;
             } else {
                 showOptions(user);
@@ -121,16 +119,18 @@ public class UserOptionsInterface {
     public void showEventScreen(EventSignupPresenter esp) {
         esp.viewEvents();
         esp.usersEvents(loginFacade.getUser());
-        System.out.println("\nWould you like to add or leave an event?");
+        System.out.println("\nWould you like to add or leave an event? Press Q to go back.");
         String choice = sc.nextLine();
-        if (choice.equals("add")) {
+        if (choice.toLowerCase().equals("add")) {
             System.out.println("Please input the event_id");
             String event_id = sc.nextLine();
             esp.joinEvent(loginFacade.getUser(), event_id);
-        } else if (choice.equals("leave")) {
+        } else if (choice.toLowerCase().equals("leave")) {
             System.out.println("Please input the event_id");
             String event_id = sc.nextLine();
             esp.leaveEvent(loginFacade.getUser(), event_id);
+        } else if (choice.toLowerCase().equals("q")) {
+            return;
         } else {
             System.out.println("Please enter a valid input (add or leave)");
         }

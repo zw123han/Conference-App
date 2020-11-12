@@ -19,13 +19,10 @@ public class Registrar {
         User user;
         if (type.toLowerCase().equals("attendee")) {
             user = new Attendee(name, userName, password);
-            //attendees.add(new Attendee(name, userName, password));
         } else if (type.toLowerCase().equals("organizer")) {
             user = new Organizer(name, userName, password);
-            //organizers.add(new Organizer(name, userName, password));
         } else if (type.toLowerCase().equals("speaker")){
             user = new Speaker(name, userName, password);
-            //speakers.add(new Speaker(name, userName, password));
         } else {
             return false;
         }
