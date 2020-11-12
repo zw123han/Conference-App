@@ -172,14 +172,11 @@ public class UserOptionsInterface {
     public void showFriends(Registrar registrar, User user) {
         FriendsController fc = new FriendsController(registrar,fp);
         fp.viewFriends(user); //shows user a list of all their friends
-
         fp.AddOrRemovev();
         String choice = sc.nextLine();
         if (choice.equals("1")) {
-            fp.enterUser();
             fc.addFriends(user); // will prompt the user for who they wanna add
         } else {
-            fp.enterUser();
             fc.removeFriends(user);
         }
 
