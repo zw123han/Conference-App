@@ -44,11 +44,14 @@ public class ConferenceSimulator {
         do{
             do {
                 ui.loggedIn(loginFacade.getUser(), registrar);
-                storeUsers.store(registrar.getUsers());
-                saveEvents.saveEvents(eventManager.getEventsList());
             } while (loginFacade.getUser() != null);
+
+            storeUsers.store(registrar.getUsers());
+            saveEvents.saveEvents(eventManager.getEventsList());
+
             System.out.println("Are you sure you want to close the program? Press Q to close.");
             exit = sc.nextLine().equals("Q");
+
         } while (!exit);
 
 
