@@ -14,10 +14,10 @@ public class InboxPresenter extends CommandPresenter {
         ArrayList<Message> history = cm.getHistory();
         for (Message m : history) {
             String sender = m.getSender();
+            System.out.println("\n");
             System.out.println("From: " + reg.getUserByUserName(sender).getName() + " (@" + sender + ")");
             System.out.println("Sent: " + m.getDate());
             messageFormatter(m.getMessage());
-            System.out.println("\n");
         }
     }
 
