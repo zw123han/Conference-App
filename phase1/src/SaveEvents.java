@@ -17,8 +17,8 @@ public class SaveEvents {
             objectOS.writeObject(evList);
             objectOS.close();
             streamOut.close();
-        } catch (Exception e) {
-            e.printStackTrace();
+        } catch (IOException e) {
+            System.out.println("Error saving to file. Pathway does not exist.");
         }
     }
 
