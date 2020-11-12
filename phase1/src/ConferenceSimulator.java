@@ -25,7 +25,7 @@ public class ConferenceSimulator {
         organizerCreationScript.createOrganizers(registrar);
 
         LoginOptionsFacade loginFacade = new LoginOptionsFacade(registrar);
-        EventCreatorPresenter eventCreatorPresenter = new EventCreatorPresenter(eventManager);
+        EventCreatorPresenter eventCreatorPresenter = new EventCreatorPresenter(eventManager, registrar);
         EventSignupPresenter eventSignupPresenter = new EventSignupPresenter(eventSignup, eventManager);
         ChatMenuPresenter chatMenuPresenter = new ChatMenuPresenter();
         FriendsPresenter friendsPresenter = new FriendsPresenter();

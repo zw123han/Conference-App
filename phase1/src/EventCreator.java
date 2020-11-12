@@ -3,9 +3,11 @@ import java.util.ArrayList;
 
 public class EventCreator {
     private EventManager em;
+    private Registrar reg;
 
-    public EventCreator(EventManager em) {
+    public EventCreator(EventManager em, Registrar reg) {
         this.em = em;
+        this.reg = reg;
     }
 
     public boolean createEvent(String name, String room, LocalDateTime start_time, String speaker, int capacity)
@@ -24,7 +26,7 @@ public class EventCreator {
                 }
             }
         }
-        this.em.createEvent(name, room, start_time, speaker, capacity);
+        this.em.createEvent(name, room, start_time, speaker, capacity, (Speaker) reg.getUserByUserName(speaker));
         return true;
     }
 }
