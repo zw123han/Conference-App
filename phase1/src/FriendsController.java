@@ -16,7 +16,7 @@ public class FriendsController {
         if (friendsManager.addFriend(user, other_user)) {
             System.out.println(friendsPresenter.userAdded());
         }
-        if (!(friendsManager.addFriend(user, other_user)))
+        else {
             if (!user.hasFriend(other_user)) {
                 System.out.println(friendsPresenter.alreadyFriends());
             } else if (other_user.equals(user.getUserName())) {
@@ -24,7 +24,7 @@ public class FriendsController {
             } else {
                 System.out.println(friendsPresenter.userNotFound());
             }
-
+        }
     }
     public void removeFriends(User user) {
         System.out.println(friendsPresenter.enterUser());
