@@ -9,12 +9,12 @@ public class Event implements Serializable {
     private String name;
     private String room;
     private LocalDateTime time;
-    private Speaker speaker;
+    private String speaker;
     private int capacity;
     private ArrayList<String> signedUpUsers = new ArrayList<String>();
     private long id;
 
-    public Event(String name, String room, LocalDateTime time, Speaker speaker, int capacity){
+    public Event(String name, String room, LocalDateTime time, String speaker, int capacity){
         this.name = name;
         this.room = room;
         this.time = time;
@@ -40,7 +40,7 @@ public class Event implements Serializable {
         return time;
     }
 
-    public Speaker getSpeaker(){
+    public String getSpeaker(){
         return speaker;
     }
 
