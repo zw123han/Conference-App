@@ -22,7 +22,6 @@ public class EventManager implements Serializable {
     public void createEvent(String name, String room, LocalDateTime time, String speaker, int capacity) {
         Event ev = new Event(name, room, time, speaker, capacity);
         this.events.put(ev.getId(), ev);
-        speaker.addTalk(ev.getId());
     }
 
     public ArrayList<Event> getEventsList() {
