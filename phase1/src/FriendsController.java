@@ -4,7 +4,6 @@ import java.util.Scanner;
 public class FriendsController {
     private FriendsManager friendsManager;
     private FriendsPresenter friendsPresenter;
-    private Registrar registrar;
     private Scanner sc = new Scanner(System.in);
 
     public FriendsController(Registrar registrar, FriendsPresenter friendsPresenter) {
