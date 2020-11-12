@@ -52,7 +52,7 @@ public class EventSignupPresenter {
         }
     }
     public void usersEvents(User user) {
-        System.out.println("\nYour Events: ");
+        System.out.println("Your Events: ");
         for (Long event_long: user.getEvents())  {
             Event ev = em.getEventById(event_long);
             System.out.println("Name: " + ev.getName());
