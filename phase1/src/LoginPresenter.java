@@ -20,7 +20,7 @@ public class LoginPresenter {
      * @return      (please describe)
      */
     public String inquireAccount(){
-        return "Press C to create a new account, press L to login to an existing account, or any other key to exit.";
+        return "Press C to create a new account, press L to login to an existing account, or any other key to cancel.";
     }
 
     /**
