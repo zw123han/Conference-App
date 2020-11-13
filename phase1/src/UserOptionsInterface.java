@@ -164,9 +164,12 @@ public class UserOptionsInterface {
         }
     }
     public void showCreateSpeakerScreen() {
-        System.out.println("Please input the speaker account you wish to create: name, userName, password");
+        System.out.println("Please input the speaker account you wish to create:");
+        System.out.println("Enter the speaker's name:");
         String name = sc.nextLine();
+        System.out.println("Enter a username for the speaker:");
         String userName = sc.nextLine();
+        System.out.println("Enter a password for the speaker:");
         String password = sc.nextLine();
 
         if (loginFacade.userExists(userName)) {
