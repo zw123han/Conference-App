@@ -8,7 +8,26 @@ import java.util.*;
  */
 public class ConferenceSimulator {
 
+    ReadEvents readEvents;
+    ReadUsers readUsers;
+
+    SaveEvents saveEvents;
+    StoreUsers storeUsers;
+    Registrar registrar;
+    EventManager eventManager;
+
     public ConferenceSimulator() {
+        String userFilepath = "phase1/src/userData.ser";
+        String eventFilepath = "phase1/src/eventData.ser";
+        // Should we also have chatlog filepath?
+
+        readEvents = new ReadEvents(eventFilepath);
+        readUsers = new ReadUsers(userFilepath);
+
+        saveEvents = new SaveEvents(eventFilepath);
+        storeUsers = new StoreUsers(userFilepath);
+        registrar = new Registrar(readUsers.read());
+        eventManager = new EventManager(readEvents.read());
     }
 
     /**
@@ -16,18 +35,6 @@ public class ConferenceSimulator {
      */
     public void run() {
 
-        String userFilepath = "phase1/src/userData.ser";
-        String eventFilepath = "phase1/src/eventData.ser";
-        // Should we also have chatlog filepath?
-
-        ReadEvents readEvents = new ReadEvents(eventFilepath);
-        ReadUsers readUsers = new ReadUsers(userFilepath);
-
-        SaveEvents saveEvents = new SaveEvents(eventFilepath);
-        StoreUsers storeUsers = new StoreUsers(userFilepath);
-
-        Registrar registrar = new Registrar(readUsers.read());
-        EventManager eventManager = new EventManager(readEvents.read());
         EventSignup eventSignup = new EventSignup();
 
         // Make admin accounts
@@ -68,5 +75,11 @@ public class ConferenceSimulator {
         // ArrayList<Event> emptyEventList = new ArrayList<>();
         // storeUsers.store(emptyUserList);
         // saveEvents.saveEvents(emptyEventList);
+    }
+
+    public void save(){
+        storeUsers.store(registrar.getUsers());
+        saveEvents.saveEvents(eventManager.getEventsList());
+        System.out.println("saved");
     }
 }
