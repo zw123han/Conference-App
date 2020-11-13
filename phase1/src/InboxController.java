@@ -12,27 +12,30 @@ public class InboxController {
     private ChatController cc = new ChatController();
     private InboxPresenter ip = new InboxPresenter();
     private Scanner sc = new Scanner(System.in);
-    private User user;
+    private String username;
     private Registrar reg;
+    private EventManager em;
 
     /**
      * (please describe)
      *
      * @param reg       (please describe)
-     * @param user      (please describe)
+     * @param username  (please describe)
+     * @param em        (please describe)
      */
-    public InboxController(Registrar reg, User user) {
-        this.user = user;
+    public InboxController(Registrar reg, String username, EventManager em) {
         this.reg = reg;
+        this.username = username;
+        this.em = em;
     }
 
-    private ArrayList<String> getUsersTalkto(User user, ChatroomManager cm) {
+    private ArrayList<String> getUsersTalkto(String username, ChatroomManager cm) {
         ArrayList<String> users = new ArrayList<>();
-        HashMap<ArrayList<String>, Chatroom> cms = cm.getAllChatrooms(user);
+        HashMap<ArrayList<String>, Chatroom> cms = cm.getAllChatrooms(username);
         for (ArrayList<String> key : cms.keySet()) {
-            if (key.contains(user.getUserName())) {
+            if (key.contains(username)) {
                 for (String person : key) {
-                    if (!person.equals(user.getUserName())) {
+                    if (!person.equals(username)) {
                         users.add(person);
                     }
                 }
@@ -47,7 +50,7 @@ public class InboxController {
     public void promptChatChoice() {
         ChatPull pull = new ChatPull();
         ChatroomManager cm = pull.readChatlog();
-        ArrayList<String> friends = getUsersTalkto(user, cm);
+        ArrayList<String> friends = getUsersTalkto(username, cm);
         ip.menuDisplay(reg, friends);
         ip.commandPrompt("username");
         String recipient = sc.nextLine();
@@ -71,11 +74,11 @@ public class InboxController {
      * @param recipient     (please describe)
      */
     public void chatViewer(ChatroomManager cm, String recipient) {
-        ip.chatView(reg, cm.getChatroom(user, recipient));
+        ip.chatView(reg, cm.getChatroom(username, recipient));
         String e = "";
         while (!e.equals("$q")) {
-            if (cc.canReply(user, recipient, cm)) {
-                promptReply(user, recipient);
+            if (cc.canReply(reg, username, recipient, cm)) {
+                promptReply(recipient);
                 break;
             }
             ip.exitMessage();
@@ -86,11 +89,10 @@ public class InboxController {
     /**
      * (please describe)
      *
-     * @param user          (please describe)
      * @param recipient     (please describe)
      */
-    public void promptReply(User user, String recipient) {
-        OutboxController oc = new OutboxController(reg, user);
+    public void promptReply(String recipient) {
+        OutboxController oc = new OutboxController(reg, username, em);
         ip.replyMessage();
         String re = sc.nextLine();
         while (!re.equals("$q")) {
@@ -98,7 +100,7 @@ public class InboxController {
                 oc.promptMessage(recipient);
                 ChatPull pull = new ChatPull();
                 ChatroomManager cm = pull.readChatlog();
-                ip.chatView(reg, cm.getChatroom(user, recipient));
+                ip.chatView(reg, cm.getChatroom(username, recipient));
             } else {
                 ip.invalidCommand("prompt");
             }

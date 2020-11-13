@@ -22,7 +22,7 @@ public class InboxPresenter extends CommandPresenter {
         if (friends.isEmpty()) {
             System.out.println("You can't chat with any users.");
         }
-        System.out.println("");
+        System.out.println();
     }
 
     /**
@@ -39,7 +39,7 @@ public class InboxPresenter extends CommandPresenter {
             System.out.println("Sent: " + m.getDate());
             messageFormatter(m.getMessage());
         }
-        System.out.println("");
+        System.out.println();
     }
 
     /**

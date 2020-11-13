@@ -38,14 +38,18 @@ public class Registrar {
      */
     public boolean createUser(String name, String userName, String password, String type) {
         User user;
-        if (type.toLowerCase().equals("attendee")) {
-            user = new Attendee(name, userName, password);
-        } else if (type.toLowerCase().equals("organizer")) {
-            user = new Organizer(name, userName, password);
-        } else if (type.toLowerCase().equals("speaker")){
-            user = new Speaker(name, userName, password);
-        } else {
-            return false;
+        switch (type.toLowerCase()) {
+            case "attendee":
+                user = new Attendee(name, userName, password);
+                break;
+            case "organizer":
+                user = new Organizer(name, userName, password);
+                break;
+            case "speaker":
+                user = new Speaker(name, userName, password);
+                break;
+            default:
+                return false;
         }
         users.add(user);
         return true;
@@ -124,4 +128,45 @@ public class Registrar {
         }
         return allUsernames;
     }
+
+    public boolean isOrganizer(String username) {
+        if (userExisting(username)) {
+            return getUserByUserName(username) instanceof Organizer;
+        }
+        return false;
+    }
+
+    public boolean isSpeaker(String username) {
+        if (userExisting(username)) {
+            return getUserByUserName(username) instanceof Speaker;
+        }
+        return false;
+    }
+
+    public boolean isAttendee(String username) {
+        if (userExisting(username)) {
+            return getUserByUserName(username) instanceof Attendee;
+        }
+        return false;
+    }
+
+    public ArrayList<String> getUserFriends(String username) {
+        if (userExisting(username)) {
+            return getUserByUserName(username).getFriends();
+        }
+        return new ArrayList<>();
+    }
+
+    public boolean isFriend(String username, String friend) {
+        return getUserByUserName(username).getFriends().contains(friend);
+    }
+
+    public ArrayList<Long> getSpeakerTalks(String username) {
+        if (isSpeaker(username)) {
+            Speaker speaker = (Speaker) getUserByUserName(username);
+            return speaker.getTalks();
+        }
+        return new ArrayList<>();
+    }
+
 }

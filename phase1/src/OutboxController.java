@@ -11,20 +11,20 @@ public class OutboxController {
     private OutboxPresenter op = new OutboxPresenter();
     private EventManager em;
     private Scanner sc = new Scanner(System.in);
-    private User user;
+    private String username;
     private Registrar reg;
 
     /**
      * (please describe)
      *
      * @param reg       (please describe)
-     * @param user      (please describe)
+     * @param username      (please describe)
+     * @param em (desc)
      */
-    public OutboxController(Registrar reg, User user) {
-        this.user = user;
-        ReadEvents reader = new ReadEvents("phase1/src/eventData.ser");
-        this.em = new EventManager(reader.read());
+    public OutboxController(Registrar reg, String username, EventManager em) {
+        this.username = username;
         this.reg = reg;
+        this.em = em;
     }
 
     /**
@@ -55,17 +55,17 @@ public class OutboxController {
      * (please describe)
      */
     public void promptRecipient() {
-        op.friendMenu(reg, user);
+        op.friendMenu(reg, username);
         op.commandPrompt("username");
         String recipient = sc.nextLine();
         while (!recipient.equals("$q")) {
             recipient = recipient.replace("@", "");
-            if (cc.canMessage(user, recipient, reg)) {
+            if (cc.canMessage(username, recipient, reg)) {
                 promptMessage(recipient);
             } else {
                 op.invalidCommand("username");
             }
-            op.friendMenu(reg, user);
+            op.friendMenu(reg, username);
             op.commandPrompt("username");
             recipient = sc.nextLine();
 
@@ -75,7 +75,7 @@ public class OutboxController {
     private boolean canSendSpeakers(ArrayList<String> speakers) {
         boolean result = true;
         for (String speaker : speakers) {
-            if (!cc.canMessage(user, speaker, reg)) {
+            if (!cc.canMessage(username, speaker, reg)) {
                 result = false;
             }
         }
@@ -120,17 +120,17 @@ public class OutboxController {
     private boolean canSendEvents(ArrayList<Long> event_ids) {
         boolean result = true;
         for (Long event_id : event_ids) {
-            if (!cc.canMessage(user, event_id, em)) {
+            if (!cc.canMessage(username, event_id, reg, em)) {
                 result = false;
             }
         }
         return result;
     }
 
-    private void loadEventMenu(User user) {
-        if (user instanceof Speaker) {
-            op.eventMenu((Speaker)user, em);
-        } else if (user instanceof Organizer) {
+    private void loadEventMenu() {
+        if (reg.isSpeaker(username)) {
+            op.eventMenu(username, em, reg);
+        } else if (reg.isOrganizer(username)) {
             op.eventMenu(em);
         }
     }
@@ -143,7 +143,7 @@ public class OutboxController {
      * (please describe)
      */
     public void promptEvent() {
-        loadEventMenu(user);
+        loadEventMenu();
         op.commandPrompt("event ID (separate IDs with a space)");
         String evt = sc.nextLine();
         while (!evt.equals("$q")) {
@@ -157,7 +157,7 @@ public class OutboxController {
             } else {
                 op.invalidCommand("event ID (unexpected character)");
             }
-            loadEventMenu(user);
+            loadEventMenu();
             op.commandPrompt("event ID (separate IDs with a space)");
             evt = sc.nextLine();
         }
@@ -173,7 +173,7 @@ public class OutboxController {
         String message = sc.nextLine();
         while (!message.equals("$q")) {
             if (cc.validateMessage(message)) {
-                cc.sendMessage(user, destination, message);
+                cc.sendMessage(username, destination, message);
                 op.success();
                 message = "$q";
             } else {
@@ -195,7 +195,7 @@ public class OutboxController {
         while (!message.equals("$q")) {
             if (cc.validateMessage(message)) {
                 for (Long event_id : event_ids) {
-                    cc.sendMessage(user, event_id, message, em);
+                    cc.sendMessage(username, event_id, message, em);
                 }
                 op.success();
                 message = "$q";
@@ -218,7 +218,7 @@ public class OutboxController {
         while (!message.equals("$q")) {
             if (cc.validateMessage(message)) {
                 for (String speaker : speakers) {
-                    cc.sendMessage(user, speaker, message);
+                    cc.sendMessage(username, speaker, message);
                 }
                 op.success();
                 message = "$q";

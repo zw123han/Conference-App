@@ -49,7 +49,7 @@ public class ConferenceSimulator {
         // Other controllers with presenters go here
 
         UserOptionsInterface ui = new UserOptionsInterface(loginFacade, eventCreatorPresenter, eventSignupPresenter,
-                chatMenuPresenter, friendsPresenter);
+                chatMenuPresenter, friendsPresenter, eventManager);
         // Other UIs go into this ui
 
         // Only have attendees create their own accounts (assume they are already signed up)

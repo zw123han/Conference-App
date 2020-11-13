@@ -39,9 +39,9 @@ public class ChatroomManager implements Serializable {
      * @param recipient     (please describe)
      * @return              (please describe)
      */
-    public Chatroom getChatroom(User user, String recipient){
+    public Chatroom getChatroom(String user, String recipient){
         ArrayList<String> recipients = new ArrayList<>();
-        recipients.add(user.getUserName());
+        recipients.add(user);
         recipients.add(recipient);
         Collections.sort(recipients);
         if (!chatrooms.containsKey(recipients)){
@@ -53,13 +53,13 @@ public class ChatroomManager implements Serializable {
     /**
      * (please describe)
      *
-     * @param user          (please describe)
+     * @param username          (please describe)
      * @return              (please describe)
      */
-    public HashMap<ArrayList<String>, Chatroom> getAllChatrooms(User user) {
+    public HashMap<ArrayList<String>, Chatroom> getAllChatrooms(String username) {
         HashMap<ArrayList<String>, Chatroom> cms = new HashMap<>();
         for (ArrayList<String> key : chatrooms.keySet()) {
-            if (key.contains(user.getUserName())) {
+            if (key.contains(username)) {
                 cms.put(key, getChatroom(key));
             }
         }
@@ -118,9 +118,9 @@ public class ChatroomManager implements Serializable {
      * @param recipient     (please describe)
      * @return              (please describe)
      */
-    public boolean hasChatroom(User user, String recipient) {
+    public boolean hasChatroom(String user, String recipient) {
         ArrayList<String> recipients = new ArrayList<>();
-        recipients.add(user.getUserName());
+        recipients.add(user);
         recipients.add(recipient);
         Collections.sort(recipients);
         return chatrooms.containsKey(recipients);

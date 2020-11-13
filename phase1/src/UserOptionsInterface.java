@@ -19,6 +19,7 @@ public class UserOptionsInterface {
     private Scanner sc = new Scanner(System.in);
     private LoginOptionsFacade loginFacade;
     private FriendsPresenter fp;
+    private EventManager em;
     // All other UIs go here too and in the constructor
 
     /**
@@ -31,12 +32,13 @@ public class UserOptionsInterface {
      * @param fp                (please describe)
      */
     public UserOptionsInterface(LoginOptionsFacade loginFacade, EventCreatorPresenter ecp, EventSignupPresenter esp,
-                                ChatMenuPresenter cmp, FriendsPresenter fp){
+                                ChatMenuPresenter cmp, FriendsPresenter fp, EventManager em){
         this.loginFacade = loginFacade;
         this.ecp = ecp;
         this.esp = esp;
         this.cmp = cmp;
         this.fp = fp;
+        this.em = em;
         this.loginUI = new LoginUI(loginFacade);
 
     }
@@ -294,7 +296,7 @@ public class UserOptionsInterface {
                 showOutbox(reg, user);
             }
             else if (choice.equals("2")) {
-                InboxController ic = new InboxController(reg, user);
+                InboxController ic = new InboxController(reg, user.getUserName(), em);
                 ic.promptChatChoice();
             } else {
                 cmp.invalidCommand("prompt");
@@ -312,7 +314,7 @@ public class UserOptionsInterface {
      * @param user      (please describe)
      */
     public void showOutbox(Registrar reg, User user) {
-        OutboxController oc = new OutboxController(reg, user);
+        OutboxController oc = new OutboxController(reg, user.getUserName(), em);
         if (user instanceof Organizer) {
             oc.promptChatChoice();
         } else if (user instanceof Speaker) {
