@@ -190,11 +190,10 @@ public class UserOptionsInterface {
             System.out.println("password:");
             String password = sc.nextLine();
 
-            if (loginFacade.userExists(userName)) {
-                System.out.println("Username already exists, please create another one");
+             if (loginFacade.createUser(name, userName, password, "speaker")) {
+               System.out.println("Speaker account created successfully");
             } else {
-                loginFacade.createUser(name, userName, password, "speaker");
-                System.out.println("Speaker account created successfully ");
+                System.out.println("You cannot use those credentials. Please try again.");
             }
             System.out.println("Would you like to create a Speaker? Press any key to continue, or q to exit");
             choice = sc.nextLine();
