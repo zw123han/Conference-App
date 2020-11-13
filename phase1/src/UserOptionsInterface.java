@@ -21,6 +21,15 @@ public class UserOptionsInterface {
     private FriendsPresenter fp;
     // All other UIs go here too and in the constructor
 
+    /**
+     * (please describe)
+     *
+     * @param loginFacade       (please describe)
+     * @param ecp               (please describe)
+     * @param esp               (please describe)
+     * @param cmp               (please describe)
+     * @param fp                (please describe)
+     */
     public UserOptionsInterface(LoginOptionsFacade loginFacade, EventCreatorPresenter ecp, EventSignupPresenter esp,
                                 ChatMenuPresenter cmp, FriendsPresenter fp){
         this.loginFacade = loginFacade;
@@ -32,6 +41,12 @@ public class UserOptionsInterface {
 
     }
 
+    /**
+     * (please describe)
+     *
+     * @param user          (please describe)
+     * @param registrar     (please describe)
+     */
     public void loggedIn(User user, Registrar registrar) {
         if (loginFacade.getUser() == null) {
             showOptions(user);
@@ -47,6 +62,12 @@ public class UserOptionsInterface {
         homeScreenMenu(loginFacade.getUser(), registrar);
     }
 
+    /**
+     * (please describe)
+     *
+     * @param user          (please describe)
+     * @param registrar     (please describe)
+     */
     public void homeScreenMenu(User user, Registrar registrar) {
         System.out.println("\nWelcome " + user.getUserName());
         showOptions(user);
@@ -102,6 +123,7 @@ public class UserOptionsInterface {
             }
         }
     }
+
     private void generalOptions(){
         System.out.println("1) Logout");
         System.out.println("2) Events");
@@ -109,6 +131,12 @@ public class UserOptionsInterface {
         System.out.println("4) Change password");
         System.out.println("5) Friends");
     }
+
+    /**
+     * (please describe)
+     *
+     * @param user      (please describe)
+     */
     public void showOptions(User user){
         if (user == null){
             login();
@@ -125,6 +153,12 @@ public class UserOptionsInterface {
             generalOptions();
         }
     }
+
+    /**
+     * (please describe)
+     *
+     * @param esp       (please describe)
+     */
     public void showEventScreen(EventSignupPresenter esp) {
         esp.viewEvents();
         esp.usersEvents(loginFacade.getUser());
@@ -150,6 +184,12 @@ public class UserOptionsInterface {
             choice = sc.nextLine();
         }
     }
+
+    /**
+     * (please describe)
+     *
+     * @param registrar     (please describe)
+     */
     public void showCreateEventsScreen(Registrar registrar) { //TODO this ugly af, will need to change a bit
         System.out.println("Would you like to create an event? Press any key to continue, or $q to exit");
         String choice = sc.nextLine();
@@ -188,6 +228,10 @@ public class UserOptionsInterface {
             choice = sc.nextLine();
         }
     }
+
+    /**
+     * (please describe)
+     */
     public void showCreateSpeakerScreen() {
         System.out.println("Would you like to create a Speaker? Press any key to continue, or $q to exit");
         String choice = sc.nextLine();
@@ -210,6 +254,12 @@ public class UserOptionsInterface {
         }
     }
 
+    /**
+     * (please describe)
+     *
+     * @param registrar     (please describe)
+     * @param user          (please describe)
+     */
     public void showFriends(Registrar registrar, User user) {
         FriendsController fc = new FriendsController(registrar,fp);
         fp.viewFriends(user); //shows user a list of all their friends
@@ -228,6 +278,13 @@ public class UserOptionsInterface {
             choice = sc.nextLine();
         }
     }
+
+    /**
+     * (please describe)
+     *
+     * @param reg       (please describe)
+     * @param user      (please describe)
+     */
     public void showMessageScreen(Registrar reg, User user){
         cmp.menuDisplay();
         cmp.commandPrompt("prompt");
@@ -248,6 +305,12 @@ public class UserOptionsInterface {
         }
     }
 
+    /**
+     * (please describe)
+     *
+     * @param reg       (please describe)
+     * @param user      (please describe)
+     */
     public void showOutbox(Registrar reg, User user) {
         OutboxController oc = new OutboxController(reg, user);
         if (user instanceof Organizer) {
