@@ -8,8 +8,8 @@
 public class Attendee extends User {
 
     /**
-     * Constructor for Attendee. Takes in String variables and calls the superclass constructor to assign to inherited
-     * variables.
+     * Constructor for Attendee. Takes in String variables and calls the superclass constructor to assign to variables
+     * inherited from the User class.
      *
      * @param name          The name of the attendee.
      * @param userName      The user name of the attendee.
