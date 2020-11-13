@@ -12,11 +12,23 @@ public class EventSignupPresenter {
     private EventManager em;
     private EventSignup es;
 
+    /**
+     * (please describe)
+     *
+     * @param es        (please describe)
+     * @param em        (please describe)
+     */
     public EventSignupPresenter(EventSignup es, EventManager em) {
         this.es = es;
         this.em = em;
     }
 
+    /**
+     * (please describe)
+     *
+     * @param user          (please describe)
+     * @param event_id      (please describe)
+     */
     public void joinEvent(User user, String event_id) {
         EventSignupController esc = new EventSignupController(this.es, this.em);
         try {
@@ -30,6 +42,12 @@ public class EventSignupPresenter {
         }
     }
 
+    /**
+     * (please describe)
+     *
+     * @param user          (please describe)
+     * @param event_id      (please describe)
+     */
     public void leaveEvent(User user, String event_id) {
         EventSignupController esc = new EventSignupController(this.es, this.em);
         try {
@@ -43,6 +61,9 @@ public class EventSignupPresenter {
         }
     }
 
+    /**
+     * (please describe)
+     */
     public void viewEvents(){
         System.out.println("Available Events: ");
         for(Event ev: this.em.getEventsList()){
@@ -59,6 +80,12 @@ public class EventSignupPresenter {
             }
         }
     }
+
+    /**
+     * (please describe)
+     *
+     * @param user      (please describe)
+     */
     public void usersEvents(User user) {
         System.out.println("Your Events: ");
         for (Long event_long: user.getEvents())  {
