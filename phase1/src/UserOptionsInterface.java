@@ -1,10 +1,15 @@
 import java.time.format.DateTimeParseException;
 import java.util.InputMismatchException;
-import java.lang.NumberFormatException;
 import java.util.Scanner;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
+/**
+ * (please describe)
+ *
+ * @author
+ * @version %I%, %G%
+ */
 public class UserOptionsInterface {
 
     private LoginUI loginUI;
@@ -16,6 +21,15 @@ public class UserOptionsInterface {
     private FriendsPresenter fp;
     // All other UIs go here too and in the constructor
 
+    /**
+     * (please describe)
+     *
+     * @param loginFacade       (please describe)
+     * @param ecp               (please describe)
+     * @param esp               (please describe)
+     * @param cmp               (please describe)
+     * @param fp                (please describe)
+     */
     public UserOptionsInterface(LoginOptionsFacade loginFacade, EventCreatorPresenter ecp, EventSignupPresenter esp,
                                 ChatMenuPresenter cmp, FriendsPresenter fp){
         this.loginFacade = loginFacade;
@@ -27,12 +41,18 @@ public class UserOptionsInterface {
 
     }
 
+    /**
+     * (please describe)
+     *
+     * @param user          (please describe)
+     * @param registrar     (please describe)
+     */
     public void loggedIn(User user, Registrar registrar) {
         if (loginFacade.getUser() == null) {
             showOptions(user);
         }
         while (loginFacade.getUser() == null) {
-            System.out.println("Please hit enter to try again. If you no longer wish to continue, enter Q to exit the program");
+            System.out.println("Please any key to return to the login screen, or press Q to save and exit.");
             if (sc.nextLine().equals("Q")) {
                 return;
             } else {
@@ -42,6 +62,12 @@ public class UserOptionsInterface {
         homeScreenMenu(loginFacade.getUser(), registrar);
     }
 
+    /**
+     * (please describe)
+     *
+     * @param user          (please describe)
+     * @param registrar     (please describe)
+     */
     public void homeScreenMenu(User user, Registrar registrar) {
         System.out.println("\nWelcome " + user.getUserName());
         showOptions(user);
@@ -97,6 +123,7 @@ public class UserOptionsInterface {
             }
         }
     }
+
     private void generalOptions(){
         System.out.println("1) Logout");
         System.out.println("2) Events");
@@ -104,6 +131,12 @@ public class UserOptionsInterface {
         System.out.println("4) Change password");
         System.out.println("5) Friends");
     }
+
+    /**
+     * (please describe)
+     *
+     * @param user      (please describe)
+     */
     public void showOptions(User user){
         if (user == null){
             login();
@@ -120,12 +153,20 @@ public class UserOptionsInterface {
             generalOptions();
         }
     }
-    public void showEventScreen(EventSignupPresenter esp) { //TODO implement go back feature
+
+    /**
+     * (please describe)
+     *
+     * @param esp       (please describe)
+     */
+    public void showEventScreen(EventSignupPresenter esp) {
         esp.viewEvents();
         esp.usersEvents(loginFacade.getUser());
-        System.out.println("\nWould you like to join or leave an event? Press q to go back.");
+        System.out.println("\nWould you like to join or leave an event?");
+        System.out.println("Type \"join\" or \"leave\"");
+        System.out.println("Press $q to go back.");
         String choice = sc.nextLine();
-        while (!choice.equals("q")) {
+        while (!choice.equals("$q")) {
             if (choice.toLowerCase().equals("join")) {
                 System.out.println("Please input the event_id");
                 String event_id = sc.nextLine();
@@ -137,16 +178,24 @@ public class UserOptionsInterface {
             } else {
                 System.out.println("Please enter a valid input (join or leave)");
             }
-            System.out.println("\nWould you like to join or leave an event? Press q to go back.");
+            System.out.println("\nWould you like to join or leave an event?");
+            System.out.println("Type \"join\" or \"leave\"");
+            System.out.println("Press $q to go back.");
             choice = sc.nextLine();
         }
     }
+
+    /**
+     * (please describe)
+     *
+     * @param registrar     (please describe)
+     */
     public void showCreateEventsScreen(Registrar registrar) { //TODO this ugly af, will need to change a bit
-        System.out.println("Would you like to create an event? Press any key to continue, or q to exit");
+        System.out.println("Would you like to create an event? Press any key to continue, or $q to exit");
         String choice = sc.nextLine();
-        while (!choice.equals("q")) {
+        while (!choice.equals("$q")) {
             try {
-                System.out.println("Please input the event you want to create: name, room, capacity, time(yyyy-MM-dd HH:mm:ss), speaker");
+                System.out.println("Please input the event you want to create: name, room, capacity, time(yyyy-MM-dd HH:mm), speaker");
                 System.out.println("name:");
                 String name = sc.nextLine();
                 System.out.println("room:");
@@ -175,15 +224,18 @@ public class UserOptionsInterface {
             } catch (InputMismatchException | NumberFormatException e) {
                 System.out.println("Please input an integer for the event's capacity\n");
             }
-            System.out.println("Please input the event you want to create: name, room, capacity, time(yyyy-MM-dd HH:mm:ss), speaker");
+            System.out.println("Press any key to continue, or $q to exit");
             choice = sc.nextLine();
         }
     }
 
+    /**
+     * (please describe)
+     */
     public void showCreateSpeakerScreen() {
-        System.out.println("Would you like to create a Speaker? Press any key to continue, or q to exit");
+        System.out.println("Would you like to create a Speaker? Press any key to continue, or $q to exit");
         String choice = sc.nextLine();
-        while (!choice.equals("q")) {
+        while (!choice.equals("$q")) {
             System.out.println("Please input the speaker account you wish to create: name, userName, password.");
             System.out.println("name:");
             String name = sc.nextLine();
@@ -192,20 +244,26 @@ public class UserOptionsInterface {
             System.out.println("password:");
             String password = sc.nextLine();
 
-            if (loginFacade.userExists(userName)) {
-                System.out.println("Username already exists, please create another one");
+             if (loginFacade.createUser(name, userName, password, "speaker")) {
+               System.out.println("Speaker account created successfully");
             } else {
-                loginFacade.createUser(name, userName, password, "speaker");
-                System.out.println("Speaker account created successfully ");
+                System.out.println("You cannot use those credentials. Please try again.");
             }
-            System.out.println("Would you like to create a Speaker? Press any key to continue, or q to exit");
+            System.out.println("Would you like to create a Speaker? Press any key to continue, or $q to exit");
             choice = sc.nextLine();
         }
     }
+
+    /**
+     * (please describe)
+     *
+     * @param registrar     (please describe)
+     * @param user          (please describe)
+     */
     public void showFriends(Registrar registrar, User user) {
         FriendsController fc = new FriendsController(registrar,fp);
         fp.viewFriends(user); //shows user a list of all their friends
-        System.out.println(fp.AddOrRemove());
+        System.out.println(fp.addOrRemove());
         String choice = sc.nextLine();
         while (!choice.equals("$q")) {
             if (choice.equals("1")) {
@@ -216,10 +274,17 @@ public class UserOptionsInterface {
                 cmp.invalidCommand("prompt");
             }
             fp.viewFriends(user);
-            System.out.println(fp.AddOrRemove());
+            System.out.println(fp.addOrRemove());
             choice = sc.nextLine();
         }
     }
+
+    /**
+     * (please describe)
+     *
+     * @param reg       (please describe)
+     * @param user      (please describe)
+     */
     public void showMessageScreen(Registrar reg, User user){
         cmp.menuDisplay();
         cmp.commandPrompt("prompt");
@@ -240,6 +305,12 @@ public class UserOptionsInterface {
         }
     }
 
+    /**
+     * (please describe)
+     *
+     * @param reg       (please describe)
+     * @param user      (please describe)
+     */
     public void showOutbox(Registrar reg, User user) {
         OutboxController oc = new OutboxController(reg, user);
         if (user instanceof Organizer) {

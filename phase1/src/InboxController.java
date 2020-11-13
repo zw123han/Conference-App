@@ -2,6 +2,12 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Scanner;
 
+/**
+ * (please describe)
+ *
+ * @author
+ * @version %I%, %G%
+ */
 public class InboxController {
     private ChatController cc = new ChatController();
     private InboxPresenter ip = new InboxPresenter();
@@ -9,6 +15,12 @@ public class InboxController {
     private User user;
     private Registrar reg;
 
+    /**
+     * (please describe)
+     *
+     * @param reg       (please describe)
+     * @param user      (please describe)
+     */
     public InboxController(Registrar reg, User user) {
         this.user = user;
         this.reg = reg;
@@ -29,6 +41,9 @@ public class InboxController {
         return users;
     }
 
+    /**
+     * (please describe)
+     */
     public void promptChatChoice() {
         ChatPull pull = new ChatPull();
         ChatroomManager cm = pull.readChatlog();
@@ -44,11 +59,17 @@ public class InboxController {
                 ip.invalidCommand("username");
             }
             ip.menuDisplay(reg, friends);
-            ip.commandPrompt("username (string after the @)");
+            ip.commandPrompt("username");
             recipient = sc.nextLine();
         }
     }
 
+    /**
+     * (please describe)
+     *
+     * @param cm            (please describe)
+     * @param recipient     (please describe)
+     */
     public void chatViewer(ChatroomManager cm, String recipient) {
         ip.chatView(reg, cm.getChatroom(user, recipient));
         String e = "";
@@ -62,6 +83,12 @@ public class InboxController {
         }
     }
 
+    /**
+     * (please describe)
+     *
+     * @param user          (please describe)
+     * @param recipient     (please describe)
+     */
     public void promptReply(User user, String recipient) {
         OutboxController oc = new OutboxController(reg, user);
         ip.replyMessage();

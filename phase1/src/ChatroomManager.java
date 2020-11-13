@@ -1,13 +1,29 @@
 import java.io.Serializable;
 import java.util.*;
 
+/**
+ * (please describe)
+ *
+ * @author
+ * @version %I%, %G%
+ * @serial
+ */
 public class ChatroomManager implements Serializable {
     private HashMap<ArrayList<String>, Chatroom> chatrooms;
 
+    /**
+     * (please describe)
+     */
     public ChatroomManager(){
         this.chatrooms = new HashMap<>();
     }
 
+    /**
+     * (please describe)
+     *
+     * @param usernames     (please describe)
+     * @return              (please describe)
+     */
     public Chatroom getChatroom(ArrayList<String> usernames){
         Collections.sort(usernames);
         if (!chatrooms.containsKey(usernames)){
@@ -16,6 +32,13 @@ public class ChatroomManager implements Serializable {
         return chatrooms.get(usernames);
     }
 
+    /**
+     * (please describe)
+     *
+     * @param user          (please describe)
+     * @param recipient     (please describe)
+     * @return              (please describe)
+     */
     public Chatroom getChatroom(User user, String recipient){
         ArrayList<String> recipients = new ArrayList<>();
         recipients.add(user.getUserName());
@@ -27,6 +50,12 @@ public class ChatroomManager implements Serializable {
         return chatrooms.get(recipients);
     }
 
+    /**
+     * (please describe)
+     *
+     * @param user          (please describe)
+     * @return              (please describe)
+     */
     public HashMap<ArrayList<String>, Chatroom> getAllChatrooms(User user) {
         HashMap<ArrayList<String>, Chatroom> cms = new HashMap<>();
         for (ArrayList<String> key : chatrooms.keySet()) {
@@ -37,14 +66,31 @@ public class ChatroomManager implements Serializable {
         return cms;
     }
 
+    /**
+     * (please describe)
+     *
+     * @param usernames     (please describe)
+     */
     public void createChatroom(ArrayList<String> usernames){
         chatrooms.put(usernames, new Chatroom());
     }
 
+    /**
+     * (please describe)
+     *
+     * @param users         (please describe)
+     * @param message       (please describe)
+     */
     public void sendOne(ArrayList<String> users, Message message) {
         getChatroom(users).sendMessage(message);
     }
 
+    /**
+     * (please describe)
+     *
+     * @param event         (please describe)
+     * @param message       (please describe)
+     */
     public void sendAll(Event event, Message message) {
         for (String user : event.getSignedUpUsers()) {
             ArrayList<String> recipients = new ArrayList<>();
@@ -54,11 +100,24 @@ public class ChatroomManager implements Serializable {
         }
     }
 
+    /**
+     * (please describe)
+     *
+     * @param usernames     (please describe)
+     * @return              (please describe)
+     */
     public boolean hasChatroom(ArrayList<String> usernames) {
         Collections.sort(usernames);
         return chatrooms.containsKey(usernames);
     }
 
+    /**
+     * (please describe)
+     *
+     * @param user          (please describe)
+     * @param recipient     (please describe)
+     * @return              (please describe)
+     */
     public boolean hasChatroom(User user, String recipient) {
         ArrayList<String> recipients = new ArrayList<>();
         recipients.add(user.getUserName());

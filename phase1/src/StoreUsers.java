@@ -3,15 +3,31 @@ import java.io.IOException;
 import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 
+/**
+ * (please describe)
+ *
+ * @author
+ * @version %I%, %G%
+ */
 public class StoreUsers {
 
     private String filepath;
 
+    /**
+     * (please describe)
+     *
+     * @param filepath      (please describe)
+     */
     public StoreUsers(String filepath) {
         this.filepath = filepath;
     }
 
-    public void store(ArrayList<User> userList) {
+    /**
+     * (please describe)
+     *
+     * @param userList      (please describe)
+     */
+    public boolean store(ArrayList<User> userList) {
         try {
             FileOutputStream fileOut = new FileOutputStream(this.filepath);
             ObjectOutputStream out = new ObjectOutputStream(fileOut);
@@ -21,10 +37,11 @@ public class StoreUsers {
             out.writeObject(null); //marks the end of the ser file
             out.close();
             fileOut.close();
-            System.out.println("Save successful");
+            return true;
         } catch (IOException e) {
-            System.out.println("Error saving to file.");
+            System.out.println("Error saving users to file");
         }
+        return false;
     }
 
 }

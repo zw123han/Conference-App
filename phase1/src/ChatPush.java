@@ -1,8 +1,20 @@
 import java.io.FileOutputStream;
+import java.io.IOException;
 import java.io.ObjectOutputStream;
 
+/**
+ * (please describe)
+ *
+ * @author
+ * @version %I%, %G%
+ */
 public class ChatPush {
 
+    /**
+     * (please describe)
+     *
+     * @param chatroomManager
+     */
     public void storeChat(ChatroomManager chatroomManager){
         try {
             FileOutputStream fileOut = new FileOutputStream("phase1/src/chatlog.ser");
@@ -11,7 +23,7 @@ public class ChatPush {
             objectOut.close();
             fileOut.close();
             System.out.println("Successfully saved chat.");
-        }catch(Exception e){
+        }catch(IOException e){
             System.out.println("Chat saving failed.");
         }
     }

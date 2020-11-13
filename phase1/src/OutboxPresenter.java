@@ -1,11 +1,26 @@
 import java.util.*;
 
+/**
+ * (please describe)
+ *
+ * @author
+ * @version %I%, %G%
+ */
 public class OutboxPresenter extends CommandPresenter{
 
+    /**
+     * (please describe)
+     */
     public void menuDisplay() {
         System.out.println("\n1) Message users\n2) Group message\n3) Message speakers\n");
     }
 
+    /**
+     * (please describe)
+     *
+     * @param reg       (please describe)
+     * @param em        (please describe)
+     */
     public void speakerMenu(Registrar reg, EventManager em) {
         System.out.println("\nSPEAKERS:");
         ArrayList<Event> events = em.getEventsList();
@@ -25,6 +40,12 @@ public class OutboxPresenter extends CommandPresenter{
         System.out.println("");
     }
 
+    /**
+     * (please describe)
+     *
+     * @param reg       (please describe)
+     * @param user      (please describe)
+     */
     public void friendMenu(Registrar reg, User user) {
         System.out.println("\nFRIENDS:");
         ArrayList<String> friends = user.getFriends();
@@ -37,6 +58,12 @@ public class OutboxPresenter extends CommandPresenter{
         System.out.println("");
     }
 
+    /**
+     * (please describe)
+     *
+     * @param user      (please describe)
+     * @param em        (please describe)
+     */
     public void eventMenu(Speaker user, EventManager em) {
         System.out.println("\nEVENTS:");
         ArrayList<Long> events = user.getTalks();
@@ -51,6 +78,11 @@ public class OutboxPresenter extends CommandPresenter{
         }
     }
 
+    /**
+     * (please describe)
+     *
+     * @param em        (please describe)
+     */
     public void eventMenu(EventManager em) {
         System.out.println("\nEVENTS:");
         ArrayList<Event> events = em.getEventsList();
@@ -64,6 +96,9 @@ public class OutboxPresenter extends CommandPresenter{
         }
     }
 
+    /**
+     * (please describe)
+     */
     public void success() {
         System.out.println("\nMessage successfully sent!");
     }

@@ -1,6 +1,11 @@
-
 import java.util.*;
 
+/**
+ * (please describe)
+ *
+ * @author
+ * @version %I%, %G%
+ */
 public class OutboxController {
     private ChatController cc = new ChatController();
     private OutboxPresenter op = new OutboxPresenter();
@@ -9,6 +14,12 @@ public class OutboxController {
     private User user;
     private Registrar reg;
 
+    /**
+     * (please describe)
+     *
+     * @param reg       (please describe)
+     * @param user      (please describe)
+     */
     public OutboxController(Registrar reg, User user) {
         this.user = user;
         ReadEvents reader = new ReadEvents("phase1/src/eventData.ser");
@@ -16,6 +27,9 @@ public class OutboxController {
         this.reg = reg;
     }
 
+    /**
+     * (please describe)
+     */
     public void promptChatChoice() {
         op.menuDisplay();
         op.commandPrompt("prompt");
@@ -37,6 +51,9 @@ public class OutboxController {
         }
     }
 
+    /**
+     * (please describe)
+     */
     public void promptRecipient() {
         op.friendMenu(reg, user);
         op.commandPrompt("username");
@@ -70,6 +87,9 @@ public class OutboxController {
         return new ArrayList<>(Arrays.asList(speakerArray));
     }
 
+    /**
+     * (please describe)
+     */
     public void promptSpeaker() {
         op.speakerMenu(reg, em);
         op.commandPrompt("speaker username (separate usernames with a space)");
@@ -115,16 +135,27 @@ public class OutboxController {
         }
     }
 
+    private boolean validateEvents(String evt) {
+        return evt.matches("^[0-9]+$");
+    }
+
+    /**
+     * (please describe)
+     */
     public void promptEvent() {
         loadEventMenu(user);
         op.commandPrompt("event ID (separate IDs with a space)");
         String evt = sc.nextLine();
         while (!evt.equals("$q")) {
-            ArrayList<Long> event_ids = convertLong(evt);
-            if (canSendEvents(event_ids)) {
-                promptEventMessage(event_ids);
+            if (validateEvents(evt)) {
+                ArrayList<Long> event_ids = convertLong(evt);
+                if (canSendEvents(event_ids)) {
+                    promptEventMessage(event_ids);
+                } else {
+                    op.invalidCommand("event ID (make sure they are valid)");
+                }
             } else {
-                op.invalidCommand("event ID");
+                op.invalidCommand("event ID (unexpected character)");
             }
             loadEventMenu(user);
             op.commandPrompt("event ID (separate IDs with a space)");
@@ -132,6 +163,11 @@ public class OutboxController {
         }
     }
 
+    /**
+     * (please describe)
+     *
+     * @param destination       (please describe)
+     */
     public void promptMessage(String destination) {
         op.commandPrompt("message (requires at least 1 character)");
         String message = sc.nextLine();
@@ -148,6 +184,11 @@ public class OutboxController {
         }
     }
 
+    /**
+     * (please describe)
+     *
+     * @param event_ids         (please describe)
+     */
     public void promptEventMessage(ArrayList<Long> event_ids) {
         op.commandPrompt("message (requires at least 1 character)");
         String message = sc.nextLine();
@@ -166,6 +207,11 @@ public class OutboxController {
         }
     }
 
+    /**
+     * (please describe)
+     *
+     * @param speakers      (please describe)
+     */
     public void promptMessage(ArrayList<String> speakers) {
         op.commandPrompt("message (requires at least 1 character)");
         String message = sc.nextLine();

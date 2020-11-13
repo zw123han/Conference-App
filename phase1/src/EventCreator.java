@@ -1,15 +1,38 @@
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 
+/**
+ * (please describe)
+ *
+ * @author
+ * @version %I%, %G%
+ */
 public class EventCreator {
     private EventManager em;
     private Registrar reg;
 
+    /**
+     * (please describe)
+     *
+     * @param em        (please describe)
+     * @param reg       (please describe)
+     */
     public EventCreator(EventManager em, Registrar reg) {
         this.em = em;
         this.reg = reg;
     }
 
+    /**
+     * (please describe)
+     *
+     * @param name                              (please describe)
+     * @param room                              (please describe)
+     * @param start_time                        (please describe)
+     * @param speaker                           (please describe)
+     * @param capacity                          (please describe)
+     * @return                                  (please describe)
+     * @throws EventCreationFailureException    (please describe)
+     */
     public boolean createEvent(String name, String room, LocalDateTime start_time, String speaker, int capacity)
             throws EventCreationFailureException {
         ArrayList<Event> events = this.em.getEventsList();

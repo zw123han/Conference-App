@@ -1,7 +1,19 @@
 import java.util.*;
 
+/**
+ * (please describe)
+ *
+ * @author
+ * @version %I%, %G%
+ */
 public class InboxPresenter extends CommandPresenter {
 
+    /**
+     * (please describe)
+     *
+     * @param reg           (please describe)
+     * @param friends       (please describe)
+     */
     public void menuDisplay(Registrar reg, ArrayList<String> friends) {
         System.out.println("\nCHAT HISTORY:");
         for (String friend : friends) {
@@ -13,6 +25,12 @@ public class InboxPresenter extends CommandPresenter {
         System.out.println("");
     }
 
+    /**
+     * (please describe)
+     *
+     * @param reg       (please describe)
+     * @param cm        (please describe)
+     */
     public void chatView(Registrar reg, Chatroom cm) {
         ArrayList<Message> history = cm.getHistory();
         for (Message m : history) {
@@ -24,6 +42,11 @@ public class InboxPresenter extends CommandPresenter {
         System.out.println("");
     }
 
+    /**
+     * (please describe)
+     *
+     * @param message       (please describe)
+     */
     public void messageFormatter(String message) {
         StringBuilder sbm = new StringBuilder(message);
         int i = 0;
@@ -37,6 +60,9 @@ public class InboxPresenter extends CommandPresenter {
         System.out.println(sbm);
     }
 
+    /**
+     * (please describe)
+     */
     public void replyMessage() {
         System.out.println("Press enter to reply to the message.");
         exitMessage();

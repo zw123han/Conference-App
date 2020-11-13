@@ -1,10 +1,19 @@
 import java.util.*;
 
+/**
+ * This class represents the executable for the application.
+ *
+ * @author  ..., ..., Fred
+ * @version %I%, %G%
+ */
 public class ConferenceSimulator {
 
     public ConferenceSimulator() {
     }
 
+    /**
+     * The static main method will run this method to start the application.
+     */
     public void run() {
 
         String userFilepath = "phase1/src/userData.ser";
@@ -37,19 +46,17 @@ public class ConferenceSimulator {
         // Other UIs go into this ui
 
         // Only have attendees create their own accounts (assume they are already signed up)
-        // Give organizers option to create any accounts other than organizers
+        // Give organizers option to create any accounts other than organize    rs
 
         Scanner sc = new Scanner(System.in);
         boolean exit = false;
         do{
             do {
                 ui.loggedIn(loginFacade.getUser(), registrar);
+                if (storeUsers.store(registrar.getUsers())&&saveEvents.saveEvents(eventManager.getEventsList())){
+                    System.out.println("Changes successfully saved.");}
             } while (loginFacade.getUser() != null);
-
-            storeUsers.store(registrar.getUsers());
-            saveEvents.saveEvents(eventManager.getEventsList());
-
-            System.out.println("Are you sure you want to close the program? Press Q to close.");
+            System.out.println("Press any key to log in again, or press Q to close the program.");
             exit = sc.nextLine().equals("Q");
 
         } while (!exit);

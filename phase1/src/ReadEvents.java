@@ -3,14 +3,30 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.util.ArrayList;
 
+/**
+ * (please describe)
+ *
+ * @author
+ * @version %I%, %G%
+ */
 public class ReadEvents {
     private String filepath;
 
+    /**
+     * (please describe)
+     *
+     * @param filepath      (please describe)
+     */
     public ReadEvents(String filepath) {
         this.filepath = filepath;
 
     }
 
+    /**
+     * (please describe)
+     *
+     * @return      (please describe)
+     */
     public ArrayList<Event> read() {
         ArrayList<Event> events = new ArrayList<>();
         try {
@@ -21,9 +37,9 @@ public class ReadEvents {
             streamIn.close();
             return events;
         } catch (IOException e) {
-            e.printStackTrace();
+            System.out.println("Error reading events from file");
         } catch (ClassNotFoundException e) {
-            e.printStackTrace();
+            System.out.println("Class not found");
         }
         return events;
     }
