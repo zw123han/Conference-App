@@ -6,6 +6,7 @@ import java.util.*;
  *
  * @author
  * @version %I%, %G%
+ * @serial
  */
 public class ChatroomManager implements Serializable {
     private HashMap<ArrayList<String>, Chatroom> chatrooms;
