@@ -31,7 +31,7 @@ public class ChatController {
             }
             ArrayList<Message> history = cm.getChatroom(user, recipient).getHistory();
             for (Message m : history) {
-                if (!m.getSender().equals(recipient)) {
+                if (m.getSender().equals(recipient)) {
                     return true;
                 }
             }

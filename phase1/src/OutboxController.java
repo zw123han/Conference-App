@@ -115,16 +115,24 @@ public class OutboxController {
         }
     }
 
+    private boolean validateEvents(String evt) {
+        return evt.matches("^[0-9]+$");
+    }
+
     public void promptEvent() {
         loadEventMenu(user);
         op.commandPrompt("event ID (separate IDs with a space)");
         String evt = sc.nextLine();
         while (!evt.equals("$q")) {
-            ArrayList<Long> event_ids = convertLong(evt);
-            if (canSendEvents(event_ids)) {
-                promptEventMessage(event_ids);
+            if (validateEvents(evt)) {
+                ArrayList<Long> event_ids = convertLong(evt);
+                if (canSendEvents(event_ids)) {
+                    promptEventMessage(event_ids);
+                } else {
+                    op.invalidCommand("event ID (make sure they are valid)");
+                }
             } else {
-                op.invalidCommand("event ID");
+                op.invalidCommand("event ID (unexpected character)");
             }
             loadEventMenu(user);
             op.commandPrompt("event ID (separate IDs with a space)");
