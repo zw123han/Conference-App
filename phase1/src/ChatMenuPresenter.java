@@ -1,3 +1,9 @@
+/**
+ * (please describe)
+ *
+ * @author
+ * @version %I%, %G%
+ */
 public class ChatMenuPresenter extends CommandPresenter{
 
     public void menuDisplay() {

@@ -1,5 +1,11 @@
 import java.time.LocalDateTime;
 
+/**
+ * (please describe)
+ *
+ * @author
+ * @version %I%, %G%
+ */
 public class EventCreatorPresenter {
     private EventManager em;
     private Registrar reg;

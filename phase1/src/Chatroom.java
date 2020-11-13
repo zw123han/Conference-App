@@ -1,6 +1,12 @@
 import java.util.*;
 import java.io.Serializable;
 
+/**
+ * (please describe)
+ *
+ * @author
+ * @version %I%, %G%
+ */
 public class Chatroom implements Serializable {
     private ArrayList<Message> history;
 

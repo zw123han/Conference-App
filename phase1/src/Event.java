@@ -4,6 +4,12 @@ import java.time.*;
 import java.util.Date;
 import java.util.Calendar;
 
+/**
+ * (please describe)
+ *
+ * @author
+ * @version %I%, %G%
+ */
 public class Event implements Serializable {
 
     private String name;

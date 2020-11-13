@@ -1,4 +1,10 @@
 import java.util.*;
+/**
+ * (please describe)
+ *
+ * @author
+ * @version %I%, %G%
+ */
 
 public class FriendsManager {
     private Registrar reg;

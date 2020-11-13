@@ -1,6 +1,12 @@
 import java.util.Base64;
 import java.util.Scanner;
 
+/**
+ * (please describe)
+ *
+ * @author
+ * @version %I%, %G%
+ */
 public class LoginOptionsFacade {
     private CredentialsUseCase credentialsUseCase;
     private Login login;

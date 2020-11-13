@@ -1,3 +1,9 @@
+/**
+ * (please describe)
+ *
+ * @author
+ * @version %I%, %G%
+ */
 public class LoginPresenter {
     public String notLoggedInOptions(){
         return "Press Y to login, or any other key to exit";

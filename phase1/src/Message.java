@@ -2,6 +2,12 @@ import java.time.*;
 import java.time.format.DateTimeFormatter;
 import java.io.Serializable;
 
+/**
+ * (please describe)
+ *
+ * @author
+ * @version %I%, %G%
+ */
 public class Message implements Serializable {
     private String message, sender;
     private ZonedDateTime time = ZonedDateTime.now();

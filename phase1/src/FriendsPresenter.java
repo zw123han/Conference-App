@@ -1,5 +1,11 @@
 import java.util.ArrayList;
 
+/**
+ * (please describe)
+ *
+ * @author
+ * @version %I%, %G%
+ */
 public class FriendsPresenter {
     public String userNotFound() {
         return "This user does not exist. Please enter a valid user.";

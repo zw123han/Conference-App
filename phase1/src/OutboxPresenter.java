@@ -1,5 +1,11 @@
 import java.util.*;
 
+/**
+ * (please describe)
+ *
+ * @author
+ * @version %I%, %G%
+ */
 public class OutboxPresenter extends CommandPresenter{
 
     public void menuDisplay() {

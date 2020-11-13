@@ -1,3 +1,9 @@
+/**
+ * (please describe)
+ *
+ * @author
+ * @version %I%, %G%
+ */
 public class UserNotFoundException extends Exception {
     UserNotFoundException(String message){
         super(message);

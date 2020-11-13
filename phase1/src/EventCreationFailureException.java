@@ -1,3 +1,9 @@
+/**
+ * (please describe)
+ *
+ * @author
+ * @version %I%, %G%
+ */
 public class EventCreationFailureException extends Exception{
     public EventCreationFailureException() {
         super("This event couldn't be created");

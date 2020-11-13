@@ -1,6 +1,12 @@
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 
+/**
+ * (please describe)
+ *
+ * @author
+ * @version %I%, %G%
+ */
 public class EventCreator {
     private EventManager em;
     private Registrar reg;

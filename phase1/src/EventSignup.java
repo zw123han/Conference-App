@@ -1,6 +1,11 @@
 import java.util.*;
 import java.time.*;
-
+/**
+ * (please describe)
+ *
+ * @author
+ * @version %I%, %G%
+ */
 // Choosing not to store event manager in here for now
 public class EventSignup{
 

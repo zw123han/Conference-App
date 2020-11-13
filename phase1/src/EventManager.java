@@ -2,6 +2,12 @@ import java.io.Serializable;
 import java.util.*;
 import java.time.*;
 
+/**
+ * (please describe)
+ *
+ * @author
+ * @version %I%, %G%
+ */
 public class EventManager implements Serializable {
 
     private HashMap<Long, Event> events;

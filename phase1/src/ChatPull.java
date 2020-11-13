@@ -1,6 +1,12 @@
 import java.io.FileInputStream;
 import java.io.ObjectInputStream;
 
+/**
+ * (please describe)
+ *
+ * @author
+ * @version %I%, %G%
+ */
 public class ChatPull {
     ChatroomManager chatroomManager;
 

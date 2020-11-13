@@ -2,6 +2,12 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Scanner;
 
+/**
+ * (please describe)
+ *
+ * @author
+ * @version %I%, %G%
+ */
 public class InboxController {
     private ChatController cc = new ChatController();
     private InboxPresenter ip = new InboxPresenter();

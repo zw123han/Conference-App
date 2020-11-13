@@ -1,6 +1,12 @@
 import java.util.ArrayList;
 import java.util.Scanner;
 
+/**
+ * (please describe)
+ *
+ * @author
+ * @version %I%, %G%
+ */
 public class FriendsController {
     private FriendsManager friendsManager;
     private FriendsPresenter friendsPresenter;

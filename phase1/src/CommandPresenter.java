@@ -1,5 +1,11 @@
 import java.util.*;
 
+/**
+ * (please describe)
+ *
+ * @author
+ * @version %I%, %G%
+ */
 public abstract class CommandPresenter {
     public void exitMessage() {
         System.out.println("$q to exit.");

@@ -1,6 +1,12 @@
 import java.io.FileOutputStream;
 import java.io.ObjectOutputStream;
 
+/**
+ * (please describe)
+ *
+ * @author
+ * @version %I%, %G%
+ */
 public class ChatPush {
 
     public void storeChat(ChatroomManager chatroomManager){

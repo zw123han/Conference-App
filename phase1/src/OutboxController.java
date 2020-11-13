@@ -1,6 +1,11 @@
-
 import java.util.*;
 
+/**
+ * (please describe)
+ *
+ * @author
+ * @version %I%, %G%
+ */
 public class OutboxController {
     private ChatController cc = new ChatController();
     private OutboxPresenter op = new OutboxPresenter();

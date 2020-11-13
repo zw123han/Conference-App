@@ -1,6 +1,12 @@
 import java.util.Arrays;
 import java.util.Base64;
 
+/**
+ * (please describe)
+ *
+ * @author
+ * @version %I%, %G%
+ */
 public class CredentialsUseCase {
     private Registrar registrar;
 

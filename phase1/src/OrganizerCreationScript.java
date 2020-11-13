@@ -1,3 +1,9 @@
+/**
+ * (please describe)
+ *
+ * @author
+ * @version %I%, %G%
+ */
 public class OrganizerCreationScript {
 
     public void createOrganizers(Registrar registrar) {

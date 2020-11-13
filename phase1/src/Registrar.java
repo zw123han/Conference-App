@@ -1,6 +1,12 @@
 import java.util.ArrayList;
 import java.lang.*;
 
+/**
+ * (please describe)
+ *
+ * @author
+ * @version %I%, %G%
+ */
 public class Registrar {
 
     private ArrayList<User> users;
