@@ -9,6 +9,11 @@ import java.io.ObjectOutputStream;
  */
 public class ChatPush {
 
+    /**
+     * (please describe)
+     *
+     * @param chatroomManager
+     */
     public void storeChat(ChatroomManager chatroomManager){
         try {
             FileOutputStream fileOut = new FileOutputStream("phase1/src/chatlog.ser");

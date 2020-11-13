@@ -10,6 +10,11 @@ import java.io.ObjectInputStream;
 public class ChatPull {
     ChatroomManager chatroomManager;
 
+    /**
+     * (please describe)
+     *
+     * @return      (please describe)
+     */
     public ChatroomManager readChatlog(){
         ChatroomManager chatroomManager = new ChatroomManager();
         try {
