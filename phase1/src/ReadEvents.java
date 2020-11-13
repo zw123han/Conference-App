@@ -12,11 +12,21 @@ import java.util.ArrayList;
 public class ReadEvents {
     private String filepath;
 
+    /**
+     * (please describe)
+     *
+     * @param filepath      (please describe)
+     */
     public ReadEvents(String filepath) {
         this.filepath = filepath;
 
     }
 
+    /**
+     * (please describe)
+     *
+     * @return      (please describe)
+     */
     public ArrayList<Event> read() {
         ArrayList<Event> events = new ArrayList<>();
         try {
