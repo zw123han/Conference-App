@@ -10,10 +10,24 @@ import java.util.Base64;
 public class CredentialsUseCase {
     private Registrar registrar;
 
+    /**
+     * (please describe)
+     *
+     * @param registrar     (please describe)
+     */
     public CredentialsUseCase(Registrar registrar){
         this.registrar = registrar;
     }
 
+    /**
+     * (please describe)
+     *
+     * @param name              (please describe)
+     * @param username          (please describe)
+     * @param password          (please describe)
+     * @param type              (please describe)
+     * @return                  True of false.
+     */
     public boolean createUser(String name, String username, String password, String type){
         if (name.length()<1|username.length()<1|type.length()<1|username.contains("@")){
             return false;
@@ -25,6 +39,14 @@ public class CredentialsUseCase {
         return true;
     }
 
+    /**
+     * (please describe)
+     *
+     * @param username          (please describe)
+     * @param currentPassword   (please describe)
+     * @param newPassword       (please describe)
+     * @return                  (please describe)
+     */
     public boolean resetPassword(String username, String currentPassword, String newPassword){
         if (newPassword.length() < 1|currentPassword.length()<1){
             return false;
