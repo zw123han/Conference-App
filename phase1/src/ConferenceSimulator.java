@@ -37,7 +37,7 @@ public class ConferenceSimulator {
         // Other UIs go into this ui
 
         // Only have attendees create their own accounts (assume they are already signed up)
-        // Give organizers option to create any accounts other than organizers
+        // Give organizers option to create any accounts other than organize    rs
 
         Scanner sc = new Scanner(System.in);
         boolean exit = false;
