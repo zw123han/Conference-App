@@ -149,7 +149,7 @@ public class UserOptionsInterface {
         String choice = sc.nextLine();
         while (!choice.equals("$q")) {
             try {
-                System.out.println("Please input the event you want to create: name, room, capacity, time(yyyy-MM-dd HH:mm:ss), speaker");
+                System.out.println("Please input the event you want to create: name, room, capacity, time(yyyy-MM-dd HH:mm), speaker");
                 System.out.println("name:");
                 String name = sc.nextLine();
                 System.out.println("room:");
@@ -178,7 +178,7 @@ public class UserOptionsInterface {
             } catch (InputMismatchException | NumberFormatException e) {
                 System.out.println("Please input an integer for the event's capacity\n");
             }
-            System.out.println("Please input the event you want to create: name, room, capacity, time(yyyy-MM-dd HH:mm:ss), speaker");
+            System.out.println("Please input the event you want to create: name, room, capacity, time(yyyy-MM-dd HH:mm), speaker");
             choice = sc.nextLine();
         }
     }
