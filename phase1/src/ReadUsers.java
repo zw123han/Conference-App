@@ -12,11 +12,22 @@ import java.util.ArrayList;
 public class ReadUsers {
     private String filepath;
 
+    /**
+     * (please describe)
+     *
+     * @param filepath      (please describe)
+     */
     public ReadUsers(String filepath) {
         // Reads a txt/ser file then stores it
         this.filepath = filepath;
 
     }
+
+    /**
+     * (please describe)
+     *
+     * @return      (please describe)
+     */
     public ArrayList<User> read() {
         ArrayList<User> users = new ArrayList<>();
         boolean isEmpty = false;
