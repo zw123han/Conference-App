@@ -7,6 +7,7 @@ import java.time.*;
  *
  * @author
  * @version %I%, %G%
+ * @serial
  */
 public class EventManager implements Serializable {
 
