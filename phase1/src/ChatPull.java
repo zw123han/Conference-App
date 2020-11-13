@@ -1,4 +1,5 @@
 import java.io.FileInputStream;
+import java.io.IOException;
 import java.io.ObjectInputStream;
 
 /**
@@ -24,8 +25,10 @@ public class ChatPull {
             fileIn.close();
             objectIn.close();
             System.out.println("Successfully read chat.");
-        }catch(Exception ex){
+        }catch(IOException e){
             System.out.println("Chat read failed.");
+        } catch (ClassNotFoundException e) {
+            System.out.println("Class not found");
         }
         return chatroomManager;
     }

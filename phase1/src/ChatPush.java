@@ -1,4 +1,5 @@
 import java.io.FileOutputStream;
+import java.io.IOException;
 import java.io.ObjectOutputStream;
 
 /**
@@ -22,7 +23,7 @@ public class ChatPush {
             objectOut.close();
             fileOut.close();
             System.out.println("Successfully saved chat.");
-        }catch(Exception e){
+        }catch(IOException e){
             System.out.println("Chat saving failed.");
         }
     }
