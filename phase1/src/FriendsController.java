@@ -12,10 +12,22 @@ public class FriendsController {
     private FriendsPresenter friendsPresenter;
     private Scanner sc = new Scanner(System.in);
 
+    /**
+     * (please describe)
+     *
+     * @param registrar             (please describe)
+     * @param friendsPresenter      (please describe)
+     */
     public FriendsController(Registrar registrar, FriendsPresenter friendsPresenter) {
         this.friendsManager = new FriendsManager(registrar);
         this.friendsPresenter = friendsPresenter;
     }
+
+    /**
+     * (please describe)
+     *
+     * @param user      (please describe)
+     */
    public void addFriends(User user) {
         System.out.println(friendsPresenter.enterUser());
         String other_user = sc.nextLine();
@@ -32,6 +44,12 @@ public class FriendsController {
             }
         }
     }
+
+    /**
+     * (please describe)
+     *
+     * @param user      (please describe)
+     */
     public void removeFriends(User user) {
         System.out.println(friendsPresenter.enterUser());
         String other_user = sc.nextLine();
