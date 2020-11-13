@@ -6,6 +6,11 @@
  */
 public class OrganizerCreationScript {
 
+    /**
+     * (please describe)
+     *
+     * @param registrar     (please describe)
+     */
     public void createOrganizers(Registrar registrar) {
         CredentialsUseCase credentialsUseCase = new CredentialsUseCase(registrar);
         credentialsUseCase.createUser("Name", "Admin", "123", "Organizer");
