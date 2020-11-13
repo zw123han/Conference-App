@@ -12,6 +12,11 @@ public class LoginUI {
     private LoginOptionsFacade loginOptionsFacade;
     private Scanner sc;
 
+    /**
+     * (please describe)
+     *
+     * @param loginOptionsFacade        (please describe)
+     */
     public LoginUI(LoginOptionsFacade loginOptionsFacade){
         loginPresenter = new LoginPresenter();
         this.loginOptionsFacade = loginOptionsFacade;
@@ -68,6 +73,9 @@ public class LoginUI {
         }
     }
 
+    /**
+     * (please describe)
+     */
     public void login(){
         System.out.println(loginPresenter.inquireAccount());
         String response = sc.nextLine();
@@ -79,6 +87,9 @@ public class LoginUI {
         }
     }
 
+    /**
+     * (please describe)
+     */
     public void logout() {
         if (confirmLogout()) {
             if (loginOptionsFacade.logout()){
@@ -89,6 +100,10 @@ public class LoginUI {
             }
         }
     }
+
+    /**
+     * (please describe)
+     */
     public void changePassword() {
         if (confirmChangePassword()) {
             System.out.println(loginPresenter.promptAccountUsername());
