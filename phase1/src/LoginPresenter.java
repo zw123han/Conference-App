@@ -11,7 +11,7 @@ public class LoginPresenter {
      * @return      (please describe)
      */
     public String notLoggedInOptions(){
-        return "Press Y to login, or any other key to exit";
+        return "Press Y to continue login, or any other key to cancel";
     }
 
     /**
@@ -29,7 +29,7 @@ public class LoginPresenter {
      * @return      (please describe)
      */
     public String confirmMakeAccount(){
-        return "Press Y to create an account, or any other key to exit.";
+        return "Press Y to continue account creation, or any other key to cancel.";
     }
 
     /**

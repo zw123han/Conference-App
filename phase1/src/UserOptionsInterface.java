@@ -52,7 +52,7 @@ public class UserOptionsInterface {
             showOptions(user);
         }
         while (loginFacade.getUser() == null) {
-            System.out.println("Please hit enter to try again. If you no longer wish to continue, enter Q to exit the program");
+            System.out.println("Please any key to return to the login screen, or press Q to save and exit.");
             if (sc.nextLine().equals("Q")) {
                 return;
             } else {
@@ -224,7 +224,7 @@ public class UserOptionsInterface {
             } catch (InputMismatchException | NumberFormatException e) {
                 System.out.println("Please input an integer for the event's capacity\n");
             }
-            System.out.println("Please input the event you want to create: name, room, capacity, time(yyyy-MM-dd HH:mm), speaker");
+            System.out.println("Press any key to continue, or $q to exit");
             choice = sc.nextLine();
         }
     }

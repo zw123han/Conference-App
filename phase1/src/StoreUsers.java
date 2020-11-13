@@ -27,7 +27,7 @@ public class StoreUsers {
      *
      * @param userList      (please describe)
      */
-    public void store(ArrayList<User> userList) {
+    public boolean store(ArrayList<User> userList) {
         try {
             FileOutputStream fileOut = new FileOutputStream(this.filepath);
             ObjectOutputStream out = new ObjectOutputStream(fileOut);
@@ -37,10 +37,11 @@ public class StoreUsers {
             out.writeObject(null); //marks the end of the ser file
             out.close();
             fileOut.close();
-            System.out.println("Save successful");
+            return true;
         } catch (IOException e) {
-            System.out.println("Error saving to file.");
+            System.out.println("Error saving users to file");
         }
+        return false;
     }
 
 }

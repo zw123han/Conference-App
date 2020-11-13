@@ -37,9 +37,9 @@ public class ReadEvents {
             streamIn.close();
             return events;
         } catch (IOException e) {
-            e.printStackTrace();
+            System.out.println("Error reading events from file");
         } catch (ClassNotFoundException e) {
-            e.printStackTrace();
+            System.out.println("Class not found");
         }
         return events;
     }

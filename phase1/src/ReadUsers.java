@@ -45,7 +45,7 @@ public class ReadUsers {
             in.close();
             fileIn.close();
         } catch (IOException e) {
-            System.out.println("Error reading from file");
+            System.out.println("Error reading users from file");
         } catch (ClassNotFoundException e) {
             System.out.println("Class not found");
         }

@@ -53,11 +53,10 @@ public class ConferenceSimulator {
         do{
             do {
                 ui.loggedIn(loginFacade.getUser(), registrar);
-                storeUsers.store(registrar.getUsers());
-                saveEvents.saveEvents(eventManager.getEventsList());
+                if (storeUsers.store(registrar.getUsers())&&saveEvents.saveEvents(eventManager.getEventsList())){
+                    System.out.println("Changes successfully saved.");}
             } while (loginFacade.getUser() != null);
-
-            System.out.println("Are you sure you want to close the program? Press Q to close.");
+            System.out.println("Press any key to log in again, or press Q to close the program.");
             exit = sc.nextLine().equals("Q");
 
         } while (!exit);
