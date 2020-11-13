@@ -213,7 +213,7 @@ public class UserOptionsInterface {
     public void showFriends(Registrar registrar, User user) {
         FriendsController fc = new FriendsController(registrar,fp);
         fp.viewFriends(user); //shows user a list of all their friends
-        System.out.println(fp.AddOrRemove());
+        System.out.println(fp.addOrRemove());
         String choice = sc.nextLine();
         while (!choice.equals("$q")) {
             if (choice.equals("1")) {
@@ -224,7 +224,7 @@ public class UserOptionsInterface {
                 cmp.invalidCommand("prompt");
             }
             fp.viewFriends(user);
-            System.out.println(fp.AddOrRemove());
+            System.out.println(fp.addOrRemove());
             choice = sc.nextLine();
         }
     }
