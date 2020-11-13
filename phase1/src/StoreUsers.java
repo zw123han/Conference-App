@@ -13,10 +13,20 @@ public class StoreUsers {
 
     private String filepath;
 
+    /**
+     * (please describe)
+     *
+     * @param filepath      (please describe)
+     */
     public StoreUsers(String filepath) {
         this.filepath = filepath;
     }
 
+    /**
+     * (please describe)
+     *
+     * @param userList      (please describe)
+     */
     public void store(ArrayList<User> userList) {
         try {
             FileOutputStream fileOut = new FileOutputStream(this.filepath);
