@@ -122,9 +122,11 @@ public class UserOptionsInterface {
     public void showEventScreen(EventSignupPresenter esp) {
         esp.viewEvents();
         esp.usersEvents(loginFacade.getUser());
-        System.out.println("\nWould you like to join or leave an event? Press q to go back.");
+        System.out.println("\nWould you like to join or leave an event?");
+        System.out.println("Type \"join\" or \"leave\"");
+        System.out.println("Press $q to go back.");
         String choice = sc.nextLine();
-        while (!choice.equals("q")) {
+        while (!choice.equals("$q")) {
             if (choice.toLowerCase().equals("join")) {
                 System.out.println("Please input the event_id");
                 String event_id = sc.nextLine();
@@ -136,14 +138,16 @@ public class UserOptionsInterface {
             } else {
                 System.out.println("Please enter a valid input (join or leave)");
             }
-            System.out.println("\nWould you like to join or leave an event? Press q to go back.");
+            System.out.println("\nWould you like to join or leave an event?");
+            System.out.println("Type \"join\" or \"leave\"");
+            System.out.println("Press $q to go back.");
             choice = sc.nextLine();
         }
     }
     public void showCreateEventsScreen(Registrar registrar) { //TODO this ugly af, will need to change a bit
-        System.out.println("Would you like to create an event? Press any key to continue, or q to exit");
+        System.out.println("Would you like to create an event? Press any key to continue, or $q to exit");
         String choice = sc.nextLine();
-        while (!choice.equals("q")) {
+        while (!choice.equals("$q")) {
             try {
                 System.out.println("Please input the event you want to create: name, room, capacity, time(yyyy-MM-dd HH:mm), speaker");
                 System.out.println("name:");
@@ -179,9 +183,9 @@ public class UserOptionsInterface {
         }
     }
     public void showCreateSpeakerScreen() {
-        System.out.println("Would you like to create a Speaker? Press any key to continue, or q to exit");
+        System.out.println("Would you like to create a Speaker? Press any key to continue, or $q to exit");
         String choice = sc.nextLine();
-        while (!choice.equals("q")) {
+        while (!choice.equals("$q")) {
             System.out.println("Please input the speaker account you wish to create: name, userName, password.");
             System.out.println("name:");
             String name = sc.nextLine();
@@ -195,7 +199,7 @@ public class UserOptionsInterface {
             } else {
                 System.out.println("You cannot use those credentials. Please try again.");
             }
-            System.out.println("Would you like to create a Speaker? Press any key to continue, or q to exit");
+            System.out.println("Would you like to create a Speaker? Press any key to continue, or $q to exit");
             choice = sc.nextLine();
         }
     }
