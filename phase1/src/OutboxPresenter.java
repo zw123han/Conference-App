@@ -23,16 +23,17 @@ public class OutboxPresenter extends CommandPresenter{
      */
     public void speakerMenu(Registrar reg, EventManager em) {
         System.out.println("\nSPEAKERS:");
-        ArrayList<Event> events = em.getEventsList();
+        System.out.println("------------------------");
+        ArrayList<Long> events = em.getEventIDs();
         ArrayList<String> speakers = new ArrayList<>();
-        for (Event event : events) {
-            String speaker = event.getSpeaker();
+        for (Long evt_id : events) {
+            String speaker = em.getSpeaker(evt_id);
             if (!speakers.contains(speaker)) {
                 speakers.add(speaker);
             }
         }
         for (String s : speakers) {
-            System.out.println(reg.getUserByUserName(s).getName() + " (@" + s + ")");
+            System.out.println(reg.getNameByUsername(s) + " (@" + s + ")");
         }
         if (events.isEmpty()) {
             System.out.println("There are no speakers.");
@@ -48,9 +49,10 @@ public class OutboxPresenter extends CommandPresenter{
      */
     public void friendMenu(Registrar reg, String username) {
         System.out.println("\nFRIENDS:");
+        System.out.println("------------------------");
         ArrayList<String> friends = reg.getUserFriends(username);
         for (String friend : friends) {
-            System.out.println(username + " (@" + friend + ")");
+            System.out.println(reg.getNameByUsername(friend) + " (@" + friend + ")");
         }
         if (friends.isEmpty()) {
             System.out.println("You have no friends.");
@@ -66,12 +68,14 @@ public class OutboxPresenter extends CommandPresenter{
      */
     public void eventMenu(String username, EventManager em, Registrar reg) {
         System.out.println("\nEVENTS:");
+        System.out.println("------------------------");
         ArrayList<Long> events = reg.getSpeakerTalks(username);
         for (Long evt_id : events) {
-            Event event = em.getEventById(evt_id);
-            System.out.println(event.getName() + " (id: " + event.getId() + ")");
-            System.out.println("Time: " + event.getTime());
-            System.out.println("Room: " + event.getRoom() + "\n");
+            System.out.println("Name: " + em.getName(evt_id));
+            System.out.println("id: " + evt_id);
+            System.out.println("Time: " + em.getTime(evt_id));
+            System.out.println("Room: " + em.getRoom(evt_id));
+            System.out.println("------------------------");
         }
         if (events.isEmpty()) {
             System.out.println("You're not hosting any talks.\n");
@@ -85,14 +89,17 @@ public class OutboxPresenter extends CommandPresenter{
      */
     public void eventMenu(EventManager em) {
         System.out.println("\nEVENTS:");
-        ArrayList<Event> events = em.getEventsList();
-        for (Event event : events) {
-            System.out.println(event.getName() + " (id: " + event.getId() + ")");
-            System.out.println("Time: " + event.getTime());
-            System.out.println("Room: " + event.getRoom() + "\n");
+        System.out.println("------------------------");
+        ArrayList<Long> events = em.getEventIDs();
+        for (Long evt_id : events) {
+            System.out.println("Name: " + em.getName(evt_id));
+            System.out.println("id: " + evt_id);
+            System.out.println("Time: " + em.getTime(evt_id));
+            System.out.println("Room: " + em.getRoom(evt_id));
+            System.out.println("------------------------");
         }
         if (events.isEmpty()) {
-            System.out.println("You have no events.\n");
+            System.out.println("There are no events.\n");
         }
     }
 

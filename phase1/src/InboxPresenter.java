@@ -16,8 +16,9 @@ public class InboxPresenter extends CommandPresenter {
      */
     public void menuDisplay(Registrar reg, ArrayList<String> friends) {
         System.out.println("\nCHAT HISTORY:");
+        System.out.println("------------------------");
         for (String friend : friends) {
-            System.out.println(reg.getUserByUserName(friend).getName() + " (@" + friend + ")");
+            System.out.println(reg.getNameByUsername(friend) + " (@" + friend + ")");
         }
         if (friends.isEmpty()) {
             System.out.println("You can't chat with any users.");
@@ -35,7 +36,7 @@ public class InboxPresenter extends CommandPresenter {
         ArrayList<Message> history = cm.getHistory();
         for (Message m : history) {
             String sender = m.getSender();
-            System.out.println("\nFrom: " + reg.getUserByUserName(sender).getName() + " (@" + sender + ")");
+            System.out.println("\nFrom: " + reg.getNameByUsername(sender) + " (@" + sender + ")");
             System.out.println("Sent: " + m.getDate());
             messageFormatter(m.getMessage());
         }

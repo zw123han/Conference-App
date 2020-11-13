@@ -169,4 +169,10 @@ public class Registrar {
         return new ArrayList<>();
     }
 
+    public String getNameByUsername(String username) {
+        if (userExisting(username)) {
+            return getUserByUserName(username).getName();
+        }
+        return "";
+    }
 }

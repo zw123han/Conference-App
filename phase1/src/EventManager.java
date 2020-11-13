@@ -97,4 +97,29 @@ public class EventManager implements Serializable {
     public Event getEvent(Long id){
         return this.events.get(id);
     }
+
+    public String getName(Long id) {
+        return getEvent(id).getName();
+    }
+
+    public LocalDateTime getTime(Long id) {
+        return getEvent(id).getTime();
+    }
+
+    public String getRoom(Long id) {
+        return getEvent(id).getRoom();
+    }
+
+    public String getSpeaker(Long id) {
+        return getEvent(id).getSpeaker();
+    }
+
+    public int getCapacity(Long id) {
+        return getEvent(id).getCapacity();
+    }
+
+    public ArrayList<Long> getEventIDs() {
+        return new ArrayList<>(events.keySet());
+    }
+
 }
