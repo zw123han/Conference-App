@@ -1,9 +1,9 @@
 import java.util.*;
 
 /**
- * (please describe)
+ * This class represents the executable for the application.
  *
- * @author
+ * @author  ..., ..., Fred
  * @version %I%, %G%
  */
 public class ConferenceSimulator {
@@ -11,6 +11,9 @@ public class ConferenceSimulator {
     public ConferenceSimulator() {
     }
 
+    /**
+     * The static main method will run this method to start the application.
+     */
     public void run() {
 
         String userFilepath = "phase1/src/userData.ser";
