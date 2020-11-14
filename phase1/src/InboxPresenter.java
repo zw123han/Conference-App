@@ -21,7 +21,7 @@ public class InboxPresenter extends CommandPresenter {
             System.out.println(reg.getNameByUsername(friend) + " (@" + friend + ")");
         }
         if (friends.isEmpty()) {
-            System.out.println("You can't chat with any users. Please add a friend first.");
+            System.out.println("You can't chat with any users.");
         }
         System.out.println();
     }
