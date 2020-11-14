@@ -3,17 +3,17 @@ import java.io.IOException;
 import java.io.ObjectOutputStream;
 
 /**
- * (please describe)
+ * For saving ChatroomManager to .ser file.
  *
- * @author
+ * @author Elliot
  * @version %I%, %G%
  */
 public class ChatPush {
 
     /**
-     * (please describe)
+     * Saves ChatroomManager to .ser file
      *
-     * @param chatroomManager
+     * @param chatroomManager   ChatroomManager
      */
     public void storeChat(ChatroomManager chatroomManager){
         try {

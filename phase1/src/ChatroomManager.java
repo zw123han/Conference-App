@@ -2,9 +2,9 @@ import java.io.Serializable;
 import java.util.*;
 
 /**
- * (please describe)
+ * Stores all Chatrooms in the program, deals with adding new Chatrooms and sending messages.
  *
- * @author
+ * @author Elliot, Chrisee
  * @version %I%, %G%
  * @serial
  */
@@ -12,17 +12,17 @@ public class ChatroomManager implements Serializable {
     private HashMap<ArrayList<String>, Chatroom> chatrooms;
 
     /**
-     * (please describe)
+     * Constructor for Chatroom, creates new empty HashMap.
      */
     public ChatroomManager(){
         this.chatrooms = new HashMap<>();
     }
 
     /**
-     * (please describe)
+     * Get method for getting the Chatroom for a specific list of users.
      *
-     * @param usernames     (please describe)
-     * @return              (please describe)
+     * @param usernames     The list of usernames
+     * @return              The Chatroom corresponding with the list of usernames
      */
     public Chatroom getChatroom(ArrayList<String> usernames){
         Collections.sort(usernames);
@@ -33,11 +33,11 @@ public class ChatroomManager implements Serializable {
     }
 
     /**
-     * (please describe)
+     * Get method for getting the Chatroom with two users.
      *
-     * @param user          (please describe)
-     * @param recipient     (please describe)
-     * @return              (please describe)
+     * @param user          Username of one of the users
+     * @param recipient     Username of the other user
+     * @return              Chatroom with the two users
      */
     public Chatroom getChatroom(String user, String recipient){
         ArrayList<String> recipients = new ArrayList<>();
@@ -51,10 +51,11 @@ public class ChatroomManager implements Serializable {
     }
 
     /**
-     * (please describe)
+     * Get method for all chatrooms that involve a specific user.
      *
-     * @param username          (please describe)
-     * @return              (please describe)
+     * @param username          Username of the user
+     * @return                  HashMap of all Chatrooms involving user, with list of usernames as keys and chatroom as
+     *                          values
      */
     public HashMap<ArrayList<String>, Chatroom> getAllChatrooms(String username) {
         HashMap<ArrayList<String>, Chatroom> cms = new HashMap<>();
@@ -67,29 +68,29 @@ public class ChatroomManager implements Serializable {
     }
 
     /**
-     * (please describe)
+     * Method for creating Chatroom with specific users.
      *
-     * @param usernames     (please describe)
+     * @param usernames     List of usernames of users
      */
     public void createChatroom(ArrayList<String> usernames){
         chatrooms.put(usernames, new Chatroom());
     }
 
     /**
-     * (please describe)
+     * Method for sending a message to a specific chatroom.
      *
-     * @param users         (please describe)
-     * @param message       (please describe)
+     * @param users         List of usernames
+     * @param message       Message to be sent
      */
     public void sendOne(ArrayList<String> users, Message message) {
         getChatroom(users).sendMessage(message);
     }
 
     /**
-     * (please describe)
+     * Method for sending a message to all chatrooms that involve users that are signed up for a specific event.
      *
-     * @param event         (please describe)
-     * @param message       (please describe)
+     * @param event         Event
+     * @param message       Message to be sent
      */
     public void sendAll(Event event, Message message) {
         for (String user : event.getSignedUpUsers()) {
@@ -101,22 +102,11 @@ public class ChatroomManager implements Serializable {
     }
 
     /**
-     * (please describe)
+     * Method for checking if a chatroom with specific users exists.
      *
-     * @param usernames     (please describe)
-     * @return              (please describe)
-     */
-    public boolean hasChatroom(ArrayList<String> usernames) {
-        Collections.sort(usernames);
-        return chatrooms.containsKey(usernames);
-    }
-
-    /**
-     * (please describe)
-     *
-     * @param user          (please describe)
-     * @param recipient     (please describe)
-     * @return              (please describe)
+     * @param user          Username of
+     * @param recipient     Username of the other user
+     * @return              True if chatroom exists, false otherwise
      */
     public boolean hasChatroom(String user, String recipient) {
         ArrayList<String> recipients = new ArrayList<>();

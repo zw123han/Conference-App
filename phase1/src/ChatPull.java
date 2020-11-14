@@ -3,18 +3,18 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 
 /**
- * (please describe)
+ * For reading from a .ser file containing the saved ChatroomManager.
  *
- * @author
+ * @author Elliot
  * @version %I%, %G%
  */
 public class ChatPull {
     ChatroomManager chatroomManager;
 
     /**
-     * (please describe)
+     * Reads a file and returns it as a ChatroomManager
      *
-     * @return      (please describe)
+     * @return      ChatroomManager read from .ser file
      */
     public ChatroomManager readChatlog(){
         ChatroomManager chatroomManager = new ChatroomManager();

@@ -3,9 +3,9 @@ import java.util.HashMap;
 import java.util.Scanner;
 
 /**
- * (please describe)
+ * For taking in user inputs for viewing chat history and replying to messages.
  *
- * @author
+ * @author Chrisee, Elliot
  * @version %I%, %G%
  */
 public class InboxController {
@@ -18,9 +18,9 @@ public class InboxController {
     /**
      * (please describe)
      *
-     * @param reg       (please describe)
-     * @param username  (please describe)
-     * @param em        (please describe)
+     * @param reg       Registrar
+     * @param username  username of the currently logged in user
+     * @param em        EventManager
      */
     public InboxController(Registrar reg, String username, EventManager em) {
         this.reg = reg;

@@ -1,42 +1,42 @@
 import java.util.ArrayList;
 
 /**
- * (please describe)
+ * Contains methods for checking if a user has permission to send messages and the methods for sending messages.
  *
- * @author
+ * @author Elliot, Chrisee
  * @version %I%, %G%
  */
 public class ChatController {
 
     /**
-     * (please describe)
+     * Checks if message is valid (Non-empty).
      *
-     * @param message       (please describe)
-     * @return              (please describe)
+     * @param message       Message
+     * @return boolean      True if length is not 0, false otherwise
      */
     public boolean validateMessage(String message) {
         return message.length() != 0;
     }
 
     /**
-     * (please describe)
+     * Checks if sender can send messages to a specific recipient.
      *
-     * @param username          (please describe)
-     * @param recipient     (please describe)
-     * @param reg           (please describe)
-     * @return              True or false.
+     * @param username          Username of sender
+     * @param recipient         Username of recipient
+     * @param reg               Registrar
+     * @return                  True if sender has permission to message recipient
      */
     public boolean canMessage(String username, String recipient, Registrar reg) {
         return ((reg.isFriend(username, recipient) || reg.isOrganizer(username)) && reg.userExisting(recipient));
     }
 
     /**
-     * (please describe)
+     * Checks if sender can send messages to all Attendees of an event.
      *
-     * @param username          (please describe)
-     * @param evt           (please describe)
-     * @param em            (please describe)
-     * @return              True of false.
+     * @param username          Username of the sender
+     * @param evt               Event id
+     * @param em                EventManager
+     * @return                  True if sender has permission to message, false otherwise
      */
     public boolean canMessage(String username, Long evt, Registrar reg, EventManager em) {
         return em.hasEvent(evt) ||
@@ -45,12 +45,12 @@ public class ChatController {
     }
 
     /**
-     * (please describe)
+     * Checks if sender can send a message to all Speakers.
      *
-     * @param username          (please describe)
-     * @param recipient     (please describe)
-     * @param cm            (please describe)
-     * @return              True of false.
+     * @param reg               Registrar
+     * @param username          Username of sender
+     * @param speakers          List of usernames of speakers that the sender wants to send to
+     * @return                  True if sender has permission to message all speakers
      */
     public boolean canSendSpeakers(Registrar reg, String username, ArrayList<String> speakers) {
         boolean result = true;
@@ -63,12 +63,13 @@ public class ChatController {
     }
 
     /**
-     * (please describe)
+     * Checks if sender can send to all participants of all events in a list.
      *
-     * @param username          (please describe)
-     * @param recipient     (please describe)
-     * @param cm            (please describe)
-     * @return              True of false.
+     * @param reg               Registrar
+     * @param em                EventManager
+     * @param username          Username of sender
+     * @param event_ids         List of Event id
+     * @return                  True if sender has permission to message all participants of all events in the list
      */
     public boolean canSendEvents(Registrar reg, EventManager em, String username, ArrayList<Long> event_ids) {
         boolean result = true;
@@ -81,11 +82,11 @@ public class ChatController {
     }
 
     /**
-     * (please describe)
+     * Sends message to a recipient.
      *
-     * @param username          (please describe)
-     * @param recipient     (please describe)
-     * @param message       (please describe)
+     * @param username          Username of sender
+     * @param recipient         Username of recipient
+     * @param message           Message to be sent
      */
     public void sendMessage(String username, String recipient, String message) {
         ChatPull pull = new ChatPull();
@@ -100,7 +101,7 @@ public class ChatController {
     }
 
     /**
-     * (please describe)
+     * Sends message to all attendees in an event.
      *
      * @param username          (please describe)
      * @param evt           (please describe)
