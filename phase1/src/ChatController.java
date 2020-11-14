@@ -57,9 +57,10 @@ public class ChatController {
             if (reg.isOrganizer(username) || reg.isAttendee(username)) {
                 return true;
             }
-            ArrayList<Message> history = cm.getChatroom(username, recipient).getHistory();
-            for (Message m : history) {
-                if (m.getSender().equals(recipient)) {
+            Chatroom c = cm.getChatroom(username, recipient);
+            ArrayList<Integer> history = c.getMessageKeys();
+            for (Integer m : history) {
+                if (c.getSender(m).equals(recipient)) {
                     return true;
                 }
             }

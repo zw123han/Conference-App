@@ -9,13 +9,14 @@ import java.io.Serializable;
  * @serial
  */
 public class Chatroom implements Serializable {
-    private ArrayList<Message> history;
+    private HashMap<Integer, Message> history;
+    private Integer key = 0;
 
     /**
      * (please describe)
      */
     public Chatroom(){
-        this.history = new ArrayList<>();
+        this.history = new HashMap<>();
     }
 
     /**
@@ -24,7 +25,8 @@ public class Chatroom implements Serializable {
      * @param message
      */
     public void sendMessage(Message message){
-        history.add(message);
+        history.put(key, message);
+        key += 1;
     }
 
     /**
@@ -32,7 +34,22 @@ public class Chatroom implements Serializable {
      *
      * @return
      */
-    public ArrayList<Message> getHistory(){
-        return history;
+    public ArrayList<Integer> getMessageKeys() {
+        ArrayList<Integer> keys = new ArrayList<>(history.keySet());
+        Collections.sort(keys);
+        return keys;
     }
+
+    public String getMessage(Integer key) {
+        return history.get(key).getMessage();
+    }
+
+    public String getDate(Integer key) {
+        return history.get(key).getDate();
+    }
+
+    public String getSender(Integer key) {
+        return history.get(key).getSender();
+    }
+
 }
