@@ -68,7 +68,7 @@ public class ConferenceSimulator {
         boolean exit = false;
         do{
             do {
-                ui.loggedIn(loginFacade.getUser(), registrar);
+                ui.loggedIn();
                 save();
             } while (loginFacade.getUser() != null);
             System.out.println("Press any key to log in again, or press Q to close the program.");

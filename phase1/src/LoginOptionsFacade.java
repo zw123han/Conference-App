@@ -10,6 +10,7 @@ import java.util.Scanner;
 public class LoginOptionsFacade {
     private CredentialsUseCase credentialsUseCase;
     private Login login;
+    private Registrar registrar;
 
     /**
      * (please describe)
@@ -73,4 +74,8 @@ public class LoginOptionsFacade {
      */
     public User getUser(){
         return login.getCurrentUser();}
+
+    public Registrar getRegistrar(){
+        return this.registrar;
+    }
 }

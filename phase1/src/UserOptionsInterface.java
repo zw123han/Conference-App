@@ -46,22 +46,20 @@ public class UserOptionsInterface {
     /**
      * (please describe)
      *
-     * @param user          (please describe)
-     * @param registrar     (please describe)
      */
-    public void loggedIn(User user, Registrar registrar) {
+    public void loggedIn() {
         if (loginFacade.getUser() == null) {
-            showOptions(user);
+            showOptions(loginFacade.getUser());
         }
         while (loginFacade.getUser() == null) {
             System.out.println("Please press any key to return to the login screen, or press Q to save and exit.");
             if (sc.nextLine().equals("Q")) {
                 return;
             } else {
-                showOptions(user);
+                showOptions(loginFacade.getUser());
             }
         }
-        homeScreenMenu(loginFacade.getUser(), registrar);
+        homeScreenMenu(loginFacade.getUser(), loginFacade.getRegistrar());
     }
 
     /**
