@@ -20,6 +20,7 @@ public class LoginOptionsFacade {
     public LoginOptionsFacade(Registrar registrar){
         this.credentialsUseCase = new CredentialsUseCase(registrar);
         this.login = new Login(registrar);
+        this.registrar = registrar;
     }
 
     /**
