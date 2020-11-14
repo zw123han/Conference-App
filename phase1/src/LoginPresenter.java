@@ -148,7 +148,7 @@ public class LoginPresenter {
      * @return      (please describe)
      */
     public String successfulAccountCreation(){
-        return "Account successfully created. Please login and perform an action to activate your account.";
+        return "Account successfully created. Please login and perform an action to activate your account, or it will be deleted.";
     }
 
     /**

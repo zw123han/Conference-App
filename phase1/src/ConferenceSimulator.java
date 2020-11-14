@@ -36,7 +36,7 @@ public class ConferenceSimulator {
      */
     public void save(){
         if(storeUsers.store(registrar.getUsers())&&saveEvents.saveEvents(eventManager.getEventsList())){
-            System.out.println("Changes successfully saved.");}
+            System.out.println("Account information successfully saved.");}
     }
 
     /**
