@@ -19,11 +19,12 @@ public class Login {
         this.registrar = registrar;
     }
 
-    private boolean loginAble(User user, String password){
-        if (!(userExists(user.getUserName()))) {
+
+    private boolean loginAble(String username, String password){
+        if (!(userExists(username))) {
             return false;
         }
-        return Arrays.equals(Base64.getEncoder().encode(password.getBytes()), user.getPassword().getBytes());
+        return Arrays.equals(Base64.getEncoder().encode(password.getBytes()), registrar.getUserByUserName(username).getPassword().getBytes());
     }
 
     /**
@@ -43,15 +44,33 @@ public class Login {
      * @param password      (please describe)
      * @return              (please describe)
      */
-    public User attemptLogin(String username, String password){
-        if (!userExists(username)){
-            return null;
+    public boolean attemptLogin(String username, String password){
+        if (loginAble(username, password)) {
+            registrar.setCurrentUser(username);
+            return true;
         }
-        User user = registrar.getUserByUserName(username);
-        if (loginAble(user, password)) {
-            return user;
+        return false;
+    }
+
+    /**
+     * (please describe)
+     *
+     * @return      True or false.
+     */
+    public boolean attemptLogout(){
+        if (registrar.getCurrentUser()==null){
+            return false;
         }
-        return null;
+        registrar.emptyCurrentUser();
+        return true;
+    }
+    /**
+     * (please describe)
+     *
+     * @return      (please describe)
+     */
+    public User getCurrentUser(){
+        return registrar.getCurrentUser();
     }
 
 }

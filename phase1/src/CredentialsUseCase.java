@@ -29,7 +29,7 @@ public class CredentialsUseCase {
      * @return                  True of false.
      */
     public boolean createUser(String name, String username, String password, String type){
-        if (name.length()<1|username.length()<1|type.length()<1|username.contains("@")){
+        if (name.length()<1|username.length()<1|type.length()<1|username.contains("@")|username.contains(" ")){
             return false;
         }
         if(registrar.userExisting(username)){

@@ -10,7 +10,7 @@ import java.util.Scanner;
 public class LoginOptionsFacade {
     private CredentialsUseCase credentialsUseCase;
     private Login login;
-    private User user;
+    private Registrar registrar;
 
     /**
      * (please describe)
@@ -20,7 +20,6 @@ public class LoginOptionsFacade {
     public LoginOptionsFacade(Registrar registrar){
         this.credentialsUseCase = new CredentialsUseCase(registrar);
         this.login = new Login(registrar);
-        this.user = null;
     }
 
     /**
@@ -56,18 +55,7 @@ public class LoginOptionsFacade {
      * @return              True or false.
      */
     public boolean login(String username, String password){
-        this.user = login.attemptLogin(username, password);
-        return this.user != null;
-    }
-
-    /**
-     * (please describe)
-     *
-     * @param username      (please describe)
-     * @return              True or false.
-     */
-    public boolean userExists(String username) {
-        return login.userExists(username);
+        return login.attemptLogin(username, password);
     }
 
     /**
@@ -76,11 +64,7 @@ public class LoginOptionsFacade {
      * @return      True or false.
      */
     public boolean logout(){
-        if (this.user==null){
-            return false;
-        }
-        this.user = null;
-        return true;
+        return login.attemptLogout();
     }
 
     /**
@@ -89,5 +73,9 @@ public class LoginOptionsFacade {
      * @return      (please describe)
      */
     public User getUser(){
-        return this.user;}
+        return login.getCurrentUser();}
+
+    public Registrar getRegistrar(){
+        return this.registrar;
+    }
 }
