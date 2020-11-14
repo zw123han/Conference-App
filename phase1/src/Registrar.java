@@ -10,6 +10,7 @@ import java.lang.*;
 public class Registrar {
 
     private ArrayList<User> users;
+    private User currentUser;
 
     /**
      * Constructor used when loading from a file
@@ -18,6 +19,7 @@ public class Registrar {
      */
     public Registrar(ArrayList<User> users) {
         this.users = users;
+        this.currentUser = null;
     }
 
     /**
@@ -174,5 +176,17 @@ public class Registrar {
             return getUserByUserName(username).getName();
         }
         return "";
+    }
+
+    public User getCurrentUser(){
+        return this.currentUser;
+    }
+
+    public void setCurrentUser(String username){
+        this.currentUser = getUserByUserName(username);
+    }
+
+    public void emptyCurrentUser(){
+        this.currentUser = null;
     }
 }
