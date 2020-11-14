@@ -1,9 +1,9 @@
 import java.util.*;
 
 /**
- * (please describe)
+ * OutboxController handles user requests for sending messages.
  *
- * @author
+ * @author  ????
  * @version %I%, %G%
  */
 public class OutboxController {
@@ -15,11 +15,11 @@ public class OutboxController {
     private Registrar reg;
 
     /**
-     * (please describe)
+     * initializes a new OutboxController.
      *
-     * @param reg       (please describe)
-     * @param username      (please describe)
-     * @param em (desc)
+     * @param reg       the registrar
+     * @param username  the username of the logged in user
+     * @param em        the event manager
      */
     public OutboxController(Registrar reg, String username, EventManager em) {
         this.username = username;
@@ -28,22 +28,26 @@ public class OutboxController {
     }
 
     /**
-     * (please describe)
+     * Prompts and processes a user's request for message composition options by target.
      */
     public void promptChatChoice() {
         op.menuDisplay();
         op.commandPrompt("prompt");
         String choice = sc.nextLine();
         while (!choice.equals("$q")) {
-            if (choice.equals("1")) {
-                promptRecipient();
-            }
-            else if (choice.equals("2")) {
-                promptEvent();
-            } else if (choice.equals("3")) {
-                promptSpeaker();
-            } else {
-                op.invalidCommand("prompt");
+            switch (choice) {
+                case "1":
+                    promptRecipient();
+                    break;
+                case "2":
+                    promptEvent();
+                    break;
+                case "3":
+                    promptSpeaker();
+                    break;
+                default:
+                    op.invalidCommand("prompt");
+                    break;
             }
             op.menuDisplay();
             op.commandPrompt("prompt");
@@ -52,7 +56,7 @@ public class OutboxController {
     }
 
     /**
-     * (please describe)
+     * Prompts and processes a user's request to message a specific friend by username.
      */
     public void promptRecipient() {
         op.friendMenu(reg, username);
@@ -88,7 +92,7 @@ public class OutboxController {
     }
 
     /**
-     * (please describe)
+     * Prompts and processes a user's request to message one or more speakers by username.
      */
     public void promptSpeaker() {
         op.speakerMenu(reg, em);
@@ -140,7 +144,7 @@ public class OutboxController {
     }
 
     /**
-     * (please describe)
+     * Prompts and processes a user's request to message all attendees of a specific event by ID.
      */
     public void promptEvent() {
         loadEventMenu();
@@ -164,9 +168,9 @@ public class OutboxController {
     }
 
     /**
-     * (please describe)
+     * Prompts and processes a user's request to send a message to a user.
      *
-     * @param destination       (please describe)
+     * @param destination     the username of the target user
      */
     public void promptMessage(String destination) {
         op.commandPrompt("message (requires at least 1 character)");
@@ -185,9 +189,9 @@ public class OutboxController {
     }
 
     /**
-     * (please describe)
+     * Prompts and processes a user's request to send a message to all attendees of an event.
      *
-     * @param event_ids         (please describe)
+     * @param event_ids        the ID of the event
      */
     public void promptEventMessage(ArrayList<Long> event_ids) {
         op.commandPrompt("message (requires at least 1 character)");
@@ -208,9 +212,9 @@ public class OutboxController {
     }
 
     /**
-     * (please describe)
+     * Prompts and processes a user's request to send a message to one or more speakers.
      *
-     * @param speakers      (please describe)
+     * @param speakers      the username(s) of the speakers
      */
     public void promptMessage(ArrayList<String> speakers) {
         op.commandPrompt("message (requires at least 1 character)");
