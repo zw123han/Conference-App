@@ -52,6 +52,9 @@ public class CredentialsUseCase {
             return false;
         }
         User user = registrar.getUserByUserName(username);
+        if (user == null){
+            return false;
+        }
         if (Arrays.equals(currentPassword.getBytes(),Base64.getDecoder().decode(user.getPassword()))){
             user.setPassword(Base64.getEncoder().encodeToString(newPassword.getBytes()));
             return true;

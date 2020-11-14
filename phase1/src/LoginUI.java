@@ -103,11 +103,11 @@ public class LoginUI {
 
     /**
      * (please describe)
+     *
+     * @param username          (please describe)
      */
-    public void changePassword() {
+    public void changePassword(String username) {
         if (confirmChangePassword()) {
-            System.out.println(loginPresenter.promptAccountUsername());
-            String username = sc.nextLine();
             System.out.println(loginPresenter.promptOldPassword());
             String currentPassword = sc.nextLine();
             System.out.println(loginPresenter.promptNewPassword());
