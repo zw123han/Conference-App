@@ -3,7 +3,7 @@ import java.util.*;
 /**
  * OutboxController handles user requests for sending messages.
  *
- * @author  ????
+ * @author  Chrisee Zhu
  * @version %I%, %G%
  */
 public class OutboxController {
@@ -17,9 +17,9 @@ public class OutboxController {
     /**
      * initializes a new OutboxController.
      *
-     * @param reg       the registrar
-     * @param username  the username of the logged in user
-     * @param em        the event manager
+     * @param reg       Registrar
+     * @param username  the username of the sender
+     * @param em        EventManager
      */
     public OutboxController(Registrar reg, String username, EventManager em) {
         this.username = username;
@@ -146,7 +146,7 @@ public class OutboxController {
     /**
      * Prompts and processes a user's request to send a message to a user.
      *
-     * @param destination     the username of the target user
+     * @param destination     the username of the target user; target user must be a friend of the sender
      */
     public void promptMessage(String destination) {
         op.commandPrompt("message (requires at least 1 character)");
@@ -167,7 +167,7 @@ public class OutboxController {
     /**
      * Prompts and processes a user's request to send a message to all attendees of an event.
      *
-     * @param event_ids        the ID of the event
+     * @param event_ids        the ID of the event; events must exist in EventManager
      */
     public void promptEventMessage(ArrayList<Long> event_ids) {
         op.commandPrompt("message (requires at least 1 character)");
@@ -190,7 +190,7 @@ public class OutboxController {
     /**
      * Prompts and processes a user's request to send a message to one or more speakers.
      *
-     * @param speakers      the username(s) of the speakers
+     * @param speakers      the username(s) of the speakers; speakers must exist in Registrar
      */
     public void promptMessage(ArrayList<String> speakers) {
         op.commandPrompt("message (requires at least 1 character)");

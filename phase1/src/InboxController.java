@@ -16,7 +16,7 @@ public class InboxController {
     private EventManager em;
 
     /**
-     * (please describe)
+     * Initiates a new InboxController
      *
      * @param reg       Registrar
      * @param username  username of the currently logged in user
@@ -60,7 +60,7 @@ public class InboxController {
     }
 
     /**
-     * (please describe)
+     * Prompts the user to choose a chatlog from a list of existing chatlogs by username.
      */
     public void promptChatChoice() {
         ChatPull pull = new ChatPull();
@@ -83,10 +83,10 @@ public class InboxController {
     }
 
     /**
-     * (please describe)
+     * Prompts the user for whether they want to reply (if able) or whether they want to exit the chat.
      *
-     * @param cm            (please describe)
-     * @param recipient     (please describe)
+     * @param cm            ChatroomManager
+     * @param recipient     username of a user that the logged in user has chatted with
      */
     public void chatViewer(ChatroomManager cm, String recipient) {
         ip.chatView(reg, cm.getChatroom(username, recipient));
@@ -102,9 +102,9 @@ public class InboxController {
     }
 
     /**
-     * (please describe)
+     * Prompts the user for a reply to be sent into the current chat.
      *
-     * @param recipient     (please describe)
+     * @param recipient     username of a user that the logged in user has chatted with
      */
     public void promptReply(String recipient) {
         OutboxController oc = new OutboxController(reg, username, em);

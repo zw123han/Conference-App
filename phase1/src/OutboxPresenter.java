@@ -1,25 +1,25 @@
 import java.util.*;
 
 /**
- * (please describe)
+ * Handles text format and display for the client.
  *
- * @author
+ * @author Chrisee Zhu
  * @version %I%, %G%
  */
 public class OutboxPresenter extends CommandPresenter{
 
     /**
-     * (please describe)
+     * Displays message composition options by target.
      */
     public void menuDisplay() {
         System.out.println("\n1) Message users\n2) Group message\n3) Message speakers\n");
     }
 
     /**
-     * (please describe)
+     * Displays a list of speakers hosting events at this conference, including their name and username.
      *
-     * @param reg       (please describe)
-     * @param em        (please describe)
+     * @param reg       Registrar
+     * @param em        EventManager
      */
     public void speakerMenu(Registrar reg, EventManager em) {
         System.out.println("\nSPEAKERS:");
@@ -42,10 +42,10 @@ public class OutboxPresenter extends CommandPresenter{
     }
 
     /**
-     * (please describe)
+     * Displays a list of friends that this user has, including their name and username.
      *
-     * @param reg       (please describe)
-     * @param username      (please describe)
+     * @param reg           Registrar
+     * @param username      username of the sender; sender must exist in Registrar
      */
     public void friendMenu(Registrar reg, String username) {
         System.out.println("\nFRIENDS:");
@@ -61,10 +61,11 @@ public class OutboxPresenter extends CommandPresenter{
     }
 
     /**
-     * (please describe)
+     * Displays a list of events hosted by a speaker, including their name, IDs, time, and room.
      *
-     * @param username      (please describe)
-     * @param em        (please describe)
+     * @param username      username of a speaker (sender); speaker must exist in Registrar
+     * @param em            EventManager
+     * @param reg           Registrar
      */
     public void eventMenu(String username, EventManager em, Registrar reg) {
         System.out.println("\nEVENTS:");
@@ -83,9 +84,9 @@ public class OutboxPresenter extends CommandPresenter{
     }
 
     /**
-     * (please describe)
+     * Displays a list of events available at this conference, including their name, IDs, time, and room.
      *
-     * @param em        (please describe)
+     * @param em        EventManager
      */
     public void eventMenu(EventManager em) {
         System.out.println("\nEVENTS:");
@@ -104,7 +105,7 @@ public class OutboxPresenter extends CommandPresenter{
     }
 
     /**
-     * (please describe)
+     * Displays a success message for a sent message.
      */
     public void success() {
         System.out.println("\nMessage successfully sent!");

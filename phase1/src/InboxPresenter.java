@@ -9,10 +9,10 @@ import java.util.*;
 public class InboxPresenter extends CommandPresenter {
 
     /**
-     * (please describe)
+     * Displays a series of users with whom the logged in user has chatted.
      *
-     * @param reg           (please describe)
-     * @param friends       (please describe)
+     * @param reg           Registrar
+     * @param friends       An ArrayList of friends; this user has chatted with these friends
      */
     public void menuDisplay(Registrar reg, ArrayList<String> friends) {
         System.out.println("\nCHAT HISTORY:");
@@ -27,26 +27,28 @@ public class InboxPresenter extends CommandPresenter {
     }
 
     /**
-     * (please describe)
+     * Displays the chatlog, including message content, the sender name and username, and the date and time the message was sent, converted to local time.
      *
-     * @param reg       (please describe)
-     * @param cm        (please describe)
+     * @param reg       Registrar
+     * @param c        Chatroom
      */
-    public void chatView(Registrar reg, Chatroom cm) {
-        ArrayList<Integer> history = cm.getMessageKeys();
+    public void chatView(Registrar reg, Chatroom c) {
+        ArrayList<Integer> history = c.getMessageKeys();
         for (Integer m : history) {
-            String sender = cm.getSender(m);
+            String sender = c.getSender(m);
             System.out.println("\nFrom: " + reg.getNameByUsername(sender) + " (@" + sender + ")");
-            System.out.println("Sent: " + cm.getDate(m));
-            messageFormatter(cm.getMessage(m));
+            System.out.println("Sent: " + c.getDate(m));
+            messageFormatter(c.getMessage(m));
         }
         System.out.println();
     }
 
     /**
-     * (please describe)
+     * Formats the message such that:
+     * - It has at least 80 characters per line
+     * - If a line exceeds 80 characters, then the line would be wrapped at the first space after the 80th character
      *
-     * @param message       (please describe)
+     * @param message       String of message to be formatted
      */
     public void messageFormatter(String message) {
         StringBuilder sbm = new StringBuilder(message);
@@ -62,7 +64,7 @@ public class InboxPresenter extends CommandPresenter {
     }
 
     /**
-     * (please describe)
+     * Displays text for when a user can reply to a message
      */
     public void replyMessage() {
         System.out.println("Press enter to reply to the message.");

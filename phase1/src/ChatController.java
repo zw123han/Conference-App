@@ -103,10 +103,10 @@ public class ChatController {
     /**
      * Sends message to all attendees in an event.
      *
-     * @param username          (please describe)
-     * @param evt           (please describe)
-     * @param message       (please describe)
-     * @param em            (please describe)
+     * @param username      username of the sender
+     * @param evt           ID of an event
+     * @param message       String of message to be sent
+     * @param em            EventManager
      */
     public void sendMessage(String username, Long evt, String message, EventManager em) {
         ChatPull pull = new ChatPull();

@@ -3,9 +3,9 @@ import java.time.format.DateTimeFormatter;
 import java.io.Serializable;
 
 /**
- * (please describe)
+ * An object that represents a message sent between users
  *
- * @author
+ * @author Chrisee Zhu
  * @version %I%, %G%
  */
 public class Message implements Serializable {
@@ -13,10 +13,10 @@ public class Message implements Serializable {
     private ZonedDateTime time = ZonedDateTime.now();
 
     /**
-     * (please describe)
+     * Initializes a new Message
      *
-     * @param message       (please describe)
-     * @param sender        (please describe)
+     * @param message       String to be stored in Message
+     * @param sender        username of sender
      */
     public Message(String message, String sender) {
         this.message = message;
@@ -24,27 +24,27 @@ public class Message implements Serializable {
     }
 
     /**
-     * (please describe)
+     * Gets the message String stored in this object.
      *
-     * @return      (please describe)
+     * @return      String of message
      */
     public String getMessage() {
         return message;
     }
 
     /**
-     * (please describe)
+     * Gets the sender of this message.
      *
-     * @return      (please describe)
+     * @return      username of sender
      */
     public String getSender() {
         return sender;
     }
 
     /**
-     * (please describe)
+     * Gets the date and time this message was sent, converted to local time.
      *
-     * @return      (please describe)
+     * @return      date sent (local)
      */
     public String getDate() {
         DateTimeFormatter d = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
