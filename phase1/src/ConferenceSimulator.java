@@ -20,6 +20,7 @@ public class ConferenceSimulator {
         String userFilepath = "phase1/src/userData.ser";
         String eventFilepath = "phase1/src/eventData.ser";
         // Should we also have chatlog filepath?
+        // We could add filepaths as parameters
 
         readEvents = new ReadEvents(eventFilepath);
         readUsers = new ReadUsers(userFilepath);
@@ -28,6 +29,14 @@ public class ConferenceSimulator {
         storeUsers = new StoreUsers(userFilepath);
         registrar = new Registrar(readUsers.read());
         eventManager = new EventManager(readEvents.read());
+    }
+
+    /**
+     *
+     */
+    public void save(){
+        if(storeUsers.store(registrar.getUsers())&&saveEvents.saveEvents(eventManager.getEventsList())){
+            System.out.println("Changes successfully saved.");}
     }
 
     /**
@@ -41,27 +50,26 @@ public class ConferenceSimulator {
         OrganizerCreationScript organizerCreationScript = new OrganizerCreationScript();
         organizerCreationScript.createOrganizers(registrar);
 
+        // Add necessary presenters and controllers
         LoginOptionsFacade loginFacade = new LoginOptionsFacade(registrar);
         EventCreatorPresenter eventCreatorPresenter = new EventCreatorPresenter(eventManager, registrar);
         EventSignupPresenter eventSignupPresenter = new EventSignupPresenter(eventSignup, eventManager);
         ChatMenuPresenter chatMenuPresenter = new ChatMenuPresenter();
         FriendsPresenter friendsPresenter = new FriendsPresenter();
-        // Other controllers with presenters go here
 
+        // Main user UI
         UserOptionsInterface ui = new UserOptionsInterface(loginFacade, eventCreatorPresenter, eventSignupPresenter,
                 chatMenuPresenter, friendsPresenter, eventManager);
-        // Other UIs go into this ui
 
-        // Only have attendees create their own accounts (assume they are already signed up)
-        // Give organizers option to create any accounts other than organize    rs
 
+
+        // Run the program
         Scanner sc = new Scanner(System.in);
         boolean exit = false;
         do{
             do {
                 ui.loggedIn(loginFacade.getUser(), registrar);
-                if (storeUsers.store(registrar.getUsers())&&saveEvents.saveEvents(eventManager.getEventsList())){
-                    System.out.println("Changes successfully saved.");}
+                save();
             } while (loginFacade.getUser() != null);
             System.out.println("Press any key to log in again, or press Q to close the program.");
             exit = sc.nextLine().equals("Q");
@@ -77,9 +85,4 @@ public class ConferenceSimulator {
         // saveEvents.saveEvents(emptyEventList);
     }
 
-    public void save(){
-        storeUsers.store(registrar.getUsers());
-        saveEvents.saveEvents(eventManager.getEventsList());
-        System.out.println("saved");
-    }
 }
