@@ -9,7 +9,6 @@ import java.util.Scanner;
  * @version %I%, %G%
  */
 public class InboxController {
-    private ChatController cc = new ChatController();
     private InboxPresenter ip = new InboxPresenter();
     private Scanner sc = new Scanner(System.in);
     private String username;
@@ -27,6 +26,22 @@ public class InboxController {
         this.reg = reg;
         this.username = username;
         this.em = em;
+    }
+
+    private boolean canReply(Registrar reg, String username, String recipient, ChatroomManager cm) {
+        if (cm.hasChatroom(username, recipient)) {
+            if (reg.isOrganizer(username) || reg.isAttendee(username)) {
+                return true;
+            }
+            Chatroom c = cm.getChatroom(username, recipient);
+            ArrayList<Integer> history = c.getMessageKeys();
+            for (Integer m : history) {
+                if (c.getSender(m).equals(recipient)) {
+                    return true;
+                }
+            }
+        }
+        return false;
     }
 
     private ArrayList<String> getUsersTalkto(String username, ChatroomManager cm) {
@@ -77,7 +92,7 @@ public class InboxController {
         ip.chatView(reg, cm.getChatroom(username, recipient));
         String e = "";
         while (!e.equals("$q")) {
-            if (cc.canReply(reg, username, recipient, cm)) {
+            if (canReply(reg, username, recipient, cm)) {
                 promptReply(recipient);
                 break;
             }
