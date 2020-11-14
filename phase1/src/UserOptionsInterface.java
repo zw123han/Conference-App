@@ -249,7 +249,7 @@ public class UserOptionsInterface {
             } else {
                 System.out.println("You cannot use those credentials. Please try again.");
             }
-            System.out.println("Would you like to create a Speaker? Press any key to continue, or $q to exit");
+            System.out.println("Press any key to continue speaker creation, or $q to exit");
             choice = sc.nextLine();
         }
     }
