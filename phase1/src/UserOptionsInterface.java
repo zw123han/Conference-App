@@ -54,7 +54,7 @@ public class UserOptionsInterface {
             showOptions(user);
         }
         while (loginFacade.getUser() == null) {
-            System.out.println("Please any key to return to the login screen, or press Q to save and exit.");
+            System.out.println("Please press any key to return to the login screen, or press Q to save and exit.");
             if (sc.nextLine().equals("Q")) {
                 return;
             } else {
