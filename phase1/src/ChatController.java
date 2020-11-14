@@ -52,20 +52,32 @@ public class ChatController {
      * @param cm            (please describe)
      * @return              True of false.
      */
-    public boolean canReply(Registrar reg, String username, String recipient, ChatroomManager cm) {
-        if (cm.hasChatroom(username, recipient)) {
-            if (reg.isOrganizer(username) || reg.isAttendee(username)) {
-                return true;
-            }
-            Chatroom c = cm.getChatroom(username, recipient);
-            ArrayList<Integer> history = c.getMessageKeys();
-            for (Integer m : history) {
-                if (c.getSender(m).equals(recipient)) {
-                    return true;
-                }
+    public boolean canSendSpeakers(Registrar reg, String username, ArrayList<String> speakers) {
+        boolean result = true;
+        for (String speaker : speakers) {
+            if (!canMessage(username, speaker, reg)) {
+                result = false;
             }
         }
-        return false;
+        return result;
+    }
+
+    /**
+     * (please describe)
+     *
+     * @param username          (please describe)
+     * @param recipient     (please describe)
+     * @param cm            (please describe)
+     * @return              True of false.
+     */
+    public boolean canSendEvents(Registrar reg, EventManager em, String username, ArrayList<Long> event_ids) {
+        boolean result = true;
+        for (Long event_id : event_ids) {
+            if (!canMessage(username, event_id, reg, em)) {
+                result = false;
+            }
+        }
+        return result;
     }
 
     /**

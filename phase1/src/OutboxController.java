@@ -76,16 +76,6 @@ public class OutboxController {
         }
     }
 
-    private boolean canSendSpeakers(ArrayList<String> speakers) {
-        boolean result = true;
-        for (String speaker : speakers) {
-            if (!cc.canMessage(username, speaker, reg)) {
-                result = false;
-            }
-        }
-        return result;
-    }
-
     private ArrayList<String> convertSpeakers(String speakers) {
         String[] speakerArray = speakers.split(" ", 0);
         return new ArrayList<>(Arrays.asList(speakerArray));
@@ -101,7 +91,7 @@ public class OutboxController {
         while (!speakers.equals("$q")) {
             speakers = speakers.replace("@", "");
             ArrayList<String> speakerArrayList = convertSpeakers(speakers);
-            if (canSendSpeakers(speakerArrayList)) {
+            if (cc.canSendSpeakers(reg, username, speakerArrayList)) {
                 promptMessage(speakerArrayList);
             } else {
                 op.invalidCommand("username");
@@ -121,26 +111,12 @@ public class OutboxController {
         return longArrayList;
     }
 
-    private boolean canSendEvents(ArrayList<Long> event_ids) {
-        boolean result = true;
-        for (Long event_id : event_ids) {
-            if (!cc.canMessage(username, event_id, reg, em)) {
-                result = false;
-            }
-        }
-        return result;
-    }
-
     private void loadEventMenu() {
         if (reg.isSpeaker(username)) {
             op.eventMenu(username, em, reg);
         } else if (reg.isOrganizer(username)) {
             op.eventMenu(em);
         }
-    }
-
-    private boolean validateEvents(String evt) {
-        return evt.matches("^[0-9]+$");
     }
 
     /**
@@ -151,9 +127,9 @@ public class OutboxController {
         op.commandPrompt("event ID (separate IDs with a space)");
         String evt = sc.nextLine();
         while (!evt.equals("$q")) {
-            if (validateEvents(evt)) {
+            if (evt.matches("^[0-9]+$")) {
                 ArrayList<Long> event_ids = convertLong(evt);
-                if (canSendEvents(event_ids)) {
+                if (cc.canSendEvents(reg, em, username, event_ids)) {
                     promptEventMessage(event_ids);
                 } else {
                     op.invalidCommand("event ID (make sure they are valid)");
