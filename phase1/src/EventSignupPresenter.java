@@ -39,6 +39,8 @@ public class EventSignupPresenter {
             }
         } catch (EventNotFoundException e) {
             System.out.println(e);
+        } catch (NumberFormatException e){
+            System.out.println("Please enter a valid event ID");
         }
     }
 
@@ -58,6 +60,8 @@ public class EventSignupPresenter {
             }
         } catch (EventNotFoundException e) {
             System.out.println(e.toString());
+        } catch (NumberFormatException e) {
+            System.out.println("Please enter a valid event ID");
         }
     }
 

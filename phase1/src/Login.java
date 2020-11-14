@@ -27,13 +27,8 @@ public class Login {
         return Arrays.equals(Base64.getEncoder().encode(password.getBytes()), registrar.getUserByUserName(username).getPassword().getBytes());
     }
 
-    /**
-     * (please describe)
-     *
-     * @param username      (please describe)
-     * @return              (please describe)
-     */
-    public boolean userExists(String username) {
+
+    private boolean userExists(String username) {
         return registrar.userExisting(username);
     }
 
