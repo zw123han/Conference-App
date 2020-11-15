@@ -124,7 +124,7 @@ public class Registrar {
     }
 
     /**
-     *
+     * (please describe)
      *
      * @param username      (please describe)
      * @return              (please describe)
@@ -136,6 +136,12 @@ public class Registrar {
         return false;
     }
 
+    /**
+     * (please describe)
+     *
+     * @param username      (please describe)
+     * @return              (please describe)
+     */
     public boolean isSpeaker(String username) {
         if (userExisting(username)) {
             return getUserByUserName(username) instanceof Speaker;
@@ -143,6 +149,12 @@ public class Registrar {
         return false;
     }
 
+    /**
+     * (please describe)
+     *
+     * @param username      (please describe)
+     * @return              (please describe)
+     */
     public boolean isAttendee(String username) {
         if (userExisting(username)) {
             return getUserByUserName(username) instanceof Attendee;
@@ -150,6 +162,12 @@ public class Registrar {
         return false;
     }
 
+    /**
+     * (please describe)
+     *
+     * @param username      (please describe)
+     * @return              (please describe)
+     */
     public ArrayList<String> getUserFriends(String username) {
         if (userExisting(username)) {
             return getUserByUserName(username).getFriends();
@@ -157,10 +175,23 @@ public class Registrar {
         return new ArrayList<>();
     }
 
+    /**
+     * (please describe)
+     *
+     * @param username      (please describe)
+     * @param friend        (please describe)
+     * @return              (please describe)
+     */
     public boolean isFriend(String username, String friend) {
         return getUserByUserName(username).getFriends().contains(friend);
     }
 
+    /**
+     * (please describe)
+     *
+     * @param username      (please describe)
+     * @return              (please describe)
+     */
     public ArrayList<Long> getSpeakerTalks(String username) {
         if (isSpeaker(username)) {
             Speaker speaker = (Speaker) getUserByUserName(username);
@@ -169,6 +200,12 @@ public class Registrar {
         return new ArrayList<>();
     }
 
+    /**
+     * (please describe)
+     *
+     * @param username      (please describe)
+     * @return              (please describe)
+     */
     public String getNameByUsername(String username) {
         if (userExisting(username)) {
             return getUserByUserName(username).getName();
