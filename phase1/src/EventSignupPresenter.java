@@ -104,4 +104,24 @@ public class EventSignupPresenter {
             System.out.println("------------------------");
         }
     }
+    /**
+     * Prints out a list of usernames registered in an event.
+     *
+     * @param id      The event_id of the event.
+     */
+    public void getEventInfo(String id){
+        try{
+
+            System.out.println("\n PARTICIPANTS:");
+            for (String username: em.getSignedUpUsers(Long.parseLong(id))){
+                System.out.println("@"+username);
+            }
+        }
+        catch(NumberFormatException e){
+            System.out.println("Please enter a valid event ID");
+        }
+        catch(EventNotFoundException e){
+            System.out.println("That event has not yet been registered");
+        }
+    }
 }
