@@ -152,9 +152,10 @@ public class EventManager implements Serializable {
     }
 
     /**
+     * This method will return a list of usernames signed up for an event.
      *
-     * @param id
-     * @return
+     * @param id        The id of an event.
+     * @return          A list of usernames representing users signed up for this event.
      */
     public ArrayList<String> getSignedUpUsers(Long id) throws EventNotFoundException {
         if (getEvent(id) == null){
