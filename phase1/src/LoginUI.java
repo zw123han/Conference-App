@@ -1,9 +1,9 @@
 import java.util.Scanner;
 
 /**
- * (please describe)
+ * A user interface which exchanges inputs and outputs with a person to login/manage their account.
  *
- * @author
+ * @author Ziwen
  * @version %I%, %G%
  */
 public class LoginUI {
@@ -12,9 +12,9 @@ public class LoginUI {
     private Scanner sc;
 
     /**
-     * (please describe)
+     * Initializes a new LoginUI.
      *
-     * @param loginOptionsFacade        (please describe)
+     * @param loginOptionsFacade        An instance of a LoginOptionsFacade.
      */
     public LoginUI(LoginOptionsFacade loginOptionsFacade){
         loginPresenter = new LoginPresenter();
@@ -73,7 +73,7 @@ public class LoginUI {
     }
 
     /**
-     * (please describe)
+     * Gives a person options to login or create a new account, depending on selection.
      */
     public void login(){
         System.out.println(loginPresenter.inquireAccount());
@@ -87,7 +87,7 @@ public class LoginUI {
     }
 
     /**
-     * (please describe)
+     * Gives a person an option to log out of their account.
      */
     public void logout() {
         if (confirmLogout()) {
@@ -101,9 +101,9 @@ public class LoginUI {
     }
 
     /**
-     * (please describe)
+     * Gives a person an option to change the password associated with an account.
      *
-     * @param username          (please describe)
+     * @param username          The account that the password is to be changed in.
      */
     public void changePassword(String username) {
         if (confirmChangePassword()) {

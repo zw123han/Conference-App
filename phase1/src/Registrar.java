@@ -176,14 +176,28 @@ public class Registrar {
         return "";
     }
 
+    /**
+     * This method will return the current user logged in (currently using) registrar.
+     *
+     * @return          The current user logged into registrar.
+     */
     public User getCurrentUser(){
         return this.currentUser;
     }
 
+    /**
+     * This method will set a user as the current user logged into (currently using) registrar.
+     *
+     * @param username The username of a user to set as the current user.
+     */
     public void setCurrentUser(String username){
         this.currentUser = getUserByUserName(username);
     }
 
+    /**
+     * This method will set the current user logged into registrar as null.
+     *
+     */
     public void emptyCurrentUser(){
         this.currentUser = null;
     }

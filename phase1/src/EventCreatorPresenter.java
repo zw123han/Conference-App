@@ -42,7 +42,7 @@ public class EventCreatorPresenter {
         } catch (EventCreationFailureException e) {
 //            e.printStackTrace();
 //            return ("");
-            System.out.println(e);
+            System.out.println("Speaker or room selected unavailable for this time.");
             return("");
         }
     }

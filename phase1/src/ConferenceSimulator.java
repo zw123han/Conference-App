@@ -3,7 +3,7 @@ import java.util.*;
 /**
  * This class represents the executable for the application.
  *
- * @author  ..., ..., Fred
+ * @author  ..., ..., Fred, Ziwen
  * @version %I%, %G%
  */
 public class ConferenceSimulator {
@@ -16,6 +16,9 @@ public class ConferenceSimulator {
     Registrar registrar;
     EventManager eventManager;
 
+    /**
+     *  Constructor for Conference simulator. Creates gateways and necessary use cases to store data.
+     */
     public ConferenceSimulator() {
         String userFilepath = "phase1/src/userData.ser";
         String eventFilepath = "phase1/src/eventData.ser";
@@ -32,7 +35,7 @@ public class ConferenceSimulator {
     }
 
     /**
-     *
+     * This method will save all users and events data to a ser file.
      */
     public void save(){
         storeUsers.store(registrar.getUsers());

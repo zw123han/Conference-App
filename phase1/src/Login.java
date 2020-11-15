@@ -2,18 +2,18 @@ import java.util.Arrays;
 import java.util.Base64;
 
 /**
- * (please describe)
+ * Controller which logs users into the registrar.
  *
- * @author
+ * @author Ziwen
  * @version %I%, %G%
  */
 public class Login {
     private Registrar registrar;
 
     /**
-     * (please describe)
+     * Initializes a new Login.
      *
-     * @param registrar     (please describe)
+     * @param registrar     Registrar use case which stores users.
      */
     public Login(Registrar registrar){
         this.registrar = registrar;
@@ -33,11 +33,11 @@ public class Login {
     }
 
     /**
-     * (please describe)
+     * Attempts to log a user into the registrar given credentials.
      *
-     * @param username      (please describe)
-     * @param password      (please describe)
-     * @return              (please describe)
+     * @param username      The username of the user to be logged in.
+     * @param password      The password of the user to be logged in.
+     * @return              True or false. Returns true if and only if user is successfully logged in.
      */
     public boolean attemptLogin(String username, String password){
         if (loginAble(username, password)) {
@@ -48,9 +48,9 @@ public class Login {
     }
 
     /**
-     * (please describe)
+     * Attempts to log a user out of the registrar.
      *
-     * @return      True or false.
+     * @return      True or false. Returns true if and only if a user is successfully logged out.
      */
     public boolean attemptLogout(){
         if (registrar.getCurrentUser()==null){
@@ -60,9 +60,9 @@ public class Login {
         return true;
     }
     /**
-     * (please describe)
+     * Returns the current user logged in.
      *
-     * @return      (please describe)
+     * @return      The current user logged into registrar, or null if there is none.
      */
     public User getCurrentUser(){
         return registrar.getCurrentUser();
