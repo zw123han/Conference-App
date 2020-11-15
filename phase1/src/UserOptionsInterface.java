@@ -79,7 +79,7 @@ public class UserOptionsInterface {
                     logout();
                     break;
                 case "2":
-                    showEventScreen(esp);
+                    showEventScreen();
                     break;
                 case "3":
                     showMessageScreen(registrar, user.getUserName());
@@ -106,7 +106,7 @@ public class UserOptionsInterface {
                     logout();
                     break;
                 case "2":
-                    showEventScreen(esp);
+                    showEventScreen();
                     break;
                 case "3":
                     showMessageScreen(registrar, user.getUserName());
@@ -153,14 +153,19 @@ public class UserOptionsInterface {
             generalOptions();
         }
     }
-
+//    private void sectionDivider() {
+////        System.out.println("\n≡≡≡≡≡ ≡≡≡≡≡ ≡≡≡≡≡ ≡≡≡≡≡\n");
+//        System.out.println("\n█▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒▒█  ◈   \n");
+////        System.out.println("\n------------------------");
+////        System.out.println("------------------------\n");
+//    }
     /**
      * (please describe)
      *
-     * @param esp       (please describe)
      */
-    public void showEventScreen(EventSignupPresenter esp) {
+    public void showEventScreen() {
         esp.viewEvents();
+//        sectionDivider();
         esp.usersEvents(loginFacade.getUser());
         System.out.println("\nWould you like to join, leave, or get participant information on an event?");
         System.out.println("Type \"join\", \"leave\", or \"info\"");
@@ -183,6 +188,9 @@ public class UserOptionsInterface {
             else {
                 System.out.println("Please enter a valid input (join or leave)");
             }
+            esp.viewEvents();
+//            sectionDivider();
+            esp.usersEvents(loginFacade.getUser());
             System.out.println("\nWould you like to join, leave, or get participant information on an event?");
             System.out.println("Type \"join\", \"leave\", or \"info\"");
             System.out.println("Press $q to go back.");

@@ -51,6 +51,7 @@ public class EventCreatorPresenter {
 
     public void viewEvents(){
         System.out.println("\nEXISTING EVENTS:");
+        System.out.println("------------------------");
         for(Event ev: this.em.getEventsList()){
             if(!ev.isFull()) {
                 System.out.println("Name: " + ev.getName());

@@ -69,6 +69,8 @@ public class EventSignupPresenter {
      */
     public void viewEvents(){
         System.out.println("\nAVAILABLE EVENTS:");
+        System.out.println("------------------------");
+
         for(Event ev: this.em.getEventsList()){
             if(!ev.isFull()) {
                 System.out.println("Name: " + ev.getName());
@@ -91,6 +93,7 @@ public class EventSignupPresenter {
      */
     public void usersEvents(User user) {
         System.out.println("\nYOUR EVENTS:");
+        System.out.println("------------------------");
         for (Long event_long: user.getEvents())  {
             Event ev = em.getEventById(event_long);
             System.out.println("Name: " + ev.getName());
