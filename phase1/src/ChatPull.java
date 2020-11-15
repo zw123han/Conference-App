@@ -9,7 +9,6 @@ import java.io.ObjectInputStream;
  * @version %I%, %G%
  */
 public class ChatPull {
-    ChatroomManager chatroomManager;
 
     /**
      * Reads a file and returns it as a ChatroomManager

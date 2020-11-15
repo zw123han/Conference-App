@@ -65,7 +65,7 @@ public class ConferenceSimulator {
 
         // Run the program
         Scanner sc = new Scanner(System.in);
-        boolean exit = false;
+        boolean exit;
         do{
             do {
                 ui.loggedIn();

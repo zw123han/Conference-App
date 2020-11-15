@@ -1,6 +1,5 @@
 import java.time.format.DateTimeFormatter;
 import java.time.format.FormatStyle;
-import java.util.HashMap;
 
 /**
  * (please describe)
@@ -38,7 +37,7 @@ public class EventSignupPresenter {
                 System.out.println("Joined event");
             }
         } catch (EventNotFoundException e) {
-            System.out.println(e);
+            e.printStackTrace();
         } catch (NumberFormatException e){
             System.out.println("Please enter a valid event ID");
         }

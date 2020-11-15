@@ -19,9 +19,8 @@ public class EventManager implements Serializable {
      * @param events        (please describe)
      */
     public EventManager(ArrayList<Event> events) {
-        if (this.events == null) {
-            this.events = new HashMap<Long, Event>();
-        }
+        this.events = new HashMap<Long, Event>();
+
         for(Event ev: events){
             this.events.put(ev.getId(), ev);
         }
@@ -56,6 +55,7 @@ public class EventManager implements Serializable {
       * @return     (please describe)
      */
     public ArrayList<Event> getEventsList() {
+
         return new ArrayList(this.events.values());
     }
 
@@ -98,26 +98,55 @@ public class EventManager implements Serializable {
         return this.events.get(id);
     }
 
+    /**
+     *
+     * @param id
+     * @return
+     */
     public String getName(Long id) {
         return getEvent(id).getName();
     }
 
+    /**
+     *
+     * @param id
+     * @return
+     */
     public LocalDateTime getTime(Long id) {
         return getEvent(id).getTime();
     }
 
+    /**
+     *
+     * @param id
+     * @return
+     */
     public String getRoom(Long id) {
         return getEvent(id).getRoom();
     }
 
+    /**
+     *
+     * @param id
+     * @return
+     */
     public String getSpeaker(Long id) {
         return getEvent(id).getSpeaker();
     }
 
+    /**
+     *
+     * @param id
+     * @return
+     */
     public int getCapacity(Long id) {
         return getEvent(id).getCapacity();
     }
 
+    /**
+     *
+     * @return
+     */
     public ArrayList<Long> getEventIDs() {
         return new ArrayList<>(events.keySet());
     }

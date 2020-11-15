@@ -2,7 +2,7 @@ import org.junit.*;
 
 import static org.junit.Assert.*;
 
-public class Tests {
+public class UserTests {
     Attendee john = new Attendee("john", "john117", "donuts");
     Speaker wiggins = new Speaker("andrew", "antkiller", "winning");
 

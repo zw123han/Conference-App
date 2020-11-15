@@ -6,7 +6,6 @@ import java.io.Serializable;
  *
  * @author Elliot, Chrisee
  * @version %I%, %G%
- * @serial
  */
 public class Chatroom implements Serializable {
     private HashMap<Integer, Message> history;
@@ -22,7 +21,7 @@ public class Chatroom implements Serializable {
     /**
      * Method for adding a message to history.
      *
-     * @param message     Message that was sent.
+     * @param message   Message that was sent.
      */
     public void sendMessage(Message message){
         history.put(key, message);
@@ -32,7 +31,7 @@ public class Chatroom implements Serializable {
     /**
      * Returns keys of Hashmap as an ArrayList.
      *
-     * @return keys       ArrayList of keys
+     * @return keys     ArrayList of keys
      */
     public ArrayList<Integer> getMessageKeys() {
         ArrayList<Integer> keys = new ArrayList<>(history.keySet());

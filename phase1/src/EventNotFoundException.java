@@ -10,7 +10,7 @@ public class EventNotFoundException extends Exception {
      *
      * @param message       (please describe)
      */
-    public EventNotFoundException(String message){
+    public EventNotFoundException(String message){ //is this ever used?
         super(message);
     }
 

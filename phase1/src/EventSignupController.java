@@ -1,5 +1,3 @@
-import java.time.LocalDateTime;
-import java.util.ArrayList;
 import java.util.HashMap;
 
 /**
@@ -53,7 +51,8 @@ public class EventSignupController {
      * @throws EventNotFoundException   (please describe)
      */
     public boolean removeUser(User user, Long event_id) throws EventNotFoundException{
-        HashMap<Long, Event> nameToEventDict = em.getEventsMap();
+        //HashMap<Long, Event> nameToEventDict = em.getEventsMap(); //never used
+
         Event this_event = em.getEvent(event_id);
         if(this_event == null){
             throw new EventNotFoundException();

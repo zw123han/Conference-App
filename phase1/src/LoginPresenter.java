@@ -156,5 +156,5 @@ public class LoginPresenter {
      *
      * @return      (please describe)
      */
-    public String failedLogoff(){return "You are already logged off.";};
+    public String failedLogoff(){return "You are already logged off.";}
 }

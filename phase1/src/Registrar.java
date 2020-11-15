@@ -126,8 +126,8 @@ public class Registrar {
     /**
      *
      *
-     * @param username
-     * @return
+     * @param username      (please describe)
+     * @return              (please describe)
      */
     public boolean isOrganizer(String username) {
         if (userExisting(username)) {

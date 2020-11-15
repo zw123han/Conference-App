@@ -95,7 +95,7 @@ public abstract class User implements Serializable {
     public void addFriend(String friend) { friends.add(friend); }
 
     /**
-     * Removes a user that this user no longers wishes to retain as a friend.
+     * Removes a user that this user no longer wishes to retain as a friend.
      *
      * @param friend        The name of a user.
      */
@@ -116,16 +116,6 @@ public abstract class User implements Serializable {
      */
     public boolean hasFriend(String friend) {
         return friends.contains(friend);
-    }
-
-    /**
-     * A comparator method to check if two users are the same person.
-     *
-     * @param user          A user object to check.
-     * @return              True or false.
-     */
-    public boolean isUser(User user) {
-        return userName.equals(user.getUserName());
     }
 
 }

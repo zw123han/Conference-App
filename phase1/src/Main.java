@@ -15,13 +15,7 @@ public class Main {
 
         ConferenceSimulator conference = new ConferenceSimulator();
 
-        Runtime.getRuntime().addShutdownHook(new Thread()
-        {
-            public void run()
-            {
-                conference.save();
-            }
-        });
+        Runtime.getRuntime().addShutdownHook(new Thread(conference::save));
 
         conference.run();
 

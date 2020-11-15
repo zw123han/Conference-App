@@ -40,7 +40,7 @@ public class EventCreatorPresenter {
                 return ("Event created");
             }
         } catch (EventCreationFailureException e) {
-            System.out.println(e);
+            e.printStackTrace();
             return ("");
         }
     }

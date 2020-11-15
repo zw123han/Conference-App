@@ -18,7 +18,7 @@ public class Event implements Serializable {
     private LocalDateTime time;
     private String speaker;
     private int capacity;
-    private ArrayList<String> signedUpUsers = new ArrayList<String>();
+    private ArrayList<String> signedUpUsers = new ArrayList<>();
     private long id;
 
     /**
@@ -35,7 +35,7 @@ public class Event implements Serializable {
         this.room = room;
         this.time = time;
         this.speaker = speaker;
-        this.capacity = 2;
+        this.capacity = capacity;
 
         Calendar c = Calendar.getInstance();
         Date d = c.getTime();
