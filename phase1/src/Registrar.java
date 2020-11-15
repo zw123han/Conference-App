@@ -2,9 +2,12 @@ import java.util.ArrayList;
 import java.lang.*;
 
 /**
- * (please describe)
+ * Registrar is the use case class for all interactions with User objects. It contains an array list of User objects
+ * which represents all of the users that have created an account for the tech conference, and it contains an instance
+ * of User which represents the current user that is using the conference app. Each user has a unique username which
+ * this class uses to implement various methods.
  *
- * @author
+ * @author Jesse
  * @version %I%, %G%
  */
 public class Registrar {
@@ -15,7 +18,7 @@ public class Registrar {
     /**
      * Constructor used when loading from a file
      *
-     * @param users     (please describe)
+     * @param users     the list of users that were saved in a previous session
      */
     public Registrar(ArrayList<User> users) {
         this.users = users;
@@ -30,13 +33,14 @@ public class Registrar {
     }
 
     /**
-     * (please describe)
+     * Returns true if the type of user specified can be created and false if it cannot be. If the specified user can
+     * be created, creates a new User object and adds it to the list of users attending the conference.
      *
-     * @param name          (please describe)
-     * @param userName      (please describe)
-     * @param password      (please describe)
-     * @param type          (please describe)
-     * @return              (please describe)
+     * @param name          name of the user
+     * @param userName      username for the user
+     * @param password      password for the user
+     * @param type          type of the user
+     * @return              true if the type is valid and false if the type is unrecognized
      */
     public boolean createUser(String name, String userName, String password, String type) {
         User user;
@@ -58,10 +62,11 @@ public class Registrar {
     }
 
     /**
-     * (please describe)
+     * Returns the User object attending the conference that has the given username. Returns null if there is no user
+     * attending the conference with the given username
      *
-     * @param userName      (please describe)
-     * @return              (please describe)
+     * @param userName      the username to be searched for
+     * @return              the User object with the given username
      */
     public User getUserByUserName(String userName) {
         for (User user : users) {
@@ -73,10 +78,10 @@ public class Registrar {
     }
 
     /**
-     * (please describe)
+     * Returns the class of user with a given username.
      *
-     * @param userName      (please describe)
-     * @return              (please describe)
+     * @param userName      the username to be searched for
+     * @return              a string representing the name of the class for the given username
      */
     public String getUserType(String userName) {
         User user = getUserByUserName(userName);
@@ -84,19 +89,19 @@ public class Registrar {
     }
 
     /**
-     * (please describe)
+     * Returns the list of users attending the conference.
      *
-     * @return              (please describe)
+     * @return              the list of users attending the conference
      */
     public ArrayList<User> getUsers() {
         return users;
     }
 
     /**
-     * (please describe)
+     * Returns a list of users attending the conference with a specific type (Attendee/Organizer/Speaker).
      *
-     * @param type          (please describe)
-     * @return              (please describe)
+     * @param type          the type of users to be returned
+     * @return              a list of attendees/organizers/speakers
      */
     public ArrayList<User> getUsersByType(String type) {
         ArrayList<User> users = new ArrayList<>();
@@ -109,9 +114,9 @@ public class Registrar {
     }
 
     /**
-     * (please describe)
+     * Returns true if and only if there is a user attending the conference with the given username.
      *
-     * @param username      (please describe)
+     * @param username      the username to be searched for
      * @return              True of false.
      */
     public boolean userExisting(String username){
@@ -119,18 +124,11 @@ public class Registrar {
     }
 
     /**
-     * (please describe)
      *
-     * @return              (please describe)
+     *
+     * @param username
+     * @return
      */
-    public ArrayList<String> getUserNames(){
-        ArrayList<String> allUsernames = new ArrayList<>();
-        for (User user : users){
-            allUsernames.add(user.getUserName());
-        }
-        return allUsernames;
-    }
-
     public boolean isOrganizer(String username) {
         if (userExisting(username)) {
             return getUserByUserName(username) instanceof Organizer;

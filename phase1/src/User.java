@@ -106,7 +106,7 @@ public abstract class User implements Serializable {
      *
      * @return      A list of saved friends.
      */
-    public ArrayList<String> getFriends() { return (ArrayList<String>) friends.clone(); }
+    public ArrayList<String> getFriends() { return friends; }
 
     /**
      * Checks to see if this user has a user saved as a friend.

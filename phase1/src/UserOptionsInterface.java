@@ -85,7 +85,7 @@ public class UserOptionsInterface {
                     showMessageScreen(registrar, user.getUserName());
                     break;
                 case "4":
-                    changePassword();
+                    changePassword(user.getUserName());
                     break;
                 case "5":
                     showFriends(registrar, user);
@@ -112,7 +112,7 @@ public class UserOptionsInterface {
                     showMessageScreen(registrar, user.getUserName());
                     break;
                 case "4":
-                    changePassword();
+                    changePassword(user.getUserName());
                     break;
                 case "5":
                     showFriends(registrar, user);
@@ -331,8 +331,8 @@ public class UserOptionsInterface {
     private void logout(){
         loginUI.logout();
     }
-    private void changePassword(){
-        loginUI.changePassword();
+    private void changePassword(String username){
+        loginUI.changePassword(username);
     }
 
 }

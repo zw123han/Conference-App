@@ -20,6 +20,9 @@ public class Tests {
 
     @Test
     public void userCanCancel(){
+        john.addEvent(2147483649L);
+        john.addEvent(1983748912L);
+        john.addEvent(1298603183L);
         john.removeEvent(2147483649L);
 
         assertTrue("user can cancel events\n", john.getEvents().size() == 2);

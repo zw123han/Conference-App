@@ -4,18 +4,18 @@ import java.io.ObjectInputStream;
 import java.util.ArrayList;
 
 /**
- * (please describe)
+ * ReadUsers is a gateway class that reads from a .ser file.
  *
- * @author
+ * @author Jesse
  * @version %I%, %G%
  */
 public class ReadUsers {
     private String filepath;
 
     /**
-     * (please describe)
+     * Initializes a newly created ReadUsers object to read from the given file.
      *
-     * @param filepath      (please describe)
+     * @param filepath      the path of the file to be read from
      */
     public ReadUsers(String filepath) {
         // Reads a txt/ser file then stores it
@@ -24,9 +24,9 @@ public class ReadUsers {
     }
 
     /**
-     * (please describe)
+     * Returns a list of User objects from the specified file.
      *
-     * @return      (please describe)
+     * @return      a list of User objects from the specified file
      */
     public ArrayList<User> read() {
         ArrayList<User> users = new ArrayList<>();
