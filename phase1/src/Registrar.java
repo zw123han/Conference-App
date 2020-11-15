@@ -124,10 +124,10 @@ public class Registrar {
     }
 
     /**
-     * (please describe)
+     * Returns true if and only if the user with the given username is an organizer.
      *
-     * @param username      (please describe)
-     * @return              (please describe)
+     * @param username      the username of the user
+     * @return              true or false
      */
     public boolean isOrganizer(String username) {
         if (userExisting(username)) {
@@ -137,10 +137,10 @@ public class Registrar {
     }
 
     /**
-     * (please describe)
+     * Returns true if and only if the user with the given username is a speaker.
      *
-     * @param username      (please describe)
-     * @return              (please describe)
+     * @param username      the username of the user
+     * @return              true or false
      */
     public boolean isSpeaker(String username) {
         if (userExisting(username)) {
@@ -150,10 +150,10 @@ public class Registrar {
     }
 
     /**
-     * (please describe)
+     * Returns true if and only if the user with the given username is an attendee.
      *
-     * @param username      (please describe)
-     * @return              (please describe)
+     * @param username      the username of the user
+     * @return              true or false
      */
     public boolean isAttendee(String username) {
         if (userExisting(username)) {
@@ -163,10 +163,10 @@ public class Registrar {
     }
 
     /**
-     * (please describe)
+     * Returns an array list of the usernames for the given user's friends.
      *
-     * @param username      (please describe)
-     * @return              (please describe)
+     * @param username      the username of the user
+     * @return              a list of usernames
      */
     public ArrayList<String> getUserFriends(String username) {
         if (userExisting(username)) {
@@ -176,21 +176,21 @@ public class Registrar {
     }
 
     /**
-     * (please describe)
+     * Returns true if and only if the two users are friends.
      *
-     * @param username      (please describe)
-     * @param friend        (please describe)
-     * @return              (please describe)
+     * @param username      the username of the user
+     * @param friend        the username of the friend
+     * @return              true or false
      */
     public boolean isFriend(String username, String friend) {
         return getUserByUserName(username).getFriends().contains(friend);
     }
 
     /**
-     * (please describe)
+     * Returns an array list of event ids that represent the given speaker's list of talks.
      *
-     * @param username      (please describe)
-     * @return              (please describe)
+     * @param username      the username of the speaker
+     * @return              a list of talks the speaker is giving
      */
     public ArrayList<Long> getSpeakerTalks(String username) {
         if (isSpeaker(username)) {
@@ -201,10 +201,11 @@ public class Registrar {
     }
 
     /**
-     * (please describe)
+     * Returns the name of the user associated with the given username. Returns an empty string if there is no
+     * associated user.
      *
-     * @param username      (please describe)
-     * @return              (please describe)
+     * @param username      the username of the user
+     * @return              the name of the user
      */
     public String getNameByUsername(String username) {
         if (userExisting(username)) {
