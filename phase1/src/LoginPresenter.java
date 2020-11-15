@@ -121,7 +121,7 @@ public class LoginPresenter {
      * @return      (please describe)
      */
     public String failedLogin() {
-        return "We're sorry, your credentials are incorrect. Please make sure you are not entering empty credentials.";
+        return "We're sorry, your credentials are incorrect. Please try again.";
     }
 
     /**
@@ -130,7 +130,7 @@ public class LoginPresenter {
      * @return      (please describe)
      */
     public String usernameTaken(){
-        return "We're sorry, you cannot use those credentials.";
+        return "We're sorry, you cannot use that username.";
     }
 
     /**
@@ -148,7 +148,7 @@ public class LoginPresenter {
      * @return      (please describe)
      */
     public String successfulAccountCreation(){
-        return "Account successfully created. Please login and perform an action to activate your account, or it will be deleted.";
+        return "Account successfully created. Please login to activate your account.";
     }
 
     /**
