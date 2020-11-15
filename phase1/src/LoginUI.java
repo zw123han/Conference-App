@@ -24,20 +24,20 @@ public class LoginUI {
 
     private boolean promptLogin(){
         System.out.println(loginPresenter.notLoggedInOptions());
-        return sc.nextLine().equals("Y");
+        return sc.nextLine().toLowerCase().equals("y");
     }
     private boolean confirmLogout(){
         System.out.println(loginPresenter.confirmLogout());
-        return sc.nextLine().equals("Y");
+        return sc.nextLine().toLowerCase().equals("y");
     }
     private boolean confirmChangePassword(){
         System.out.println(loginPresenter.confirmChangePassword());
-        return sc.nextLine().equals("Y");
+        return sc.nextLine().toLowerCase().equals("y");
     }
 
     private boolean confirmCreateAccount(){
         System.out.println(loginPresenter.confirmMakeAccount());
-        return sc.nextLine().equals("Y");
+        return sc.nextLine().toLowerCase().equals("y");
     }
     private void createAccount(){
         if(confirmCreateAccount()){
@@ -78,10 +78,10 @@ public class LoginUI {
     public void login(){
         System.out.println(loginPresenter.inquireAccount());
         String response = sc.nextLine();
-        if (response.equals("C")){
+        if (response.toLowerCase().equals("c")){
             createAccount();
         }
-        else if (response.equals("L")){
+        else if (response.toLowerCase().equals("l")){
             loginToExisting();
         }
     }
