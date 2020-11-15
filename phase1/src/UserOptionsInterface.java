@@ -306,13 +306,8 @@ public class UserOptionsInterface {
         }
     }
 
-    /**
-     * (please describe)
-     *
-     * @param reg       (please describe)
-     * @param username      (please describe)
-     */
-    public void showOutbox(Registrar reg, String username) {
+
+    private void showOutbox(Registrar reg, String username) {
         OutboxPresenter op = new OutboxPresenter();
         OutboxController oc = new OutboxController(reg, username, em, op);
         if (reg.isOrganizer(username)) {
