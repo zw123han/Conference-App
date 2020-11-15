@@ -294,7 +294,8 @@ public class UserOptionsInterface {
                 showOutbox(reg, username);
             }
             else if (choice.equals("2")) {
-                InboxController ic = new InboxController(reg, username, em);
+                InboxPresenter ip = new InboxPresenter();
+                InboxController ic = new InboxController(reg, username, em, ip);
                 ic.promptChatChoice();
             } else {
                 cmp.invalidCommand("prompt");
@@ -312,7 +313,8 @@ public class UserOptionsInterface {
      * @param username      (please describe)
      */
     public void showOutbox(Registrar reg, String username) {
-        OutboxController oc = new OutboxController(reg, username, em);
+        OutboxPresenter op = new OutboxPresenter();
+        OutboxController oc = new OutboxController(reg, username, em, op);
         if (reg.isOrganizer(username)) {
             oc.promptChatChoice();
         } else if (reg.isSpeaker(username)) {

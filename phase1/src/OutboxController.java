@@ -8,7 +8,7 @@ import java.util.*;
  */
 public class OutboxController {
     private ChatController cc = new ChatController();
-    private OutboxPresenter op = new OutboxPresenter();
+    private OutboxPresenter op;
     private EventManager em;
     private Scanner sc = new Scanner(System.in);
     private String username;
@@ -21,10 +21,11 @@ public class OutboxController {
      * @param username  the username of the sender
      * @param em        EventManager
      */
-    public OutboxController(Registrar reg, String username, EventManager em) {
+    public OutboxController(Registrar reg, String username, EventManager em, OutboxPresenter op) {
         this.username = username;
         this.reg = reg;
         this.em = em;
+        this.op = op;
     }
 
     /**
