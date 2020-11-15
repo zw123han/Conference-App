@@ -125,12 +125,12 @@ public class LoginPresenter {
     }
 
     /**
-     * Indication that a username is already associated with another user.
+     * Indication that credentials cannot be used.
      *
-     * @return      A message indicating that a username is already taken.
+     * @return      A message indicating that given credentials cannot be used.
      */
-    public String usernameTaken(){
-        return "We're sorry, you cannot use that username.";
+    public String credentialsUnusable(){
+        return "We're sorry, you cannot use those credentials.";
     }
 
     /**

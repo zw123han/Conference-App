@@ -52,7 +52,7 @@ public class LoginUI {
                 loginToExisting();
             }
             else{
-                System.out.println(loginPresenter.usernameTaken());
+                System.out.println(loginPresenter.credentialsUnusable());
             }
         }
     }

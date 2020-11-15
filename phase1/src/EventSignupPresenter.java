@@ -37,7 +37,7 @@ public class EventSignupPresenter {
                 System.out.println("Joined event");
             }
         } catch (EventNotFoundException e) {
-            e.printStackTrace();
+            System.out.println("This event has not yet been registered.");
         } catch (NumberFormatException e){
             System.out.println("Please enter a valid event ID");
         }
@@ -55,10 +55,10 @@ public class EventSignupPresenter {
             if (!(esc.removeUser(user, Long.parseLong(event_id)))) {
                 System.out.println("Unable to leave event. You are already in this event.");
             } else {
-                System.out.println("Left event");
+                System.out.println("Left event.");
             }
         } catch (EventNotFoundException e) {
-            System.out.println(e.toString());
+            System.out.println("This event has not yet been registered.");
         } catch (NumberFormatException e) {
             System.out.println("Please enter a valid event ID");
         }
