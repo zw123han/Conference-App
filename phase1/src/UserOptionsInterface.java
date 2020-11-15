@@ -280,10 +280,10 @@ public class UserOptionsInterface {
     }
 
     /**
-     * (please describe)
+     * Display the message screen, with the option to send messages or view chat history.
      *
-     * @param reg       (please describe)
-     * @param username      (please describe)
+     * @param reg           Registrar
+     * @param username      Username of the currently logged in user
      */
     public void showMessageScreen(Registrar reg, String username){
         cmp.menuDisplay();
