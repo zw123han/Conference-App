@@ -62,13 +62,7 @@ public class UserOptionsInterface {
         homeScreenMenu(loginFacade.getUser(), loginFacade.getRegistrar());
     }
 
-    /**
-     * (please describe)
-     *
-     * @param user          (please describe)
-     * @param registrar     (please describe)
-     */
-    public void homeScreenMenu(User user, Registrar registrar) {
+    private void homeScreenMenu(User user, Registrar registrar) {
         System.out.println("\nWelcome " + user.getUserName());
         showOptions(user);
         System.out.println("\nPlease select an option listed above.");
@@ -79,7 +73,7 @@ public class UserOptionsInterface {
                     logout();
                     break;
                 case "2":
-                    showEventScreen(esp);
+                    showEventScreen();
                     break;
                 case "3":
                     showMessageScreen(registrar, user.getUserName());
@@ -106,7 +100,7 @@ public class UserOptionsInterface {
                     logout();
                     break;
                 case "2":
-                    showEventScreen(esp);
+                    showEventScreen();
                     break;
                 case "3":
                     showMessageScreen(registrar, user.getUserName());
@@ -132,12 +126,7 @@ public class UserOptionsInterface {
         System.out.println("5) Friends");
     }
 
-    /**
-     * (please describe)
-     *
-     * @param user      (please describe)
-     */
-    public void showOptions(User user){
+    private void showOptions(User user){
         if (user == null){
             login();
         }
@@ -154,12 +143,7 @@ public class UserOptionsInterface {
         }
     }
 
-    /**
-     * (please describe)
-     *
-     * @param esp       (please describe)
-     */
-    public void showEventScreen(EventSignupPresenter esp) {
+    private void showEventScreen() {
         esp.viewEvents();
         esp.usersEvents(loginFacade.getUser());
         System.out.println("\nWould you like to join, leave, or get participant information on an event?");
@@ -190,12 +174,7 @@ public class UserOptionsInterface {
         }
     }
 
-    /**
-     * (please describe)
-     *
-     * @param registrar     (please describe)
-     */
-    public void showCreateEventsScreen(Registrar registrar) { //TODO this ugly af, will need to change a bit
+    private void showCreateEventsScreen(Registrar registrar) { //TODO this ugly af, will need to change a bit
         ecp.viewEvents();
         System.out.println("Would you like to create an event? Press any key to continue, or $q to exit");
         String choice = sc.nextLine();
@@ -237,10 +216,7 @@ public class UserOptionsInterface {
         }
     }
 
-    /**
-     * (please describe)
-     */
-    public void showCreateSpeakerScreen() {
+    private void showCreateSpeakerScreen() {
         System.out.println("Would you like to create a Speaker? Press any key to continue, or $q to exit");
         String choice = sc.nextLine();
         while (!choice.equals("$q")) {
@@ -252,8 +228,8 @@ public class UserOptionsInterface {
             System.out.println("password:");
             String password = sc.nextLine();
 
-             if (loginFacade.createUser(name, userName, password, "speaker")) {
-               System.out.println("Speaker account created successfully");
+            if (loginFacade.createUser(name, userName, password, "speaker")) {
+                System.out.println("Speaker account created successfully");
             } else {
                 System.out.println("You cannot use those credentials. Please try again.");
             }
@@ -262,13 +238,7 @@ public class UserOptionsInterface {
         }
     }
 
-    /**
-     * (please describe)
-     *
-     * @param registrar     (please describe)
-     * @param user          (please describe)
-     */
-    public void showFriends(Registrar registrar, User user) {
+    private void showFriends(Registrar registrar, User user) {
         FriendsController fc = new FriendsController(registrar,fp);
         fp.viewFriends(user); //shows user a list of all their friends
         System.out.println(fp.addOrRemove());
@@ -287,13 +257,7 @@ public class UserOptionsInterface {
         }
     }
 
-    /**
-     * Display the message screen, with the option to send messages or view chat history.
-     *
-     * @param reg           Registrar
-     * @param username      Username of the currently logged in user
-     */
-    public void showMessageScreen(Registrar reg, String username){
+    private void showMessageScreen(Registrar reg, String username){
         cmp.menuDisplay();
         cmp.commandPrompt("prompt");
         String choice = sc.nextLine();
@@ -313,7 +277,6 @@ public class UserOptionsInterface {
             choice = sc.nextLine();
         }
     }
-
 
     private void showOutbox(Registrar reg, String username) {
         OutboxPresenter op = new OutboxPresenter();
