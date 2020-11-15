@@ -215,7 +215,8 @@ public class UserOptionsInterface {
                 String speaker = sc.nextLine();
                 User user = registrar.getUserByUserName(speaker);
                 if (user instanceof Speaker) {
-                    ecp.promptEventCreation(name, room, LocalDateTime.parse(time, formatter), user.getUserName(), capacity);
+                    System.out.println(ecp.promptEventCreation(name, room, LocalDateTime.parse(time, formatter), user.getUserName(), capacity));
+
                 } else {
                     System.out.println("Please input a valid Speaker. If you don't have any, please create a speaker account.");
                 }
