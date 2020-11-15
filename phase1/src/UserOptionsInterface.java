@@ -7,7 +7,7 @@ import java.time.format.DateTimeFormatter;
 /**
  * (please describe)
  *
- * @author
+ * @author Tao,
  * @version %I%, %G%
  */
 public class UserOptionsInterface {
@@ -23,7 +23,7 @@ public class UserOptionsInterface {
     // All other UIs go here too and in the constructor
 
     /**
-     * (please describe)
+     * Instantiates a UserOptionsInterface object
      *
      * @param loginFacade       (please describe)
      * @param ecp               (please describe)
@@ -44,7 +44,7 @@ public class UserOptionsInterface {
     }
 
     /**
-     * (please describe)
+     * Displays the available options to the user when logged in
      *
      */
     public void loggedIn() {
@@ -174,7 +174,7 @@ public class UserOptionsInterface {
         }
     }
 
-    private void showCreateEventsScreen(Registrar registrar) { //TODO this ugly af, will need to change a bit
+    private void showCreateEventsScreen(Registrar registrar) {
         ecp.viewEvents();
         System.out.println("Would you like to create an event? Press any key to continue, or $q to exit");
         String choice = sc.nextLine();

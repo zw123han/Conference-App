@@ -1,7 +1,7 @@
 /**
  * (please describe)
  *
- * @author
+ * @author Tao,
  * @version %I%, %G%
  */
 
@@ -9,7 +9,7 @@ public class FriendsManager {
     private Registrar reg;
 
     /**
-     * (please describe)
+     * Instantiates a FriendsManager object
      *
      * @param reg       (please describe)
      */
@@ -18,7 +18,7 @@ public class FriendsManager {
     }
 
     /**
-     * (please describe)
+     * Adds the the user with username "username" to "user"'s friends list
      *
      * @param user          (please describe)
      * @param username      (please describe)
@@ -35,7 +35,7 @@ public class FriendsManager {
     }
 
     /**
-     * (please describe)
+     * Removes the the user with username "username" from "user"'s friends list
      *
      * @param user          (please describe)
      * @param username      (please describe)
