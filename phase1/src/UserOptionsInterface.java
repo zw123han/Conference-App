@@ -162,8 +162,8 @@ public class UserOptionsInterface {
     public void showEventScreen(EventSignupPresenter esp) {
         esp.viewEvents();
         esp.usersEvents(loginFacade.getUser());
-        System.out.println("\nWould you like to join or leave an event?");
-        System.out.println("Type \"join\" or \"leave\"");
+        System.out.println("\nWould you like to join, leave, or get participant information on an event?");
+        System.out.println("Type \"join\", \"leave\", or \"info\"");
         System.out.println("Press $q to go back.");
         String choice = sc.nextLine();
         while (!choice.equals("$q")) {
@@ -175,11 +175,16 @@ public class UserOptionsInterface {
                 System.out.println("Please input the event_id");
                 String event_id = sc.nextLine();
                 esp.leaveEvent(loginFacade.getUser(), event_id);
-            } else {
+            } else if (choice.toLowerCase().equals("info")){
+                System.out.println("Please input the event_id");
+                String event_id = sc.nextLine();
+                esp.getEventInfo(event_id);
+            }
+            else {
                 System.out.println("Please enter a valid input (join or leave)");
             }
-            System.out.println("\nWould you like to join or leave an event?");
-            System.out.println("Type \"join\" or \"leave\"");
+            System.out.println("\nWould you like to join, leave, or get participant information on an event?");
+            System.out.println("Type \"join\", \"leave\", or \"info\"");
             System.out.println("Press $q to go back.");
             choice = sc.nextLine();
         }
@@ -215,7 +220,8 @@ public class UserOptionsInterface {
                 String speaker = sc.nextLine();
                 User user = registrar.getUserByUserName(speaker);
                 if (user instanceof Speaker) {
-                    ecp.promptEventCreation(name, room, LocalDateTime.parse(time, formatter), user.getUserName(), capacity);
+                    System.out.println(ecp.promptEventCreation(name, room, LocalDateTime.parse(time, formatter), user.getUserName(), capacity));
+
                 } else {
                     System.out.println("Please input a valid Speaker. If you don't have any, please create a speaker account.");
                 }

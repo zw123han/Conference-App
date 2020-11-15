@@ -22,7 +22,6 @@ public class ChatPush {
             objectOut.writeObject(chatroomManager);
             objectOut.close();
             fileOut.close();
-            System.out.println("Successfully saved chat.");
         }catch(IOException e){
             System.out.println("Chat saving failed.");
         }

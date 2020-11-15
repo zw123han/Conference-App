@@ -2,34 +2,38 @@ import java.util.Arrays;
 import java.util.Base64;
 
 /**
- * (please describe)
+ * Use case which enforces user credentials rules in the registrar.
  *
- * @author
+ * @author Ziwen
  * @version %I%, %G%
  */
 public class CredentialsUseCase {
     private Registrar registrar;
 
     /**
-     * (please describe)
+     * Initializes a new CredentialsUseCase
      *
-     * @param registrar     (please describe)
+     * @param registrar     Registrar which stores users.
      */
     public CredentialsUseCase(Registrar registrar){
         this.registrar = registrar;
     }
 
+
     /**
-     * (please describe)
+     * Creates a new user in the registrar.
      *
-     * @param name              (please describe)
-     * @param username          (please describe)
-     * @param password          (please describe)
-     * @param type              (please describe)
-     * @return                  True of false.
+     * @param name              Name of the user.
+     * @param username          Username of the user.
+     * @param password          Password of the user.
+     * @param type              Type of user.
+     * @return                  True or false. Returns true if and only if a new user is created with valid credentials.
      */
     public boolean createUser(String name, String username, String password, String type){
-        if (name.length()<1|username.length()<1|type.length()<1|username.contains("@")|username.contains(" ")){
+        if (name.length()<1|username.length()<1|username.contains("@")|username.contains(" ")){
+            return false;
+        }
+        if (password.length()<1|password.contains(" ")){
             return false;
         }
         if(registrar.userExisting(username)){
@@ -40,12 +44,12 @@ public class CredentialsUseCase {
     }
 
     /**
-     * (please describe)
+     * Resets the password of a user.
      *
-     * @param username          (please describe)
-     * @param currentPassword   (please describe)
-     * @param newPassword       (please describe)
-     * @return                  (please describe)
+     * @param username          The username of an existing user.
+     * @param currentPassword   The current password of the user.
+     * @param newPassword       The new password of the user.
+     * @return                  True or false. Returns true if and only if password is successfully reset.
      */
     public boolean resetPassword(String username, String currentPassword, String newPassword){
         if (newPassword.length() < 1|currentPassword.length()<1){

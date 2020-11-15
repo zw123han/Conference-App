@@ -151,4 +151,15 @@ public class EventManager implements Serializable {
         return new ArrayList<>(events.keySet());
     }
 
+    /**
+     *
+     * @param id
+     * @return
+     */
+    public ArrayList<String> getSignedUpUsers(Long id) throws EventNotFoundException {
+        if (getEvent(id) == null){
+            throw new EventNotFoundException();
+        }
+        return getEvent(id).getSignedUpUsers();
+    }
 }

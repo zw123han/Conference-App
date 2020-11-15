@@ -37,7 +37,7 @@ public class EventSignupPresenter {
                 System.out.println("Joined event");
             }
         } catch (EventNotFoundException e) {
-            e.printStackTrace();
+            System.out.println("This event has not yet been registered.");
         } catch (NumberFormatException e){
             System.out.println("Please enter a valid event ID");
         }
@@ -55,10 +55,10 @@ public class EventSignupPresenter {
             if (!(esc.removeUser(user, Long.parseLong(event_id)))) {
                 System.out.println("Unable to leave event. You are already in this event.");
             } else {
-                System.out.println("Left event");
+                System.out.println("Left event.");
             }
         } catch (EventNotFoundException e) {
-            System.out.println(e.toString());
+            System.out.println("This event has not yet been registered.");
         } catch (NumberFormatException e) {
             System.out.println("Please enter a valid event ID");
         }
@@ -68,7 +68,7 @@ public class EventSignupPresenter {
      * (please describe)
      */
     public void viewEvents(){
-        System.out.println("Available Events: ");
+        System.out.println("\nAVAILABLE EVENTS:");
         for(Event ev: this.em.getEventsList()){
             if(!ev.isFull()) {
                 System.out.println("Name: " + ev.getName());
@@ -90,7 +90,7 @@ public class EventSignupPresenter {
      * @param user      (please describe)
      */
     public void usersEvents(User user) {
-        System.out.println("Your Events: ");
+        System.out.println("\nYOUR EVENTS:");
         for (Long event_long: user.getEvents())  {
             Event ev = em.getEventById(event_long);
             System.out.println("Name: " + ev.getName());
@@ -102,6 +102,26 @@ public class EventSignupPresenter {
             System.out.println("Capacity: " + ev.getNumberOfSignedUpUsers() + "/" + ev.getCapacity());
             System.out.println("Speaker: " + ev.getSpeaker());
             System.out.println("------------------------");
+        }
+    }
+    /**
+     * Prints out a list of usernames registered in an event.
+     *
+     * @param id      The event_id of the event.
+     */
+    public void getEventInfo(String id){
+        try{
+
+            System.out.println("\n PARTICIPANTS:");
+            for (String username: em.getSignedUpUsers(Long.parseLong(id))){
+                System.out.println("@"+username);
+            }
+        }
+        catch(NumberFormatException e){
+            System.out.println("Please enter a valid event ID");
+        }
+        catch(EventNotFoundException e){
+            System.out.println("That event has not yet been registered");
         }
     }
 }

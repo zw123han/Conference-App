@@ -23,7 +23,6 @@ public class ChatPull {
             chatroomManager = (ChatroomManager) objectIn.readObject();
             fileIn.close();
             objectIn.close();
-            System.out.println("Successfully read chat.");
         }catch(IOException e){
             System.out.println("Chat read failed.");
         } catch (ClassNotFoundException e) {

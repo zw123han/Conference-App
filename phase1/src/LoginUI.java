@@ -1,9 +1,9 @@
 import java.util.Scanner;
 
 /**
- * (please describe)
+ * A user interface which exchanges inputs and outputs with a person to login/manage their account.
  *
- * @author
+ * @author Ziwen
  * @version %I%, %G%
  */
 public class LoginUI {
@@ -12,9 +12,9 @@ public class LoginUI {
     private Scanner sc;
 
     /**
-     * (please describe)
+     * Initializes a new LoginUI.
      *
-     * @param loginOptionsFacade        (please describe)
+     * @param loginOptionsFacade        An instance of a LoginOptionsFacade.
      */
     public LoginUI(LoginOptionsFacade loginOptionsFacade){
         loginPresenter = new LoginPresenter();
@@ -24,20 +24,20 @@ public class LoginUI {
 
     private boolean promptLogin(){
         System.out.println(loginPresenter.notLoggedInOptions());
-        return sc.nextLine().equals("Y");
+        return sc.nextLine().toLowerCase().equals("y");
     }
     private boolean confirmLogout(){
         System.out.println(loginPresenter.confirmLogout());
-        return sc.nextLine().equals("Y");
+        return sc.nextLine().toLowerCase().equals("y");
     }
     private boolean confirmChangePassword(){
         System.out.println(loginPresenter.confirmChangePassword());
-        return sc.nextLine().equals("Y");
+        return sc.nextLine().toLowerCase().equals("y");
     }
 
     private boolean confirmCreateAccount(){
         System.out.println(loginPresenter.confirmMakeAccount());
-        return sc.nextLine().equals("Y");
+        return sc.nextLine().toLowerCase().equals("y");
     }
     private void createAccount(){
         if(confirmCreateAccount()){
@@ -52,7 +52,7 @@ public class LoginUI {
                 loginToExisting();
             }
             else{
-                System.out.println(loginPresenter.usernameTaken());
+                System.out.println(loginPresenter.credentialsUnusable());
             }
         }
     }
@@ -73,21 +73,21 @@ public class LoginUI {
     }
 
     /**
-     * (please describe)
+     * Gives a person options to login or create a new account, depending on selection.
      */
     public void login(){
         System.out.println(loginPresenter.inquireAccount());
         String response = sc.nextLine();
-        if (response.equals("C")){
+        if (response.toLowerCase().equals("c")){
             createAccount();
         }
-        else if (response.equals("L")){
+        else if (response.toLowerCase().equals("l")){
             loginToExisting();
         }
     }
 
     /**
-     * (please describe)
+     * Gives a person an option to log out of their account.
      */
     public void logout() {
         if (confirmLogout()) {
@@ -101,9 +101,9 @@ public class LoginUI {
     }
 
     /**
-     * (please describe)
+     * Gives a person an option to change the password associated with an account.
      *
-     * @param username          (please describe)
+     * @param username          The account that the password is to be changed in.
      */
     public void changePassword(String username) {
         if (confirmChangePassword()) {

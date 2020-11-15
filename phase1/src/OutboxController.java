@@ -177,9 +177,37 @@ public class OutboxController {
         String message = sc.nextLine();
         while (!message.equals("$q")) {
             if (cc.validateMessage(message)) {
-                for (Long event_id : event_ids) {
-                    cc.sendMessage(event_id, message);
+                ArrayList<String> recipients = new ArrayList<String>();
+                for (Long event_id: event_ids){
+                    try {
+                        for(String recipient: em.getSignedUpUsers(event_id)){
+                            recipients.add(recipient);
+                            System.out.println("@"+recipient);
+                        }
+                    } catch (EventNotFoundException e) {
+                        System.out.println("Some events are not yet registered. Please try again");
+                    }
                 }
+                System.out.println("Type usernames separated by a space, or select * to message all users");
+                String response = sc.nextLine().replace("@", "");
+                if (response.equals("")|response.equals(" ")){
+                    System.out.println("No users specified.");
+                    return;
+                }
+                if (response.equals("*")){
+                for (Long event_id : event_ids) {
+                    cc.sendMessage(event_id, em.getEvent(event_id).getName() + ": " + message);
+                }}
+                else{
+                    for(String recipient: response.split(" ")) {
+                        if (recipients.contains(recipient)){
+                            cc.sendMessage(recipient, message);}
+                        else{
+                            System.out.println("Message could not be delivered to " + recipient + ". They are not registered in your specified events.");
+                        }
+                    }
+                    }
+
                 op.success();
                 message = "$q";
             } else {
