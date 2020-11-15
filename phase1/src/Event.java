@@ -151,9 +151,9 @@ public class Event implements Serializable {
     }
 
     /**
-     * (please describe)
+     * This method will return the list of usernames representing users signed up for this event.
      *
-     * @return          (please describe)
+     * @return          A list of usernames representing users signed up for this event.
      */
     public ArrayList<String> getSignedUpUsers(){
         return signedUpUsers;
