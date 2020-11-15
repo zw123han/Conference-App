@@ -4,9 +4,10 @@ import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 
 /**
- * (please describe)
+ * StoreUsers is a gateway class that is used to save a list of the users attending the conference to a .ser file for
+ * use in other login sessions.
  *
- * @author
+ * @author Jesse
  * @version %I%, %G%
  */
 public class StoreUsers {
@@ -14,18 +15,18 @@ public class StoreUsers {
     private String filepath;
 
     /**
-     * (please describe)
+     * Initializes a newly created StoreUsers object to save inside the specified file
      *
-     * @param filepath      (please describe)
+     * @param filepath      the path of the file to save the users
      */
     public StoreUsers(String filepath) {
         this.filepath = filepath;
     }
 
     /**
-     * (please describe)
+     * Returns true if and only if the method was able to successfully save the list of users to the given file path.
      *
-     * @param userList      (please describe)
+     * @param userList      a list of User objects to serialized.
      */
     public boolean store(ArrayList<User> userList) {
         try {

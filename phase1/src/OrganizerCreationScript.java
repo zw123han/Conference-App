@@ -1,15 +1,16 @@
 /**
- * (please describe)
+ * A class that should rarely change, with a single method that creates as many Organizer instances as needed for a
+ * conference.
  *
- * @author
+ * @author Jesse
  * @version %I%, %G%
  */
 public class OrganizerCreationScript {
 
     /**
-     * (please describe)
+     * Adds organizer objects to the conference's Registrar.
      *
-     * @param registrar     (please describe)
+     * @param registrar     the registrar containing all of the users attending the conference
      */
     public void createOrganizers(Registrar registrar) {
         CredentialsUseCase credentialsUseCase = new CredentialsUseCase(registrar);
