@@ -24,7 +24,7 @@ public class SaveEvents {
     /**
      * Returns true if and only if the method was able to successfully save the list of events to the given file path.
      *
-     * @param evList        a list of Event objects to serialized.
+     * @param evList        a list of Event objects to be serialized.
      */
     public boolean saveEvents(ArrayList<Event> evList) {
         try {

@@ -1,17 +1,17 @@
 /**
- * (please describe)
+ * Use Case class that enables signing up and leaving events.
  *
- * @author
+ * @author Andy, Nithilan
  * @version %I%, %G%
  */
 // Choosing not to store event manager in here for now
 public class EventSignup{
 
     /**
-     * (please describe)
+     * Signs up given user for given Event
      *
-     * @param user      (please describe)
-     * @param event     (please describe)
+     * @param user      User that wants to join the given event
+     * @param event     Event object of the event to be joined
      */
     public void signUserUp(User user, Event event){
         user.addEvent(event.getId());
@@ -19,10 +19,10 @@ public class EventSignup{
     }
 
     /**
-     * (please describe)
+     * Removes given user from given event
      *
-     * @param user      (please describe)
-     * @param event     (please describe)
+     * @param user      User that wants to leave the event
+     * @param event     Event to be left.
      */
     public void removeUser(User user, Event event){
         user.removeEvent(event.getId());

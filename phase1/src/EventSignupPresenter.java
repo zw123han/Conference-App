@@ -2,9 +2,9 @@ import java.time.format.DateTimeFormatter;
 import java.time.format.FormatStyle;
 
 /**
- * (please describe)
+ * Presenter for the event signup process.
  *
- * @author
+ * @author Andy, Nithilan
  * @version %I%, %G%
  */
 public class EventSignupPresenter {
@@ -12,10 +12,10 @@ public class EventSignupPresenter {
     private EventSignup es;
 
     /**
-     * (please describe)
+     * Creates an instance of EvenSignupPresenter
      *
-     * @param es        (please describe)
-     * @param em        (please describe)
+     * @param es        instance of EventSignup to be used for the program
+     * @param em        instance of EventMangaer used by the program
      */
     public EventSignupPresenter(EventSignup es, EventManager em) {
         this.es = es;
@@ -23,10 +23,10 @@ public class EventSignupPresenter {
     }
 
     /**
-     * (please describe)
+     * prints response after trying to signup given user for the event corresponding to event id.
      *
-     * @param user          (please describe)
-     * @param event_id      (please describe)
+     * @param user          User to join event
+     * @param event_id      event id of event to be joined
      */
     public void joinEvent(User user, String event_id) {
         EventSignupController esc = new EventSignupController(this.es, this.em);
@@ -44,10 +44,10 @@ public class EventSignupPresenter {
     }
 
     /**
-     * (please describe)
+     * Prints responses after trying to remove user from event
      *
-     * @param user          (please describe)
-     * @param event_id      (please describe)
+     * @param user          user to be removed
+     * @param event_id      event id of event that user wants to leave
      */
     public void leaveEvent(User user, String event_id) {
         EventSignupController esc = new EventSignupController(this.es, this.em);
@@ -65,7 +65,7 @@ public class EventSignupPresenter {
     }
 
     /**
-     * (please describe)
+     * Lists all the events available in the program for user to signup to
      */
     public void viewEvents(){
         System.out.println("\nAVAILABLE EVENTS:");
@@ -86,15 +86,15 @@ public class EventSignupPresenter {
     }
 
     /**
-     * (please describe)
+     * prints all events that user is attending
      *
-     * @param user      (please describe)
+     * @param user      User that is logged in
      */
     public void usersEvents(User user) {
         System.out.println("\nYOUR EVENTS:");
         System.out.println("------------------------");
         for (Long event_long: user.getEvents())  {
-            Event ev = em.getEventById(event_long);
+            Event ev = em.getEvent(event_long);
             System.out.println("Name: " + ev.getName());
             System.out.println("id: " + ev.getId());
             System.out.println("Time: " + DateTimeFormatter.ofLocalizedDateTime(

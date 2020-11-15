@@ -1,21 +1,21 @@
 /**
- * (please describe)
+ * Exception that is thrown when an event cannot be found
  *
- * @author
+ * @author Andy, Nithilan
  * @version %I%, %G%
  */
 public class EventNotFoundException extends Exception {
     /**
-     * (please describe)
+     * Creates an instance of EventNotFoundException with a custom message
      *
-     * @param message       (please describe)
+     * @param message       message to be displayed for this exception
      */
     public EventNotFoundException(String message){ //is this ever used?
         super(message);
     }
 
     /**
-     * (please describe)
+     * Creates an instance of EventNotFoundException with a default message
      */
     public EventNotFoundException(){
         super("This event has not yet been registered.");

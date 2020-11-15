@@ -3,7 +3,7 @@ import java.util.*;
 import java.time.*;
 
 /**
- * (please describe)
+ * Use Case Class that stores all events in the program and enables creation and deletion of events.
  *
  * @author Andy, Nithilan
  * @version %I%, %G%
@@ -69,16 +69,6 @@ public class EventManager implements Serializable {
     }
 
     /**
-     * Gets Event object for specific event id.
-     *
-     * @param id    id of event to be returned
-     * @return      Event object corresponding to given id
-     */
-    public Event getEventById(long id) {
-        return this.events.get(id);
-    }
-
-    /**
      * checks whether event with given id exists
      *
      * @param id    id of event being checked
@@ -89,10 +79,10 @@ public class EventManager implements Serializable {
     }
 
     /**
-     * (please describe)
+     * Gets Event object for specific event id.
      *
-     * @param id    (please describe)
-     * @return      (please describe)
+     * @param id    id of event to be returned
+     * @return      Event object corresponding to given id
      */
     public Event getEvent(Long id){
         return this.events.get(id);
@@ -100,8 +90,10 @@ public class EventManager implements Serializable {
 
     /**
      *
-     * @param id
-     * @return
+     * gets the name of event with given id
+     *
+     * @param id id of event
+     * @return name of event with given event id
      */
     public String getName(Long id) {
         return getEvent(id).getName();
@@ -109,8 +101,10 @@ public class EventManager implements Serializable {
 
     /**
      *
-     * @param id
-     * @return
+     * gets the start time of event with given id
+     *
+     * @param id id of event
+     * @return start time of event with given event id
      */
     public LocalDateTime getTime(Long id) {
         return getEvent(id).getTime();
@@ -118,8 +112,10 @@ public class EventManager implements Serializable {
 
     /**
      *
-     * @param id
-     * @return
+     * gets the room that event with given id takes place in
+     *
+     * @param id id of event
+     * @return room that event with given id takes place in
      */
     public String getRoom(Long id) {
         return getEvent(id).getRoom();
@@ -127,8 +123,10 @@ public class EventManager implements Serializable {
 
     /**
      *
-     * @param id
-     * @return
+     * gets the speaker of event with given id
+     *
+     * @param id id of event
+     * @return speaker of event with given event id
      */
     public String getSpeaker(Long id) {
         return getEvent(id).getSpeaker();
@@ -136,16 +134,9 @@ public class EventManager implements Serializable {
 
     /**
      *
-     * @param id
-     * @return
-     */
-    public int getCapacity(Long id) {
-        return getEvent(id).getCapacity();
-    }
-
-    /**
+     * gets a list of all event ids in this program
      *
-     * @return
+     * @return list of all event ids in event manager
      */
     public ArrayList<Long> getEventIDs() {
         return new ArrayList<>(events.keySet());
@@ -153,8 +144,10 @@ public class EventManager implements Serializable {
 
     /**
      *
+     * gets all signed up users for given event id
+     *
      * @param id
-     * @return
+     * @return list of usernames
      */
     public ArrayList<String> getSignedUpUsers(Long id) throws EventNotFoundException {
         if (getEvent(id) == null){

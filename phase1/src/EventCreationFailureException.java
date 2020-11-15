@@ -1,21 +1,21 @@
 /**
- * (please describe)
+ * Exception class that is thrown when event cannot be created
  *
- * @author
+ * @author Andy, Nithilan
  * @version %I%, %G%
  */
 public class EventCreationFailureException extends Exception{
 
     /**
-     * (please describe)
+     * creates an instance of EventCreationFailureException with a default message.
      */
     public EventCreationFailureException() {
         super("This event couldn't be created");
     }
 
     /**
-     * (please describe)
-     * @param message       (please describe)
+     * creates an instance of EventCreationFailureException with a custom message.
+     * @param message       message to be thrown.
      */
     public EventCreationFailureException(String message) {
         super(message);

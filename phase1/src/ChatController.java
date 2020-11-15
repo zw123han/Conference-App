@@ -53,7 +53,7 @@ public class ChatController {
     public boolean canMessage(Long evt) {
         return em.hasEvent(evt) ||
                 (em.hasEvent(evt) && reg.isSpeaker(username) &&
-                        em.getEventById(evt).getSpeaker().equals(username));
+                        em.getEvent(evt).getSpeaker().equals(username));
     }
 
     /**
@@ -116,7 +116,7 @@ public class ChatController {
         ChatPull pull = new ChatPull();
         ChatroomManager cm = pull.readChatlog();
         Message msg = new Message(message, username);
-        Event event = em.getEventById(evt);
+        Event event = em.getEvent(evt);
         cm.sendAll(event, msg);
         ChatPush push = new ChatPush();
         push.storeChat(cm);
