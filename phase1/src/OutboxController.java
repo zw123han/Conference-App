@@ -190,6 +190,10 @@ public class OutboxController {
                 }
                 System.out.println("Type usernames separated by a space, or select * to message all users");
                 String response = sc.nextLine().replace("@", "");
+                if (response.equals("")|response.equals(" ")){
+                    System.out.println("No users specified.");
+                    return;
+                }
                 if (response.equals("*")){
                 for (Long event_id : event_ids) {
                     cc.sendMessage(event_id, em.getEvent(event_id).getName() + ": " + message);
@@ -199,7 +203,7 @@ public class OutboxController {
                         if (recipients.contains(recipient)){
                             cc.sendMessage(recipient, message);}
                         else{
-                            System.out.println("Message could not be delivered to " + recipient);
+                            System.out.println("Message could not be delivered to " + recipient + ". They are not registered in your specified events.");
                         }
                     }
                     }
