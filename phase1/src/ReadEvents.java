@@ -4,7 +4,7 @@ import java.io.ObjectInputStream;
 import java.util.ArrayList;
 
 /**
- * (please describe)
+ * ReadEvents is a gateway class that reads from a .ser file.
  *
  * @author
  * @version %I%, %G%
@@ -13,9 +13,9 @@ public class ReadEvents {
     private String filepath;
 
     /**
-     * (please describe)
+     * Initializes a newly created ReadEvents object to read from the given file.
      *
-     * @param filepath      (please describe)
+     * @param filepath      the path of the file to be read from
      */
     public ReadEvents(String filepath) {
         this.filepath = filepath;
@@ -23,9 +23,9 @@ public class ReadEvents {
     }
 
     /**
-     * (please describe)
+     * Returns a list of Event objects from the specified file.
      *
-     * @return      (please describe)
+     * @return      a list of User objects from the specified file
      */
     public ArrayList<Event> read() {
         ArrayList<Event> events = new ArrayList<>();
