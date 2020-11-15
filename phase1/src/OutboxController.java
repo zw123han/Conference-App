@@ -20,6 +20,7 @@ public class OutboxController {
      * @param reg       Registrar
      * @param username  the username of the sender
      * @param em        EventManager
+     * @param op        OutboxPresenter
      */
     public OutboxController(Registrar reg, String username, EventManager em, OutboxPresenter op) {
         this.username = username;

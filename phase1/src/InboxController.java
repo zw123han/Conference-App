@@ -21,6 +21,7 @@ public class InboxController {
      * @param reg       Registrar
      * @param username  username of the currently logged in user
      * @param em        EventManager
+     * @param ip        InboxPresenter
      */
     public InboxController(Registrar reg, String username, EventManager em, InboxPresenter ip) {
         this.reg = reg;
