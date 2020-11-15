@@ -156,7 +156,7 @@ public class EventManager implements Serializable {
      * @param id
      * @return
      */
-    public ArrayList<String> getSignedUpUsers(Long id) throws EventNotFoundException{
+    public ArrayList<String> getSignedUpUsers(Long id) throws EventNotFoundException {
         if (getEvent(id) == null){
             throw new EventNotFoundException();
         }
