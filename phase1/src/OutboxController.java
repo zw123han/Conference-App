@@ -7,7 +7,7 @@ import java.util.*;
  * @version %I%, %G%
  */
 public class OutboxController {
-    private ChatController cc = new ChatController();
+    private ChatController cc;
     private OutboxPresenter op;
     private EventManager em;
     private Scanner sc = new Scanner(System.in);
@@ -27,6 +27,7 @@ public class OutboxController {
         this.reg = reg;
         this.em = em;
         this.op = op;
+        this.cc = new ChatController(username, reg, em);
     }
 
     /**
@@ -66,7 +67,7 @@ public class OutboxController {
         String recipient = sc.nextLine();
         while (!recipient.equals("$q")) {
             recipient = recipient.replace("@", "");
-            if (cc.canMessage(username, recipient, reg)) {
+            if (cc.canMessage(recipient)) {
                 promptMessage(recipient);
             } else {
                 op.invalidCommand("username");
@@ -93,7 +94,7 @@ public class OutboxController {
         while (!speakers.equals("$q")) {
             speakers = speakers.replace("@", "");
             ArrayList<String> speakerArrayList = convertSpeakers(speakers);
-            if (cc.canSendSpeakers(reg, username, speakerArrayList)) {
+            if (cc.canSendSpeakers(speakerArrayList)) {
                 promptMessage(speakerArrayList);
             } else {
                 op.invalidCommand("username");
@@ -129,9 +130,9 @@ public class OutboxController {
         op.commandPrompt("event ID (separate IDs with a space)");
         String evt = sc.nextLine();
         while (!evt.equals("$q")) {
-            if (evt.matches("^[0-9]+$")) {
+            if (evt.replace(" ", "").matches("^[0-9]+$")) {
                 ArrayList<Long> event_ids = convertLong(evt);
-                if (cc.canSendEvents(reg, em, username, event_ids)) {
+                if (cc.canSendEvents(event_ids)) {
                     promptEventMessage(event_ids);
                 } else {
                     op.invalidCommand("event ID (make sure they are valid)");
@@ -155,7 +156,7 @@ public class OutboxController {
         String message = sc.nextLine();
         while (!message.equals("$q")) {
             if (cc.validateMessage(message)) {
-                cc.sendMessage(username, destination, message);
+                cc.sendMessage(destination, message);
                 op.success();
                 message = "$q";
             } else {
@@ -177,7 +178,7 @@ public class OutboxController {
         while (!message.equals("$q")) {
             if (cc.validateMessage(message)) {
                 for (Long event_id : event_ids) {
-                    cc.sendMessage(username, event_id, message, em);
+                    cc.sendMessage(event_id, message);
                 }
                 op.success();
                 message = "$q";
@@ -200,7 +201,7 @@ public class OutboxController {
         while (!message.equals("$q")) {
             if (cc.validateMessage(message)) {
                 for (String speaker : speakers) {
-                    cc.sendMessage(username, speaker, message);
+                    cc.sendMessage(speaker, message);
                 }
                 op.success();
                 message = "$q";

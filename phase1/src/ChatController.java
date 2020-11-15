@@ -7,6 +7,22 @@ import java.util.ArrayList;
  * @version %I%, %G%
  */
 public class ChatController {
+    private String username;
+    private Registrar reg;
+    private EventManager em;
+
+    /**
+     * Initializes a new ChatController.
+     *
+     * @param username          Username of the sender
+     * @param reg               Registrar
+     * @param em                EventManager
+     */
+    public ChatController(String username, Registrar reg, EventManager em) {
+        this.username = username;
+        this.reg = reg;
+        this.em = em;
+    }
 
     /**
      * Checks if message is valid (Non-empty).
@@ -21,24 +37,20 @@ public class ChatController {
     /**
      * Checks if sender can send messages to a specific recipient.
      *
-     * @param username          Username of sender
      * @param recipient         Username of recipient
-     * @param reg               Registrar
      * @return                  True if sender has permission to message recipient
      */
-    public boolean canMessage(String username, String recipient, Registrar reg) {
+    public boolean canMessage(String recipient) {
         return ((reg.isFriend(username, recipient) || reg.isOrganizer(username)) && reg.userExisting(recipient));
     }
 
     /**
      * Checks if sender can send messages to all Attendees of an event.
      *
-     * @param username          Username of the sender
      * @param evt               Event id
-     * @param em                EventManager
      * @return                  True if sender has permission to message, false otherwise
      */
-    public boolean canMessage(String username, Long evt, Registrar reg, EventManager em) {
+    public boolean canMessage(Long evt) {
         return em.hasEvent(evt) ||
                 (em.hasEvent(evt) && reg.isSpeaker(username) &&
                         em.getEventById(evt).getSpeaker().equals(username));
@@ -47,15 +59,13 @@ public class ChatController {
     /**
      * Checks if sender can send a message to all Speakers.
      *
-     * @param reg               Registrar
-     * @param username          Username of sender
      * @param speakers          List of usernames of speakers that the sender wants to send to
      * @return                  True if sender has permission to message all speakers
      */
-    public boolean canSendSpeakers(Registrar reg, String username, ArrayList<String> speakers) {
+    public boolean canSendSpeakers(ArrayList<String> speakers) {
         boolean result = true;
         for (String speaker : speakers) {
-            if (!canMessage(username, speaker, reg)) {
+            if (!canMessage(speaker)) {
                 result = false;
             }
         }
@@ -65,16 +75,13 @@ public class ChatController {
     /**
      * Checks if sender can send to all participants of all events in a list.
      *
-     * @param reg               Registrar
-     * @param em                EventManager
-     * @param username          Username of sender
      * @param event_ids         List of Event id
      * @return                  True if sender has permission to message all participants of all events in the list
      */
-    public boolean canSendEvents(Registrar reg, EventManager em, String username, ArrayList<Long> event_ids) {
+    public boolean canSendEvents(ArrayList<Long> event_ids) {
         boolean result = true;
         for (Long event_id : event_ids) {
-            if (!canMessage(username, event_id, reg, em)) {
+            if (!canMessage(event_id)) {
                 result = false;
             }
         }
@@ -84,11 +91,10 @@ public class ChatController {
     /**
      * Sends message to a recipient.
      *
-     * @param username          Username of sender
      * @param recipient         Username of recipient
      * @param message           Message to be sent
      */
-    public void sendMessage(String username, String recipient, String message) {
+    public void sendMessage(String recipient, String message) {
         ChatPull pull = new ChatPull();
         ChatroomManager cm = pull.readChatlog();
         Message msg = new Message(message, username);
@@ -103,12 +109,10 @@ public class ChatController {
     /**
      * Sends message to all attendees in an event.
      *
-     * @param username      username of the sender
      * @param evt           ID of an event
      * @param message       String of message to be sent
-     * @param em            EventManager
      */
-    public void sendMessage(String username, Long evt, String message, EventManager em) {
+    public void sendMessage(Long evt, String message) {
         ChatPull pull = new ChatPull();
         ChatroomManager cm = pull.readChatlog();
         Message msg = new Message(message, username);
