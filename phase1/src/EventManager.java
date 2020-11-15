@@ -5,7 +5,7 @@ import java.time.*;
 /**
  * (please describe)
  *
- * @author
+ * @author Andy, Nithilan
  * @version %I%, %G%
  * @serial
  */
@@ -14,9 +14,9 @@ public class EventManager implements Serializable {
     private HashMap<Long, Event> events;
 
     /**
-     * (please describe)
+     * Creates an instance of EventManager with a list of preloaded events.
      *
-     * @param events        (please describe)
+     * @param events        List of event objects
      */
     public EventManager(ArrayList<Event> events) {
         this.events = new HashMap<Long, Event>();
@@ -27,21 +27,21 @@ public class EventManager implements Serializable {
     }
 
     /**
-     * (please describe)
+     * Creates an instance of EventManager with no preloaded events.
      */
     public EventManager() {
         this.events = new HashMap<Long, Event>();
     }
 
     /**
-     * (please describe)
+     * Creates a new Event and adds event to HashMap of events.
      *
-     * @param name              (please describe)
-     * @param room              (please describe)
-     * @param time              (please describe)
-     * @param speakerName       (please describe)
-     * @param capacity          (please describe)
-     * @param speaker           (please describe)
+     * @param name              name of event
+     * @param room              room that event takes place in
+     * @param time              start time of the event
+     * @param speakerName       name of the speaker at this event
+     * @param capacity          capacity of the event
+     * @param speaker           Speaker object of the speaker of this event
      */
     public void createEvent(String name, String room, LocalDateTime time, String speakerName, int capacity, Speaker speaker) {
         Event ev = new Event(name, room, time, speakerName, capacity);
@@ -50,9 +50,9 @@ public class EventManager implements Serializable {
     }
 
     /**
-     * (please describe)
+     * Gets list of events that have been created so far in the program.
      *
-      * @return     (please describe)
+      * @return     ArrayList of Event objects.
      */
     public ArrayList<Event> getEventsList() {
 
@@ -60,28 +60,28 @@ public class EventManager implements Serializable {
     }
 
     /**
-     * (please describe)
+     * Gets a map of event id to Event object of all events stored in this EventManager
      *
-     * @return      (please describe)
+     * @return      HashMap of event id to Event object
      */
     public HashMap<Long, Event> getEventsMap() {
         return this.events;
     }
 
     /**
-     * (please describe)
+     * Gets Event object for specific event id.
      *
-     * @param id    (please describe)
-     * @return      (please describe)
+     * @param id    id of event to be returned
+     * @return      Event object corresponding to given id
      */
     public Event getEventById(long id) {
         return this.events.get(id);
     }
 
     /**
-     * (please describe)
+     * checks whether event with given id exists
      *
-     * @param id    (please describe)
+     * @param id    id of event being checked
      * @return      True or false.
      */
     public boolean hasEvent(long id) {

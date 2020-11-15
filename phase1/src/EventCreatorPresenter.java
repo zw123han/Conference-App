@@ -1,4 +1,7 @@
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.FormatStyle;
+import java.util.ArrayList;
 
 /**
  * (please describe)
@@ -42,8 +45,24 @@ public class EventCreatorPresenter {
         } catch (EventCreationFailureException e) {
 //            e.printStackTrace();
 //            return ("");
-            System.out.println("Speaker or room selected unavailable for this time.");
-            return("");
+            return e.getMessage();
+        }
+    }
+
+    public void viewEvents(){
+        System.out.println("\nEXISTING EVENTS:");
+        for(Event ev: this.em.getEventsList()){
+            if(!ev.isFull()) {
+                System.out.println("Name: " + ev.getName());
+                System.out.println("id: " + ev.getId());
+                System.out.println("Time: " + DateTimeFormatter.ofLocalizedDateTime(
+                        FormatStyle.SHORT)
+                        .format(ev.getTime()));
+                System.out.println("Room: " + ev.getRoom());
+                System.out.println("Capacity: " + ev.getNumberOfSignedUpUsers() + "/" + ev.getCapacity());
+                System.out.println("Speaker: " + ev.getSpeaker());
+                System.out.println("------------------------");
+            }
         }
     }
 }

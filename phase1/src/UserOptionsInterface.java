@@ -196,11 +196,12 @@ public class UserOptionsInterface {
      * @param registrar     (please describe)
      */
     public void showCreateEventsScreen(Registrar registrar) { //TODO this ugly af, will need to change a bit
+        ecp.viewEvents();
         System.out.println("Would you like to create an event? Press any key to continue, or $q to exit");
         String choice = sc.nextLine();
         while (!choice.equals("$q")) {
             try {
-                System.out.println("Please input the event you want to create: name, room, capacity, time(yyyy-MM-dd HH:mm), speaker");
+                System.out.println("Please input some info on the event you want to create:");
                 System.out.println("name:");
                 String name = sc.nextLine();
                 System.out.println("room:");
@@ -215,6 +216,7 @@ public class UserOptionsInterface {
                 for (User s : registrar.getUsersByType("Speaker")) {
                     System.out.println("name: " + s.getName());
                     System.out.println("username: " + s.getUserName());
+                    System.out.println("-----------------------------");
                 }
                 System.out.println("Username of speaker:");
                 String speaker = sc.nextLine();
