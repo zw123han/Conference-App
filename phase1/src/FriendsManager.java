@@ -1,5 +1,5 @@
 /**
- * (please describe)
+ * Use case class that stores and removes the names of users to another user's friends list.
  *
  * @author Tao
  */
@@ -10,7 +10,7 @@ public class FriendsManager {
     /**
      * Instantiates a FriendsManager object
      *
-     * @param reg       (please describe)
+     * @param reg       an instance of registrar, which will be used to manage users
      */
     public FriendsManager(Registrar reg) {
         this.reg = reg;
@@ -19,8 +19,8 @@ public class FriendsManager {
     /**
      * Adds the the user with username "username" to "user"'s friends list
      *
-     * @param user          (please describe)
-     * @param username      (please describe)
+     * @param user          represents a user whose friends list will be modified
+     * @param username      represents the username who will be added to a friends list
      * @return              True or false.
      */
     public boolean addFriend(User user, String username) {
@@ -36,8 +36,8 @@ public class FriendsManager {
     /**
      * Removes the the user with username "username" from "user"'s friends list
      *
-     * @param user          (please describe)
-     * @param username      (please describe)
+     * @param user          represents a user whose friends list will be modified
+     * @param username      represents the username who will be removed from a friends list
      * @return              True or false.
      */
     public boolean removeFriend(User user, String username) {
