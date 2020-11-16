@@ -5,7 +5,7 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
 /**
- * (please describe)
+ * UserOptionsInterface is the main controller class that handles the home menu controls for a single user's session.
  *
  * @author Tao
  */
@@ -24,12 +24,12 @@ public class UserOptionsInterface {
     /**
      * Instantiates a UserOptionsInterface object
      *
-     * @param loginFacade       (please describe)
-     * @param ecp               (please describe)
-     * @param esp               (please describe)
-     * @param cmp               (please describe)
-     * @param fp                (please describe)
-     * @param em                (please describe)
+     * @param loginFacade       the LoginOptionsFacade instance for the current session
+     * @param ecp               the EventCreatorPresenter instance for the current session
+     * @param esp               the EventSignupPresenter instance for the current session
+     * @param cmp               the ChatMenuPresenter instance for the current session
+     * @param fp                the FriendsPresenter instance for the current session
+     * @param em                the EventManager instance for the current session
      */
     public UserOptionsInterface(LoginOptionsFacade loginFacade, EventCreatorPresenter ecp, EventSignupPresenter esp,
                                 ChatMenuPresenter cmp, FriendsPresenter fp, EventManager em){
@@ -44,7 +44,8 @@ public class UserOptionsInterface {
     }
 
     /**
-     * Displays the available options to the user when logged in
+     * Displays the available options to the user when logged in. If the user is unsuccessful in logging in, they may
+     * try again or quit the program.
      *
      */
     public void loggedIn() {
