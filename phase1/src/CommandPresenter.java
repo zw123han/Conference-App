@@ -1,31 +1,31 @@
 /**
- * (please describe)
+ * An abstract presenter that contains the base features for all messaging-related presenters.
  *
- * @author
+ * @author Elliot
  * @version %I%, %G%
  */
 public abstract class CommandPresenter {
 
     /**
-     * (please describe)
+     * Displays an exit command tip.
      */
     public void exitMessage() {
         System.out.println("$q to exit.");
     }
 
     /**
-     * (please describe)
+     * Displays message when field is invalid.
      *
-     * @param field     (please describe)
+     * @param field     field (user input)
      */
     public void invalidCommand(String field) {
         System.out.println("invalid " + field + ".");
     }
 
     /**
-     * (please describe)
+     * Displays prompt for user input into field.
      *
-     * @param field     (please describe)
+     * @param field     field (user input)
      */
     public void commandPrompt(String field) {
         System.out.println("Enter a valid " + field + ".");
