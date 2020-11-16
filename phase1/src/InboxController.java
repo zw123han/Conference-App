@@ -12,7 +12,6 @@ public class InboxController {
     private Scanner sc = new Scanner(System.in);
     private String username;
     private Registrar reg;
-    private EventManager em;
     private OutboxController oc;
 
     /**
@@ -20,13 +19,12 @@ public class InboxController {
      *
      * @param reg       Registrar
      * @param username  username of the currently logged in user
-     * @param em        EventManager
      * @param ip        InboxPresenter
+     * @param oc        OutboxController
      */
-    public InboxController(Registrar reg, String username, EventManager em, InboxPresenter ip, OutboxController oc) {
+    public InboxController(Registrar reg, String username, InboxPresenter ip, OutboxController oc) {
         this.reg = reg;
         this.username = username;
-        this.em = em;
         this.ip = ip;
         this.oc = oc;
     }

@@ -264,7 +264,7 @@ public class UserOptionsInterface {
         OutboxPresenter op = new OutboxPresenter();
         OutboxController oc = new OutboxController(reg, username, em, op);
         InboxPresenter ip = new InboxPresenter();
-        InboxController ic = new InboxController(reg, username, em, ip, oc);
+        InboxController ic = new InboxController(reg, username, ip, oc);
         String choice = sc.nextLine();
         while (!choice.equals("$q")) {
             if (choice.equals("1")) {
