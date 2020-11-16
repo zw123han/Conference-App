@@ -80,8 +80,9 @@ public class ChatroomManager implements Serializable {
      * @param users         List of usernames
      * @param message       Message to be sent
      */
-    public void sendOne(ArrayList<String> users, Message message) {
-        getChatroom(users).sendMessage(message);
+    public void sendOne(ArrayList<String> users, String message, String sender) {
+        Message msg = new Message(message, sender);
+        getChatroom(users).sendMessage(msg);
     }
 
     /**
@@ -90,12 +91,12 @@ public class ChatroomManager implements Serializable {
      * @param users         an ArrayList fo recipients
      * @param message       Message to be sent
      */
-    public void sendAll(ArrayList<String> users, Message message) {
+    public void sendAll(ArrayList<String> users, String message, String sender) {
         for (String user : users) {
             ArrayList<String> recipients = new ArrayList<>();
             recipients.add(user);
-            recipients.add(message.getSender());
-            sendOne(recipients, message);
+            recipients.add(sender);
+            sendOne(recipients, message, sender);
         }
     }
 

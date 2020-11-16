@@ -96,11 +96,10 @@ public class ChatController {
     public void sendMessage(String recipient, String message) {
         ChatPull pull = new ChatPull();
         ChatroomManager cm = pull.readChatlog();
-        Message msg = new Message(message, username);
         ArrayList<String> recipients = new ArrayList<>();
         recipients.add(username);
         recipients.add(recipient);
-        cm.sendOne(recipients, msg);
+        cm.sendOne(recipients, message, username);
         ChatPush push = new ChatPush();
         push.storeChat(cm);
     }
@@ -115,10 +114,9 @@ public class ChatController {
     public boolean sendMessage(Long evt, String message) {
         ChatPull pull = new ChatPull();
         ChatroomManager cm = pull.readChatlog();
-        Message msg = new Message(message, username);
         try {
             ArrayList<String> recipients = em.getSignedUpUsers(evt);
-            cm.sendAll(recipients, msg);
+            cm.sendAll(recipients, message, username);
             ChatPush push = new ChatPush();
             push.storeChat(cm);
             return true;
