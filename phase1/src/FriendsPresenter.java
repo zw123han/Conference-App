@@ -3,12 +3,12 @@ import java.util.ArrayList;
 /**
  * (please describe)
  *
- * @author
+ * @author Tao,
  * @version %I%, %G%
  */
 public class FriendsPresenter {
     /**
-     * (please describe)
+     * Indicates that the user does not exist
      *
      * @return      (please describe)
      */
@@ -17,21 +17,21 @@ public class FriendsPresenter {
     }
 
     /**
-     * (please describe)
+     * Informs the user that they cannot add themselves
      *
      * @return      (please describe)
      */
     public String noAddYourself() {return "Can't add yourself as a friend";}
 
     /**
-     * (please describe)
+     * Informs that the user is already friends with the other user
      *
      * @return      (please describe)
      */
     public String alreadyFriends() {return "Already friends with this user";}
 
     /**
-     * (please describe)
+     * Confirms that the user's desired friend has been added
      *
      * @param username      (please describe)
      * @return              (please describe)
@@ -41,7 +41,7 @@ public class FriendsPresenter {
     }
 
     /**
-     * (please describe)
+     * Confirms that the other user has been removed from the user's friend's list
      *
      * @param username      (please describe)
      * @return              (please describe)
@@ -51,14 +51,14 @@ public class FriendsPresenter {
     }
 
     /**
-     * (please describe)
+     * Inform the user that they cannot remove a non friend
      *
      * @return              (please describe)
      */
     public String notYourFriend() {return "Can't remove non friends from friends list";}
 
     /**
-     * (please describe)
+     * Displays the string that asks the user the enter the username of the other user
      *
      * @return              (please describe)
      */
@@ -67,7 +67,7 @@ public class FriendsPresenter {
     }
 
     /**
-     * (please describe)
+     * Displays the string that asks the user for if they want to add or remove a friend
      *
      * @return      (please describe)
      */
@@ -76,7 +76,7 @@ public class FriendsPresenter {
     }
 
     /**
-     * (please describe)
+     * Displays the friends of the user
      *
      * @param user      (please describe)
      */

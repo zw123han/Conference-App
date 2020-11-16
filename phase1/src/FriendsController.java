@@ -3,7 +3,7 @@ import java.util.Scanner;
 /**
  * (please describe)
  *
- * @author
+ * @author Tao,
  * @version %I%, %G%
  */
 public class FriendsController {
@@ -12,7 +12,7 @@ public class FriendsController {
     private Scanner sc = new Scanner(System.in);
 
     /**
-     * (please describe)
+     * Instantiates FriendsController
      *
      * @param registrar             (please describe)
      * @param friendsPresenter      (please describe)
@@ -23,7 +23,7 @@ public class FriendsController {
     }
 
     /**
-     * (please describe)
+     * Prompts the user the input the username of the user they wish to add
      *
      * @param user      (please describe)
      */
@@ -45,7 +45,7 @@ public class FriendsController {
     }
 
     /**
-     * (please describe)
+     * Prompts the user the enter the username of the friend they wish to remove
      *
      * @param user      (please describe)
      */
