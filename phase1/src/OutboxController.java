@@ -89,12 +89,21 @@ public class OutboxController {
      */
     public void promptSpeaker() {
         op.speakerMenu(reg, em);
-        op.commandPrompt("speaker username (separate usernames with a space)");
+        op.commandPrompt("speaker username (separate usernames with a space, enter * to send all)");
         String speakers = sc.nextLine();
         while (!speakers.equals("$q")) {
             speakers = speakers.replace("@", "");
             ArrayList<String> speakerArrayList = convertSpeakers(speakers);
-            if (cc.canSendSpeakers(speakerArrayList)) {
+            if (speakers.equals("*")) {
+                ArrayList<String> s = new ArrayList<>();
+                for (Long event_id : em.getEventIDs()) {
+                    if (!s.contains(em.getSpeaker(event_id)))
+                        s.add(em.getSpeaker(event_id));
+                }
+                if (cc.canSendSpeakers(s)) {
+                    promptMessage(s);
+                }
+            } else if (cc.canSendSpeakers(speakerArrayList)) {
                 promptMessage(speakerArrayList);
             } else {
                 op.invalidCommand("username");
@@ -106,7 +115,7 @@ public class OutboxController {
     }
 
     private ArrayList<Long> convertLong(String longs) {
-        String[] longArray = longs.split(" ", 0);
+        String[] longArray = longs.split("[ ]+", 0);
         ArrayList<Long> longArrayList = new ArrayList<>();
         for (String s : longArray) {
             longArrayList.add(Long.valueOf(s));
@@ -127,10 +136,15 @@ public class OutboxController {
      */
     public void promptEvent() {
         loadEventMenu();
-        op.commandPrompt("event ID (separate IDs with a space)");
+        op.commandPrompt("event ID (separate IDs with a space, enter * to send all)");
         String evt = sc.nextLine();
         while (!evt.equals("$q")) {
-            if (evt.replace(" ", "").matches("^[0-9]+$")) {
+            if (evt.equals("*")) {
+                ArrayList<Long> event_ids = em.getEventIDs();
+                if (cc.canSendEvents(event_ids)) {
+                    promptEventMessage(event_ids);
+                }
+            } else if (evt.replace(" ", "").matches("^[0-9]+$")) {
                 ArrayList<Long> event_ids = convertLong(evt);
                 if (cc.canSendEvents(event_ids)) {
                     promptEventMessage(event_ids);
@@ -157,7 +171,7 @@ public class OutboxController {
         while (!message.equals("$q")) {
             if (cc.validateMessage(message)) {
                 cc.sendMessage(destination, message);
-                op.success();
+                op.success(destination);
                 message = "$q";
             } else {
                 op.invalidCommand("message");
@@ -177,38 +191,11 @@ public class OutboxController {
         String message = sc.nextLine();
         while (!message.equals("$q")) {
             if (cc.validateMessage(message)) {
-                ArrayList<String> recipients = new ArrayList<String>();
-                for (Long event_id: event_ids){
-                    try {
-                        for(String recipient: em.getSignedUpUsers(event_id)){
-                            recipients.add(recipient);
-                            System.out.println("@"+recipient);
-                        }
-                    } catch (EventNotFoundException e) {
-                        System.out.println("Some events are not yet registered. Please try again");
+                for (Long event_id: event_ids) {
+                    if (cc.sendMessage(event_id, message)) {
+                        op.success("event: " + event_id);
                     }
                 }
-                System.out.println("Type usernames separated by a space, or select * to message all users");
-                String response = sc.nextLine().replace("@", "");
-                if (response.equals("")|response.equals(" ")){
-                    System.out.println("No users specified.");
-                    return;
-                }
-                if (response.equals("*")){
-                for (Long event_id : event_ids) {
-                    cc.sendMessage(event_id, em.getEvent(event_id).getName() + ": " + message);
-                }}
-                else{
-                    for(String recipient: response.split(" ")) {
-                        if (recipients.contains(recipient)){
-                            cc.sendMessage(recipient, message);}
-                        else{
-                            System.out.println("Message could not be delivered to " + recipient + ". They are not registered in your specified events.");
-                        }
-                    }
-                    }
-
-                op.success();
                 message = "$q";
             } else {
                 op.invalidCommand("message");
@@ -230,8 +217,8 @@ public class OutboxController {
             if (cc.validateMessage(message)) {
                 for (String speaker : speakers) {
                     cc.sendMessage(speaker, message);
+                    op.success("@" + speaker);
                 }
-                op.success();
                 message = "$q";
             } else {
                 op.invalidCommand("message");

@@ -88,11 +88,11 @@ public class ChatroomManager implements Serializable {
     /**
      * Method for sending a message to all chatrooms that involve users that are signed up for a specific event.
      *
-     * @param event         Event
+     * @param users         an ArrayList fo recipients
      * @param message       Message to be sent
      */
-    public void sendAll(Event event, Message message) {
-        for (String user : event.getSignedUpUsers()) {
+    public void sendAll(ArrayList<String> users, Message message) {
+        for (String user : users) {
             ArrayList<String> recipients = new ArrayList<>();
             recipients.add(user);
             recipients.add(message.getSender());

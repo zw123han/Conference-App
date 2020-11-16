@@ -19,7 +19,7 @@ public abstract class CommandPresenter {
      * @param field     (please describe)
      */
     public void invalidCommand(String field) {
-        System.out.println(field + " not valid.");
+        System.out.println("invalid " + field + ".");
     }
 
     /**

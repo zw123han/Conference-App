@@ -107,7 +107,7 @@ public class OutboxPresenter extends CommandPresenter{
     /**
      * Displays a success message for a sent message.
      */
-    public void success() {
-        System.out.println("\nMessage successfully sent!");
+    public void success(String recipient) {
+        System.out.println("\nMessage successfully sent to " + recipient + "!");
     }
 }

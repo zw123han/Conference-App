@@ -111,14 +111,20 @@ public class ChatController {
      *
      * @param evt           ID of an event
      * @param message       String of message to be sent
+     * @return true if messages are sent
      */
-    public void sendMessage(Long evt, String message) {
+    public boolean sendMessage(Long evt, String message) {
         ChatPull pull = new ChatPull();
         ChatroomManager cm = pull.readChatlog();
         Message msg = new Message(message, username);
-        Event event = em.getEvent(evt);
-        cm.sendAll(event, msg);
-        ChatPush push = new ChatPush();
-        push.storeChat(cm);
+        try {
+            ArrayList<String> recipients = em.getSignedUpUsers(evt);
+            cm.sendAll(recipients, msg);
+            ChatPush push = new ChatPush();
+            push.storeChat(cm);
+            return true;
+        } catch (EventNotFoundException e) {
+            return false;
+        }
     }
 }
