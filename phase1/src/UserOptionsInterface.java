@@ -30,6 +30,7 @@ public class UserOptionsInterface {
      * @param esp               (please describe)
      * @param cmp               (please describe)
      * @param fp                (please describe)
+     * @param em                (please describe)
      */
     public UserOptionsInterface(LoginOptionsFacade loginFacade, EventCreatorPresenter ecp, EventSignupPresenter esp,
                                 ChatMenuPresenter cmp, FriendsPresenter fp, EventManager em){

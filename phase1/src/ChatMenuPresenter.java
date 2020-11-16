@@ -1,7 +1,7 @@
 /**
  * Contains the text display for Chat Menu.
  *
- * @author
+ * @author Chrisee, Elliot
  * @version %I%, %G%
  */
 public class ChatMenuPresenter extends CommandPresenter{

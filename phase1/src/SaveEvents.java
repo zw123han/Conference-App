@@ -5,7 +5,7 @@ import java.util.ArrayList;
  * SaveEvents is a gateway class that is used to save a list of the available talks at the conference to a .ser file for
  * use in other login sessions.
  *
- * @author
+ * @author Andy, Nithilan
  * @version %I%, %G%
  */
 public class SaveEvents {
@@ -25,6 +25,7 @@ public class SaveEvents {
      * Returns true if and only if the method was able to successfully save the list of events to the given file path.
      *
      * @param evList        a list of Event objects to be serialized.
+     * @return              true iff the save was successful
      */
     public boolean saveEvents(ArrayList<Event> evList) {
         try {

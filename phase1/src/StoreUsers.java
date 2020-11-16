@@ -27,6 +27,7 @@ public class StoreUsers {
      * Returns true if and only if the method was able to successfully save the list of users to the given file path.
      *
      * @param userList      a list of User objects to serialized.
+     * @return              true iff the save was successful
      */
     public boolean store(ArrayList<User> userList) {
         try {
