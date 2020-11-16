@@ -80,7 +80,7 @@ public class OutboxController {
     }
 
     private ArrayList<String> convertSpeakers(String speakers) {
-        String[] speakerArray = speakers.split(" ", 0);
+        String[] speakerArray = speakers.split("[ ]+", 0);
         return new ArrayList<>(Arrays.asList(speakerArray));
     }
 
@@ -194,6 +194,8 @@ public class OutboxController {
                 for (Long event_id: event_ids) {
                     if (cc.sendMessage(event_id, message)) {
                         op.success("event: " + event_id);
+                    } else {
+                        op.invalidCommand("event id, message not sent to event: " + event_id);
                     }
                 }
                 message = "$q";
