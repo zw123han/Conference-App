@@ -1,22 +1,23 @@
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.FormatStyle;
-import java.util.ArrayList;
 
 /**
- * (please describe)
+ * A presenter for the event class. Consists of a method that prompts an event creation
+ * and tells the user whether the event was successfully created.
  *
- * @author
+ * @author Andy Wu
+ * @author Nithilan Manimaran
  */
 public class EventCreatorPresenter {
     private EventManager em;
     private Registrar reg;
 
     /**
-     * (please describe)
+     * The constructor for EventCreatorPresenter
      *
-     * @param em        (please describe)
-     * @param reg       (please describe)
+     * @param em        The EventManager for EventCreatorPresenter
+     * @param reg       The Registrar for EventCreatorPresenter
      */
     public EventCreatorPresenter(EventManager em, Registrar reg) {
         this.em = em;
@@ -24,16 +25,17 @@ public class EventCreatorPresenter {
     }
 
     /**
-     * (please describe)
+     * Prompts the creation of the specified event and returns whether the event was successfully created
      *
-     * @param name      (please describe)
-     * @param room      (please describe)
-     * @param time      (please describe)
-     * @param speaker   (please describe)
-     * @param capacity  (please describe)
-     * @return          (please describe)
+     * @param name      The name of the event
+     * @param room      The room of the event
+     * @param time      The starting time of the event
+     * @param speaker   The speaker for the event
+     * @param capacity  The capacity of the event
+     * @return          A string detailing whether the event was successfully created
      */
     public String promptEventCreation(String name, String room, LocalDateTime time, String speaker, int capacity) {
+
         EventCreator ec = new EventCreator(this.em, reg);
         try {
             if (!(ec.createEvent(name, room, time, speaker, capacity))) {

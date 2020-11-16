@@ -5,9 +5,12 @@ import java.util.Date;
 import java.util.Calendar;
 
 /**
- * (please describe)
+ * A class representing the event entity. Consists of methods that operate on events / event details.
  *
- * @author
+ * @author Andy Wu
+ * @author Nithilan Manimaran
+ * @version %I%, %G%
+ * @serial
  */
 public class Event implements Serializable {
 
@@ -16,24 +19,24 @@ public class Event implements Serializable {
     private LocalDateTime time;
     private String speaker;
     private int capacity;
-    private ArrayList<String> signedUpUsers = new ArrayList<>();
+    private ArrayList<String> signedUpUsers = new ArrayList<String>();
     private long id;
 
     /**
-     * (please describe)
+     * The constructor for an Event
      *
-     * @param name      (please describe)
-     * @param room      (please describe)
-     * @param time      (please describe)
-     * @param speaker   (please describe)
-     * @param capacity  (please describe)
+     * @param name      The name of the event
+     * @param room      The room the event is being held in
+     * @param time      The starting time of the event
+     * @param speaker   The speaker for the event
+     * @param capacity  The capacity of the event
      */
     public Event(String name, String room, LocalDateTime time, String speaker, int capacity){
         this.name = name;
         this.room = room;
         this.time = time;
         this.speaker = speaker;
-        this.capacity = capacity;
+        this.capacity = 2;
 
         Calendar c = Calendar.getInstance();
         Date d = c.getTime();
@@ -41,62 +44,62 @@ public class Event implements Serializable {
     }
 
     /**
-     * (please describe)
+     * Returns the id of the event
      *
-     * @return          (please describe)
+     * @return          The id of the event as a long
      */
     public long getId() { return id; }
 
     /**
-     * (please describe)
+     * Returns the name of the event
      *
-     * @return          (please describe)
+     * @return          The name of the event as a String
      */
     public String getName(){
         return name;
     }
 
     /**
-     * (please describe)
+     * Returns the room of the event
      *
-     * @return          (please describe)
+     * @return          The room of the event as a String
      */
     public String getRoom(){
         return room;
     }
 
     /**
-     * (please describe)
+     * Returns the starting time of the event
      *
-     * @return          (please describe)
+     * @return          The starting time of the event as a LocalDateTime
      */
     public LocalDateTime getTime(){
         return time;
     }
 
     /**
-     * (please describe)
+     * Returns the speaker of the event
      *
-     * @return          (please describe)
+     * @return          The speaker of the event as a String
      */
     public String getSpeaker(){
         return speaker;
     }
 
     /**
-     * (please describe)
+     * Returns the capacity of the event
      *
-     * @return          (please describe)
+     * @return          The capacity of the event as an int
      */
     public int getCapacity(){
         return capacity;
     }
 
     /**
-     * (please describe)
+     * Signs up the given user for the event
      *
-     * @param username  (please describe)
-     * @return          (please describe)
+     * @param username  The username of the user signing up for the event
+     * @return          true if the user was successfully signed up for the event, false otherwise
      */
     public boolean addUser(String username){
         if (signedUpUsers.contains(username)){
@@ -107,10 +110,10 @@ public class Event implements Serializable {
     }
 
     /**
-     * (please describe)
+     * Removes a given user from the event
      *
-     * @param username  (please describe)
-     * @return          (please describe)
+     * @param username  The username of the user to be removed from the event
+     * @return          true if the user was successfully removed from the event, false otherwise
      */
     public boolean removeUser(String username){
         if (signedUpUsers.contains(username)){
@@ -121,37 +124,37 @@ public class Event implements Serializable {
     }
 
     /**
-     * (please describe)
+     * Checks if the event is full
      *
-     * @return          (please describe)
+     * @return          true if the event is full, false otherwise
      */
     public boolean isFull(){
         return this.capacity == this.signedUpUsers.size();
     }
 
     /**
-     * (please describe)
+     * Checks if the given user is signed up for the event
      *
-     * @param username  (please describe)
-     * @return          (please describe)
+     * @param username  The username of the user being checked for
+     * @return          true if the given user is signed up for the event, false otherwise
      */
     public boolean hasUser(String username){
         return this.signedUpUsers.contains(username);
     }
 
     /**
-     * (please describe)
+     * Returns the number of users signed up for the event
      *
-     * @return          (please describe)
+     * @return          The number of users signed up for the event
      */
     public int getNumberOfSignedUpUsers() {
         return this.signedUpUsers.size();
     }
 
     /**
-     * This method will return the list of usernames representing users signed up for this event.
+     * Returns a list of all the users signed up for the event
      *
-     * @return          A list of usernames representing users signed up for this event.
+     * @return          An Arraylist of Strings representing the usernames of the users signed up for the event
      */
     public ArrayList<String> getSignedUpUsers(){
         return signedUpUsers;

@@ -2,19 +2,20 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 
 /**
- * (please describe)
+ * A controller for the event class. Consists of a method that creates an event if the event is allowed.
  *
- * @author
+ * @author Andy Wu
+ * @author Nithilan Manimaran
  */
 public class EventCreator {
     private EventManager em;
     private Registrar reg;
 
     /**
-     * (please describe)
+     * The constructor for EventCreator
      *
-     * @param em        (please describe)
-     * @param reg       (please describe)
+     * @param em        The EventManager for the EventCreator
+     * @param reg       The Registrar for the EventCreator
      */
     public EventCreator(EventManager em, Registrar reg) {
         this.em = em;
@@ -22,15 +23,15 @@ public class EventCreator {
     }
 
     /**
-     * (please describe)
+     * Creates the specified event unless either the speaker, the room, or both are already booked for the event time
      *
-     * @param name                              (please describe)
-     * @param room                              (please describe)
-     * @param start_time                        (please describe)
-     * @param speaker                           (please describe)
-     * @param capacity                          (please describe)
-     * @return                                  (please describe)
-     * @throws EventCreationFailureException    (please describe)
+     * @param name                              The name of the event
+     * @param room                              The room of the event
+     * @param start_time                        The starting time of the event
+     * @param speaker                           The speaker for the event
+     * @param capacity                          The capacity of the event
+     * @return                                  true if the event was successfully created
+     * @throws EventCreationFailureException    If the event failed to be created
      */
     public boolean createEvent(String name, String room, LocalDateTime start_time, String speaker, int capacity)
             throws EventCreationFailureException {
