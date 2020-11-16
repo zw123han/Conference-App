@@ -9,7 +9,8 @@
 	f) choose "Change password". Follow prompts to change password. Please remember to change it back to "123"
 	g) choose "Logout". Follow prompts to logout. Follow prompts to close login and then program. Goodbye, friend. 
 4. If you choose to create your own account, you may do so. Please note, the options are limited for standard users for security purposes. 
+5. UML can be found in root "group_0051\phase1"
+6. Javadoc can be found in "group_0051\phase1\src\javadoc"
 
-
-Questions:
-Are allowed static gateways?
+Questions for TA:
+Are static gateways allowed?
