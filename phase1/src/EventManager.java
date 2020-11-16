@@ -6,8 +6,6 @@ import java.time.*;
  * Use Case Class that stores all events in the program and enables creation and deletion of events.
  *
  * @author Andy, Nithilan
- * @version %I%, %G%
- * @serial
  */
 public class EventManager implements Serializable {
 

@@ -5,7 +5,6 @@ import java.util.Base64;
  * Use case which enforces user credentials rules in the registrar.
  *
  * @author Ziwen
- * @version %I%, %G%
  */
 public class CredentialsUseCase {
     private Registrar registrar;

@@ -4,7 +4,6 @@ import java.util.ArrayList;
  * Contains methods for checking if a user has permission to send messages and the methods for sending messages.
  *
  * @author Elliot, Chrisee
- * @version %I%, %G%
  */
 public class ChatController {
     private String username;

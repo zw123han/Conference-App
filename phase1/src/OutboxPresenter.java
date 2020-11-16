@@ -4,7 +4,6 @@ import java.util.*;
  * Handles text format and display for the client.
  *
  * @author Chrisee Zhu
- * @version %I%, %G%
  */
 public class OutboxPresenter extends CommandPresenter{
 

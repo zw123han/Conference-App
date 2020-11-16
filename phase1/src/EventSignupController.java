@@ -4,7 +4,6 @@ import java.util.HashMap;
  * Controller that manages signing up and leaving events
  *
  * @author Andy, Nithilan
- * @version %I%, %G%
  */
 public class EventSignupController {
     private EventManager em;

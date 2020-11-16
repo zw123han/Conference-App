@@ -2,7 +2,6 @@
  * A class representing an organizer user.
  *
  * @author Jesse
- * @version %I%, %G%
  */
 public class Organizer extends User {
 

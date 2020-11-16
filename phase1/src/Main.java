@@ -2,7 +2,6 @@
  * Main static method of program.
  *
  * @author Fred
- * @version %I%, %G%
  */
 public class Main {
 

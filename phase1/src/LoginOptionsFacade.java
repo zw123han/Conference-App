@@ -2,7 +2,6 @@
  * Facade controller which gives various options relating to managing stored users.
  *
  * @author Ziwen
- * @version %I%, %G%
  */
 public class LoginOptionsFacade {
     private CredentialsUseCase credentialsUseCase;

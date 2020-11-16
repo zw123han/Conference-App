@@ -5,7 +5,6 @@ import java.util.*;
  * Stores all Chatrooms in the program, deals with adding new Chatrooms and sending messages.
  *
  * @author Elliot, Chrisee
- * @version %I%, %G%
  */
 public class ChatroomManager implements Serializable {
     private HashMap<ArrayList<String>, Chatroom> chatrooms;

@@ -6,7 +6,6 @@ import java.util.Scanner;
  * For taking in user inputs for viewing chat history and replying to messages.
  *
  * @author Chrisee, Elliot
- * @version %I%, %G%
  */
 public class InboxController {
     private InboxPresenter ip;

@@ -7,7 +7,6 @@ import java.util.ArrayList;
  * ReadUsers is a gateway class that reads from a .ser file.
  *
  * @author Jesse
- * @version %I%, %G%
  */
 public class ReadUsers {
     private String filepath;

@@ -2,7 +2,6 @@
  * Standard user class that represents users who will be signing up and attending conference events.
  *
  * @author Fred
- * @version %I%, %G%
  */
 
 public class Attendee extends User {

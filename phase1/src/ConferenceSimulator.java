@@ -3,8 +3,7 @@ import java.util.*;
 /**
  * This class represents the executable for the application.
  *
- * @author  ..., ..., Fred, Ziwen
- * @version %I%, %G%
+ * @author  Fred, Ziwen
  */
 public class ConferenceSimulator {
 

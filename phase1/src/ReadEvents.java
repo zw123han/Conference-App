@@ -7,7 +7,6 @@ import java.util.ArrayList;
  * ReadEvents is a gateway class that reads from a .ser file.
  *
  * @author Andy, Nithilan
- * @version %I%, %G%
  */
 public class ReadEvents {
     private String filepath;

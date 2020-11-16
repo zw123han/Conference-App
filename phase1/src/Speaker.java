@@ -5,7 +5,6 @@ import java.util.*;
  * is scheduled to talk.
  *
  * @author Fred
- * @version %I%, %G%
  */
 public class Speaker extends User {
 

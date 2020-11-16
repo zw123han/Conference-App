@@ -7,8 +7,7 @@ import java.time.format.DateTimeFormatter;
 /**
  * (please describe)
  *
- * @author Tao,
- * @version %I%, %G%
+ * @author Tao
  */
 public class UserOptionsInterface {
 

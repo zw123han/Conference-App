@@ -2,7 +2,6 @@
  * Use Case class that enables signing up and leaving events.
  *
  * @author Andy, Nithilan
- * @version %I%, %G%
  */
 // Choosing not to store event manager in here for now
 public class EventSignup{

@@ -2,7 +2,6 @@
  * Presenter which gives users information related to login and account management
  *
  * @author Ziwen
- * @version %I%, %G%
  */
 public class LoginPresenter {
     /**

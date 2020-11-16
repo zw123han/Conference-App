@@ -2,7 +2,6 @@
  * Exception that is thrown when an event cannot be found
  *
  * @author Andy, Nithilan
- * @version %I%, %G%
  */
 public class EventNotFoundException extends Exception {
     /**

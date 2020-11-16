@@ -3,7 +3,6 @@
  * conference.
  *
  * @author Jesse
- * @version %I%, %G%
  */
 public class OrganizerCreationScript {
 

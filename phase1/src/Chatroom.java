@@ -5,7 +5,6 @@ import java.io.Serializable;
  * Chatroom that stores message history and has methods for sending messages.
  *
  * @author Elliot, Chrisee
- * @version %I%, %G%
  */
 public class Chatroom implements Serializable {
     private HashMap<Integer, Message> history;

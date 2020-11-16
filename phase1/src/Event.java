@@ -8,8 +8,6 @@ import java.util.Calendar;
  * (please describe)
  *
  * @author
- * @version %I%, %G%
- * @serial
  */
 public class Event implements Serializable {
 

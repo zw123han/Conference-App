@@ -7,7 +7,6 @@ import java.util.ArrayList;
  * (please describe)
  *
  * @author
- * @version %I%, %G%
  */
 public class EventCreatorPresenter {
     private EventManager em;

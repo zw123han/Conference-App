@@ -5,7 +5,6 @@ import java.time.format.FormatStyle;
  * Presenter for the event signup process.
  *
  * @author Andy, Nithilan
- * @version %I%, %G%
  */
 public class EventSignupPresenter {
     private EventManager em;

@@ -6,7 +6,6 @@ import java.io.Serializable;
  * An object that represents a message sent between users
  *
  * @author Chrisee Zhu
- * @version %I%, %G%
  */
 public class Message implements Serializable {
     private String message, sender;

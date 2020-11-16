@@ -4,7 +4,6 @@ import java.util.Scanner;
  * A user interface which exchanges inputs and outputs with a person to login/manage their account.
  *
  * @author Ziwen
- * @version %I%, %G%
  */
 public class LoginUI {
     private LoginPresenter loginPresenter;

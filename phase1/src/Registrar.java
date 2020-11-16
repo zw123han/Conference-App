@@ -8,7 +8,6 @@ import java.lang.*;
  * this class uses to implement various methods.
  *
  * @author Jesse
- * @version %I%, %G%
  */
 public class Registrar {
 

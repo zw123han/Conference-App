@@ -8,7 +8,6 @@ import java.util.ArrayList;
  * use in other login sessions.
  *
  * @author Jesse
- * @version %I%, %G%
  */
 public class StoreUsers {
 

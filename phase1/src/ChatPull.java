@@ -6,7 +6,6 @@ import java.io.ObjectInputStream;
  * For reading from a .ser file containing the saved ChatroomManager.
  *
  * @author Elliot
- * @version %I%, %G%
  */
 public class ChatPull {
 

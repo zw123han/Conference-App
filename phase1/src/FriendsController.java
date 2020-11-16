@@ -3,8 +3,7 @@ import java.util.Scanner;
 /**
  * (please describe)
  *
- * @author Tao,
- * @version %I%, %G%
+ * @author Tao
  */
 public class FriendsController {
     private FriendsManager friendsManager;

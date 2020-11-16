@@ -2,7 +2,6 @@
  * Exception class that is thrown when event cannot be created
  *
  * @author Andy, Nithilan
- * @version %I%, %G%
  */
 public class EventCreationFailureException extends Exception{
 

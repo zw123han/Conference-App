@@ -3,8 +3,7 @@ import java.util.ArrayList;
 /**
  * (please describe)
  *
- * @author Tao,
- * @version %I%, %G%
+ * @author Tao
  */
 public class FriendsPresenter {
     /**

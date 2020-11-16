@@ -4,7 +4,6 @@ import java.util.*;
  * OutboxController handles user requests for sending messages.
  *
  * @author  Chrisee Zhu
- * @version %I%, %G%
  */
 public class OutboxController {
     private ChatController cc;

@@ -6,7 +6,6 @@ import java.io.ObjectOutputStream;
  * For saving ChatroomManager to .ser file.
  *
  * @author Elliot
- * @version %I%, %G%
  */
 public class ChatPush {
 

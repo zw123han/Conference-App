@@ -5,7 +5,6 @@ import java.util.Base64;
  * Controller which logs users into the registrar.
  *
  * @author Ziwen
- * @version %I%, %G%
  */
 public class Login {
     private Registrar registrar;

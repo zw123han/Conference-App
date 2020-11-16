@@ -6,7 +6,6 @@ import java.util.ArrayList;
  * use in other login sessions.
  *
  * @author Andy, Nithilan
- * @version %I%, %G%
  */
 public class SaveEvents {
     private String filepath;

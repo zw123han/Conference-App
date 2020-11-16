@@ -2,7 +2,6 @@
  * An abstract presenter that contains the base features for all messaging-related presenters.
  *
  * @author Elliot
- * @version %I%, %G%
  */
 public abstract class CommandPresenter {
 

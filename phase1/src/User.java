@@ -5,7 +5,6 @@ import java.util.ArrayList;
  * This is an abstract class that will be used to represent all users. It will spawn subclasses.
  *
  * @author Fred, Jesse
- * @version %I%, %G%
  */
 public abstract class User implements Serializable {
     private String name, userName, hashPassword;

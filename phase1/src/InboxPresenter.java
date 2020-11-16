@@ -4,7 +4,6 @@ import java.util.*;
  * Contains the text display for viewing chat history and replying to messages.
  *
  * @author Chrisee, Elliot
- * @version %I%, %G%
  */
 public class InboxPresenter extends CommandPresenter {
 
