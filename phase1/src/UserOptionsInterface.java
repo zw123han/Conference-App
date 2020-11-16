@@ -261,14 +261,16 @@ public class UserOptionsInterface {
     private void showMessageScreen(Registrar reg, String username){
         cmp.menuDisplay();
         cmp.commandPrompt("prompt");
+        OutboxPresenter op = new OutboxPresenter();
+        OutboxController oc = new OutboxController(reg, username, em, op);
+        InboxPresenter ip = new InboxPresenter();
+        InboxController ic = new InboxController(reg, username, em, ip, oc);
         String choice = sc.nextLine();
         while (!choice.equals("$q")) {
             if (choice.equals("1")) {
-                showOutbox(reg, username);
+                showOutbox(reg, username, oc);
             }
             else if (choice.equals("2")) {
-                InboxPresenter ip = new InboxPresenter();
-                InboxController ic = new InboxController(reg, username, em, ip);
                 ic.promptChatChoice();
             } else {
                 cmp.invalidCommand("prompt");
@@ -279,9 +281,7 @@ public class UserOptionsInterface {
         }
     }
 
-    private void showOutbox(Registrar reg, String username) {
-        OutboxPresenter op = new OutboxPresenter();
-        OutboxController oc = new OutboxController(reg, username, em, op);
+    private void showOutbox(Registrar reg, String username, OutboxController oc) {
         if (reg.isOrganizer(username)) {
             oc.promptChatChoice();
         } else if (reg.isSpeaker(username)) {

@@ -13,6 +13,7 @@ public class InboxController {
     private String username;
     private Registrar reg;
     private EventManager em;
+    private OutboxController oc;
 
     /**
      * Initiates a new InboxController
@@ -22,11 +23,12 @@ public class InboxController {
      * @param em        EventManager
      * @param ip        InboxPresenter
      */
-    public InboxController(Registrar reg, String username, EventManager em, InboxPresenter ip) {
+    public InboxController(Registrar reg, String username, EventManager em, InboxPresenter ip, OutboxController oc) {
         this.reg = reg;
         this.username = username;
         this.em = em;
         this.ip = ip;
+        this.oc = oc;
     }
 
     private boolean canReply(Registrar reg, String username, String recipient, ChatroomManager cm) {
@@ -108,8 +110,6 @@ public class InboxController {
      * @param recipient     username of a user that the logged in user has chatted with
      */
     public void promptReply(String recipient) {
-        OutboxPresenter op = new OutboxPresenter();
-        OutboxController oc = new OutboxController(reg, username, em, op);
         ip.replyMessage();
         String re = sc.nextLine();
         while (!re.equals("$q")) {
