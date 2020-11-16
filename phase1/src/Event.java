@@ -9,8 +9,6 @@ import java.util.Calendar;
  *
  * @author Andy Wu
  * @author Nithilan Manimaran
- * @version %I%, %G%
- * @serial
  */
 public class Event implements Serializable {
 
