@@ -1,7 +1,7 @@
 import java.util.Scanner;
 
 /**
- * (please describe)
+ * Controller that manages a user's friends list.
  *
  * @author Tao
  */
@@ -13,8 +13,8 @@ public class FriendsController {
     /**
      * Instantiates FriendsController
      *
-     * @param registrar             (please describe)
-     * @param friendsPresenter      (please describe)
+     * @param registrar             registrar works to pass a user to the friendsManager class for operation
+     * @param friendsPresenter      initiate an instance of the presenter class for interaction with a user
      */
     public FriendsController(Registrar registrar, FriendsPresenter friendsPresenter) {
         this.friendsManager = new FriendsManager(registrar);
@@ -24,7 +24,7 @@ public class FriendsController {
     /**
      * Prompts the user the input the username of the user they wish to add
      *
-     * @param user      (please describe)
+     * @param user      represents a user to be added to list of friends
      */
    public void addFriends(User user) {
         System.out.println(friendsPresenter.enterUser());
@@ -46,7 +46,7 @@ public class FriendsController {
     /**
      * Prompts the user the enter the username of the friend they wish to remove
      *
-     * @param user      (please describe)
+     * @param user      represents a user to be removed from a list of friends
      */
     public void removeFriends(User user) {
         System.out.println(friendsPresenter.enterUser());
