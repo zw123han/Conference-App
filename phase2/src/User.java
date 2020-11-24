@@ -10,6 +10,7 @@ public abstract class User implements Serializable {
     private String name, userName, hashPassword;
     private ArrayList<Long> events;
     private ArrayList<String> friends;
+    private boolean vip;
 
     /**
      * Constructor for the user class. Used to initialize variables.
@@ -117,5 +118,22 @@ public abstract class User implements Serializable {
         return friends.contains(friend);
     }
 
+    /**
+     * Returns the VIP status of the user.
+     *
+     * @return True or False.
+     */
+    public boolean getVipStatus(){
+        return vip;
+    }
+
+    /**
+     * Sets the VIP status of the user. Will be either true or false.
+     *
+     * @param vipStatus     Status of the VIP field to set.
+     */
+    public void setVipStatus(boolean vipStatus){
+        this.vip = vipStatus;
+    }
 }
 
