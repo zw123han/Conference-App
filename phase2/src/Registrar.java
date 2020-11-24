@@ -53,6 +53,9 @@ public class Registrar {
             case "speaker":
                 user = new Speaker(name, userName, password);
                 break;
+            case "administrator":
+                user = new Administrator(name, userName, password);
+                break;
             default:
                 return false;
         }
@@ -131,6 +134,19 @@ public class Registrar {
     public boolean isOrganizer(String username) {
         if (userExisting(username)) {
             return getUserByUserName(username) instanceof Organizer;
+        }
+        return false;
+    }
+
+    /**
+     * Returns true if and only if the user with the given username is an administrator.
+     *
+     * @param username      the username of the user
+     * @return              true or false
+     */
+    public boolean isAdmin(String username) {
+        if (userExisting(username)) {
+            return getUserByUserName(username) instanceof Administrator;
         }
         return false;
     }

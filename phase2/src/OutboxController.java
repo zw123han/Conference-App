@@ -125,7 +125,7 @@ public class OutboxController {
     private void loadEventMenu() {
         if (reg.isSpeaker(username)) {
             op.eventMenu(username, em, reg);
-        } else if (reg.isOrganizer(username)) {
+        } else if (reg.isAdmin(username) || reg.isOrganizer(username)) {
             op.eventMenu(em);
         }
     }

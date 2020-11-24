@@ -40,7 +40,8 @@ public class ChatController {
      * @return                  True if sender has permission to message recipient
      */
     public boolean canMessage(String recipient) {
-        return ((reg.isFriend(username, recipient) || reg.isOrganizer(username)) && reg.userExisting(recipient));
+        return ((reg.isFriend(username, recipient) || reg.isOrganizer(username)) && reg.userExisting(recipient) ||
+                reg.isAdmin(username));
     }
 
     /**

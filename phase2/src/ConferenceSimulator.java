@@ -48,7 +48,11 @@ public class ConferenceSimulator {
 
         EventSignup eventSignup = new EventSignup();
 
-        // Make admin accounts
+        // Make administrator account
+        AdminCreationScript adminCreationScript = new AdminCreationScript();
+        adminCreationScript.createAdmin(registrar);
+
+        // Make organizer account
         OrganizerCreationScript organizerCreationScript = new OrganizerCreationScript();
         organizerCreationScript.createOrganizers(registrar);
 

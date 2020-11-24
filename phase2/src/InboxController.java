@@ -31,7 +31,7 @@ public class InboxController {
 
     private boolean canReply(Registrar reg, String username, String recipient, ChatroomManager cm) {
         if (cm.hasChatroom(username, recipient)) {
-            if (reg.isOrganizer(username) || reg.isAttendee(username)) {
+            if (reg.isAdmin(username) || reg.isOrganizer(username) || reg.isAttendee(username)) {
                 return true;
             }
             Chatroom c = cm.getChatroom(username, recipient);

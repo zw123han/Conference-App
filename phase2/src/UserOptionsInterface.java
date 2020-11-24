@@ -7,7 +7,7 @@ import java.time.format.DateTimeFormatter;
 /**
  * UserOptionsInterface is the main controller class that handles the home menu controls for a single user's session.
  *
- * @author Tao
+ * @author Tao, Fred
  */
 public class UserOptionsInterface {
 
@@ -95,6 +95,33 @@ public class UserOptionsInterface {
                     System.out.println("Please input a valid option(1-7).");
                     break;
             }
+        } else if (user instanceof Administrator) {
+            switch (choice) {
+                case "1":
+                    logout();
+                    break;
+                case "2":
+                    showEventScreen();
+                    break;
+                case "3":
+                    showMessageScreen(registrar, user.getUserName());
+                    break;
+                case "4":
+                    changePassword(user.getUserName());
+                    break;
+                case "5":
+                    showFriends(registrar, user);
+                    break;
+                case "6":
+                    showManageEventsScreen(registrar);
+                    break;
+                case "7":
+                    showManageAccountsScreen(registrar);
+                    break;
+                default:
+                    System.out.println("Please input a valid option(1-7).");
+                    break;
+            }
         } else {
             switch (choice) {
                 case "1":
@@ -137,7 +164,14 @@ public class UserOptionsInterface {
         else if (user instanceof Organizer){
             generalOptions();
             System.out.println("6) Add Event");
-            System.out.println("7) Add Speaker");
+            System.out.println("7) Manage Accounts");
+        }
+        else if (user instanceof Administrator){
+            generalOptions();
+            System.out.println("6) Manage Events");
+            System.out.println("7) Manage Accounts");
+            //System.out.println("8) Manage Rooms");  //To used if needed
+
         }
         else if (user instanceof Speaker){
             generalOptions();
@@ -217,6 +251,107 @@ public class UserOptionsInterface {
         }
     }
 
+    private void showManageEventsScreen(Registrar registrar) {
+        ecp.viewEvents();
+        System.out.println("Would you like to create, modify or delete an event? Press c to create, m to modify or " +
+                "d to delete, or press $q to exit");
+        String choice = sc.nextLine();
+        if(choice.equals("c")){
+            while (choice.equals("c")) {
+                try{
+                    System.out.println("Please input some info on the event you want to create:");
+                    System.out.println("name:");
+                    String name = sc.nextLine();
+                    System.out.println("room:");
+                    String room = sc.nextLine();
+                    System.out.println("capacity:");
+                    int capacity = Integer.parseInt(sc.nextLine());
+                    System.out.println("date format(yyyy-MM-dd HH:mm):");
+                    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+                    String time = sc.nextLine();
+
+                    System.out.println("list of speakers:");
+                    for (User s : registrar.getUsersByType("Speaker")) {
+                        System.out.println("name: " + s.getName());
+                        System.out.println("username: " + s.getUserName());
+                        System.out.println("-----------------------------");
+                    }
+                    System.out.println("Username of speaker:");
+                    String speaker = sc.nextLine();
+                    User user = registrar.getUserByUserName(speaker);
+                    if (user instanceof Speaker) {
+                        System.out.println(ecp.promptEventCreation(name, room, LocalDateTime.parse(time, formatter), user.getUserName(), capacity));
+
+                    } else {
+                        System.out.println("Please input a valid Speaker. If you don't have any, please create a speaker account.");
+                    }
+                } catch (DateTimeParseException e) {
+                    System.out.println("Please input the date/time in the following format yyyy-MM-dd HH:mm\n");
+                } catch (InputMismatchException | NumberFormatException e) {
+                    System.out.println("Please input an integer for the event's capacity\n");
+                }
+                System.out.println("Press c to continue creating accounts or any key to exit.");
+                choice = sc.nextLine();
+            }
+        } else if(choice.equals("m")){
+
+        } else if(choice.equals("d")){
+
+        }
+
+
+    }
+
+    private void showManageAccountsScreen(Registrar registrar) {
+        System.out.println("Would you like to create, modify or delete an account? Press any key to continue or " +
+                "press q to exit");
+        String choice = sc.nextLine();
+        while(!choice.equals("q")){
+            createAccount();
+            System.out.println("Press any key to create another account or q to exit");
+            choice = sc.nextLine();
+        }
+    }
+
+    private void createAccount(){
+        System.out.println("Please specify the type of account: (s)peaker, (o)rganizer or (a)ttendee:");
+        String type = sc.nextLine();
+        System.out.println("Please input the name of the user:");
+        String name = sc.nextLine();
+        System.out.println("Please input the username:");
+        String userName = sc.nextLine();
+        System.out.println("Please input the password:");
+        String password = sc.nextLine();
+
+        if(type.equals("s")){
+            if (loginFacade.createUser(name, userName, password, "speaker")) {
+                System.out.println("Speaker account created successfully");
+            } else {
+                System.out.println("You cannot use those credentials. Please try again.");
+            }
+        } else if(type.equals("o")){
+            if (loginFacade.createUser(name, userName, password, "organizer")){
+                System.out.println("Organizer account created successfully");
+            } else {
+                System.out.println("You cannot use those credentials. Please try again.");
+            }
+        } else if(type.equals("a")){
+            if (loginFacade.createUser(name, userName, password, "attendee")) {
+                System.out.println("Attendee account created successfully");
+            } else {
+                System.out.println("You cannot use those credentials. Please try again.");
+            }
+        }
+    }
+
+    private void modifyAccount(){
+
+    }
+
+    private void deleteAccount(){
+
+    }
+
     private void showCreateSpeakerScreen() {
         System.out.println("Would you like to create a Speaker? Press any key to continue, or $q to exit");
         String choice = sc.nextLine();
@@ -282,7 +417,7 @@ public class UserOptionsInterface {
     }
 
     private void showOutbox(Registrar reg, String username, OutboxController oc) {
-        if (reg.isOrganizer(username)) {
+        if (reg.isOrganizer(username) || reg.isAdmin(username)) {
             oc.promptChatChoice();
         } else if (reg.isSpeaker(username)) {
             oc.promptEvent();
