@@ -17,7 +17,7 @@ public class ChatPull {
     public ChatroomManager readChatlog(){
         ChatroomManager chatroomManager = new ChatroomManager();
         try {
-            FileInputStream fileIn = new FileInputStream("phase1/src/chatlog.ser");
+            FileInputStream fileIn = new FileInputStream("phase2/src/chatlog.ser");
             ObjectInputStream objectIn = new ObjectInputStream(fileIn);
             chatroomManager = (ChatroomManager) objectIn.readObject();
             fileIn.close();

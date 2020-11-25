@@ -16,7 +16,7 @@ public class ChatPush {
      */
     public void storeChat(ChatroomManager chatroomManager){
         try {
-            FileOutputStream fileOut = new FileOutputStream("phase1/src/chatlog.ser");
+            FileOutputStream fileOut = new FileOutputStream("phase2/src/chatlog.ser");
             ObjectOutputStream objectOut = new ObjectOutputStream(fileOut);
             objectOut.writeObject(chatroomManager);
             objectOut.close();
