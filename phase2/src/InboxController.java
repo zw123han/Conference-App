@@ -45,6 +45,14 @@ public class InboxController {
         return false;
     }
 
+    public boolean canDelete(ChatroomManager cm, String username, String recipient, int choice){
+        Chatroom chatroom = cm.getChatroom(username, recipient);
+        if(choice < chatroom.getSize()){
+            return chatroom.getSender(choice).equals(username);
+        }
+        return false;
+    }
+
     private ArrayList<String> getUsersTalkto(String username, ChatroomManager cm) {
         ArrayList<String> users = new ArrayList<>();
         HashMap<ArrayList<String>, Chatroom> cms = cm.getAllChatrooms(username);
@@ -93,12 +101,46 @@ public class InboxController {
         ip.chatView(reg, cm.getChatroom(username, recipient));
         String e = "";
         while (!e.equals("$q")) {
+            ip.deleteMessage();
             if (canReply(reg, username, recipient, cm)) {
-                promptReply(recipient);
-                break;
+                ip.replyMessage();
             }
             ip.exitMessage();
             e = sc.nextLine();
+            if (e.equals("1")){
+                promptDelete(cm, recipient);
+                ChatPull pull = new ChatPull();
+                cm = pull.readChatlog();
+                ip.chatView(reg, cm.getChatroom(username, recipient));
+            }else if (e.equals("2") && canReply(reg, username, recipient, cm)){
+                promptReply(recipient);
+                ChatPull pull = new ChatPull();
+                cm = pull.readChatlog();
+                ip.chatView(reg, cm.getChatroom(username, recipient));
+            }
+        }
+    }
+
+    /**
+     * Prompts the user for which message user wants to delete
+     *
+     * @param cm            ChatroomManager
+     * @param recipient     username of a user that the logged in user has chatted with
+     */
+    public void promptDelete(ChatroomManager cm, String recipient){
+        ip.whichMessage();
+        String re = sc.nextLine();
+        while (!re.equals("$q")){
+            if(re.matches("[0-9]+") && canDelete(cm, username, recipient, Integer.parseInt(re))){
+                cm.deleteMessage(username, recipient, Integer.parseInt(re));
+                ChatPush push = new ChatPush();
+                push.storeChat(cm);
+                break;
+            }else{
+                ip.invalidCommand("number");
+            }
+            ip.whichMessage();
+            re = sc.nextLine();
         }
     }
 
@@ -108,19 +150,6 @@ public class InboxController {
      * @param recipient     username of a user that the logged in user has chatted with
      */
     public void promptReply(String recipient) {
-        ip.replyMessage();
-        String re = sc.nextLine();
-        while (!re.equals("$q")) {
-            if (re.equals("")) {
-                oc.promptMessage(recipient);
-                ChatPull pull = new ChatPull();
-                ChatroomManager cm = pull.readChatlog();
-                ip.chatView(reg, cm.getChatroom(username, recipient));
-            } else {
-                ip.invalidCommand("prompt");
-            }
-            ip.replyMessage();
-            re = sc.nextLine();
-        }
+        oc.promptMessage(recipient);
     }
 }

@@ -35,7 +35,8 @@ public class InboxPresenter extends CommandPresenter {
         ArrayList<Integer> history = c.getMessageKeys();
         for (Integer m : history) {
             String sender = c.getSender(m);
-            System.out.println("\nFrom: " + reg.getNameByUsername(sender) + " (@" + sender + ")");
+            System.out.println("\n(" + m + ")");
+            System.out.println("From: " + reg.getNameByUsername(sender) + " (@" + sender + ")");
             System.out.println("Sent: " + c.getDate(m));
             messageFormatter(c.getMessage(m));
         }
@@ -62,11 +63,21 @@ public class InboxPresenter extends CommandPresenter {
         System.out.println(sbm);
     }
 
+    public void whichMessage(){
+        System.out.println("Type the number above the message you want to delete");
+    }
+
+    /**
+     * Displays text for asking if user wants to delete a message
+     */
+    public void deleteMessage() {
+        System.out.println("1) Delete messages");
+    }
+
     /**
      * Displays text for when a user can reply to a message
      */
     public void replyMessage() {
-        System.out.println("Press enter to reply to the message.");
-        exitMessage();
+        System.out.println("2) Reply to messages");
     }
 }

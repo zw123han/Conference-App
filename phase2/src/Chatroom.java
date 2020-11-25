@@ -27,6 +27,14 @@ public class Chatroom implements Serializable {
         key += 1;
     }
 
+    public void deleteMessage(int key){
+        for(int i = key;i < history.size() - 1;i++){
+            history.replace(i, history.get(i + 1));
+        }
+        history.remove(history.size() - 1);
+        this.key--;
+    }
+
     /**
      * Returns keys of Hashmap as an ArrayList.
      *
@@ -39,7 +47,7 @@ public class Chatroom implements Serializable {
     }
 
     /**
-     * Returns the message corresponding with the key
+     * Returns the message corresponding with the key.
      *
      * @param key    The key
      * @return       Message corresponding with the key
@@ -49,7 +57,7 @@ public class Chatroom implements Serializable {
     }
 
     /**
-     * Returns the date the message corresponding with the key was sent
+     * Returns the date the message corresponding with the key was sent.
      *
      * @param key   The key
      * @return      Date the message corresponding with the key was sent
@@ -66,6 +74,10 @@ public class Chatroom implements Serializable {
      */
     public String getSender(Integer key) {
         return history.get(key).getSender();
+    }
+
+    public int getSize(){
+        return history.size();
     }
 
 }

@@ -1,4 +1,5 @@
 import java.io.Serializable;
+import java.lang.reflect.Array;
 import java.util.*;
 
 /**
@@ -73,6 +74,23 @@ public class ChatroomManager implements Serializable {
     public void createChatroom(ArrayList<String> usernames){
         chatrooms.put(usernames, new Chatroom());
     }
+
+    public void deleteChatroom(ArrayList<String> usernames){
+        chatrooms.remove(usernames);
+    }
+
+    public void deleteMessage(String username, String recipient, int key){
+        Chatroom chatroom = getChatroom(username, recipient);
+        chatroom.deleteMessage(key);
+        if(chatroom.getSize() == 0){
+            ArrayList usernames = new ArrayList();
+            usernames.add(username);
+            usernames.add(recipient);
+            Collections.sort(usernames);
+            deleteChatroom(usernames);
+        }
+    }
+
 
     /**
      * Method for sending a message to a specific chatroom.
