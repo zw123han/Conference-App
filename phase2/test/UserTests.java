@@ -1,5 +1,6 @@
 import org.junit.*;
 
+import UserSystem.*;
 import static org.junit.Assert.*;
 
 public class UserTests {

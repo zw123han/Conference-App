@@ -1,3 +1,6 @@
+import UserSystem.CredentialsUseCase;
+import UserSystem.Registrar;
+
 /**
  * This script creates a default account for an Administer. This account holder will be responsible for the
  * designing and supporting the infrastructure.

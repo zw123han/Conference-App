@@ -1,3 +1,8 @@
+import EventSystem.*;
+import LoginSystem.*;
+import MessagingSystem.*;
+import UserSystem.*;
+
 import java.util.*;
 
 /**
@@ -19,8 +24,8 @@ public class ConferenceSimulator {
      *  Constructor for Conference simulator. Creates gateways and necessary use cases to store data.
      */
     public ConferenceSimulator() {
-        String userFilepath = "phase2/src/userData.ser";
-        String eventFilepath = "phase2/src/eventData.ser";
+        String userFilepath = "phase2/src/UserSystem/userData.ser";
+        String eventFilepath = "phase2/src/EventSystem/eventData.ser";
         // Should we also have chatlog filepath?
         // We could add filepaths as parameters
 

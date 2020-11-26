@@ -1,3 +1,6 @@
+import UserSystem.CredentialsUseCase;
+import UserSystem.Registrar;
+
 /**
  * A class that should rarely change, with a single method that creates as many Organizer instances as needed for a
  * conference.

@@ -1,6 +1,7 @@
 import org.junit.jupiter.api.Test;
 import java.util.ArrayList;
 
+import UserSystem.*;
 public class GatewayTests {
 
     @Test
@@ -25,7 +26,7 @@ public class GatewayTests {
 
     @Test
     public void readUsersTest() {
-        ReadUsers readUsers = new ReadUsers("userData.ser");
+        ReadUsers readUsers = new ReadUsers("UserSystem/userData.ser");
         ArrayList<User> users = readUsers.read();
         System.out.println(users);
 

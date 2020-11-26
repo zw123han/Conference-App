@@ -1,3 +1,8 @@
+import EventSystem.*;
+import LoginSystem.*;
+import MessagingSystem.*;
+import UserSystem.*;
+
 import java.time.format.DateTimeParseException;
 import java.util.InputMismatchException;
 import java.util.Scanner;
@@ -24,7 +29,7 @@ public class UserOptionsInterface {
     /**
      * Instantiates a UserOptionsInterface object
      *
-     * @param loginFacade       the LoginOptionsFacade instance for the current session
+     * @param loginFacade       the LoginSystem.LoginOptionsFacade instance for the current session
      * @param ecp               the EventCreatorPresenter instance for the current session
      * @param esp               the EventSignupPresenter instance for the current session
      * @param cmp               the ChatMenuPresenter instance for the current session
