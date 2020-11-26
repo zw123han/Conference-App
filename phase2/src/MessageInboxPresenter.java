@@ -5,7 +5,7 @@ import java.util.*;
  *
  * @author Chrisee, Elliot
  */
-public class InboxPresenter extends CommandPresenter {
+public class MessageInboxPresenter extends CommandPresenter {
 
     /**
      * Displays a series of users with whom the logged in user has chatted.

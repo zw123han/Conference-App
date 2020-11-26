@@ -5,9 +5,9 @@ import java.util.*;
  *
  * @author  Chrisee Zhu
  */
-public class OutboxController {
+public class MessageOutboxController {
     private ChatController cc;
-    private OutboxPresenter op;
+    private MessageOutboxPresenter op;
     private EventManager em;
     private Scanner sc = new Scanner(System.in);
     private String username;
@@ -21,7 +21,7 @@ public class OutboxController {
      * @param em        EventManager
      * @param op        OutboxPresenter
      */
-    public OutboxController(Registrar reg, String username, EventManager em, OutboxPresenter op) {
+    public MessageOutboxController(Registrar reg, String username, EventManager em, MessageOutboxPresenter op) {
         this.username = username;
         this.reg = reg;
         this.em = em;

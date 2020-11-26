@@ -5,7 +5,7 @@ import java.util.*;
  *
  * @author Chrisee Zhu
  */
-public class OutboxPresenter extends CommandPresenter{
+public class MessageOutboxPresenter extends CommandPresenter{
 
     /**
      * Displays message composition options by target.

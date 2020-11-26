@@ -7,12 +7,12 @@ import java.util.Scanner;
  *
  * @author Chrisee, Elliot
  */
-public class InboxController {
-    private InboxPresenter ip;
+public class MessageInboxController {
+    private MessageInboxPresenter ip;
     private Scanner sc = new Scanner(System.in);
     private String username;
     private Registrar reg;
-    private OutboxController oc;
+    private MessageOutboxController oc;
 
     /**
      * Initiates a new InboxController
@@ -22,7 +22,7 @@ public class InboxController {
      * @param ip        InboxPresenter
      * @param oc        OutboxController
      */
-    public InboxController(Registrar reg, String username, InboxPresenter ip, OutboxController oc) {
+    public MessageInboxController(Registrar reg, String username, MessageInboxPresenter ip, MessageOutboxController oc) {
         this.reg = reg;
         this.username = username;
         this.ip = ip;
