@@ -10,8 +10,8 @@ public class MessageOutboxPresenter extends CommandPresenter{
     /**
      * Displays message composition options by target.
      */
-    public void menuDisplay() {
-        System.out.println("\n1) Message users\n2) Group message\n3) Message speakers\n");
+    public String menuDisplay() {
+        return "\n1) Message users\n2) Group message\n3) Message speakers\n";
     }
 
     /**
@@ -20,9 +20,8 @@ public class MessageOutboxPresenter extends CommandPresenter{
      * @param reg       Registrar
      * @param em        EventManager
      */
-    public void speakerMenu(Registrar reg, EventManager em) {
-        System.out.println("\nSPEAKERS:");
-        System.out.println("------------------------");
+    public String speakerMenu(Registrar reg, EventManager em) {
+        String result = "\nSPEAKERS:\n------------------------";
         ArrayList<Long> events = em.getEventIDs();
         ArrayList<String> speakers = new ArrayList<>();
         for (Long evt_id : events) {
@@ -32,12 +31,12 @@ public class MessageOutboxPresenter extends CommandPresenter{
             }
         }
         for (String s : speakers) {
-            System.out.println(reg.getNameByUsername(s) + " (@" + s + ")");
+            result += ("\n" + reg.getNameByUsername(s) + " (@" + s + ")");
         }
         if (events.isEmpty()) {
-            System.out.println("There are no speakers.");
+            return result + "\nThere are no speakers.";
         }
-        System.out.println();
+        return result + "\n";
     }
 
     /**
@@ -46,17 +45,16 @@ public class MessageOutboxPresenter extends CommandPresenter{
      * @param reg           Registrar
      * @param username      username of the sender; sender must exist in Registrar
      */
-    public void friendMenu(Registrar reg, String username) {
-        System.out.println("\nFRIENDS:");
-        System.out.println("------------------------");
+    public String friendMenu(Registrar reg, String username) {
+        String result = "\nFRIENDS:\n------------------------";
         ArrayList<String> friends = reg.getUserFriends(username);
         for (String friend : friends) {
-            System.out.println(reg.getNameByUsername(friend) + " (@" + friend + ")");
+            result += ("\n" + reg.getNameByUsername(friend) + " (@" + friend + ")");
         }
         if (friends.isEmpty()) {
-            System.out.println("You have no friends.");
+            return result + "\nYou have no friends.";
         }
-        System.out.println();
+        return result + "\n";
     }
 
     /**
@@ -66,20 +64,19 @@ public class MessageOutboxPresenter extends CommandPresenter{
      * @param em            EventManager
      * @param reg           Registrar
      */
-    public void eventMenu(String username, EventManager em, Registrar reg) {
-        System.out.println("\nEVENTS:");
-        System.out.println("------------------------");
+    public String eventMenu(String username, EventManager em, Registrar reg) {
+        String result = "\nEVENTS:\n------------------------";
         ArrayList<Long> events = reg.getSpeakerTalks(username);
         for (Long evt_id : events) {
-            System.out.println("Name: " + em.getName(evt_id));
-            System.out.println("id: " + evt_id);
-            System.out.println("Time: " + em.getTime(evt_id));
-            System.out.println("Room: " + em.getRoom(evt_id));
-            System.out.println("------------------------");
+            result += ("\nName: " + em.getName(evt_id));
+            result += ("\nid: " + evt_id);
+            result += ("\nTime: " + em.getTime(evt_id));
+            result += ("\nRoom: " + em.getRoom(evt_id) + "\n------------------------");
         }
         if (events.isEmpty()) {
-            System.out.println("You're not hosting any talks.\n");
+            return "You're not hosting any talks.\n";
         }
+        return result;
     }
 
     /**
@@ -87,20 +84,19 @@ public class MessageOutboxPresenter extends CommandPresenter{
      *
      * @param em        EventManager
      */
-    public void eventMenu(EventManager em) {
-        System.out.println("\nEVENTS:");
-        System.out.println("------------------------");
+    public String eventMenu(EventManager em) {
+        String result = "\nEVENTS:\n------------------------";
         ArrayList<Long> events = em.getEventIDs();
         for (Long evt_id : events) {
-            System.out.println("Name: " + em.getName(evt_id));
-            System.out.println("id: " + evt_id);
-            System.out.println("Time: " + em.getTime(evt_id));
-            System.out.println("Room: " + em.getRoom(evt_id));
-            System.out.println("------------------------");
+            result += ("\nName: " + em.getName(evt_id));
+            result += ("\nid: " + evt_id);
+            result += ("\nTime: " + em.getTime(evt_id));
+            result += ("\nRoom: " + em.getRoom(evt_id) + "\n------------------------");
         }
         if (events.isEmpty()) {
-            System.out.println("There are no events.\n");
+            return result + "There are no events.\n";
         }
+        return result;
     }
 
     /**
@@ -108,7 +104,7 @@ public class MessageOutboxPresenter extends CommandPresenter{
      *
      * @param recipient (enter message)
      */
-    public void success(String recipient) {
-        System.out.println("\nMessage successfully sent to " + recipient + "!");
+    public String success(String recipient) {
+        return "\nMessage successfully sent to " + recipient + "!";
     }
 }

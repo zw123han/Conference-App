@@ -13,16 +13,15 @@ public class MessageInboxPresenter extends CommandPresenter {
      * @param reg           Registrar
      * @param friends       An ArrayList of friends; this user has chatted with these friends
      */
-    public void menuDisplay(Registrar reg, ArrayList<String> friends) {
-        System.out.println("\nCHAT HISTORY:");
-        System.out.println("------------------------");
+    public String menuDisplay(Registrar reg, ArrayList<String> friends) {
+        String result = "\nCHAT HISTORY:\n------------------------";
         for (String friend : friends) {
-            System.out.println(reg.getNameByUsername(friend) + " (@" + friend + ")");
+            result += reg.getNameByUsername(friend) + " (@" + friend + ")";
         }
         if (friends.isEmpty()) {
-            System.out.println("You can't chat with any users.");
+            return result + "\nYou can't chat with any users.";
         }
-        System.out.println();
+        return result + "\n";
     }
 
     /**
@@ -31,16 +30,17 @@ public class MessageInboxPresenter extends CommandPresenter {
      * @param reg       Registrar
      * @param c        Chatroom
      */
-    public void chatView(Registrar reg, Chatroom c) {
+    public String chatView(Registrar reg, Chatroom c) {
+        String result = "";
         ArrayList<Integer> history = c.getMessageKeys();
         for (Integer m : history) {
             String sender = c.getSender(m);
-            System.out.println("\n(" + m + ")");
-            System.out.println("From: " + reg.getNameByUsername(sender) + " (@" + sender + ")");
-            System.out.println("Sent: " + c.getDate(m));
-            messageFormatter(c.getMessage(m));
+            result += "\n(" + m + ")";
+            result += ("\nFrom: " + reg.getNameByUsername(sender) + " (@" + sender + ")");
+            result += ("\nSent: " + c.getDate(m));
+            result += ("\n" + messageFormatter(c.getMessage(m)));
         }
-        System.out.println();
+        return result + "\n";
     }
 
     /**
@@ -50,7 +50,7 @@ public class MessageInboxPresenter extends CommandPresenter {
      *
      * @param message       String of message to be formatted
      */
-    public void messageFormatter(String message) {
+    public String messageFormatter(String message) {
         StringBuilder sbm = new StringBuilder(message);
         int i = 0;
         while (i + 80 < sbm.length()) {
@@ -60,24 +60,24 @@ public class MessageInboxPresenter extends CommandPresenter {
             }
             i += 80;
         }
-        System.out.println(sbm);
+        return sbm.toString();
     }
 
-    public void whichMessage(){
-        System.out.println("Type the number above the message you want to delete");
+    public String whichMessage(){
+        return "Type the number above the message you want to delete.";
     }
 
     /**
      * Displays text for asking if user wants to delete a message
      */
-    public void deleteMessage() {
-        System.out.println("1) Delete messages");
+    public String deleteMessage() {
+        return "1) Delete messages";
     }
 
     /**
      * Displays text for when a user can reply to a message
      */
-    public void replyMessage() {
-        System.out.println("2) Reply to messages");
+    public String replyMessage() {
+        return "2) Reply to messages";
     }
 }

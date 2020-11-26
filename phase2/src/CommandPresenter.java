@@ -8,8 +8,8 @@ public abstract class CommandPresenter {
     /**
      * Displays an exit command tip.
      */
-    public void exitMessage() {
-        System.out.println("$q to exit.");
+    public String exitMessage() {
+        return "$q to exit.";
     }
 
     /**
@@ -17,8 +17,8 @@ public abstract class CommandPresenter {
      *
      * @param field     field (user input)
      */
-    public void invalidCommand(String field) {
-        System.out.println("invalid " + field + ".");
+    public String invalidCommand(String field) {
+        return "invalid " + field + ".";
     }
 
     /**
@@ -26,8 +26,7 @@ public abstract class CommandPresenter {
      *
      * @param field     field (user input)
      */
-    public void commandPrompt(String field) {
-        System.out.println("Enter a valid " + field + ".");
-        exitMessage();
+    public String commandPrompt(String field) {
+        return "Enter a valid " + field + ".\n" + exitMessage();
     }
 }
