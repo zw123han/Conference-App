@@ -37,8 +37,8 @@ public class MessageOutboxController {
      * Prompts and processes a user's request for message composition options by target.
      */
     public void promptChatChoice() {
-        op.menuDisplay();
-        op.commandPrompt("prompt");
+        System.out.println(op.menuDisplay());
+        System.out.println(op.commandPrompt("prompt"));
         String choice = sc.nextLine();
         while (!choice.equals("$q")) {
             switch (choice) {
@@ -55,8 +55,8 @@ public class MessageOutboxController {
                     op.invalidCommand("prompt");
                     break;
             }
-            op.menuDisplay();
-            op.commandPrompt("prompt");
+            System.out.println(op.menuDisplay());
+            System.out.println(op.commandPrompt("prompt"));
             choice = sc.nextLine();
         }
     }
@@ -65,18 +65,18 @@ public class MessageOutboxController {
      * Prompts and processes a user's request to message a specific friend by username.
      */
     public void promptRecipient() {
-        op.friendMenu(reg, username);
-        op.commandPrompt("username");
+        System.out.println(op.friendMenu(reg, username));
+        System.out.println(op.commandPrompt("username"));
         String recipient = sc.nextLine();
         while (!recipient.equals("$q")) {
             recipient = recipient.replace("@", "");
             if (cc.canMessage(recipient)) {
                 promptMessage(recipient);
             } else {
-                op.invalidCommand("username");
+                System.out.println(op.invalidCommand("username"));
             }
-            op.friendMenu(reg, username);
-            op.commandPrompt("username");
+            System.out.println(op.friendMenu(reg, username));
+            System.out.println(op.commandPrompt("username"));
             recipient = sc.nextLine();
 
         }
@@ -91,8 +91,8 @@ public class MessageOutboxController {
      * Prompts and processes a user's request to message one or more speakers by username.
      */
     public void promptSpeaker() {
-        op.speakerMenu(reg, em);
-        op.commandPrompt("speaker username (separate usernames with a space, enter * to send all)");
+        System.out.println(op.speakerMenu(reg, em));
+        System.out.println(op.commandPrompt("speaker username (separate usernames with a space, enter * to send all)"));
         String speakers = sc.nextLine();
         while (!speakers.equals("$q")) {
             speakers = speakers.replace("@", "");
@@ -109,10 +109,10 @@ public class MessageOutboxController {
             } else if (cc.canSendSpeakers(speakerArrayList)) {
                 promptMessage(speakerArrayList);
             } else {
-                op.invalidCommand("username");
+                System.out.println(op.invalidCommand("username"));
             }
-            op.speakerMenu(reg, em);
-            op.commandPrompt("speaker username (string after the @, separate usernames with a space)");
+            System.out.println(op.speakerMenu(reg, em));
+            System.out.println(op.commandPrompt("speaker username (string after the @, separate usernames with a space)"));
             speakers = sc.nextLine();
         }
     }
@@ -128,9 +128,9 @@ public class MessageOutboxController {
 
     private void loadEventMenu() {
         if (reg.isSpeaker(username)) {
-            op.eventMenu(username, em, reg);
+            System.out.println(op.eventMenu(username, em, reg));
         } else if (reg.isAdmin(username) || reg.isOrganizer(username)) {
-            op.eventMenu(em);
+            System.out.println(op.eventMenu(em));
         }
     }
 
@@ -139,7 +139,7 @@ public class MessageOutboxController {
      */
     public void promptEvent() {
         loadEventMenu();
-        op.commandPrompt("event ID (separate IDs with a space, enter * to send all)");
+        System.out.println(op.commandPrompt("event ID (separate IDs with a space, enter * to send all)"));
         String evt = sc.nextLine();
         while (!evt.equals("$q")) {
             if (evt.equals("*")) {
@@ -152,13 +152,13 @@ public class MessageOutboxController {
                 if (cc.canSendEvents(event_ids)) {
                     promptEventMessage(event_ids);
                 } else {
-                    op.invalidCommand("event ID (make sure they are valid)");
+                    System.out.println(op.invalidCommand("event ID (make sure they are valid)"));
                 }
             } else {
-                op.invalidCommand("event ID (unexpected character)");
+                System.out.println(op.invalidCommand("event ID (unexpected character)"));
             }
             loadEventMenu();
-            op.commandPrompt("event ID (separate IDs with a space)");
+            System.out.println(op.commandPrompt("event ID (separate IDs with a space)"));
             evt = sc.nextLine();
         }
     }
@@ -169,16 +169,16 @@ public class MessageOutboxController {
      * @param destination     the username of the target user; target user must be a friend of the sender
      */
     public void promptMessage(String destination) {
-        op.commandPrompt("message (requires at least 1 character)");
+        System.out.println(op.commandPrompt("message (requires at least 1 character)"));
         String message = sc.nextLine();
         while (!message.equals("$q")) {
             if (cc.validateMessage(message)) {
                 cc.sendMessage(destination, message);
-                op.success(destination);
+                System.out.println(op.success(destination));
                 message = "$q";
             } else {
-                op.invalidCommand("message");
-                op.commandPrompt("message (requires at least 1 character)");
+                System.out.println(op.invalidCommand("message"));
+                System.out.println(op.commandPrompt("message (requires at least 1 character)"));
                 message = sc.nextLine();
             }
         }
@@ -190,21 +190,21 @@ public class MessageOutboxController {
      * @param event_ids        the ID of the event; events must exist in EventManager
      */
     public void promptEventMessage(ArrayList<Long> event_ids) {
-        op.commandPrompt("message (requires at least 1 character)");
+        System.out.println(op.commandPrompt("message (requires at least 1 character)"));
         String message = sc.nextLine();
         while (!message.equals("$q")) {
             if (cc.validateMessage(message)) {
                 for (Long event_id: event_ids) {
                     if (cc.sendMessage(event_id, message)) {
-                        op.success("event: " + event_id);
+                        System.out.println(op.success("event: " + event_id));
                     } else {
-                        op.invalidCommand("event id, message not sent to event: " + event_id);
+                        System.out.println(op.invalidCommand("event id, message not sent to event: " + event_id));
                     }
                 }
                 message = "$q";
             } else {
-                op.invalidCommand("message");
-                op.commandPrompt("message (requires at least 1 character)");
+                System.out.println(op.invalidCommand("message"));
+                System.out.println(op.commandPrompt("message (requires at least 1 character)"));
                 message = sc.nextLine();
             }
         }
@@ -216,18 +216,18 @@ public class MessageOutboxController {
      * @param speakers      the username(s) of the speakers; speakers must exist in Registrar
      */
     public void promptMessage(ArrayList<String> speakers) {
-        op.commandPrompt("message (requires at least 1 character)");
+        System.out.println(op.commandPrompt("message (requires at least 1 character)"));
         String message = sc.nextLine();
         while (!message.equals("$q")) {
             if (cc.validateMessage(message)) {
                 for (String speaker : speakers) {
                     cc.sendMessage(speaker, message);
-                    op.success("@" + speaker);
+                    System.out.println(op.success("@" + speaker));
                 }
                 message = "$q";
             } else {
-                op.invalidCommand("message");
-                op.commandPrompt("message (requires at least 1 character)");
+                System.out.println(op.invalidCommand("message"));
+                System.out.println(op.commandPrompt("message (requires at least 1 character)"));
                 message = sc.nextLine();
             }
         }

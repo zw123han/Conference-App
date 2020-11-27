@@ -78,18 +78,18 @@ public class MessageInboxController {
         ChatPull pull = new ChatPull();
         ChatroomManager cm = pull.readChatlog();
         ArrayList<String> friends = getUsersTalkto(username, cm);
-        ip.menuDisplay(reg, friends);
-        ip.commandPrompt("username");
+        System.out.println(ip.menuDisplay(reg, friends));
+        System.out.println(ip.commandPrompt("username"));
         String recipient = sc.nextLine();
         while (!recipient.equals("$q")) {
             recipient = recipient.replace("@", "");
             if (friends.contains(recipient)) {
                 chatViewer(cm, recipient);
             } else {
-                ip.invalidCommand("username");
+                System.out.println(ip.invalidCommand("username"));
             }
-            ip.menuDisplay(reg, friends);
-            ip.commandPrompt("username");
+            System.out.println(ip.menuDisplay(reg, friends));
+            System.out.println(ip.commandPrompt("username"));
             recipient = sc.nextLine();
         }
     }
@@ -101,25 +101,25 @@ public class MessageInboxController {
      * @param recipient     username of a user that the logged in user has chatted with
      */
     public void chatViewer(ChatroomManager cm, String recipient) {
-        ip.chatView(reg, cm.getChatroom(username, recipient));
+        System.out.println(ip.chatView(reg, cm.getChatroom(username, recipient)));
         String e = "";
         while (!e.equals("$q")) {
-            ip.deleteMessage();
+            System.out.println(ip.deleteMessage());
             if (canReply(reg, username, recipient, cm)) {
-                ip.replyMessage();
+                System.out.println(ip.replyMessage());
             }
-            ip.exitMessage();
+            System.out.println(ip.exitMessage());
             e = sc.nextLine();
             if (e.equals("1")){
                 promptDelete(cm, recipient);
                 ChatPull pull = new ChatPull();
                 cm = pull.readChatlog();
-                ip.chatView(reg, cm.getChatroom(username, recipient));
+                System.out.println(ip.chatView(reg, cm.getChatroom(username, recipient)));
             }else if (e.equals("2") && canReply(reg, username, recipient, cm)){
                 promptReply(recipient);
                 ChatPull pull = new ChatPull();
                 cm = pull.readChatlog();
-                ip.chatView(reg, cm.getChatroom(username, recipient));
+                System.out.println(ip.chatView(reg, cm.getChatroom(username, recipient)));
             }
         }
     }
@@ -131,7 +131,7 @@ public class MessageInboxController {
      * @param recipient     username of a user that the logged in user has chatted with
      */
     public void promptDelete(ChatroomManager cm, String recipient){
-        ip.whichMessage();
+        System.out.println(ip.whichMessage());
         String re = sc.nextLine();
         while (!re.equals("$q")){
             if(re.matches("[0-9]+") && canDelete(cm, username, recipient, Integer.parseInt(re))){
@@ -140,9 +140,9 @@ public class MessageInboxController {
                 push.storeChat(cm);
                 break;
             }else{
-                ip.invalidCommand("number");
+                System.out.println(ip.invalidCommand("number"));
             }
-            ip.whichMessage();
+            System.out.println(ip.whichMessage());
             re = sc.nextLine();
         }
     }
