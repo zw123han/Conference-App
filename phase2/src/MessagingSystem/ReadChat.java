@@ -9,7 +9,7 @@ import java.io.ObjectInputStream;
  *
  * @author Elliot
  */
-public class ChatPull {
+public class ReadChat {
 
     /**
      * Reads a file and returns it as a ChatroomManager

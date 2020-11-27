@@ -75,7 +75,7 @@ public class MessageInboxController {
      * Prompts the user to choose a chatlog from a list of existing chatlogs by username.
      */
     public void promptChatChoice() {
-        ChatPull pull = new ChatPull();
+        ReadChat pull = new ReadChat();
         ChatroomManager cm = pull.readChatlog();
         ArrayList<String> friends = getUsersTalkto(username, cm);
         System.out.println(ip.menuDisplay(reg, friends));
@@ -112,12 +112,12 @@ public class MessageInboxController {
             e = sc.nextLine();
             if (e.equals("1")){
                 promptDelete(cm, recipient);
-                ChatPull pull = new ChatPull();
+                ReadChat pull = new ReadChat();
                 cm = pull.readChatlog();
                 System.out.println(ip.chatView(reg, cm.getChatroom(username, recipient)));
             }else if (e.equals("2") && canReply(reg, username, recipient, cm)){
                 promptReply(recipient);
-                ChatPull pull = new ChatPull();
+                ReadChat pull = new ReadChat();
                 cm = pull.readChatlog();
                 System.out.println(ip.chatView(reg, cm.getChatroom(username, recipient)));
             }
@@ -136,7 +136,7 @@ public class MessageInboxController {
         while (!re.equals("$q")){
             if(re.matches("[0-9]+") && canDelete(cm, username, recipient, Integer.parseInt(re))){
                 cm.deleteMessage(username, recipient, Integer.parseInt(re));
-                ChatPush push = new ChatPush();
+                StoreChat push = new StoreChat();
                 push.storeChat(cm);
                 break;
             }else{

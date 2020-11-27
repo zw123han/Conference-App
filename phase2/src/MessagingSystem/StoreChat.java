@@ -9,7 +9,7 @@ import java.io.ObjectOutputStream;
  *
  * @author Elliot
  */
-public class ChatPush {
+public class StoreChat {
 
     /**
      * Saves ChatroomManager to .ser file

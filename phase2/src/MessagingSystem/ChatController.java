@@ -99,13 +99,13 @@ public class ChatController {
      * @param message           Message to be sent
      */
     public void sendMessage(String recipient, String message) {
-        ChatPull pull = new ChatPull();
+        ReadChat pull = new ReadChat();
         ChatroomManager cm = pull.readChatlog();
         ArrayList<String> recipients = new ArrayList<>();
         recipients.add(username);
         recipients.add(recipient);
         cm.sendOne(recipients, message, username);
-        ChatPush push = new ChatPush();
+        StoreChat push = new StoreChat();
         push.storeChat(cm);
     }
 
@@ -117,12 +117,12 @@ public class ChatController {
      * @return true if messages are sent
      */
     public boolean sendMessage(Long evt, String message) {
-        ChatPull pull = new ChatPull();
+        ReadChat pull = new ReadChat();
         ChatroomManager cm = pull.readChatlog();
         try {
             ArrayList<String> recipients = em.getSignedUpUsers(evt);
             cm.sendAll(recipients, message, username);
-            ChatPush push = new ChatPush();
+            StoreChat push = new StoreChat();
             push.storeChat(cm);
             return true;
         } catch (EventNotFoundException e) {
