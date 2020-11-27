@@ -19,7 +19,7 @@ public class MessageInboxPresenter extends CommandPresenter {
     public String menuDisplay(Registrar reg, ArrayList<String> friends) {
         String result = "\nCHAT HISTORY:\n------------------------";
         for (String friend : friends) {
-            result += reg.getNameByUsername(friend) + " (@" + friend + ")";
+            result += "\n" + reg.getNameByUsername(friend) + " (@" + friend + ")";
         }
         if (friends.isEmpty()) {
             return result + "\nYou can't chat with any users.";

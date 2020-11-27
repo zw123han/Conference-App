@@ -38,7 +38,7 @@ public class MessageOutboxPresenter extends CommandPresenter {
             result += ("\n" + reg.getNameByUsername(s) + " (@" + s + ")");
         }
         if (events.isEmpty()) {
-            return result + "\nThere are no speakers.";
+            return result + "\nThere are no speakers.\n";
         }
         return result + "\n";
     }
@@ -56,7 +56,7 @@ public class MessageOutboxPresenter extends CommandPresenter {
             result += ("\n" + reg.getNameByUsername(friend) + " (@" + friend + ")");
         }
         if (friends.isEmpty()) {
-            return result + "\nYou have no friends.";
+            return result + "\nYou have no friends.\n";
         }
         return result + "\n";
     }
@@ -78,7 +78,7 @@ public class MessageOutboxPresenter extends CommandPresenter {
             result += ("\nRoom: " + em.getRoom(evt_id) + "\n------------------------");
         }
         if (events.isEmpty()) {
-            return "You're not hosting any talks.\n";
+            return "\nYou're not hosting any talks.\n";
         }
         return result;
     }
@@ -98,7 +98,7 @@ public class MessageOutboxPresenter extends CommandPresenter {
             result += ("\nRoom: " + em.getRoom(evt_id) + "\n------------------------");
         }
         if (events.isEmpty()) {
-            return result + "There are no events.\n";
+            return result + "\nThere are no events.\n";
         }
         return result;
     }
