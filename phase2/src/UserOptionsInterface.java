@@ -402,9 +402,9 @@ public class UserOptionsInterface {
         cmp.menuDisplay();
         cmp.commandPrompt("prompt");
         MessageOutboxPresenter op = new MessageOutboxPresenter();
-        MessageOutboxController oc = new MessageOutboxController(reg, username, em, op);
+        MessageOutboxUI oc = new MessageOutboxUI(reg, username, em, op);
         MessageInboxPresenter ip = new MessageInboxPresenter();
-        MessageInboxController ic = new MessageInboxController(reg, username, ip, oc);
+        MessageInboxUI ic = new MessageInboxUI(reg, username, ip, oc);
         String choice = sc.nextLine();
         while (!choice.equals("$q")) {
             if (choice.equals("1")) {
@@ -421,7 +421,7 @@ public class UserOptionsInterface {
         }
     }
 
-    private void showOutbox(Registrar reg, String username, MessageOutboxController oc) {
+    private void showOutbox(Registrar reg, String username, MessageOutboxUI oc) {
         if (reg.isOrganizer(username) || reg.isAdmin(username)) {
             oc.promptChatChoice();
         } else if (reg.isSpeaker(username)) {

@@ -22,7 +22,7 @@ public class MessageInboxPresenter extends CommandPresenter {
             result += "\n" + reg.getNameByUsername(friend) + " (@" + friend + ")";
         }
         if (friends.isEmpty()) {
-            return result + "\nYou can't chat with any users.";
+            return result + "\nYou can't chat with any users.\n";
         }
         return result + "\n";
     }
