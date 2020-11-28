@@ -280,7 +280,7 @@ public class UserOptionsInterface {
                     long duration = Integer.parseInt(sc.nextLine());
 
                     System.out.println("list of speakers:");
-                    for (User s : registrar.getUsersByType("speaker")) {
+                    for (User s : registrar.getUsersByType("Speaker")) {
                         System.out.println("name: " + s.getName());
                         System.out.println("username: " + s.getUserName());
                         System.out.println("-----------------------------");

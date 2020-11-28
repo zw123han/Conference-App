@@ -110,7 +110,7 @@ public class Registrar {
     public ArrayList<User> getUsersByType(String type) {
         ArrayList<User> users = new ArrayList<>();
         for (User user : this.users) {
-            if (this.getUserType(user.getUserName()).equals(type)) {
+            if (this.getUserType(user.getUserName()).equals("UserSystem."+type)) {
                 users.add(user);
             }
         }
