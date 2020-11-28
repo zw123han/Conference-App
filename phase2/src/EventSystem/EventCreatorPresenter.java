@@ -37,11 +37,11 @@ public class EventCreatorPresenter {
      * @param capacity  The capacity of the event
      * @return          A string detailing whether the event was successfully created
      */
-    public String promptEventCreation(String name, String room, LocalDateTime time, String speaker, int capacity) {
+    public String promptEventCreation(String name, String room, LocalDateTime time, long duration, String speaker, int capacity) {
 
         EventCreator ec = new EventCreator(this.em, reg);
         try {
-            if (!(ec.createEvent(name, room, time, speaker, capacity))) {
+            if (!(ec.createEvent(name, room, time, duration, speaker, capacity))) {
                 return ("Unable to create event");
             } else {
                 return ("Event created");

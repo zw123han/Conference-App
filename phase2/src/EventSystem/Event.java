@@ -12,12 +12,13 @@ import java.util.Calendar;
  * @author Andy Wu
  * @author Nithilan Manimaran
  */
-public class Event implements Serializable {
+public class  Event implements Serializable {
 
     private String name;
     private String room;
     private LocalDateTime time;
     private String speaker;
+    private long duration;
     private int capacity;
     private ArrayList<String> signedUpUsers = new ArrayList<String>();
     private long id;
@@ -31,12 +32,13 @@ public class Event implements Serializable {
      * @param speaker   The speaker for the event
      * @param capacity  The capacity of the event
      */
-    public Event(String name, String room, LocalDateTime time, String speaker, int capacity){
+    public Event(String name, String room, LocalDateTime time, long duration, String speaker, int capacity){
         this.name = name;
         this.room = room;
         this.time = time;
         this.speaker = speaker;
         this.capacity = 2;
+        this.duration = duration;
 
         Calendar c = Calendar.getInstance();
         Date d = c.getTime();
@@ -93,6 +95,15 @@ public class Event implements Serializable {
      */
     public int getCapacity(){
         return capacity;
+    }
+
+    /**
+     * Returns the duration of the event
+     *
+     * @return          The capacity of the event as an int
+     */
+    public long getDuration(){
+        return duration;
     }
 
     /**
