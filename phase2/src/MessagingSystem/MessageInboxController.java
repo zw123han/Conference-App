@@ -2,6 +2,7 @@ package MessagingSystem;
 
 import UserSystem.*;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 /**
  * For managing user permissions when reading, replying to, deleting, or editing messages.
@@ -12,6 +13,7 @@ import java.util.ArrayList;
 public class MessageInboxController {
     private Registrar reg;
     private String username;
+    private ChatroomManager cm;
 
     /**
      * Initiates a new MessageInboxController
@@ -19,18 +21,18 @@ public class MessageInboxController {
      * @param reg       Registrar
      * @param username  username of the currently logged in user
      */
-    public MessageInboxController(Registrar reg, String username) {
+    public MessageInboxController(Registrar reg, String username, ChatroomManager cm) {
         this.reg = reg;
         this.username = username;
+        this.cm = cm;
     }
 
     /**
      * Initiates a new InboxController
      *
-     * @param cm         The current chatroom the user is reading
      * @param recipient  username of the person which this user is messaging
      */
-    public boolean canReply(ChatroomManager cm, String recipient) {
+    public boolean canReply(String recipient) {
         if (cm.hasChatroom(username, recipient)) {
             if (reg.isAdmin(username) || reg.isOrganizer(username) || reg.isAttendee(username)) {
                 return true;
@@ -49,11 +51,10 @@ public class MessageInboxController {
     /**
      * Initiates a new InboxController
      *
-     * @param cm       Registrar
      * @param recipient  username of the currently logged in user
      * @param choice        InboxPresenter
      */
-    public boolean canDelete(ChatroomManager cm, String recipient, String choice){
+    public boolean canDelete(String recipient, String choice){
         Integer key = Integer.parseInt(choice);
         Chatroom chatroom = cm.getChatroom(username, recipient);
         if(key < chatroom.getSize()){
@@ -62,8 +63,29 @@ public class MessageInboxController {
         return false;
     }
 
-    public void deleteMessage(String recipient, ChatroomManager cm, String choice) {
+    public void deleteMessage(String recipient, String choice) {
         Integer key = Integer.parseInt(choice);
         cm.deleteMessage(username, recipient, key);
     }
+
+    private ArrayList<String> getUsersTalkto() {
+        ArrayList<String> users = new ArrayList<>();
+        HashMap<ArrayList<String>, Chatroom> cms = cm.getAllChatrooms(username);
+        for (ArrayList<String> key : cms.keySet()) {
+            if (key.contains(username)) {
+                for (String person : key) {
+                    if (!person.equals(username)) {
+                        users.add(person);
+                    }
+                }
+            }
+        }
+        return users;
+    }
+
+    public boolean canViewChat(String recipient) {
+        ArrayList<String> friends = getUsersTalkto();
+        return friends.contains(recipient);
+    }
+
 }

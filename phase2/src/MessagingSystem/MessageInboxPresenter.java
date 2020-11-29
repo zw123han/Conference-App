@@ -9,14 +9,38 @@ import java.util.*;
  * @author Chrisee, Elliot
  */
 public class MessageInboxPresenter extends CommandPresenter {
+    private Registrar reg;
+    private String username;
+    private ChatroomManager cm;
+
+    public MessageInboxPresenter(Registrar reg, String username, ChatroomManager cm) {
+        this.reg = reg;
+        this.username = username;
+        this.cm = cm;
+    }
+
+
+    private ArrayList<String> getUsersTalkto() {
+        ArrayList<String> users = new ArrayList<>();
+        HashMap<ArrayList<String>, Chatroom> cms = cm.getAllChatrooms(username);
+        for (ArrayList<String> key : cms.keySet()) {
+            if (key.contains(username)) {
+                for (String person : key) {
+                    if (!person.equals(username)) {
+                        users.add(person);
+                    }
+                }
+            }
+        }
+        return users;
+    }
 
     /**
      * Displays a series of users with whom the logged in user has chatted.
      *
-     * @param reg           Registrar
-     * @param friends       An ArrayList of friends; this user has chatted with these friends
      */
-    public String menuDisplay(Registrar reg, ArrayList<String> friends) {
+    public String menuDisplay() {
+        ArrayList<String> friends = getUsersTalkto();
         String result = "\nCHAT HISTORY:\n------------------------";
         for (String friend : friends) {
             result += "\n" + reg.getNameByUsername(friend) + " (@" + friend + ")";
@@ -30,10 +54,9 @@ public class MessageInboxPresenter extends CommandPresenter {
     /**
      * Displays the chatlog, including message content, the sender name and username, and the date and time the message was sent, converted to local time.
      *
-     * @param reg       Registrar
-     * @param c        Chatroom
      */
-    public String chatView(Registrar reg, Chatroom c) {
+    public String chatView(String recipient) {
+        Chatroom c = cm.getChatroom(username, recipient);
         String result = "";
         ArrayList<Integer> history = c.getMessageKeys();
         for (Integer m : history) {

@@ -13,6 +13,7 @@ public class MessageOutboxController {
     private String username;
     private Registrar reg;
     private EventManager em;
+    private ChatroomManager cm;
 
     /**
      * Initializes a new MessagingSystem.ChatController.
@@ -21,10 +22,11 @@ public class MessageOutboxController {
      * @param reg               Registrar
      * @param em                EventManager
      */
-    public MessageOutboxController(String username, Registrar reg, EventManager em) {
+    public MessageOutboxController(String username, Registrar reg, EventManager em, ChatroomManager cm) {
         this.username = username;
         this.reg = reg;
         this.em = em;
+        this.cm = cm;
     }
 
     /**
@@ -99,14 +101,10 @@ public class MessageOutboxController {
      * @param message           Message to be sent
      */
     public void sendMessage(String recipient, String message) {
-        ReadChat pull = new ReadChat();
-        ChatroomManager cm = pull.readChatlog();
         ArrayList<String> recipients = new ArrayList<>();
         recipients.add(username);
         recipients.add(recipient);
         cm.sendOne(recipients, message, username);
-        StoreChat push = new StoreChat();
-        push.storeChat(cm);
     }
 
     /**
@@ -117,16 +115,30 @@ public class MessageOutboxController {
      * @return true if messages are sent
      */
     public boolean sendMessage(Long evt, String message) {
-        ReadChat pull = new ReadChat();
-        ChatroomManager cm = pull.readChatlog();
         try {
             ArrayList<String> recipients = em.getSignedUpUsers(evt);
             cm.sendAll(recipients, message, username);
-            StoreChat push = new StoreChat();
-            push.storeChat(cm);
             return true;
         } catch (EventNotFoundException e) {
             return false;
         }
+    }
+
+    public boolean canSendAllEvents() {
+        ArrayList<Long> event_ids = em.getEventIDs();
+        return canSendEvents(event_ids);
+    }
+
+    public ArrayList<Long> getAllEventIDs() {
+        return em.getEventIDs();
+    }
+
+    public ArrayList<String> getMessageSpeakers() {
+        ArrayList<String> s = new ArrayList<>();
+        for (Long event_id : em.getEventIDs()) {
+            if (!s.contains(em.getSpeaker(event_id)))
+                s.add(em.getSpeaker(event_id));
+        }
+        return s;
     }
 }

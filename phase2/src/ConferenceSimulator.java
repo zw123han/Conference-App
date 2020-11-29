@@ -20,14 +20,17 @@ public class ConferenceSimulator {
     Registrar registrar;
     EventManager eventManager;
 
+    ReadChat readChat;
+    StoreChat storeChat;
+    ChatroomManager chatroomManager;
+
     /**
      *  Constructor for Conference simulator. Creates gateways and necessary use cases to store data.
      */
     public ConferenceSimulator() {
         String userFilepath = "phase2/src/UserSystem/userData.ser";
         String eventFilepath = "phase2/src/EventSystem/eventData.ser";
-        // Should we also have chatlog filepath?
-        // We could add filepaths as parameters
+        String chatFilepath = "phase2/src/MessagingSystem/chatlog.ser";
 
         readEvents = new ReadEvents(eventFilepath);
         readUsers = new ReadUsers(userFilepath);
@@ -36,6 +39,10 @@ public class ConferenceSimulator {
         storeUsers = new StoreUsers(userFilepath);
         registrar = new Registrar(readUsers.read());
         eventManager = new EventManager(readEvents.read());
+
+        readChat = new ReadChat(chatFilepath);
+        storeChat = new StoreChat(chatFilepath);
+        chatroomManager = readChat.readChatlog();
     }
 
     /**
@@ -44,6 +51,7 @@ public class ConferenceSimulator {
     public void save(){
         storeUsers.store(registrar.getUsers());
         saveEvents.saveEvents(eventManager.getEventsList());
+        storeChat.storeChat(chatroomManager);
     }
 
     /**
@@ -68,9 +76,17 @@ public class ConferenceSimulator {
         ChatMenuPresenter chatMenuPresenter = new ChatMenuPresenter();
         FriendsPresenter friendsPresenter = new FriendsPresenter();
 
+        MessageOutboxPresenter outboxPresenter = new MessageOutboxPresenter(loginFacade.getUser().getUserName(), registrar, eventManager);
+        MessageOutboxController outboxController = new MessageOutboxController(loginFacade.getUser().getUserName(), registrar, eventManager, chatroomManager);
+        MessageOutboxUI outboxUI = new MessageOutboxUI(outboxController, outboxPresenter);
+
+        MessageInboxPresenter inboxPresenter = new MessageInboxPresenter(registrar, loginFacade.getUser().getUserName(), chatroomManager);
+        MessageInboxController inboxController = new MessageInboxController(registrar, loginFacade.getUser().getUserName(), chatroomManager);
+        MessageInboxUI inboxUI = new MessageInboxUI(inboxPresenter, inboxController, outboxUI);
+
         // Main user UI
         UserOptionsInterface ui = new UserOptionsInterface(loginFacade, eventCreatorPresenter, eventSignupPresenter,
-                chatMenuPresenter, friendsPresenter, eventManager);
+                chatMenuPresenter, friendsPresenter, eventManager, outboxUI, inboxUI);
 
 
 
