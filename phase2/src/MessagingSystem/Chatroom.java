@@ -1,5 +1,6 @@
 package MessagingSystem;
 
+import java.lang.reflect.Array;
 import java.util.*;
 import java.io.Serializable;
 
@@ -9,14 +10,13 @@ import java.io.Serializable;
  * @author Elliot, Chrisee
  */
 public class Chatroom implements Serializable {
-    private HashMap<Integer, Message> history;
-    private Integer key = 0;
+    private ArrayList<Message> history;
 
     /**
      * Constructor for Chatroom, creates a new empty HashMap.
      */
     public Chatroom(){
-        this.history = new HashMap<>();
+        this.history = new ArrayList<Message>();
     }
 
     /**
@@ -25,16 +25,11 @@ public class Chatroom implements Serializable {
      * @param message   Message that was sent.
      */
     public void sendMessage(Message message){
-        history.put(key, message);
-        key += 1;
+        history.add(message);
     }
 
-    public void deleteMessage(int key){
-        for(int i = key;i < history.size() - 1;i++){
-            history.replace(i, history.get(i + 1));
-        }
-        history.remove(history.size() - 1);
-        this.key--;
+    public void deleteMessage(int position){
+        history.remove(position);
     }
 
     /**
@@ -42,40 +37,42 @@ public class Chatroom implements Serializable {
      *
      * @return keys     ArrayList of keys
      */
-    public ArrayList<Integer> getMessageKeys() {
-        ArrayList<Integer> keys = new ArrayList<>(history.keySet());
-        Collections.sort(keys);
-        return keys;
+    public ArrayList<Integer> getMessagePositions() {
+        ArrayList<Integer> positions = new ArrayList<Integer>();
+        for(int i = 0;i < history.size(); i++){
+            positions.add(i);
+        }
+        return positions;
     }
 
     /**
      * Returns the message corresponding with the key.
      *
-     * @param key    The key
+     * @param position  The position of the message
      * @return       Message corresponding with the key
      */
-    public String getMessage(Integer key) {
-        return history.get(key).getMessage();
+    public String getMessage(Integer position) {
+        return history.get(position).getMessage();
     }
 
     /**
      * Returns the date the message corresponding with the key was sent.
      *
-     * @param key   The key
+     * @param position  The position of the message
      * @return      Date the message corresponding with the key was sent
      */
-    public String getDate(Integer key) {
-        return history.get(key).getDate();
+    public String getDate(Integer position) {
+        return history.get(position).getDate();
     }
 
     /**
      * Returns the sender of the message corresponding with the key
      *
-     * @param key  The key
+     * @param position  The position of the message
      * @return     The sender of the message corresponding with the key
      */
-    public String getSender(Integer key) {
-        return history.get(key).getSender();
+    public String getSender(Integer position) {
+        return history.get(position).getSender();
     }
 
     public int getSize(){

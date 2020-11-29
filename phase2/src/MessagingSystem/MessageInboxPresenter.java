@@ -35,7 +35,7 @@ public class MessageInboxPresenter extends CommandPresenter {
      */
     public String chatView(Registrar reg, Chatroom c) {
         String result = "";
-        ArrayList<Integer> history = c.getMessageKeys();
+        ArrayList<Integer> history = c.getMessagePositions();
         for (Integer m : history) {
             String sender = c.getSender(m);
             result += "\n(" + m + ")";

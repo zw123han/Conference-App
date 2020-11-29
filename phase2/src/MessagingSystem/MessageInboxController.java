@@ -38,7 +38,7 @@ public class MessageInboxController {
                 return true;
             }
             Chatroom c = cm.getChatroom(username, recipient);
-            ArrayList<Integer> history = c.getMessageKeys();
+            ArrayList<Integer> history = c.getMessagePositions();
             for (Integer m : history) {
                 if (c.getSender(m).equals(recipient)) {
                     return true;
