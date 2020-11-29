@@ -64,9 +64,9 @@ public class MessageInboxPresenter extends CommandPresenter {
             result += "\n(" + m + ")";
             result += ("\nFrom: " + reg.getNameByUsername(sender) + " (@" + sender + ")");
             result += ("\nSent: " + c.getDate(m));
-            result += ("\n" + messageFormatter(c.getMessage(m)));
+            result += ("\n" + messageFormatter(c.getMessage(m)) + "\n");
         }
-        return result + "\n";
+        return result;
     }
 
     /**

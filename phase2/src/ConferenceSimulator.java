@@ -76,17 +76,9 @@ public class ConferenceSimulator {
         ChatMenuPresenter chatMenuPresenter = new ChatMenuPresenter();
         FriendsPresenter friendsPresenter = new FriendsPresenter();
 
-        MessageOutboxPresenter outboxPresenter = new MessageOutboxPresenter(loginFacade.getUser().getUserName(), registrar, eventManager);
-        MessageOutboxController outboxController = new MessageOutboxController(loginFacade.getUser().getUserName(), registrar, eventManager, chatroomManager);
-        MessageOutboxUI outboxUI = new MessageOutboxUI(outboxController, outboxPresenter);
-
-        MessageInboxPresenter inboxPresenter = new MessageInboxPresenter(registrar, loginFacade.getUser().getUserName(), chatroomManager);
-        MessageInboxController inboxController = new MessageInboxController(registrar, loginFacade.getUser().getUserName(), chatroomManager);
-        MessageInboxUI inboxUI = new MessageInboxUI(inboxPresenter, inboxController, outboxUI);
-
         // Main user UI
         UserOptionsInterface ui = new UserOptionsInterface(loginFacade, eventCreatorPresenter, eventSignupPresenter,
-                chatMenuPresenter, friendsPresenter, eventManager, outboxUI, inboxUI);
+                chatMenuPresenter, friendsPresenter, eventManager, chatroomManager);
 
 
 
