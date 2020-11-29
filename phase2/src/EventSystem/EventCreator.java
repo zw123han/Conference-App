@@ -36,13 +36,13 @@ public class EventCreator {
      * @return                                  true if the event was successfully created
      * @throws EventCreationFailureException    If the event failed to be created
      */
-    public boolean createEvent(String name, String room, LocalDateTime start_time, String speaker, int capacity)
+    public boolean createEvent(String name, String room, LocalDateTime start_time, long duration, String speaker, int capacity)
             throws EventCreationFailureException {
         ArrayList<Event> events = this.em.getEventsList();
         for (Event event : events) {
             LocalDateTime lower = event.getTime();
-            LocalDateTime upper = lower.plusMinutes(60);
-            LocalDateTime end_time = start_time.plusMinutes(60);
+            LocalDateTime upper = lower.plusMinutes(event.getDuration());
+            LocalDateTime end_time = start_time.plusMinutes(duration);
             if ((start_time.isAfter(lower) && start_time.isBefore(upper)) ||
                     (end_time.isAfter(lower) && end_time.isBefore(upper)) || (start_time.isEqual(lower))){
                 if ((event.getRoom().equals(room))) {
@@ -52,7 +52,7 @@ public class EventCreator {
                 }
             }
         }
-        this.em.createEvent(name, room, start_time, speaker, capacity, (Speaker) reg.getUserByUserName(speaker));
+        this.em.createEvent(name, room, start_time, duration, speaker, capacity, (Speaker) reg.getUserByUserName(speaker));
         return true;
     }
 }

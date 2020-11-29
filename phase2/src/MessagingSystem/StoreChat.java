@@ -10,6 +10,11 @@ import java.io.ObjectOutputStream;
  * @author Elliot
  */
 public class StoreChat {
+    private String filepath;
+
+    public StoreChat(String filepath) {
+        this.filepath = filepath;
+    }
 
     /**
      * Saves ChatroomManager to .ser file
@@ -18,7 +23,7 @@ public class StoreChat {
      */
     public void storeChat(ChatroomManager chatroomManager){
         try {
-            FileOutputStream fileOut = new FileOutputStream("phase2/src/MessagingSystem/chatlog.ser");
+            FileOutputStream fileOut = new FileOutputStream(filepath);
             ObjectOutputStream objectOut = new ObjectOutputStream(fileOut);
             objectOut.writeObject(chatroomManager);
             objectOut.close();

@@ -10,6 +10,16 @@ import java.util.*;
  * @author Chrisee Zhu
  */
 public class MessageOutboxPresenter extends CommandPresenter {
+    private String username;
+    private Registrar reg;
+    private EventManager em;
+
+
+    public MessageOutboxPresenter(String username, Registrar reg, EventManager em) {
+        this.username = username;
+        this.reg = reg;
+        this.em = em;
+    }
 
     /**
      * Displays message composition options by target.
@@ -21,10 +31,8 @@ public class MessageOutboxPresenter extends CommandPresenter {
     /**
      * Displays a list of speakers hosting events at this conference, including their name and username.
      *
-     * @param reg       Registrar
-     * @param em        EventManager
      */
-    public String speakerMenu(Registrar reg, EventManager em) {
+    public String speakerMenu() {
         String result = "\nSPEAKERS:\n------------------------";
         ArrayList<Long> events = em.getEventIDs();
         ArrayList<String> speakers = new ArrayList<>();
@@ -46,10 +54,8 @@ public class MessageOutboxPresenter extends CommandPresenter {
     /**
      * Displays a list of friends that this user has, including their name and username.
      *
-     * @param reg           Registrar
-     * @param username      username of the sender; sender must exist in Registrar
      */
-    public String friendMenu(Registrar reg, String username) {
+    public String friendMenu() {
         String result = "\nFRIENDS:\n------------------------";
         ArrayList<String> friends = reg.getUserFriends(username);
         for (String friend : friends) {
@@ -61,36 +67,18 @@ public class MessageOutboxPresenter extends CommandPresenter {
         return result + "\n";
     }
 
-    /**
-     * Displays a list of events hosted by a speaker, including their name, IDs, time, and room.
-     *
-     * @param username      username of a speaker (sender); speaker must exist in Registrar
-     * @param em            EventManager
-     * @param reg           Registrar
-     */
-    public String eventMenu(String username, EventManager em, Registrar reg) {
-        String result = "\nEVENTS:\n------------------------";
-        ArrayList<Long> events = reg.getSpeakerTalks(username);
-        for (Long evt_id : events) {
-            result += ("\nName: " + em.getName(evt_id));
-            result += ("\nid: " + evt_id);
-            result += ("\nTime: " + em.getTime(evt_id));
-            result += ("\nRoom: " + em.getRoom(evt_id) + "\n------------------------");
-        }
-        if (events.isEmpty()) {
-            return "\nYou're not hosting any talks.\n";
-        }
-        return result;
-    }
-
-    /**
+     /**
      * Displays a list of events available at this conference, including their name, IDs, time, and room.
      *
-     * @param em        EventManager
      */
-    public String eventMenu(EventManager em) {
+    public String eventMenu() {
         String result = "\nEVENTS:\n------------------------";
-        ArrayList<Long> events = em.getEventIDs();
+        ArrayList<Long> events = new ArrayList<>();
+        if (reg.isAdmin(username) || reg.isOrganizer(username)) {
+            events = em.getEventIDs();
+        } else if (reg.isSpeaker(username)) {
+            events = reg.getSpeakerTalks(username);
+        }
         for (Long evt_id : events) {
             result += ("\nName: " + em.getName(evt_id));
             result += ("\nid: " + evt_id);
