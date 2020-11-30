@@ -53,10 +53,19 @@ public class Message implements Serializable {
         return time.toLocalDateTime().format(d);
     }
 
-    public boolean getRead() {
+    /**
+     * Method for checking if message is read by the recipient (not the sender)
+     * @return           True if the message at index is read, false otherwise
+     */
+    public boolean isRead() {
         return read;
     }
 
+    /**
+     * Method for setting the message as read or unread.
+     *
+     * @param setter   True or false
+     */
     public void setRead(boolean setter) {
         read = setter;
     }
