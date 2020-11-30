@@ -83,19 +83,50 @@ public class Chatroom implements Serializable {
     /**
      * Returns the number of messages in history.
      *
-     * @return    number of elements of history
+     * @return    Number of elements of history
      */
     public int getSize(){
         return history.size();
     }
 
-    public boolean getRead(Integer position) {
-        return history.get(position).getRead();
+    /**
+     * Method for checking if message is read.
+     *
+     * @param username   Username of the currently logged in user
+     * @param position   Index of the message
+     *
+     * @return           True if the message at index is read, false otherwise
+     */
+    public boolean isRead(String username, Integer position) {
+        if(!username.equals(history.get(position).getSender()) && !history.get(position).isRead()) {
+            return false;
+        }
+        return true;
     }
 
+    /**
+     * Method for adding a message to history.
+     *
+     * @param position   Index of the message
+     */
     public void setRead(Integer position, boolean setter) {
         history.get(position).setRead(setter);
     }
 
-
+    /**
+     * Method for adding a message to history.
+     *
+     * @param username   Username of the currently logged in user
+     *
+     * @return           Number of unread messages for recipient
+     */
+    public int getUnread(String username){
+        int unread = 0;
+        for(Message m : history){
+            if(!username.equals(m.getSender()) && !m.isRead()){
+                unread++;
+            }
+        }
+        return unread;
+    }
 }
