@@ -16,7 +16,7 @@ import java.util.Scanner;
 /**
  * UserOptionsInterface is the main controller class that handles the home menu controls for a single user's session.
  *
- * @author Tao, Fred
+ * @author Tao
  */
 public class UserOptionsInterface {
 
@@ -180,8 +180,6 @@ public class UserOptionsInterface {
             generalOptions();
             System.out.println("6) Manage Events");
             System.out.println("7) Manage Accounts");
-            //System.out.println("8) Manage Rooms");  //To used if needed
-
         }
         else if (user instanceof Speaker){
             generalOptions();
@@ -333,11 +331,10 @@ public class UserOptionsInterface {
 
         }
 
-
     }
 
     private void showManageAccountsScreen(Registrar registrar) {
-        System.out.println("Press 'c' to create and account. Press any other key to quit.");
+        System.out.println("Press 'c' to create an account. Press any other key to quit.");
         String choice = sc.nextLine();
         while(choice.equals("c")){
             if (choice.equals("c")) {
