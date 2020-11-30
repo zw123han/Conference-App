@@ -109,8 +109,8 @@ public class Chatroom implements Serializable {
      *
      * @param position   Index of the message
      */
-    public void setRead(Integer position, boolean setter) {
-        history.get(position).setRead(setter);
+    public void read(Integer position) {
+        history.get(position).read();
     }
 
     /**
@@ -128,5 +128,20 @@ public class Chatroom implements Serializable {
             }
         }
         return unread;
+    }
+
+    /**
+     * Method for getting all pinned messages in the Chatroom.
+     *
+     * @return           HashMap of all pinned messages and their indices
+     */
+    public HashMap<Integer, Message> getPinned(){
+        HashMap<Integer, Message> pinned = new HashMap<>();
+        for(int i = 0; i < history.size(); i++){
+            if(history.get(i).isPinned()){
+                pinned.put(i, history.get(i));
+            }
+        }
+        return pinned;
     }
 }

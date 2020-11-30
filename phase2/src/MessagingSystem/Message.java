@@ -13,6 +13,7 @@ public class Message implements Serializable {
     private String message, sender;
     private ZonedDateTime time = ZonedDateTime.now();
     private boolean read = false;
+    private boolean pinned = false;
 
     /**
      * Initializes a new Message
@@ -62,11 +63,27 @@ public class Message implements Serializable {
     }
 
     /**
-     * Method for setting the message as read or unread.
+     * Method for setting the message as read.
+     */
+    public void read() {
+        read = true;
+    }
+
+    /**
+     * Method for checking if message is pinned.
+     *
+     * @return           True if message is pinned, false otherwise
+     */
+    public boolean isPinned(){
+        return pinned;
+    }
+
+    /**
+     * Method for setting the message as pinned or unpinned.
      *
      * @param setter   True or false
      */
-    public void setRead(boolean setter) {
-        read = setter;
+    public void setPinned(boolean setter){
+        pinned = setter;
     }
 }
