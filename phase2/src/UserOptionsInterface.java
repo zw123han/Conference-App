@@ -337,13 +337,14 @@ public class UserOptionsInterface {
     }
 
     private void showManageAccountsScreen(Registrar registrar) {
-        System.out.println("Would you like to create, modify or delete an account? Press any key to continue or " +
-                "press q to exit");
+        System.out.println("Press 'c' to create and account. Press any other key to quit.");
         String choice = sc.nextLine();
-        while(!choice.equals("q")){
-            createAccount();
-            System.out.println("Press any key to create another account or q to exit");
-            choice = sc.nextLine();
+        while(choice.equals("c")){
+            if (choice.equals("c")) {
+                createAccount();
+                System.out.println("Do you want to create another account? Press 'c' to continue. Press any other to exit");
+                choice = sc.nextLine();
+            }
         }
     }
 
@@ -376,14 +377,6 @@ public class UserOptionsInterface {
                 System.out.println("You cannot use those credentials. Please try again.");
             }
         }
-    }
-
-    private void modifyAccount(){
-
-    }
-
-    private void deleteAccount(){
-
     }
 
     private void showCreateSpeakerScreen() {
