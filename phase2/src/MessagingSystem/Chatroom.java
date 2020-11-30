@@ -105,7 +105,7 @@ public class Chatroom implements Serializable {
     }
 
     /**
-     * Method for adding a message to history.
+     * Method for setting the message at the index to be read or unread.
      *
      * @param position   Index of the message
      */
@@ -114,7 +114,7 @@ public class Chatroom implements Serializable {
     }
 
     /**
-     * Method for adding a message to history.
+     * Method for getting the number of unread messages sent to the user.
      *
      * @param username   Username of the currently logged in user
      *
