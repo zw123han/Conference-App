@@ -81,7 +81,7 @@ public class EventSignupPresenter {
                         .format(ev.getTime()));
                 System.out.println("Room: " + ev.getRoom());
                 System.out.println("Capacity: " + ev.getNumberOfSignedUpUsers() + "/" + ev.getCapacity());
-                System.out.println("Speaker: " + ev.getSpeaker());
+                System.out.println("Speakers: " + ev.getSpeakerList());
                 System.out.println("------------------------");
             }
         }
@@ -104,7 +104,7 @@ public class EventSignupPresenter {
                     .format(ev.getTime()));
             System.out.println("Room: " + ev.getRoom());
             System.out.println("Capacity: " + ev.getNumberOfSignedUpUsers() + "/" + ev.getCapacity());
-            System.out.println("Speaker: " + ev.getSpeaker());
+            System.out.println("Speakers: " + ev.getSpeakerList());
             System.out.println("------------------------");
         }
     }

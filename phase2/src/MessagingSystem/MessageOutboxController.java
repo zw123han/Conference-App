@@ -59,7 +59,7 @@ public class MessageOutboxController {
     public boolean canMessage(Long evt) {
         return em.hasEvent(evt) ||
                 (em.hasEvent(evt) && reg.isSpeaker(username) &&
-                        em.getEvent(evt).getSpeaker().equals(username));
+                        em.getEvent(evt).getSpeakerList().contains(username));
     }
 
     /**
@@ -136,8 +136,11 @@ public class MessageOutboxController {
     public ArrayList<String> getMessageSpeakers() {
         ArrayList<String> s = new ArrayList<>();
         for (Long event_id : em.getEventIDs()) {
-            if (!s.contains(em.getSpeaker(event_id)))
-                s.add(em.getSpeaker(event_id));
+            for (String speaker : em.getSpeakerList(event_id)) {
+                if (!s.contains(speaker)) {
+                    s.add(speaker);
+                }
+            }
         }
         return s;
     }

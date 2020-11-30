@@ -36,10 +36,11 @@ public class MessageOutboxPresenter extends CommandPresenter {
         String result = "\nSPEAKERS:\n------------------------";
         ArrayList<Long> events = em.getEventIDs();
         ArrayList<String> speakers = new ArrayList<>();
-        for (Long evt_id : events) {
-            String speaker = em.getSpeaker(evt_id);
-            if (!speakers.contains(speaker)) {
-                speakers.add(speaker);
+        for (Long event_id : em.getEventIDs()) {
+            for (String speaker : em.getSpeakerList(event_id)) {
+                if (!speakers.contains(speaker)) {
+                    speakers.add(speaker);
+                }
             }
         }
         for (String s : speakers) {

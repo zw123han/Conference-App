@@ -1,10 +1,10 @@
 package EventSystem;
 
 import java.io.Serializable;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
-import java.time.*;
-import java.util.Date;
 import java.util.Calendar;
+import java.util.Date;
 
 /**
  * A class representing the event entity. Consists of methods that operate on events / event details.
@@ -17,28 +17,40 @@ public class  Event implements Serializable {
     private String name;
     private String room;
     private LocalDateTime time;
-    private String speaker;
     private long duration;
+    private String type;
+    private ArrayList<String> speaker_list;
     private int capacity;
-    private ArrayList<String> signedUpUsers = new ArrayList<String>();
+    private ArrayList<String> signedUpUsers = new ArrayList<>();
     private long id;
 
     /**
      * The constructor for an Event
      *
-     * @param name      The name of the event
-     * @param room      The room the event is being held in
-     * @param time      The starting time of the event
-     * @param speaker   The speaker for the event
-     * @param capacity  The capacity of the event
+     * @param name           The name of the event
+     * @param room           The room the event is being held in
+     * @param time           The starting time of the event
+     * @param duration       The duration of the event in minutes
+     * @param speaker_list   The list of speakers for the event
+     * @param capacity       The capacity of the event
      */
-    public Event(String name, String room, LocalDateTime time, long duration, String speaker, int capacity){
+    public Event(String name, String room, LocalDateTime time, long duration, ArrayList<String> speaker_list, int capacity){
         this.name = name;
         this.room = room;
         this.time = time;
-        this.speaker = speaker;
-        this.capacity = 2;
         this.duration = duration;
+        if(speaker_list.size() == 0){
+            this.type = "Party";
+        }
+        else if(speaker_list.size() == 1){
+            this.type = "Talk";
+        }
+        else{
+            this.type = "Panel";
+        }
+        this.speaker_list = speaker_list;
+        this.capacity = capacity;
+
 
         Calendar c = Calendar.getInstance();
         Date d = c.getTime();
@@ -80,12 +92,12 @@ public class  Event implements Serializable {
     }
 
     /**
-     * Returns the speaker of the event
+     * Returns the list of speakers for the event
      *
-     * @return          The speaker of the event as a String
+     * @return          The list of speakers for the event as an arraylist
      */
-    public String getSpeaker(){
-        return speaker;
+    public ArrayList<String> getSpeakerList(){
+        return speaker_list;
     }
 
     /**
@@ -100,11 +112,18 @@ public class  Event implements Serializable {
     /**
      * Returns the duration of the event
      *
-     * @return          The capacity of the event as an int
+     * @return          The duration of the event in minutes
      */
     public long getDuration(){
         return duration;
     }
+
+    /**
+     * Returns the type of the event
+     *
+     * @return          The type of the event as a string
+     */
+    public String getType() { return type; }
 
     /**
      * Signs up the given user for the event

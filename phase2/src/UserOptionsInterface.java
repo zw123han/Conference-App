@@ -1,13 +1,17 @@
-import EventSystem.*;
-import LoginSystem.*;
+import EventSystem.EventCreatorPresenter;
+import EventSystem.EventManager;
+import EventSystem.EventSignupPresenter;
+import LoginSystem.LoginOptionsFacade;
+import LoginSystem.LoginUI;
 import MessagingSystem.*;
 import UserSystem.*;
 
-import java.time.format.DateTimeParseException;
-import java.util.InputMismatchException;
-import java.util.Scanner;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
+import java.util.ArrayList;
+import java.util.InputMismatchException;
+import java.util.Scanner;
 
 /**
  * UserOptionsInterface is the main controller class that handles the home menu controls for a single user's session.
@@ -240,13 +244,23 @@ public class UserOptionsInterface {
                     System.out.println("username: " + s.getUserName());
                     System.out.println("-----------------------------");
                 }
-                System.out.println("Username of speaker:");
-                String speaker = sc.nextLine();
-                User user = registrar.getUserByUserName(speaker);
-                if (user instanceof Speaker) {
-                    System.out.println(ecp.promptEventCreation(name, room, LocalDateTime.parse(time, formatter), duration, user.getUserName(), capacity));
-
-                } else {
+                System.out.println("Usernames of speakers (separated by comma and space, hit enter if no speaker): ");
+                String speakers = sc.nextLine();
+                ArrayList<String> speakersNameList = new ArrayList<>();
+                boolean allSpeakersValid = true;
+                for(String s: speakers.split(", ")){
+                    User user = registrar.getUserByUserName(s);
+                    if (user instanceof Speaker) {
+                        speakersNameList.add(s);
+                    }
+                    else{
+                        allSpeakersValid = false;
+                    }
+                }
+                if(allSpeakersValid){
+                    System.out.println(ecp.promptEventCreation(name, room, LocalDateTime.parse(time, formatter), duration, speakersNameList, capacity));
+                }
+                else {
                     System.out.println("Please input a valid Speaker. If you don't have any, please create a speaker account.");
                 }
             } catch (DateTimeParseException e) {
@@ -286,13 +300,23 @@ public class UserOptionsInterface {
                         System.out.println("username: " + s.getUserName());
                         System.out.println("-----------------------------");
                     }
-                    System.out.println("Username of speaker:");
-                    String speaker = sc.nextLine();
-                    User user = registrar.getUserByUserName(speaker);
-                    if (user instanceof Speaker) {
-                        System.out.println(ecp.promptEventCreation(name, room, LocalDateTime.parse(time, formatter), duration, user.getUserName(), capacity));
-
-                    } else {
+                    System.out.println("Usernames of speakers (separated by comma and space, hit enter if no speaker): ");
+                    String speakers = sc.nextLine();
+                    ArrayList<String> speakersNameList = new ArrayList<>();
+                    boolean allSpeakersValid = true;
+                    for(String s: speakers.split(", ")){
+                        User user = registrar.getUserByUserName(s);
+                        if (user instanceof Speaker) {
+                            speakersNameList.add(s);
+                        }
+                        else{
+                            allSpeakersValid = false;
+                        }
+                    }
+                    if(allSpeakersValid){
+                        System.out.println(ecp.promptEventCreation(name, room, LocalDateTime.parse(time, formatter), duration, speakersNameList, capacity));
+                    }
+                    else {
                         System.out.println("Please input a valid Speaker. If you don't have any, please create a speaker account.");
                     }
                 } catch (DateTimeParseException e) {

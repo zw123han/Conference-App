@@ -1,9 +1,11 @@
 package EventSystem;
 
+import UserSystem.Speaker;
+
 import java.io.Serializable;
-import UserSystem.*;
-import java.util.*;
-import java.time.*;
+import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.HashMap;
 
 /**
  * Use Case Class that stores all events in the program and enables creation and deletion of events.
@@ -40,14 +42,17 @@ public class EventManager implements Serializable {
      * @param name              name of event
      * @param room              room that event takes place in
      * @param time              start time of the event
-     * @param speakerName       name of the speaker at this event
+     * @param duration          duration of the event
+     * @param speakerNameList   list of names of speakers at this event
      * @param capacity          capacity of the event
-     * @param speaker           Speaker object of the speaker of this event
+     * @param speakerList       list of speaker objects for the speakers of this event
      */
-    public void createEvent(String name, String room, LocalDateTime time, long duration, String speakerName, int capacity, Speaker speaker) {
-        Event ev = new Event(name, room, time, duration, speakerName, capacity);
+    public void createEvent(String name, String room, LocalDateTime time, long duration, ArrayList<String> speakerNameList, int capacity, ArrayList<Speaker> speakerList) {
+        Event ev = new Event(name, room, time, duration, speakerNameList, capacity);
         this.events.put(ev.getId(), ev);
-        speaker.addTalk(ev.getId());
+        for(Speaker s: speakerList){
+            s.addTalk(ev.getId());
+        }
     }
 
     /**
@@ -124,13 +129,23 @@ public class EventManager implements Serializable {
 
     /**
      *
-     * gets the speaker of event with given id
+     * gets the list of names of speaker for event with given id
      *
      * @param id id of event
-     * @return speaker of event with given event id
+     * @return list of names of speakers for event with given event id
      */
-    public String getSpeaker(Long id) {
-        return getEvent(id).getSpeaker();
+    public ArrayList<String> getSpeakerList(Long id) {
+        return getEvent(id).getSpeakerList();
+    }
+
+    /**
+     *
+     * gets the type of the event with the given id
+     *
+     * @return the type of the event with the given id
+     */
+    public String getType(Long id) {
+        return getEvent(id).getType();
     }
 
     /**

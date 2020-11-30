@@ -1,9 +1,11 @@
 package EventSystem;
 
-import UserSystem.*;
+import UserSystem.Registrar;
+
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.FormatStyle;
+import java.util.ArrayList;
 
 /**
  * A presenter for the event class. Consists of a method that prompts an event creation
@@ -30,18 +32,19 @@ public class EventCreatorPresenter {
     /**
      * Prompts the creation of the specified event and returns whether the event was successfully created
      *
-     * @param name      The name of the event
-     * @param room      The room of the event
-     * @param time      The starting time of the event
-     * @param speaker   The speaker for the event
-     * @param capacity  The capacity of the event
-     * @return          A string detailing whether the event was successfully created
+     * @param name           The name of the event
+     * @param room           The room of the event
+     * @param time           The starting time of the event
+     * @param duration       The duration of the event in minutes
+     * @param speaker_list   The list of speakers for the event
+     * @param capacity       The capacity of the event
+     * @return               A string detailing whether the event was successfully created
      */
-    public String promptEventCreation(String name, String room, LocalDateTime time, long duration, String speaker, int capacity) {
+    public String promptEventCreation(String name, String room, LocalDateTime time, long duration, ArrayList<String> speaker_list, int capacity) {
 
         EventCreator ec = new EventCreator(this.em, reg);
         try {
-            if (!(ec.createEvent(name, room, time, duration, speaker, capacity))) {
+            if (!(ec.createEvent(name, room, time, duration, speaker_list, capacity))) {
                 return ("Unable to create event");
             } else {
                 return ("Event created");
@@ -63,9 +66,10 @@ public class EventCreatorPresenter {
                 System.out.println("Time: " + DateTimeFormatter.ofLocalizedDateTime(
                         FormatStyle.SHORT)
                         .format(ev.getTime()));
+                System.out.println("Type: " + ev.getType());
                 System.out.println("Room: " + ev.getRoom());
                 System.out.println("Capacity: " + ev.getNumberOfSignedUpUsers() + "/" + ev.getCapacity());
-                System.out.println("Speaker: " + ev.getSpeaker());
+                System.out.println("Speakers: " + ev.getSpeakerList());
                 System.out.println("------------------------");
             }
         }
