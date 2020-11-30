@@ -88,6 +88,10 @@ public class MessageInboxController implements MessageControllerInterface {
         return friends.contains(recipient);
     }
 
+    public boolean validateMessage(String message) {
+        return message.length() != 0;
+    }
+
     public void sendMessage(String recipient, String message) {
         ArrayList<String> recipients = new ArrayList<>();
         recipients.add(username);

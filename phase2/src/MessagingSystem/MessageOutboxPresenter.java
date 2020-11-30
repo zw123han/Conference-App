@@ -91,13 +91,4 @@ public class MessageOutboxPresenter extends CommandPresenter {
         }
         return result;
     }
-
-    /**
-     * Displays a success message for a sent message.
-     *
-     * @param recipient (enter message)
-     */
-    public String success(String recipient) {
-        return "\nMessage successfully sent to " + recipient + "!";
-    }
 }

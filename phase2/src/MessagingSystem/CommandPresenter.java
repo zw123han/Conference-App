@@ -31,4 +31,14 @@ public abstract class CommandPresenter {
     public String commandPrompt(String field) {
         return "Enter a valid " + field + ".\n" + exitMessage();
     }
+
+    /**
+     * Displays a success message for a sent message.
+     *
+     * @param recipient (enter message)
+     */
+    public String success(String recipient) {
+        return "\nMessage successfully sent to " + recipient + "!";
+    }
+
 }
