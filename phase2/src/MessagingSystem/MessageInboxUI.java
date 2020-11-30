@@ -63,9 +63,10 @@ public class MessageInboxUI implements MessageUI {
                 promptDelete(recipient);
                 System.out.println(ip.chatView(recipient));
             } else if (e.equals("2")){
-
+                promptPin(recipient);
             } else if (e.equals("3")){
-
+                System.out.println(ip.viewPinned(recipient));
+                promptPin(recipient);
             }else if (e.equals("4") && ic.canReply(recipient)){
                 promptMessage(recipient);
                 System.out.println(ip.chatView(recipient));
@@ -80,6 +81,7 @@ public class MessageInboxUI implements MessageUI {
      */
     public void promptDelete(String recipient){
         System.out.println(ip.whichMessage("delete"));
+        System.out.println(ip.exitMessage());
         String re = sc.nextLine();
         while (!re.equals("$q")){
             if(re.matches("[0-9]+") && ic.canDelete(recipient, re)){
@@ -95,6 +97,7 @@ public class MessageInboxUI implements MessageUI {
 
     public void promptPin(String recipient){
         System.out.println(ip.whichMessage("pin/unpin"));
+        System.out.println(ip.exitMessage());
         String re = sc.nextLine();
         while (!re.equals("$q")){
             if(re.matches("[0-9]+")){
