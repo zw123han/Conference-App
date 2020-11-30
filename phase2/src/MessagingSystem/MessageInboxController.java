@@ -10,7 +10,7 @@ import java.util.HashMap;
  * @author Chrisee
  */
 
-public class MessageInboxController {
+public class MessageInboxController implements MessageControllerInterface {
     private Registrar reg;
     private String username;
     private ChatroomManager cm;
@@ -87,5 +87,13 @@ public class MessageInboxController {
         ArrayList<String> friends = getUsersTalkto();
         return friends.contains(recipient);
     }
+
+    public void sendMessage(String recipient, String message) {
+        ArrayList<String> recipients = new ArrayList<>();
+        recipients.add(username);
+        recipients.add(recipient);
+        cm.sendOne(recipients, message, username);
+    }
+
 
 }

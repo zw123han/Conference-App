@@ -9,7 +9,7 @@ import java.util.ArrayList;
  *
  * @author Elliot, Chrisee
  */
-public class MessageOutboxController {
+public class MessageOutboxController implements MessageControllerInterface {
     private String username;
     private Registrar reg;
     private EventManager em;
