@@ -99,7 +99,7 @@ public class UserOptionsInterface {
                     showCreateEventsScreen(registrar);
                     break;
                 case "7":
-                    showCreateSpeakerScreen();
+                    showManageAccountsScreen(registrar);
                     break;
                 default:
                     System.out.println("Please input a valid option(1-7).");
@@ -214,6 +214,16 @@ public class UserOptionsInterface {
             System.out.println("Type \"join\", \"leave\", or \"info\"");
             System.out.println("Press $q to go back.");
             choice = sc.nextLine();
+        }
+    }
+
+    private void printEventScreen(){
+        esp.viewEvents();
+        esp.usersEvents(loginFacade.getUser());
+        System.out.println("Would you like download your events list? Press p to print. Or press any other key to exit");
+        String choice = sc.nextLine();
+        if(choice.equals("p") || choice.equals("P")){
+            //printScreen call will go here.
         }
     }
 
@@ -355,19 +365,19 @@ public class UserOptionsInterface {
         System.out.println("Please input the password:");
         String password = sc.nextLine();
 
-        if(type.equals("s")){
+        if(type.equals("s") || type.equals("S")){
             if (loginFacade.createUser(name, userName, password, "speaker")) {
                 System.out.println("Speaker account created successfully");
             } else {
                 System.out.println("You cannot use those credentials. Please try again.");
             }
-        } else if(type.equals("o")){
+        } else if(type.equals("o") || type.equals("O")){
             if (loginFacade.createUser(name, userName, password, "organizer")){
                 System.out.println("Organizer account created successfully");
             } else {
                 System.out.println("You cannot use those credentials. Please try again.");
             }
-        } else if(type.equals("a")){
+        } else if(type.equals("a") || type.equals("A")){
             if (loginFacade.createUser(name, userName, password, "attendee")) {
                 System.out.println("Attendee account created successfully");
             } else {
