@@ -56,6 +56,24 @@ public class EventCreatorPresenter {
         }
     }
 
+    /**
+     * Prompts the creation of the specified event and returns whether the event was successfully created
+     *
+     * @param eventId           The id of the event
+     * @return               A string detailing whether the event was successfully deleted
+     */
+    public String promptEventDeletion(Long eventId) {
+        EventCreator ec = new EventCreator(this.em, reg);
+        try {
+            ec.deleteEvent(eventId);
+            return "Event has been successfully cancelled";
+        } catch (EventNotFoundException e) {
+//            e.printStackTrace();
+//            return ("");
+            return e.getMessage();
+        }
+    }
+
     public void viewEvents(){
         System.out.println("\nEXISTING EVENTS:");
         System.out.println("------------------------");

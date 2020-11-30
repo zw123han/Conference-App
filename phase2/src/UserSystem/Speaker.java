@@ -42,4 +42,8 @@ public class Speaker extends User {
         talks.add(talkId);
     }
 
+    public void removeTalk(Long talkId) {
+        talks.remove(talkId);
+    }
+
 }

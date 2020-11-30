@@ -328,7 +328,10 @@ public class UserOptionsInterface {
         } else if(choice.equals("m")){
 
         } else if(choice.equals("d")){
-
+            this.ecp.viewEvents();
+            System.out.println("enter the Id of the event you would like to delete:");
+            Long eventId = Long.parseLong(sc.nextLine());
+            System.out.println(this.ecp.promptEventDeletion(eventId));
         }
 
     }

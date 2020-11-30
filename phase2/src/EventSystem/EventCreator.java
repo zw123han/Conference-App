@@ -63,4 +63,12 @@ public class EventCreator {
         this.em.createEvent(name, room, start_time, duration, speaker_list, capacity, speakerObjectList);
         return true;
     }
+    public boolean deleteEvent(Long eventId)
+            throws EventNotFoundException {
+       if ( !this.em.hasEvent(eventId) ){
+           throw new EventNotFoundException();
+        }
+       this.em.deleteEvent(eventId, this.reg);
+       return true;
+    }
 }

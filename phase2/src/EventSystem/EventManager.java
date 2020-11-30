@@ -1,6 +1,8 @@
 package EventSystem;
 
+import UserSystem.Registrar;
 import UserSystem.Speaker;
+import UserSystem.User;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
@@ -53,6 +55,19 @@ public class EventManager implements Serializable {
         for(Speaker s: speakerList){
             s.addTalk(ev.getId());
         }
+    }
+
+    public void deleteEvent(Long eventId, Registrar reg){
+        Event ev = this.events.get(eventId);
+        for(String u: ev.getSignedUpUsers()){
+            reg.getUserByUserName(u).removeEvent(eventId);
+        }
+        for (String s: ev.getSpeakerList()){
+            Speaker speaker = (Speaker) reg.getUserByUserName(s);
+            speaker.removeEvent(eventId);
+            speaker.removeTalk(eventId);
+        }
+        this.events.remove(eventId);
     }
 
     /**
