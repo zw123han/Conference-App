@@ -36,14 +36,8 @@ public class MessageInboxPresenter extends CommandPresenter {
     }
 
     private Integer getNumUnread(String friend) {
-        Integer unread = 0;
         Chatroom c = cm.getChatroom(username, friend);
-        for (Integer i : c.getMessagePositions()) {
-            if (!c.isRead(username, i)) {
-                unread++;
-            }
-        }
-        return unread;
+        return c.getUnread(username);
     }
 
     /**

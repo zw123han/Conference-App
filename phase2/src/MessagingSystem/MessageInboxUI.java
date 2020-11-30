@@ -34,6 +34,7 @@ public class MessageInboxUI implements MessageUI {
             recipient = recipient.replace("@", "");
             if (ic.canViewChat(recipient)) {
                 chatViewer(recipient);
+                ic.markAllRead(recipient);
             } else {
                 System.out.println(ip.invalidCommand("username"));
             }
@@ -61,7 +62,7 @@ public class MessageInboxUI implements MessageUI {
             if (e.equals("1")){
                 promptDelete(recipient);
                 System.out.println(ip.chatView(recipient));
-            }else if (e.equals("2") && ic.canReply(recipient)){
+            } else if (e.equals("2") && ic.canReply(recipient)){
                 promptMessage(recipient);
                 System.out.println(ip.chatView(recipient));
             }

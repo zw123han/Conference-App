@@ -99,5 +99,13 @@ public class MessageInboxController implements MessageControllerInterface {
         cm.sendOne(recipients, message, username);
     }
 
+    public void markAllRead(String recipient) {
+        Chatroom c = cm.getChatroom(username, recipient);
+        for (Integer i : c.getMessagePositions()) {
+            if (!c.isRead(username, i)) {
+                c.read(i);
+            }
+        }
+    }
 
 }
