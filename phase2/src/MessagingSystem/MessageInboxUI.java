@@ -16,9 +16,9 @@ public class MessageInboxUI implements MessageUI {
      * Initiates a new InboxController
      *
      * @param ip        InboxPresenter
-     * @param mo        MessageOutboxUI
+     * @param ic        InboxController
      */
-    public MessageInboxUI(MessageInboxPresenter ip, MessageInboxController ic, MessageOutboxUI mo) {
+    public MessageInboxUI(MessageInboxPresenter ip, MessageInboxController ic) {
         this.ip = ip;
         this.ic = ic;
     }

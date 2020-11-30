@@ -17,6 +17,7 @@ public class MessageOutboxUI implements MessageUI{
     /**
      * initializes a new OutboxController.
      *
+     * @param oc        OutboxController
      * @param op        OutboxPresenter
      */
     public MessageOutboxUI(MessageOutboxController oc, MessageOutboxPresenter op) {
@@ -144,15 +145,15 @@ public class MessageOutboxUI implements MessageUI{
     /**
      * Prompts and processes a user's request to send a message to a user.
      *
-     * @param destination     the username of the target user; target user must be a friend of the sender
+     * @param recipient     the username of the target user; target user must be a friend of the sender
      */
-    public void promptMessage(String destination) {
+    public void promptMessage(String recipient) {
         System.out.println(op.commandPrompt("message (requires at least 1 character)"));
         String message = sc.nextLine();
         while (!message.equals("$q")) {
             if (oc.validateMessage(message)) {
-                oc.sendMessage(destination, message);
-                System.out.println(op.success(destination));
+                oc.sendMessage(recipient, message);
+                System.out.println(op.success(recipient));
                 message = "$q";
             } else {
                 System.out.println(op.invalidCommand("message"));

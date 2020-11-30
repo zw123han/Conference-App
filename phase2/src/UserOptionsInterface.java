@@ -424,7 +424,7 @@ public class UserOptionsInterface {
 
         MessageInboxPresenter inboxPresenter = new MessageInboxPresenter(reg, username, cm);
         MessageInboxController inboxController = new MessageInboxController(reg, username, cm);
-        MessageInboxUI inboxUI = new MessageInboxUI(inboxPresenter, inboxController, outboxUI);
+        MessageInboxUI inboxUI = new MessageInboxUI(inboxPresenter, inboxController);
 
         System.out.println(cmp.menuDisplay());
         System.out.println(cmp.commandPrompt("prompt"));

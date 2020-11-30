@@ -68,7 +68,7 @@ public class MessageInboxController implements MessageControllerInterface {
         cm.deleteMessage(username, recipient, key);
     }
 
-    private ArrayList<String> getUsersTalkto() {
+    private ArrayList<String> getUsersTalkTo() {
         ArrayList<String> users = new ArrayList<>();
         HashMap<ArrayList<String>, Chatroom> cms = cm.getAllChatrooms(username);
         for (ArrayList<String> key : cms.keySet()) {
@@ -84,7 +84,7 @@ public class MessageInboxController implements MessageControllerInterface {
     }
 
     public boolean canViewChat(String recipient) {
-        ArrayList<String> friends = getUsersTalkto();
+        ArrayList<String> friends = getUsersTalkTo();
         return friends.contains(recipient);
     }
 
