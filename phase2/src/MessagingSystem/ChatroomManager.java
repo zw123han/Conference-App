@@ -76,13 +76,13 @@ public class ChatroomManager implements Serializable {
         chatrooms.put(usernames, new Chatroom());
     }
 
-    public void deleteChatroom(ArrayList<String> usernames){
+    private void deleteChatroom(ArrayList<String> usernames){
         chatrooms.remove(usernames);
     }
 
-    public void deleteMessage(String username, String recipient, int key){
+    public void deleteMessage(String username, String recipient, int index){
         Chatroom chatroom = getChatroom(username, recipient);
-        chatroom.deleteMessage(key);
+        chatroom.deleteMessage(index);
         if(chatroom.getSize() == 0){
             ArrayList usernames = new ArrayList<String>();
             usernames.add(username);
@@ -91,7 +91,6 @@ public class ChatroomManager implements Serializable {
             deleteChatroom(usernames);
         }
     }
-
 
     /**
      * Method for sending a message to a specific chatroom.

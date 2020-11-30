@@ -130,6 +130,10 @@ public class Chatroom implements Serializable {
         return unread;
     }
 
+    public boolean isPinned(int index){
+        return history.get(index).isPinned();
+    }
+
     /**
      * Method for getting all pinned messages in the Chatroom.
      *

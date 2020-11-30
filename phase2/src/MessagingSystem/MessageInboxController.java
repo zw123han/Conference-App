@@ -68,6 +68,16 @@ public class MessageInboxController implements MessageControllerInterface {
         cm.deleteMessage(username, recipient, key);
     }
 
+    public void pinUnpinMessage(String recipient, String choice){
+        Integer key = Integer.parseInt(choice);
+        Chatroom chatroom = cm.getChatroom(username, recipient);
+        if(chatroom.isPinned(key)){
+            chatroom.unpin(key);
+        }else{
+            chatroom.pin(key);
+        }
+    }
+
     private ArrayList<String> getUsersTalkTo() {
         ArrayList<String> users = new ArrayList<>();
         HashMap<ArrayList<String>, Chatroom> cms = cm.getAllChatrooms(username);

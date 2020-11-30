@@ -108,16 +108,16 @@ public class MessageInboxPresenter extends CommandPresenter {
         return sbm.toString();
     }
 
-    public String whichMessage(){
-        return "Type the number above the message you want to delete.";
+    public String whichMessage(String option){
+        return "Type the number above the message you want to " + option +".";
     }
 
     /**
-     * Displays text for asking if user wants to delete a message
+     * Displays text for message menu.
      */
 
     public String messageMenu() {
-        return "1) Delete messages\n2) Pin message\n3)View pinned";
+        return "1) Delete messages\n2) Pin message\n3) View pinned";
     }
 
     /**

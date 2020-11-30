@@ -53,7 +53,7 @@ public class MessageInboxUI implements MessageUI {
         System.out.println(ip.chatView(recipient));
         String e = "";
         while (!e.equals("$q")) {
-            System.out.println(ip.deleteMessage());
+            System.out.println(ip.messageMenu());
             if (ic.canReply(recipient)) {
                 System.out.println(ip.replyMessage());
             }
@@ -62,7 +62,11 @@ public class MessageInboxUI implements MessageUI {
             if (e.equals("1")){
                 promptDelete(recipient);
                 System.out.println(ip.chatView(recipient));
-            } else if (e.equals("2") && ic.canReply(recipient)){
+            } else if (e.equals("2")){
+
+            } else if (e.equals("3")){
+
+            }else if (e.equals("4") && ic.canReply(recipient)){
                 promptMessage(recipient);
                 System.out.println(ip.chatView(recipient));
             }
@@ -75,7 +79,7 @@ public class MessageInboxUI implements MessageUI {
      * @param recipient     username of a user that the logged in user has chatted with
      */
     public void promptDelete(String recipient){
-        System.out.println(ip.whichMessage());
+        System.out.println(ip.whichMessage("delete"));
         String re = sc.nextLine();
         while (!re.equals("$q")){
             if(re.matches("[0-9]+") && ic.canDelete(recipient, re)){
@@ -84,7 +88,22 @@ public class MessageInboxUI implements MessageUI {
             }else{
                 System.out.println(ip.invalidCommand("number"));
             }
-            System.out.println(ip.whichMessage());
+            System.out.println(ip.whichMessage("delete"));
+            re = sc.nextLine();
+        }
+    }
+
+    public void promptPin(String recipient){
+        System.out.println(ip.whichMessage("pin/unpin"));
+        String re = sc.nextLine();
+        while (!re.equals("$q")){
+            if(re.matches("[0-9]+")){
+                ic.pinUnpinMessage(recipient, re);
+                break;
+            }else{
+                System.out.println(ip.invalidCommand("number"));
+            }
+            System.out.println(ip.whichMessage("pin/unpin"));
             re = sc.nextLine();
         }
     }
