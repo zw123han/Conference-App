@@ -1,8 +1,5 @@
 package MessagingSystem;
 
-import UserSystem.*;
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.Scanner;
 
 /**
@@ -10,11 +7,10 @@ import java.util.Scanner;
  *
  * @author Chrisee, Elliot
  */
-public class MessageInboxUI {
+public class MessageInboxUI implements MessageUI {
     private MessageInboxController ic;
     private MessageInboxPresenter ip;
     private Scanner sc = new Scanner(System.in);
-    private MessageOutboxUI mo;
 
     /**
      * Initiates a new InboxController
@@ -24,7 +20,6 @@ public class MessageInboxUI {
      */
     public MessageInboxUI(MessageInboxPresenter ip, MessageInboxController ic, MessageOutboxUI mo) {
         this.ip = ip;
-        this.mo = mo;
         this.ic = ic;
     }
 
@@ -67,7 +62,7 @@ public class MessageInboxUI {
                 promptDelete(recipient);
                 System.out.println(ip.chatView(recipient));
             }else if (e.equals("2") && ic.canReply(recipient)){
-                promptReply(recipient);
+                promptMessage(recipient);
                 System.out.println(ip.chatView(recipient));
             }
         }
@@ -98,7 +93,19 @@ public class MessageInboxUI {
      *
      * @param recipient     username of a user that the logged in user has chatted with
      */
-    public void promptReply(String recipient) {
-        mo.promptMessage(recipient);
+    public void promptMessage(String recipient) {
+        System.out.println(ip.commandPrompt("message (requires at least 1 character)"));
+        String message = sc.nextLine();
+        while (!message.equals("$q")) {
+            if (ic.validateMessage(message)) {
+                ic.sendMessage(recipient, message);
+                System.out.println(ip.success(recipient));
+                message = "$q";
+            } else {
+                System.out.println(ip.invalidCommand("message"));
+                System.out.println(ip.commandPrompt("message (requires at least 1 character)"));
+                message = sc.nextLine();
+            }
+        }
     }
 }

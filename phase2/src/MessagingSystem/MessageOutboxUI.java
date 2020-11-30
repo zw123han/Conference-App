@@ -9,7 +9,7 @@ import java.util.*;
  *
  * @author  Chrisee Zhu
  */
-public class MessageOutboxUI {
+public class MessageOutboxUI implements MessageUI{
     private MessageOutboxController oc;
     private MessageOutboxPresenter op;
     private Scanner sc = new Scanner(System.in);
