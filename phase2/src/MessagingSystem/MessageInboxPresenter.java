@@ -35,6 +35,17 @@ public class MessageInboxPresenter extends CommandPresenter {
         return users;
     }
 
+    private Integer getNumUnread(String friend) {
+        Integer unread = 0;
+        Chatroom c = cm.getChatroom(username, friend);
+        for (Integer i : c.getMessagePositions()) {
+            if (c.isRead(username, i)) {
+                unread++;
+            }
+        }
+        return unread;
+    }
+
     /**
      * Displays a series of users with whom the logged in user has chatted.
      *
@@ -43,7 +54,7 @@ public class MessageInboxPresenter extends CommandPresenter {
         ArrayList<String> friends = getUsersTalkto();
         String result = "\nCHAT HISTORY:\n------------------------";
         for (String friend : friends) {
-            result += "\n" + reg.getNameByUsername(friend) + " (@" + friend + ")";
+            result += "\n[" + getNumUnread(friend) + " Unread] " + reg.getNameByUsername(friend) + " (@" + friend + ")";
         }
         if (friends.isEmpty()) {
             return result + "\nYou can't chat with any users.\n";
