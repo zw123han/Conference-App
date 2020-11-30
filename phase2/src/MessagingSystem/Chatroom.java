@@ -89,4 +89,13 @@ public class Chatroom implements Serializable {
         return history.size();
     }
 
+    public boolean getRead(Integer position) {
+        return history.get(position).getRead();
+    }
+
+    public void setRead(Integer position, boolean setter) {
+        history.get(position).setRead(setter);
+    }
+
+
 }

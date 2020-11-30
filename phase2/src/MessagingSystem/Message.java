@@ -12,7 +12,7 @@ import java.io.Serializable;
 public class Message implements Serializable {
     private String message, sender;
     private ZonedDateTime time = ZonedDateTime.now();
-    //private long id;  //should we use a message id field?
+    private boolean read = false;
 
     /**
      * Initializes a new Message
@@ -51,5 +51,13 @@ public class Message implements Serializable {
     public String getDate() {
         DateTimeFormatter d = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
         return time.toLocalDateTime().format(d);
+    }
+
+    public boolean getRead() {
+        return read;
+    }
+
+    public void setRead(boolean setter) {
+        read = setter;
     }
 }
