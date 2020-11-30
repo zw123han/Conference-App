@@ -115,7 +115,8 @@ public class MessageInboxPresenter extends CommandPresenter {
     /**
      * Displays text for asking if user wants to delete a message
      */
-    public String deleteMessage() {
+
+    public String messageMenu() {
         return "1) Delete messages\n2) Pin message\n3)View pinned";
     }
 
