@@ -39,7 +39,7 @@ public class MessageInboxPresenter extends CommandPresenter {
         Integer unread = 0;
         Chatroom c = cm.getChatroom(username, friend);
         for (Integer i : c.getMessagePositions()) {
-            if (c.isRead(username, i)) {
+            if (!c.isRead(username, i)) {
                 unread++;
             }
         }
@@ -73,6 +73,9 @@ public class MessageInboxPresenter extends CommandPresenter {
         for (Integer m : history) {
             String sender = c.getSender(m);
             result += "\n(" + m + ")";
+            if (!c.isRead(username, m)) {
+                result += " *";
+            }
             result += ("\nFrom: " + reg.getNameByUsername(sender) + " (@" + sender + ")");
             result += ("\nSent: " + c.getDate(m));
             result += ("\n" + messageFormatter(c.getMessage(m)) + "\n");
