@@ -62,9 +62,20 @@ public class MessageInboxPresenter extends CommandPresenter {
      */
     public String chatView(String recipient) {
         Chatroom c = cm.getChatroom(username, recipient);
-        String result = "";
         ArrayList<Integer> history = c.getMessagePositions();
-        for (Integer m : history) {
+        return chatroomFormatter(history, c);
+    }
+
+    public String viewPinned(String recipient) {
+        Chatroom c = cm.getChatroom(username, recipient);
+        ArrayList<Integer> pinned = c.getPinned();
+        String result = "\nPINNED MESSAGES:\n------------------------";
+        return result + chatroomFormatter(pinned, c);
+    }
+
+    private String chatroomFormatter(ArrayList<Integer> positions, Chatroom c) {
+        String result = "";
+        for (Integer m : positions) {
             String sender = c.getSender(m);
             result += "\n(" + m + ")";
             if (!c.isRead(username, m)) {
@@ -105,13 +116,13 @@ public class MessageInboxPresenter extends CommandPresenter {
      * Displays text for asking if user wants to delete a message
      */
     public String deleteMessage() {
-        return "1) Delete messages";
+        return "1) Delete messages\n2) Pin message\n3)View pinned";
     }
 
     /**
      * Displays text for when a user can reply to a message
      */
     public String replyMessage() {
-        return "2) Reply to messages";
+        return "4) Reply to messages";
     }
 }

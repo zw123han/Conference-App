@@ -135,13 +135,22 @@ public class Chatroom implements Serializable {
      *
      * @return           HashMap of all pinned messages and their indices
      */
-    public HashMap<Integer, Message> getPinned(){
-        HashMap<Integer, Message> pinned = new HashMap<>();
+    public ArrayList<Integer> getPinned(){
+        ArrayList<Integer> pinned = new ArrayList<>();
         for(int i = 0; i < history.size(); i++){
             if(history.get(i).isPinned()){
-                pinned.put(i, history.get(i));
+                pinned.add(i);
             }
         }
         return pinned;
     }
+
+    public void pin(Integer position) {
+        history.get(position).setPinned(true);
+    }
+
+    public void unpin(Integer position) {
+        history.get(position).setPinned(false);
+    }
+
 }
