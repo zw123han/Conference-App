@@ -111,6 +111,11 @@ public class MessageOutboxController implements MessageControllerInterface {
         cm.sendOne(recipients, message, username);
     }
 
+    private String formatSendAll(String message, Long evt) {
+        return "Notice for the event " + em.getName(evt) + " in room " + em.getRoom(evt) +
+                ", " + em.getTime(evt) + "\n" + message;
+    }
+
     /**
      * Sends message to all attendees in an event.
      *
@@ -121,7 +126,7 @@ public class MessageOutboxController implements MessageControllerInterface {
     public boolean sendMessage(Long evt, String message) {
         try {
             ArrayList<String> recipients = em.getSignedUpUsers(evt);
-            cm.sendAll(recipients, message, username);
+            cm.sendAll(recipients, formatSendAll(message, evt), username);
             return true;
         } catch (EventNotFoundException e) {
             return false;
