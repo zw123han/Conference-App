@@ -29,7 +29,7 @@ public abstract class CommandPresenter {
         profane = !profane;
     }
 
-    private String newProfanityBuilder(String match, String profanity) {
+    private String censorProfanityBuilder(String match, String profanity) {
         ArrayList<String> allFiller = new ArrayList<>();
         Pattern pattern = Pattern.compile("[ .]+");
         Matcher matcher = pattern.matcher(profanity);
@@ -40,20 +40,20 @@ public abstract class CommandPresenter {
         return allFiller.get(0) + profanities.get(match) + allFiller.get(allFiller.size()-1);
     }
 
-    private String matchProfanity(String match, String message) {
+    private String censorProfanity(String match, String message) {
         String result = message;
         Pattern pattern = Pattern.compile("[ .]+" + match + "[ .]+");
         Matcher matcher = pattern.matcher(message);
         while (matcher.find()) {
             String profanity = matcher.group();
-            result = message.replaceFirst(profanity, newProfanityBuilder(match, profanity));
+            result = message.replaceFirst(profanity, censorProfanityBuilder(match, profanity));
         }
         return result;
     }
 
     public String profanityFilter(String message) {
         for (String profanity : profanities.keySet()) {
-            message = message.replace(profanity, profanities.get(profanity));
+            message = censorProfanity(profanity, message);
         }
         return message;
     }
