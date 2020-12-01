@@ -76,9 +76,17 @@ public class ConferenceSimulator {
         ChatMenuPresenter chatMenuPresenter = new ChatMenuPresenter();
         FriendsPresenter friendsPresenter = new FriendsPresenter();
 
+        MessageOutboxPresenter outboxPresenter = new MessageOutboxPresenter("", registrar, eventManager);
+        MessageOutboxController outboxController = new MessageOutboxController("", registrar, eventManager, chatroomManager);
+        MessageOutboxUI outboxUI = new MessageOutboxUI(outboxController, outboxPresenter);
+
+        MessageInboxPresenter inboxPresenter = new MessageInboxPresenter(registrar, "", chatroomManager);
+        MessageInboxController inboxController = new MessageInboxController(registrar, "", chatroomManager);
+        MessageInboxUI inboxUI = new MessageInboxUI(inboxPresenter, inboxController);
+
         // Main user UI
         UserOptionsInterface ui = new UserOptionsInterface(loginFacade, eventCreatorPresenter, eventSignupPresenter,
-                chatMenuPresenter, friendsPresenter, eventManager, chatroomManager);
+                chatMenuPresenter, friendsPresenter, outboxUI, inboxUI);
 
 
 

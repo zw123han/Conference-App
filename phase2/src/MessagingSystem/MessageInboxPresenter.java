@@ -24,6 +24,9 @@ public class MessageInboxPresenter extends CommandPresenter {
         this.cm = cm;
     }
 
+    public void setLoggedInUser(String username) {
+        this.username = username;
+    }
 
     private ArrayList<String> getUsersTalkto() {
         ArrayList<String> users = new ArrayList<>();

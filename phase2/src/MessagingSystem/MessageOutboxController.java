@@ -29,6 +29,10 @@ public class MessageOutboxController implements MessageControllerInterface {
         this.cm = cm;
     }
 
+    public void setLoggedInUser(String username) {
+        this.username = username;
+    }
+
     /**
      * Checks if message is valid (Non-empty).
      *

@@ -23,9 +23,14 @@ public class MessageInboxUI implements MessageUI {
         this.ic = ic;
     }
 
-    /**
-     * Prompts the user to choose a chatlog from a list of existing chatlogs by username.
-     */
+    public void setLoggedInUser(String username) {
+        ip.setLoggedInUser(username);
+        ic.setLoggedInUser(username);
+    }
+
+        /**
+         * Prompts the user to choose a chatlog from a list of existing chatlogs by username.
+         */
     public void promptChatChoice() {
         System.out.println(ip.menuDisplay());
         System.out.println(ip.commandPrompt("username"));

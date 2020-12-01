@@ -21,6 +21,10 @@ public class MessageOutboxPresenter extends CommandPresenter {
         this.em = em;
     }
 
+    public void setLoggedInUser(String username) {
+        this.username = username;
+    }
+
     /**
      * Displays message composition options by target.
      */
