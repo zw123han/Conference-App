@@ -14,7 +14,6 @@ public class MessageInboxPresenter extends CommandPresenter {
     private Registrar reg;
     private String username;
     private ChatroomManager cm;
-    private boolean profanityFilter = true;
     private HashMap<String, String> profanities;
 
 
@@ -120,10 +119,7 @@ public class MessageInboxPresenter extends CommandPresenter {
      * @param message       String of message to be formatted
      */
     public String messageFormatter(String message) {
-        StringBuilder sbm = new StringBuilder(message);
-        if (profanityFilter) {
-            sbm = new StringBuilder(filterProfanity(message));
-        }
+        StringBuilder sbm = new StringBuilder(filterProfanity(message));
         int i = 0;
         while (i + 80 < sbm.length()) {
             int firstSpace = sbm.indexOf(" ", i + 80);
@@ -133,10 +129,6 @@ public class MessageInboxPresenter extends CommandPresenter {
             i += 80;
         }
         return sbm.toString();
-    }
-
-    public void changeProfanity(boolean setter) {
-        profanityFilter = !profanityFilter;
     }
 
     private String censorProfanityBuilder(String match, String profanity) {
