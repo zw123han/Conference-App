@@ -25,6 +25,11 @@ public class MessageOutboxUI implements MessageUI{
         this.oc = oc;
     }
 
+    public void setLoggedInUser(String currentUser) {
+        op.setLoggedInUser(currentUser);
+        oc.setLoggedInUser(currentUser);
+    }
+
     /**
      * Prompts and processes a user's request for message composition options by target.
      */

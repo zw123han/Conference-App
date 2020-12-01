@@ -22,7 +22,9 @@ public class ConferenceSimulator {
 
     ReadChat readChat;
     StoreChat storeChat;
+    ReadProfanityList readProfanities;
     ChatroomManager chatroomManager;
+    HashMap<String, String> profanities;
 
     /**
      *  Constructor for Conference simulator. Creates gateways and necessary use cases to store data.
@@ -31,6 +33,7 @@ public class ConferenceSimulator {
         String userFilepath = "phase2/src/UserSystem/userData.ser";
         String eventFilepath = "phase2/src/EventSystem/eventData.ser";
         String chatFilepath = "phase2/src/MessagingSystem/chatlog.ser";
+        String profanityListFilepath = "phase2/src/MessagingSystem/profanityList.csv";
 
         readEvents = new ReadEvents(eventFilepath);
         readUsers = new ReadUsers(userFilepath);
@@ -42,7 +45,9 @@ public class ConferenceSimulator {
 
         readChat = new ReadChat(chatFilepath);
         storeChat = new StoreChat(chatFilepath);
+        readProfanities = new ReadProfanityList(profanityListFilepath);
         chatroomManager = readChat.readChatlog();
+        profanities = readProfanities.getProfanityList();
     }
 
     /**
@@ -76,9 +81,17 @@ public class ConferenceSimulator {
         ChatMenuPresenter chatMenuPresenter = new ChatMenuPresenter();
         FriendsPresenter friendsPresenter = new FriendsPresenter();
 
+        MessageOutboxPresenter outboxPresenter = new MessageOutboxPresenter("", registrar, eventManager);
+        MessageOutboxController outboxController = new MessageOutboxController("", registrar, eventManager, chatroomManager);
+        MessageOutboxUI outboxUI = new MessageOutboxUI(outboxController, outboxPresenter);
+
+        MessageInboxPresenter inboxPresenter = new MessageInboxPresenter(registrar, "", chatroomManager, profanities);
+        MessageInboxController inboxController = new MessageInboxController(registrar, "", chatroomManager);
+        MessageInboxUI inboxUI = new MessageInboxUI(inboxPresenter, inboxController);
+
         // Main user UI
         UserOptionsInterface ui = new UserOptionsInterface(loginFacade, eventCreatorPresenter, eventSignupPresenter,
-                chatMenuPresenter, friendsPresenter, eventManager, chatroomManager);
+                chatMenuPresenter, friendsPresenter, outboxUI, inboxUI);
 
 
 

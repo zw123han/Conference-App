@@ -9,58 +9,6 @@ import java.util.regex.*;
  * @author Elliot, Chrisee
  */
 public abstract class CommandPresenter {
-    private boolean profanityFilter = true;
-    private HashMap<String, String> profanities;
-
-    // NOTE: keys of hashmap should be Regex! For example:
-    // "fuck" = "(?i)f *u *c *k" to ignore case and whitespace
-    // Use parseProfanity to do the conversion automatically when initializing profanities.
-    private String parseProfanity(String profanity) {
-        StringBuilder result = new StringBuilder("(?i)");
-        String[] bad = profanity.split("");
-        for (String letter : bad) {
-            result.append(letter)
-                    .append(" *");
-        }
-        return result.substring(0, result.length()-2);
-    }
-
-    public void changeProfanity(boolean setter) {
-        profanityFilter = !profanityFilter;
-    }
-
-    private String censorProfanityBuilder(String match, String profanity) {
-        ArrayList<String> allFiller = new ArrayList<>();
-        Pattern pattern = Pattern.compile("[ .]+");
-        Matcher matcher = pattern.matcher(profanity);
-        while (matcher.find()) {
-            String filler = matcher.group();
-            allFiller.add(filler);
-        }
-        String replacement = profanities.get(match);
-        if (allFiller.get(0).contains(".")) {
-            replacement = replacement.substring(0, 1).toUpperCase() + replacement.substring(1);
-        }
-        return allFiller.get(0) + replacement + allFiller.get(allFiller.size()-1);
-    }
-
-    private String censorProfanity(String match, String message) {
-        String result = message;
-        Pattern pattern = Pattern.compile("[ .]+" + match + "[ .]+");
-        Matcher matcher = pattern.matcher(message);
-        while (matcher.find()) {
-            String profanity = matcher.group();
-            result = message.replaceFirst(profanity, censorProfanityBuilder(match, profanity));
-        }
-        return result;
-    }
-
-    public String filterProfanity(String message) {
-        for (String profanity : profanities.keySet()) {
-            message = censorProfanity(profanity, message);
-        }
-        return message;
-    }
 
     /**
      * Displays an exit command tip.

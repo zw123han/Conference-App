@@ -2,6 +2,8 @@ package MessagingSystem;
 
 import UserSystem.*;
 import java.util.*;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /**
  * Contains the text display for viewing chat history and replying to messages.
@@ -12,14 +14,19 @@ public class MessageInboxPresenter extends CommandPresenter {
     private Registrar reg;
     private String username;
     private ChatroomManager cm;
-    private boolean profanity = true;
+    private HashMap<String, String> profanities;
 
-    public MessageInboxPresenter(Registrar reg, String username, ChatroomManager cm) {
+
+    public MessageInboxPresenter(Registrar reg, String username, ChatroomManager cm, HashMap<String, String> profanities) {
         this.reg = reg;
         this.username = username;
         this.cm = cm;
+        this.profanities = profanities;
     }
 
+    public void setLoggedInUser(String currentUser) {
+        username = currentUser;
+    }
 
     private ArrayList<String> getUsersTalkto() {
         ArrayList<String> users = new ArrayList<>();
@@ -112,10 +119,7 @@ public class MessageInboxPresenter extends CommandPresenter {
      * @param message       String of message to be formatted
      */
     public String messageFormatter(String message) {
-        StringBuilder sbm = new StringBuilder(message);
-        if (profanity) {
-            sbm = new StringBuilder(filterProfanity(message));
-        }
+        StringBuilder sbm = new StringBuilder(filterProfanity(message));
         int i = 0;
         while (i + 80 < sbm.length()) {
             int firstSpace = sbm.indexOf(" ", i + 80);
@@ -127,6 +131,40 @@ public class MessageInboxPresenter extends CommandPresenter {
         return sbm.toString();
     }
 
+    private String censorProfanityBuilder(String match, String profanity) {
+        ArrayList<String> allFiller = new ArrayList<>();
+        Pattern pattern = Pattern.compile("[ .]+");
+        Matcher matcher = pattern.matcher(profanity);
+        while (matcher.find()) {
+            String filler = matcher.group();
+            allFiller.add(filler);
+        }
+        String replacement = profanities.get(match);
+        String firstChar = profanity.substring(allFiller.get(0).length(), allFiller.get(0).length()+1);
+        if (firstChar.equals(firstChar.toUpperCase())) {
+            replacement = replacement.substring(0, 1).toUpperCase() + replacement.substring(1);
+        }
+        return allFiller.get(0) + replacement + allFiller.get(allFiller.size()-1);
+    }
+
+    private String censorProfanity(String match, String message) {
+        String result = message;
+        Pattern pattern = Pattern.compile("[ .]+" + match + "[ .]+");
+        Matcher matcher = pattern.matcher(message);
+        while (matcher.find()) {
+            String profanity = matcher.group();
+            result = message.replaceFirst(profanity, censorProfanityBuilder(match, profanity));
+        }
+        return result;
+    }
+
+    private String filterProfanity(String message) {
+        for (String profanity : profanities.keySet()) {
+            message = censorProfanity(profanity, message);
+        }
+        return message;
+    }
+
     public String whichMessage(String option){
         return "Type the number above the message you want to " + option +".";
     }
@@ -136,7 +174,7 @@ public class MessageInboxPresenter extends CommandPresenter {
      */
 
     public String messageMenu() {
-        return "1) Delete messages\n2) Pin message\n3) View pinned";
+        return "1) Delete messages\n2) Pin/Unpin message\n3) View pinned";
     }
 
     /**
