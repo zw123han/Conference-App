@@ -37,7 +37,11 @@ public abstract class CommandPresenter {
             String filler = matcher.group();
             allFiller.add(filler);
         }
-        return allFiller.get(0) + profanities.get(match) + allFiller.get(allFiller.size()-1);
+        String replacement = profanities.get(match);
+        if (allFiller.get(0).contains(".")) {
+            replacement = replacement.substring(0, 1).toUpperCase() + replacement.substring(1);
+        }
+        return allFiller.get(0) + replacement + allFiller.get(allFiller.size()-1);
     }
 
     private String censorProfanity(String match, String message) {
@@ -51,7 +55,7 @@ public abstract class CommandPresenter {
         return result;
     }
 
-    public String profanityFilter(String message) {
+    public String filterProfanity(String message) {
         for (String profanity : profanities.keySet()) {
             message = censorProfanity(profanity, message);
         }

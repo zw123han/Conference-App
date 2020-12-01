@@ -114,7 +114,7 @@ public class MessageInboxPresenter extends CommandPresenter {
     public String messageFormatter(String message) {
         StringBuilder sbm = new StringBuilder(message);
         if (profanity) {
-            sbm = new StringBuilder(profanityFilter(message));
+            sbm = new StringBuilder(filterProfanity(message));
         }
         int i = 0;
         while (i + 80 < sbm.length()) {
