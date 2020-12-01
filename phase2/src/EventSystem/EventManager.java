@@ -1,5 +1,6 @@
 package EventSystem;
 
+import Gateway.*;
 import UserSystem.Registrar;
 import UserSystem.Speaker;
 import UserSystem.User;
@@ -14,7 +15,7 @@ import java.util.HashMap;
  *
  * @author Andy, Nithilan
  */
-public class EventManager implements Serializable {
+public class EventManager implements Serializable, Savable {
 
     private HashMap<Long, Event> events;
 
@@ -36,6 +37,21 @@ public class EventManager implements Serializable {
      */
     public EventManager() {
         this.events = new HashMap<Long, Event>();
+    }
+
+    @Override
+    public String getCollectionName() {
+        return "events";
+    }
+
+    @Override
+    public ConversionStrategy getConversionStrategy() {
+        return new EventManagerConverter();
+    }
+
+    @Override
+    public ParserStrategy getDocumentParserStrategy() {
+        return new ParseToEventManager();
     }
 
     /**
