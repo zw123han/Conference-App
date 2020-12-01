@@ -9,7 +9,7 @@ import java.util.regex.*;
  * @author Elliot, Chrisee
  */
 public abstract class CommandPresenter {
-    private boolean profane = false;
+    private boolean profanityFilter = true;
     private HashMap<String, String> profanities;
 
     // NOTE: keys of hashmap should be Regex! For example:
@@ -26,7 +26,7 @@ public abstract class CommandPresenter {
     }
 
     public void changeProfanity(boolean setter) {
-        profane = !profane;
+        profanityFilter = !profanityFilter;
     }
 
     private String censorProfanityBuilder(String match, String profanity) {
