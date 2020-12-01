@@ -18,10 +18,11 @@ public class MessageInboxPresenter extends CommandPresenter {
     private HashMap<String, String> profanities;
 
 
-    public MessageInboxPresenter(Registrar reg, String username, ChatroomManager cm) {
+    public MessageInboxPresenter(Registrar reg, String username, ChatroomManager cm, HashMap<String, String> profanities) {
         this.reg = reg;
         this.username = username;
         this.cm = cm;
+        this.profanities = profanities;
     }
 
     public void setLoggedInUser(String username) {
@@ -134,19 +135,6 @@ public class MessageInboxPresenter extends CommandPresenter {
         return sbm.toString();
     }
 
-    // NOTE: keys of hashmap should be Regex! For example:
-    // "fuck" = "(?i)f *u *c *k" to ignore case and whitespace
-    // Use parseProfanity to do the conversion automatically when initializing profanities.
-    private String parseProfanity(String profanity) {
-        StringBuilder result = new StringBuilder("(?i)");
-        String[] bad = profanity.split("");
-        for (String letter : bad) {
-            result.append(letter)
-                    .append(" *");
-        }
-        return result.substring(0, result.length()-2);
-    }
-
     public void changeProfanity(boolean setter) {
         profanityFilter = !profanityFilter;
     }
@@ -193,7 +181,7 @@ public class MessageInboxPresenter extends CommandPresenter {
      */
 
     public String messageMenu() {
-        return "1) Delete messages\n2) Pin message\n3) View pinned";
+        return "1) Delete messages\n2) Pin/Unpin message\n3) View pinned";
     }
 
     /**
