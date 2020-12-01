@@ -25,8 +25,8 @@ public class MessageInboxPresenter extends CommandPresenter {
         this.profanities = profanities;
     }
 
-    public void setLoggedInUser(String username) {
-        this.username = username;
+    public void setLoggedInUser(String currentUser) {
+        username = currentUser;
     }
 
     private ArrayList<String> getUsersTalkto() {

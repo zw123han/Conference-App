@@ -25,9 +25,9 @@ public class MessageOutboxUI implements MessageUI{
         this.oc = oc;
     }
 
-    public void setLoggedInUser(String username) {
-        op.setLoggedInUser(username);
-        oc.setLoggedInUser(username);
+    public void setLoggedInUser(String currentUser) {
+        op.setLoggedInUser(currentUser);
+        oc.setLoggedInUser(currentUser);
     }
 
     /**

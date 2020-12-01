@@ -23,9 +23,9 @@ public class MessageInboxUI implements MessageUI {
         this.ic = ic;
     }
 
-    public void setLoggedInUser(String username) {
-        ip.setLoggedInUser(username);
-        ic.setLoggedInUser(username);
+    public void setLoggedInUser(String currentUser) {
+        ip.setLoggedInUser(currentUser);
+        ic.setLoggedInUser(currentUser);
     }
 
         /**

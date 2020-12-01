@@ -21,8 +21,8 @@ public class MessageOutboxPresenter extends CommandPresenter {
         this.em = em;
     }
 
-    public void setLoggedInUser(String username) {
-        this.username = username;
+    public void setLoggedInUser(String currentUser) {
+        username = currentUser;
     }
 
     /**

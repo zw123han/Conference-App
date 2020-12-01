@@ -27,8 +27,8 @@ public class MessageInboxController implements MessageControllerInterface {
         this.cm = cm;
     }
 
-    public void setLoggedInUser(String username) {
-        this.username = username;
+    public void setLoggedInUser(String currentUser) {
+        username = currentUser;
     }
 
     /**
