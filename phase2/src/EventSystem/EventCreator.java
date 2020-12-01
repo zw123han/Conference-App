@@ -68,7 +68,15 @@ public class EventCreator {
        if ( !this.em.hasEvent(eventId) ){
            throw new EventNotFoundException();
         }
-       this.em.deleteEvent(eventId, this.reg);
+        Event ev = this.em.getEvent(eventId);
+        for(String u: ev.getSignedUpUsers()){
+            this.reg.getUserByUserName(u).removeEvent(eventId);
+        }
+        for (String s: ev.getSpeakerList()) {
+            Speaker speaker = (Speaker) this.reg.getUserByUserName(s);
+            speaker.removeEvent(eventId);
+        }
+        this.em.deleteEvent(eventId, this.reg);
        return true;
     }
 }

@@ -74,15 +74,6 @@ public class EventManager implements Serializable, Savable {
     }
 
     public void deleteEvent(Long eventId, Registrar reg){
-        Event ev = this.events.get(eventId);
-        for(String u: ev.getSignedUpUsers()){
-            reg.getUserByUserName(u).removeEvent(eventId);
-        }
-        for (String s: ev.getSpeakerList()){
-            Speaker speaker = (Speaker) reg.getUserByUserName(s);
-            speaker.removeEvent(eventId);
-            speaker.removeTalk(eventId);
-        }
         this.events.remove(eventId);
     }
 
