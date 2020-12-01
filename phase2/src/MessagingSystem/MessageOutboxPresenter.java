@@ -33,7 +33,7 @@ public class MessageOutboxPresenter extends CommandPresenter {
      *
      */
     public String speakerMenu() {
-        String result = "\nSPEAKERS:\n------------------------";
+        StringBuilder result = new StringBuilder("\nSPEAKERS:\n------------------------");
         ArrayList<Long> events = em.getEventIDs();
         ArrayList<String> speakers = new ArrayList<>();
         for (Long event_id : em.getEventIDs()) {
@@ -44,7 +44,11 @@ public class MessageOutboxPresenter extends CommandPresenter {
             }
         }
         for (String s : speakers) {
-            result += ("\n" + reg.getNameByUsername(s) + " (@" + s + ")");
+            result.append("\n")
+                    .append(reg.getNameByUsername(s))
+                    .append(" (@")
+                    .append(s)
+                    .append(")");
         }
         if (events.isEmpty()) {
             return result + "\nThere are no speakers.\n";
@@ -57,10 +61,14 @@ public class MessageOutboxPresenter extends CommandPresenter {
      *
      */
     public String friendMenu() {
-        String result = "\nFRIENDS:\n------------------------";
+        StringBuilder result = new StringBuilder("\nFRIENDS:\n------------------------");
         ArrayList<String> friends = reg.getUserFriends(username);
         for (String friend : friends) {
-            result += ("\n" + reg.getNameByUsername(friend) + " (@" + friend + ")");
+            result.append("\n")
+                    .append(reg.getNameByUsername(friend))
+                    .append(" (@")
+                    .append(friend)
+                    .append(")");
         }
         if (friends.isEmpty()) {
             return result + "\nYou have no friends.\n";
@@ -73,7 +81,7 @@ public class MessageOutboxPresenter extends CommandPresenter {
      *
      */
     public String eventMenu() {
-        String result = "\nEVENTS:\n------------------------";
+        StringBuilder result = new StringBuilder("\nEVENTS:\n------------------------");
         ArrayList<Long> events = new ArrayList<>();
         if (reg.isAdmin(username) || reg.isOrganizer(username)) {
             events = em.getEventIDs();
@@ -81,14 +89,19 @@ public class MessageOutboxPresenter extends CommandPresenter {
             events = reg.getSpeakerTalks(username);
         }
         for (Long evt_id : events) {
-            result += ("\nName: " + em.getName(evt_id));
-            result += ("\nid: " + evt_id);
-            result += ("\nTime: " + em.getTime(evt_id));
-            result += ("\nRoom: " + em.getRoom(evt_id) + "\n------------------------");
+            result.append("\nName: ")
+                    .append(em.getName(evt_id))
+                    .append("\nid: ")
+                    .append(evt_id)
+                    .append("\nTime: ")
+                    .append(em.getTime(evt_id))
+                    .append("\nRoom: ")
+                    .append(em.getRoom(evt_id))
+                    .append("\n------------------------");
         }
         if (events.isEmpty()) {
             return result + "\nThere are no events.\n";
         }
-        return result;
+        return result.toString();
     }
 }
