@@ -1,6 +1,5 @@
 package MessagingSystem;
 
-import java.lang.reflect.Array;
 import java.util.*;
 import java.io.Serializable;
 
@@ -16,7 +15,7 @@ public class Chatroom implements Serializable {
      * Constructor for Chatroom, creates a new empty ArrayList.
      */
     public Chatroom(){
-        this.history = new ArrayList<Message>();
+        this.history = new ArrayList<>();
     }
 
     /**
@@ -43,7 +42,7 @@ public class Chatroom implements Serializable {
      * @return          ArrayList of indices in history
      */
     public ArrayList<Integer> getMessagePositions() {
-        ArrayList<Integer> positions = new ArrayList<Integer>();
+        ArrayList<Integer> positions = new ArrayList<>();
         for(int i = 0;i < history.size(); i++){
             positions.add(i);
         }
@@ -98,10 +97,7 @@ public class Chatroom implements Serializable {
      * @return           True if the message at index is read, false otherwise
      */
     public boolean isRead(String username, Integer position) {
-        if(!username.equals(history.get(position).getSender()) && !history.get(position).isRead()) {
-            return false;
-        }
-        return true;
+        return username.equals(history.get(position).getSender()) || history.get(position).isRead();
     }
 
     /**
@@ -149,12 +145,8 @@ public class Chatroom implements Serializable {
         return pinned;
     }
 
-    public void pin(Integer position) {
-        history.get(position).setPinned(true);
+    public void pinUnpin(Integer position) {
+        boolean current = history.get(position).isPinned();
+        history.get(position).setPinned(!current);
     }
-
-    public void unpin(Integer position) {
-        history.get(position).setPinned(false);
-    }
-
 }

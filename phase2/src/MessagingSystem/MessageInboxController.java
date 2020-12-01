@@ -55,7 +55,7 @@ public class MessageInboxController implements MessageControllerInterface {
      * @param choice        InboxPresenter
      */
     public boolean canDelete(String recipient, String choice){
-        Integer key = Integer.parseInt(choice);
+        int key = Integer.parseInt(choice);
         Chatroom chatroom = cm.getChatroom(username, recipient);
         if(key < chatroom.getSize()){
             return chatroom.getSender(key).equals(username);
@@ -64,18 +64,14 @@ public class MessageInboxController implements MessageControllerInterface {
     }
 
     public void deleteMessage(String recipient, String choice) {
-        Integer key = Integer.parseInt(choice);
+        int key = Integer.parseInt(choice);
         cm.deleteMessage(username, recipient, key);
     }
 
     public void pinUnpinMessage(String recipient, String choice){
         Integer key = Integer.parseInt(choice);
         Chatroom chatroom = cm.getChatroom(username, recipient);
-        if(chatroom.isPinned(key)){
-            chatroom.unpin(key);
-        }else{
-            chatroom.pin(key);
-        }
+        chatroom.pinUnpin(key);
     }
 
     private ArrayList<String> getUsersTalkTo() {
@@ -112,7 +108,7 @@ public class MessageInboxController implements MessageControllerInterface {
     public void markAllRead(String recipient) {
         Chatroom c = cm.getChatroom(username, recipient);
         for (Integer i : c.getMessagePositions()) {
-            if (!c.isRead(username, i)) {
+            if (c.isRead(username, i)) {
                 c.read(i);
             }
         }

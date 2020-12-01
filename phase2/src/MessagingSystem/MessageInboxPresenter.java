@@ -12,6 +12,7 @@ public class MessageInboxPresenter extends CommandPresenter {
     private Registrar reg;
     private String username;
     private ChatroomManager cm;
+    private boolean profanity = true;
 
     public MessageInboxPresenter(Registrar reg, String username, ChatroomManager cm) {
         this.reg = reg;
@@ -46,9 +47,15 @@ public class MessageInboxPresenter extends CommandPresenter {
      */
     public String menuDisplay() {
         ArrayList<String> friends = getUsersTalkto();
-        String result = "\nCHAT HISTORY:\n------------------------";
+        StringBuilder result = new StringBuilder("\nCHAT HISTORY:\n------------------------");
         for (String friend : friends) {
-            result += "\n[" + getNumUnread(friend) + " Unread] " + reg.getNameByUsername(friend) + " (@" + friend + ")";
+            result.append("\n[")
+                    .append(getNumUnread(friend))
+                    .append(" Unread] ")
+                    .append(reg.getNameByUsername(friend))
+                    .append(" (@")
+                    .append(friend)
+                    .append(")");
         }
         if (friends.isEmpty()) {
             return result + "\nYou can't chat with any users.\n";
@@ -74,18 +81,27 @@ public class MessageInboxPresenter extends CommandPresenter {
     }
 
     private String chatroomFormatter(ArrayList<Integer> positions, Chatroom c) {
-        String result = "";
+        StringBuilder result = new StringBuilder();
         for (Integer m : positions) {
             String sender = c.getSender(m);
-            result += "\n(" + m + ")";
-            if (!c.isRead(username, m)) {
-                result += " *";
+            result.append("\n(")
+                    .append(m)
+                    .append(")");
+            if (c.isRead(username, m)) {
+                result.append(" *");
             }
-            result += ("\nFrom: " + reg.getNameByUsername(sender) + " (@" + sender + ")");
-            result += ("\nSent: " + c.getDate(m));
-            result += ("\n" + messageFormatter(c.getMessage(m)) + "\n");
+            result.append("\nFrom: ")
+                    .append(reg.getNameByUsername(sender))
+                    .append(" (@")
+                    .append(sender)
+                    .append(")")
+                    .append("\nSent: ")
+                    .append(c.getDate(m))
+                    .append("\n")
+                    .append(messageFormatter(c.getMessage(m)))
+                    .append("\n");
         }
-        return result;
+        return result.toString();
     }
 
     /**
@@ -97,6 +113,9 @@ public class MessageInboxPresenter extends CommandPresenter {
      */
     public String messageFormatter(String message) {
         StringBuilder sbm = new StringBuilder(message);
+        if (profanity) {
+            sbm = new StringBuilder(profanityFilter(message));
+        }
         int i = 0;
         while (i + 80 < sbm.length()) {
             int firstSpace = sbm.indexOf(" ", i + 80);
