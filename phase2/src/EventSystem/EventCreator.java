@@ -76,7 +76,7 @@ public class EventCreator {
             Speaker speaker = (Speaker) this.reg.getUserByUserName(s);
             speaker.removeEvent(eventId);
         }
-        this.em.deleteEvent(eventId, this.reg);
+        this.em.deleteEvent(eventId);
        return true;
     }
 }

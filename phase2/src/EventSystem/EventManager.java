@@ -73,7 +73,7 @@ public class EventManager implements Serializable, Savable {
         }
     }
 
-    public void deleteEvent(Long eventId, Registrar reg){
+    public void deleteEvent(Long eventId){
         this.events.remove(eventId);
     }
 
