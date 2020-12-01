@@ -148,7 +148,8 @@ public class MessageInboxPresenter extends CommandPresenter {
             allFiller.add(filler);
         }
         String replacement = profanities.get(match);
-        if (allFiller.get(0).contains(".")) {
+        String firstChar = profanity.substring(allFiller.get(0).length(), allFiller.get(0).length()+1);
+        if (firstChar.equals(firstChar.toUpperCase())) {
             replacement = replacement.substring(0, 1).toUpperCase() + replacement.substring(1);
         }
         return allFiller.get(0) + replacement + allFiller.get(allFiller.size()-1);
