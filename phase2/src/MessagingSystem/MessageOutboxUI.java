@@ -25,6 +25,11 @@ public class MessageOutboxUI implements MessageUI{
         this.oc = oc;
     }
 
+    /**
+     * Sets username to that of the currently logged in user.
+     *
+     * @param currentUser       username of the current user
+     */
     public void setLoggedInUser(String currentUser) {
         op.setLoggedInUser(currentUser);
         oc.setLoggedInUser(currentUser);
@@ -128,9 +133,7 @@ public class MessageOutboxUI implements MessageUI{
         String evt = sc.nextLine();
         while (!evt.equals("$q")) {
             if (evt.equals("*")) {
-                if (oc.canSendAllEvents()) {
-                    promptEventMessage(oc.getAllEventIDs());
-                }
+                promptEventMessage(oc.getAllEventIDs());
             } else if (evt.replace(" ", "").matches("^[0-9]+$")) {
                 ArrayList<Long> event_ids = convertLong(evt);
                 if (oc.canSendEvents(event_ids)) {

@@ -29,6 +29,11 @@ public class MessageOutboxController implements MessageControllerInterface {
         this.cm = cm;
     }
 
+    /**
+     * Sets username to that of the currently logged in user.
+     *
+     * @param currentUser       username of the current user
+     */
     public void setLoggedInUser(String currentUser) {
         username = currentUser;
     }
@@ -133,15 +138,25 @@ public class MessageOutboxController implements MessageControllerInterface {
         }
     }
 
-    public boolean canSendAllEvents() {
-        ArrayList<Long> event_ids = em.getEventIDs();
-        return canSendEvents(event_ids);
-    }
-
+    /**
+     * Gets the IDs of the events to which this user can send a message.
+     *
+     * @return   A list of event IDs.
+     */
     public ArrayList<Long> getAllEventIDs() {
-        return em.getEventIDs();
+        if (reg.isOrganizer(username) || reg.isAdmin(username)) {
+            return em.getEventIDs();
+        } else if (reg.isSpeaker(username)) {
+            return reg.getSpeakerTalks(username);
+        }
+        return new ArrayList<>();
     }
 
+    /**
+     * Gets a list of speakers in this conference.
+     *
+     * @return   A list of speaker usernames.
+     */
     public ArrayList<String> getMessageSpeakers() {
         ArrayList<String> s = new ArrayList<>();
         for (Long event_id : em.getEventIDs()) {

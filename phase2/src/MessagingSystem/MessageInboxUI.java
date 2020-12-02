@@ -23,14 +23,20 @@ public class MessageInboxUI implements MessageUI {
         this.ic = ic;
     }
 
+    /**
+     * Sets username to that of the currently logged in user.
+     *
+     * @param currentUser       username of the current user
+     */
+
     public void setLoggedInUser(String currentUser) {
         ip.setLoggedInUser(currentUser);
         ic.setLoggedInUser(currentUser);
     }
 
-        /**
-         * Prompts the user to choose a chatlog from a list of existing chatlogs by username.
-         */
+    /**
+     * Prompts the user to choose a chatlog from a list of existing chatlogs by username.
+     */
     public void promptChatChoice() {
         System.out.println(ip.menuDisplay());
         System.out.println(ip.commandPrompt("username"));

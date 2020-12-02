@@ -12,6 +12,11 @@ import java.io.ObjectOutputStream;
 public class StoreChat {
     private String filepath;
 
+    /**
+     * Initializes a new StoreChat object.
+     *
+     * @param filepath   the filepath of the .ser file
+     */
     public StoreChat(String filepath) {
         this.filepath = filepath;
     }

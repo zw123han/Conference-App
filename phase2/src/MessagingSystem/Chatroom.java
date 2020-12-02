@@ -150,6 +150,11 @@ public class Chatroom implements Serializable {
         return pinned;
     }
 
+    /**
+     * Method for getting all pinned messages in the Chatroom.
+     *
+     * @param position    Index of the message
+     */
     public void pinUnpin(Integer position) {
         boolean current = history.get(position).isPinned();
         history.get(position).setPinned(!current);

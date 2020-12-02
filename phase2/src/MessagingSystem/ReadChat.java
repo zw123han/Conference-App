@@ -12,6 +12,11 @@ import java.io.ObjectInputStream;
 public class ReadChat {
     private String filepath;
 
+    /**
+     * Initializes a new ReadChat object.
+     *
+     * @param filepath      the filepath of the .ser file
+     */
     public ReadChat(String filepath) {
         this.filepath = filepath;
     }

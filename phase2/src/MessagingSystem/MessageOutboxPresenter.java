@@ -21,6 +21,11 @@ public class MessageOutboxPresenter extends CommandPresenter {
         this.em = em;
     }
 
+    /**
+     * Sets username to that of the currently logged in user.
+     *
+     * @param currentUser       username of the current user
+     */
     public void setLoggedInUser(String currentUser) {
         username = currentUser;
     }
@@ -33,8 +38,9 @@ public class MessageOutboxPresenter extends CommandPresenter {
     }
 
     /**
-     * Displays a list of speakers hosting events at this conference, including their name and username.
+     * Formats a list of speakers hosting events at this conference, including their name and username.
      *
+     * @return   text display of a menu of speakers.
      */
     public String speakerMenu() {
         StringBuilder result = new StringBuilder("\nSPEAKERS:\n------------------------");
@@ -61,8 +67,9 @@ public class MessageOutboxPresenter extends CommandPresenter {
     }
 
     /**
-     * Displays a list of friends that this user has, including their name and username.
+     * Formats a list of friends that this user has, including their name and username.
      *
+     * @return   text display of a menu of this user's friends.
      */
     public String friendMenu() {
         StringBuilder result = new StringBuilder("\nFRIENDS:\n------------------------");
@@ -81,8 +88,9 @@ public class MessageOutboxPresenter extends CommandPresenter {
     }
 
      /**
-     * Displays a list of events available at this conference, including their name, IDs, time, and room.
+     * Formats a list of events available at this conference, including their name, IDs, time, and room.
      *
+      * @return   text display for a menu of events in this conference.
      */
     public String eventMenu() {
         StringBuilder result = new StringBuilder("\nEVENTS:\n------------------------");

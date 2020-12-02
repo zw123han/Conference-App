@@ -20,6 +20,7 @@ public class MessageInboxController implements MessageControllerInterface {
      *
      * @param reg       Registrar
      * @param username  username of the currently logged in user
+     * @param cm        ChatroomManager
      */
     public MessageInboxController(Registrar reg, String username, ChatroomManager cm) {
         this.reg = reg;
@@ -27,6 +28,11 @@ public class MessageInboxController implements MessageControllerInterface {
         this.cm = cm;
     }
 
+    /**
+     * Sets username to that of the currently logged in user.
+     *
+     * @param currentUser       username of the current user
+     */
     public void setLoggedInUser(String currentUser) {
         username = currentUser;
     }
@@ -35,10 +41,12 @@ public class MessageInboxController implements MessageControllerInterface {
      * Initiates a new InboxController
      *
      * @param recipient  username of the person which this user is messaging
+     * @return           true if the logged in user can reply in their chat with recipient.
      */
     public boolean canReply(String recipient) {
         if (cm.hasChatroom(username, recipient)) {
-            if (reg.isAdmin(username) || reg.isOrganizer(username) || reg.isAttendee(username)) {
+            if (reg.isAdmin(username) || reg.isOrganizer(username) || (reg.isAttendee(username)) &&
+                    (reg.isFriend(username, recipient) || !reg.isAttendee(recipient))) {
                 return true;
             }
             Chatroom c = cm.getChatroom(username, recipient);
@@ -53,10 +61,11 @@ public class MessageInboxController implements MessageControllerInterface {
     }
 
     /**
-     * Initiates a new InboxController
+     * Checks if a message can be deleted from chatroom.
      *
-     * @param recipient  username of the currently logged in user
-     * @param choice        InboxPresenter
+     * @param recipient     username of the recipient
+     * @param choice        index of the message
+     * @return              true if the message can be deleted.
      */
     public boolean canDelete(String recipient, String choice){
         int key = Integer.parseInt(choice);
@@ -67,11 +76,23 @@ public class MessageInboxController implements MessageControllerInterface {
         return false;
     }
 
+    /**
+     * Deletes a message with index from chatroom.
+     *
+     * @param recipient     username of the recipient
+     * @param choice        index of the message
+     */
     public void deleteMessage(String recipient, String choice) {
-        int key = Integer.parseInt(choice);
-        cm.deleteMessage(username, recipient, key);
+        int index = Integer.parseInt(choice);
+        cm.deleteMessage(username, recipient, index);
     }
 
+    /**
+     * Pins a message with index in chatroom.
+     *
+     * @param recipient     username of the recipient
+     * @param choice        index of the message
+     */
     public void pinUnpinMessage(String recipient, String choice){
         Integer key = Integer.parseInt(choice);
         Chatroom chatroom = cm.getChatroom(username, recipient);
@@ -93,15 +114,33 @@ public class MessageInboxController implements MessageControllerInterface {
         return users;
     }
 
+    /**
+     * Checks if the logged in user can chat with a certain user.
+     *
+     * @param recipient     username of the recipient
+     * @return              true if the logged in user has chatted with recipient.
+     */
     public boolean canViewChat(String recipient) {
         ArrayList<String> friends = getUsersTalkTo();
         return friends.contains(recipient);
     }
 
+    /**
+     * Checks if a message is valid. A message is valid when it has more than 1 character that is not a space.
+     *
+     * @param message     message to be sent
+     * @return            true if the message has at least 1 character that is not a space.
+     */
     public boolean validateMessage(String message) {
-        return message.length() != 0;
+        return !message.matches("[\\s]*");
     }
 
+    /**
+     * Sends a message to the recipient.
+     *
+     * @param recipient     username of the recipient
+     * @param message       message to be sent
+     */
     public void sendMessage(String recipient, String message) {
         ArrayList<String> recipients = new ArrayList<>();
         recipients.add(username);
@@ -109,6 +148,11 @@ public class MessageInboxController implements MessageControllerInterface {
         cm.sendOne(recipients, message, username);
     }
 
+    /**
+     * Marks all of the messages sent by recipient as read.
+     *
+     * @param recipient     username of the recipient
+     */
     public void markAllRead(String recipient) {
         Chatroom c = cm.getChatroom(username, recipient);
         for (Integer i : c.getMessagePositions()) {

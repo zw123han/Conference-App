@@ -16,7 +16,14 @@ public class MessageInboxPresenter extends CommandPresenter {
     private ChatroomManager cm;
     private HashMap<String, String> profanities;
 
-
+    /**
+     * Initiates a new MessageInboxPresenter
+     *
+     * @param reg          Registrar
+     * @param username     username of the currently logged in user
+     * @param cm           ChatroomManager
+     * @param profanities  a hashmap of chosen profanities and their replacement
+     */
     public MessageInboxPresenter(Registrar reg, String username, ChatroomManager cm, HashMap<String, String> profanities) {
         this.reg = reg;
         this.username = username;
@@ -24,6 +31,11 @@ public class MessageInboxPresenter extends CommandPresenter {
         this.profanities = profanities;
     }
 
+    /**
+     * Sets username to that of the currently logged in user.
+     *
+     * @param currentUser       username of the current user
+     */
     public void setLoggedInUser(String currentUser) {
         username = currentUser;
     }
@@ -49,30 +61,32 @@ public class MessageInboxPresenter extends CommandPresenter {
     }
 
     /**
-     * Displays a series of users with whom the logged in user has chatted.
+     * Formats a series of users with whom the logged in user has chatted, including the number of unread messages, name of the sender, and username.
      *
+     * @return     text display for chat histories
      */
     public String menuDisplay() {
-        ArrayList<String> friends = getUsersTalkto();
+        ArrayList<String> users = getUsersTalkto();
         StringBuilder result = new StringBuilder("\nCHAT HISTORY:\n------------------------");
-        for (String friend : friends) {
+        for (String user : users) {
             result.append("\n[")
-                    .append(getNumUnread(friend))
+                    .append(getNumUnread(user))
                     .append(" Unread] ")
-                    .append(reg.getNameByUsername(friend))
+                    .append(reg.getNameByUsername(user))
                     .append(" (@")
-                    .append(friend)
+                    .append(user)
                     .append(")");
         }
-        if (friends.isEmpty()) {
+        if (users.isEmpty()) {
             return result + "\nYou can't chat with any users.\n";
         }
         return result + "\n";
     }
 
     /**
-     * Displays the chatlog, including message content, the sender name and username, and the date and time the message was sent, converted to local time.
+     * Formats the chatlog, including message content, the sender name and username, and the date and time the message was sent, converted to local time.
      *
+     * @return   text display for chatlog
      */
     public String chatView(String recipient) {
         Chatroom c = cm.getChatroom(username, recipient);
@@ -80,6 +94,11 @@ public class MessageInboxPresenter extends CommandPresenter {
         return chatroomFormatter(history, c);
     }
 
+    /**
+     * Formats the pinned messages in the same manner as in the chat.
+     *
+     * @return   text display for pinned messages
+     */
     public String viewPinned(String recipient) {
         Chatroom c = cm.getChatroom(username, recipient);
         ArrayList<Integer> pinned = c.getPinned();
@@ -96,9 +115,12 @@ public class MessageInboxPresenter extends CommandPresenter {
             String sender = c.getSender(m);
             result.append("\n(")
                     .append(m)
-                    .append(")");
+                    .append(") ");
+            if (c.isPinned(m)) {
+                result.append("PIN");
+            }
             if (c.isUnread(username, m)) {
-                result.append(" *");
+                result.append("*");
             }
             result.append("\nFrom: ")
                     .append(reg.getNameByUsername(sender))
@@ -114,14 +136,7 @@ public class MessageInboxPresenter extends CommandPresenter {
         return result.toString();
     }
 
-    /**
-     * Formats the message such that:
-     * - It has at least 80 characters per line
-     * - If a line exceeds 80 characters, then the line would be wrapped at the first space after the 80th character
-     *
-     * @param message       String of message to be formatted
-     */
-    public String messageFormatter(String message) {
+    private String messageFormatter(String message) {
         StringBuilder sbm = new StringBuilder(filterProfanity(message));
         int i = 0;
         while (i + 80 < sbm.length()) {
@@ -131,7 +146,7 @@ public class MessageInboxPresenter extends CommandPresenter {
             }
             i += 80;
         }
-        return sbm.toString().substring(0, sbm.toString().length()-1);
+        return sbm.substring(0, sbm.toString().length()-1);
     }
 
     private ArrayList<String> getTrailingStrings(String profanity, ArrayList<String> allFiller) {
@@ -187,20 +202,30 @@ public class MessageInboxPresenter extends CommandPresenter {
         return result;
     }
 
+    /**
+     * Formats a prompt for user to select a message.
+     *
+     * @param option   purpose of the selection
+     * @return         text display for chatlog
+     */
+
     public String whichMessage(String option){
         return "Type the number above the message you want to " + option +".";
     }
 
     /**
-     * Displays text for message menu.
+     * Formats a menu for messaging that includes basic options the select.
+     *
+     * @return     text display for message menu.
      */
-
     public String messageMenu() {
         return "1) Delete messages\n2) Pin/Unpin message\n3) View pinned";
     }
 
     /**
-     * Displays text for when a user can reply to a message
+     * Formats a menu option for when a user can reply to a message.
+     *
+     * @return    text display option for a reply.
      */
     public String replyMessage() {
         return "4) Reply to messages";

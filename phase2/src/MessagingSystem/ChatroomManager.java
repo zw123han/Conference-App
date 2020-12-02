@@ -97,15 +97,27 @@ public class ChatroomManager implements Serializable, Savable {
         chatrooms.put(usernames, new Chatroom());
     }
 
+    /**
+     * Deletes Chatroom with specific users.
+     *
+     * @param usernames     list of usernames of users
+     */
     private void deleteChatroom(ArrayList<String> usernames){
         chatrooms.remove(usernames);
     }
 
+    /**
+     * Deletes Chatroom with specific users.
+     *
+     * @param username     username of the sender
+     * @param recipient    username of the recipient
+     * @param index        index of message
+     */
     public void deleteMessage(String username, String recipient, int index){
         Chatroom chatroom = getChatroom(username, recipient);
         chatroom.deleteMessage(index);
         if(chatroom.getSize() == 0){
-            ArrayList usernames = new ArrayList<String>();
+            ArrayList usernames = new ArrayList<>();
             usernames.add(username);
             usernames.add(recipient);
             Collections.sort(usernames);
@@ -118,6 +130,7 @@ public class ChatroomManager implements Serializable, Savable {
      *
      * @param users         List of usernames
      * @param message       Message to be sent
+     * @param sender        Username of the sender
      */
     public void sendOne(ArrayList<String> users, String message, String sender) {
         Message msg = new Message(message + " ", sender);

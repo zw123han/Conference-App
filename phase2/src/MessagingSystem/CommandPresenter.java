@@ -11,25 +11,29 @@ import java.util.regex.*;
 public abstract class CommandPresenter {
 
     /**
-     * Displays an exit command tip.
+     * Formats an exit command tip.
+     *
+     * @return  text for the exit command tip.
      */
     public String exitMessage() {
         return "$q to exit.";
     }
 
     /**
-     * Displays message when field is invalid.
+     * Formats prompt when field is invalid.
      *
      * @param field     field (user input)
+     * @return         text display for invalid field prompt.
      */
     public String invalidCommand(String field) {
         return "invalid " + field + ".";
     }
 
     /**
-     * Displays prompt for user input into field.
+     * Formats prompt for user input into field.
      *
      * @param field     field (user input)
+     * @return         text display for field input prompt.
      */
     public String commandPrompt(String field) {
         return "Enter a valid " + field + ".\n" + exitMessage();
@@ -38,7 +42,8 @@ public abstract class CommandPresenter {
     /**
      * Displays a success message for a sent message.
      *
-     * @param recipient (enter message)
+     * @param recipient  username of the recipient
+     * @return           text display alert for when a message is successfully sent.
      */
     public String success(String recipient) {
         return "\nMessage successfully sent to " + recipient + "!";
