@@ -74,6 +74,20 @@ public class EventManager implements Serializable, Savable {
     }
 
     /**
+     * Creates a new party rather than an event and adds event to HashMap of events.
+     *
+     * @param name              name of event
+     * @param room              room that event takes place in
+     * @param time              start time of the event
+     * @param duration          duration of the event
+     * @param capacity          capacity of the event
+     */
+    public void createEvent(String name, String room, LocalDateTime time, long duration, int capacity) {
+        Event ev = new Event(name, room, time, duration, capacity);
+        this.events.put(ev.getId(), ev);
+    }
+
+    /**
      * Deletes an event.
      *
      * @param eventId   Event ID to be deleted.

@@ -39,15 +39,28 @@ public class  Event implements Serializable {
         this.room = room;
         this.time = time;
         this.duration = duration;
-        if(speaker_list.size() == 0){
-            this.type = "Party";
-        }
-        else if(speaker_list.size() == 1){
+        if(speaker_list.size() == 1){
             this.type = "Talk";
         }
         else{
             this.type = "Panel";
         }
+        this.speaker_list = speaker_list;
+        this.capacity = capacity;
+
+
+        Calendar c = Calendar.getInstance();
+        Date d = c.getTime();
+        this.id = d.getTime();
+    }
+
+
+    public Event(String name, String room, LocalDateTime time, long duration, int capacity){
+        this.name = name;
+        this.room = room;
+        this.time = time;
+        this.duration = duration;
+        this.type = "Party";
         this.speaker_list = speaker_list;
         this.capacity = capacity;
 
@@ -167,9 +180,7 @@ public class  Event implements Serializable {
      *
      * @return          true if the event is empty and false if otherwise
      */
-    public boolean isEmpty(){
-        return this.capacity == 0;
-    }
+    public boolean isEmpty(){ return this.signedUpUsers.size() == 0; }
 
     /**
      * Checks if the given user is signed up for the event

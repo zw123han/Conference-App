@@ -57,6 +57,32 @@ public class EventCreatorPresenter {
     }
 
     /**
+     * Prompts the creation of the party, where there is no party and returns whether the event was successfully created
+     *
+     * @param name           The name of the event
+     * @param room           The room of the event
+     * @param time           The starting time of the event
+     * @param duration       The duration of the event in minutes
+     * @param capacity       The capacity of the event
+     * @return               A string detailing whether the event was successfully created
+     */
+    public String promptEventCreation(String name, String room, LocalDateTime time, long duration, int capacity) {
+
+        EventCreator ec = new EventCreator(this.em, reg);
+        try {
+            if (!(ec.createEvent(name, room, time, duration, capacity))) {
+                return ("Unable to create event.");
+            } else {
+                return ("Party created. Have fun.");
+            }
+        } catch (EventCreationFailureException e) {
+//            e.printStackTrace();
+//            return ("");
+            return e.getMessage();
+        }
+    }
+
+    /**
      * Prompts the creation of the specified event and returns whether the event was successfully created
      *
      * @param eventId           The id of the event

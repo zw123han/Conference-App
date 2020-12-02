@@ -16,7 +16,7 @@ import java.util.Scanner;
 /**
  * UserOptionsInterface is the main controller class that handles the home menu controls for a single user's session.
  *
- * @author Tao
+ * @author Tao, Fred
  */
 public class UserOptionsInterface {
 
@@ -326,7 +326,9 @@ public class UserOptionsInterface {
                             allSpeakersValid = false;
                         }
                     }
-                    if(allSpeakersValid){
+                    if(speakers.equals("")) {
+                        System.out.println(ecp.promptEventCreation(name, room, LocalDateTime.parse(time, formatter), duration, capacity));
+                    } else if(allSpeakersValid){
                         System.out.println(ecp.promptEventCreation(name, room, LocalDateTime.parse(time, formatter), duration, speakersNameList, capacity));
                     }
                     else {
@@ -351,18 +353,22 @@ public class UserOptionsInterface {
 
             try {
                 if (this.em.getEvent(eventId).isEmpty()) {
+                    System.out.println("This event has no registered attendees. It is safe to cancel...");
                     System.out.println(this.ecp.promptEventDeletion(eventId));
                 } else {
-                    System.out.println("This event still has registered users. Are you sure that you want to delete " +
-                            "it? Press 'y' to continue or any other key to quit.");
+                    System.out.println("This event still has registered users. Are you sure that you want to cancel " +
+                            "this event? Press 'y' to continue or any other key to quit.");
                     choice = sc.nextLine();
 
                     if (choice.equals("y") || choice.equals("Y")) {
                         System.out.println(this.ecp.promptEventDeletion(eventId));
+                        System.out.println("The event has been cancelled.");
                     }
 
                 }
             } catch(NullPointerException npe){
+                System.out.println("This event ID is not valid. Please try again.");
+            } finally {
                 System.out.println("This event ID is not valid. Please try again.");
             }
         }
