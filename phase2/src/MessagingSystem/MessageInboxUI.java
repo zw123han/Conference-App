@@ -66,7 +66,6 @@ public class MessageInboxUI implements MessageUI {
             e = sc.nextLine();
             if (e.equals("1")){
                 promptDelete(recipient);
-                System.out.println(ip.chatView(recipient));
             } else if (e.equals("2")){
                 promptPin(recipient);
             } else if (e.equals("3")){
@@ -74,8 +73,8 @@ public class MessageInboxUI implements MessageUI {
                 promptPin(recipient);
             }else if (e.equals("4") && ic.canReply(recipient)){
                 promptMessage(recipient);
-                System.out.println(ip.chatView(recipient));
             }
+            System.out.println(ip.chatView(recipient));
         }
     }
 

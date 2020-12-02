@@ -440,7 +440,7 @@ public class UserOptionsInterface {
                 showOutbox(reg, username, mo);
             }
             else if (choice.equals("2")) {
-                mo.promptChatChoice();
+                mi.promptChatChoice();
             } else {
                 System.out.println(cmp.invalidCommand("prompt"));
             }

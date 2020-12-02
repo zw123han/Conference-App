@@ -94,7 +94,7 @@ public class MessageInboxPresenter extends CommandPresenter {
             result.append("\n(")
                     .append(m)
                     .append(")");
-            if (c.isRead(username, m)) {
+            if (!c.isRead(username, m)) {
                 result.append(" *");
             }
             result.append("\nFrom: ")
@@ -132,37 +132,46 @@ public class MessageInboxPresenter extends CommandPresenter {
     }
 
     private String censorProfanityBuilder(String match, String profanity) {
+        String replacement = profanities.get(match);
+        String upperReplacement = replacement.substring(0, 1).toUpperCase() + replacement.substring(1);
         ArrayList<String> allFiller = new ArrayList<>();
-        Pattern pattern = Pattern.compile("[ .]+");
+        Pattern pattern = Pattern.compile("[\\s.0-9]+");
         Matcher matcher = pattern.matcher(profanity);
         while (matcher.find()) {
             String filler = matcher.group();
             allFiller.add(filler);
         }
-        String replacement = profanities.get(match);
-        String firstChar = profanity.substring(allFiller.get(0).length(), allFiller.get(0).length()+1);
-        if (firstChar.equals(firstChar.toUpperCase())) {
-            replacement = replacement.substring(0, 1).toUpperCase() + replacement.substring(1);
+        if (profanity.substring(0, 1).matches("[a-z]")) {
+            return replacement + allFiller.get(allFiller.size() - 1);
+        } else if (profanity.substring(0, 1).matches("[A-Z]")) {
+            return upperReplacement + allFiller.get(allFiller.size() - 1);
+        } else {
+            String firstChar = profanity.substring(allFiller.get(0).length(), allFiller.get(0).length() + 1);
+            if (firstChar.equals(firstChar.toUpperCase())) {
+                replacement = upperReplacement;
+            }
+            return allFiller.get(0) + replacement + allFiller.get(allFiller.size() - 1);
         }
-        return allFiller.get(0) + replacement + allFiller.get(allFiller.size()-1);
     }
 
     private String censorProfanity(String match, String message) {
         String result = message;
-        Pattern pattern = Pattern.compile("[ .]+" + match + "[ .]+");
+        String regex = "[\\s.]*" + match + "[\\s.]*";
+        Pattern pattern = Pattern.compile(regex);
         Matcher matcher = pattern.matcher(message);
         while (matcher.find()) {
             String profanity = matcher.group();
-            result = message.replaceFirst(profanity, censorProfanityBuilder(match, profanity));
+            result = result.replaceFirst(profanity, censorProfanityBuilder(match, profanity));
         }
         return result;
     }
 
     private String filterProfanity(String message) {
+        String result = message;
         for (String profanity : profanities.keySet()) {
-            message = censorProfanity(profanity, message);
+            result = censorProfanity(profanity, result);
         }
-        return message;
+        return result;
     }
 
     public String whichMessage(String option){

@@ -112,7 +112,7 @@ public class MessageInboxController implements MessageControllerInterface {
     public void markAllRead(String recipient) {
         Chatroom c = cm.getChatroom(username, recipient);
         for (Integer i : c.getMessagePositions()) {
-            if (c.isRead(username, i)) {
+            if (!c.isRead(username, i)) {
                 c.read(i);
             }
         }
