@@ -84,6 +84,9 @@ public class MessageInboxPresenter extends CommandPresenter {
         Chatroom c = cm.getChatroom(username, recipient);
         ArrayList<Integer> pinned = c.getPinned();
         String result = "\nPINNED MESSAGES:\n------------------------";
+        if (pinned.isEmpty()) {
+            return result + "\nThere are no pinned messages.\n";
+        }
         return result + chatroomFormatter(pinned, c);
     }
 
@@ -94,7 +97,7 @@ public class MessageInboxPresenter extends CommandPresenter {
             result.append("\n(")
                     .append(m)
                     .append(")");
-            if (!c.isRead(username, m)) {
+            if (c.isUnread(username, m)) {
                 result.append(" *");
             }
             result.append("\nFrom: ")

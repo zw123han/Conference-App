@@ -101,8 +101,8 @@ public class Chatroom implements Serializable {
      *
      * @return           True if the message at index is read, false otherwise
      */
-    public boolean isRead(String username, Integer position) {
-        return username.equals(history.get(position).getSender()) || history.get(position).isRead();
+    public boolean isUnread(String username, Integer position) {
+        return !username.equals(history.get(position).getSender()) && !history.get(position).isRead();
     }
 
     /**
