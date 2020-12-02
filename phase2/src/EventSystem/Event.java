@@ -163,6 +163,15 @@ public class  Event implements Serializable {
     }
 
     /**
+     * Checks if the event is empty
+     *
+     * @return          true if the event is empty and false if otherwise
+     */
+    public boolean isEmpty(){
+        return this.capacity == 0;
+    }
+
+    /**
      * Checks if the given user is signed up for the event
      *
      * @param username  The username of the user being checked for

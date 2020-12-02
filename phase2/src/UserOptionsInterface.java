@@ -29,6 +29,7 @@ public class UserOptionsInterface {
     private FriendsPresenter fp;
     private MessageOutboxUI mo;
     private MessageInboxUI mi;
+    private EventManager em;
     // All other UIs go here too and in the constructor
 
     /**
@@ -333,16 +334,33 @@ public class UserOptionsInterface {
                 } catch (InputMismatchException | NumberFormatException e) {
                     System.out.println("Please input an integer for the event's capacity\n");
                 }
-                System.out.println("Press c to continue creating accounts or any key to exit.");
+                System.out.println("Press c to continue creating events or any key to exit.");
                 choice = sc.nextLine();
             }
         } else if(choice.equals("m")){
 
         } else if(choice.equals("d")){
             this.ecp.viewEvents();
-            System.out.println("enter the Id of the event you would like to delete:");
+            System.out.println("Enter the Id of the event you would like to delete:");
             Long eventId = Long.parseLong(sc.nextLine());
-            System.out.println(this.ecp.promptEventDeletion(eventId));
+            System.out.println(eventId);
+
+            try {
+                if (this.em.getEvent(eventId).isEmpty()) { //not working here. Need to get back to it.
+                    System.out.println(this.ecp.promptEventDeletion(eventId));
+                } else {
+                    System.out.println("This event still has registered users. Are you sure that you want to delete " +
+                            "it? Press 'y' to continue or any other key to quit.");
+                    choice = sc.nextLine();
+
+                    if (choice.equals("y") || choice.equals("Y")) {
+                        System.out.println(this.ecp.promptEventDeletion(eventId));
+                    }
+
+                }
+            } catch(NullPointerException npe){
+                System.out.println("This event ID is not valid. Please try again.");
+            }
         }
 
     }
