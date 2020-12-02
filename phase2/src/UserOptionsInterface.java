@@ -314,6 +314,7 @@ public class UserOptionsInterface {
                     }
                     System.out.println("Usernames of speakers (separated by comma and space, hit enter if no speaker): ");
                     String speakers = sc.nextLine();
+
                     ArrayList<String> speakersNameList = new ArrayList<>();
                     boolean allSpeakersValid = true;
                     for(String s: speakers.split(", ")){
@@ -331,6 +332,7 @@ public class UserOptionsInterface {
                     else {
                         System.out.println("Please input a valid Speaker. If you don't have any, please create a speaker account.");
                     }
+
                 } catch (DateTimeParseException e) {
                     System.out.println("Please input the date/time in the following format yyyy-MM-dd HH:mm\n");
                 } catch (InputMismatchException | NumberFormatException e) {
@@ -368,16 +370,62 @@ public class UserOptionsInterface {
     }
 
     private void showManageAccountsScreen(Registrar registrar) {
-        System.out.println("Press 'c' to create an account. Press any other key to quit.");
+        System.out.println("Press 'c' to create an account. Press 'v' to view accounts. Press any other key to quit.");
         String choice = sc.nextLine();
+
         if(choice.equals("c") || choice.equals("C")){
             while(choice.equals("c") || choice.equals("C")) {
                 createAccount();
                 System.out.println("Do you want to create another account? Press 'c' to continue. Press any other to exit");
                 choice = sc.nextLine();
             }
+        } else if(choice.equals("v") || choice.equals("V")){
+            while(choice.equals("v") || choice.equals("V")) {
+                viewAccounts(registrar);
+                System.out.println("Do you want to view other accounts? Press 'v' to view more. Press any other to exit");
+                choice = sc.nextLine();
+            }
         }
     }
+
+    private void viewAccounts(Registrar registrar){
+        System.out.println("Please specify the type of accounts to view: (s)peakers, (o)rganizers, (a)ttendees or " +
+                "a(d)ministrators:");
+        String choice = sc.nextLine();
+
+        if(choice.equals("s") || choice.equals("S")){
+            System.out.println("List of Speakers:");
+            for (User s : registrar.getUsersByType("Speaker")) {
+                System.out.println("name: " + s.getName());
+                System.out.println("username: " + s.getUserName());
+                System.out.println("-----------------------------");
+            }
+        } else if(choice.equals("o") || choice.equals("O")){
+            System.out.println("List of Organizers:");
+            for (User s : registrar.getUsersByType("Organizer")) {
+                System.out.println("name: " + s.getName());
+                System.out.println("username: " + s.getUserName());
+                System.out.println("-----------------------------");
+            }
+        } else if(choice.equals("a") || choice.equals("A")){
+            System.out.println("List of Attendees:");
+            for (User s : registrar.getUsersByType("Attendee")) {
+                System.out.println("name: " + s.getName());
+                System.out.println("username: " + s.getUserName());
+                System.out.println("-----------------------------");
+            }
+        } else if(choice.equals("d") || choice.equals("D")){
+            System.out.println("List of Administrators:");
+            for (User s : registrar.getUsersByType("Administrator")) {
+                System.out.println("name: " + s.getName());
+                System.out.println("username: " + s.getUserName());
+                System.out.println("-----------------------------");
+            }
+        } else {
+            System.out.println("This is not a valid option. Please try again.");
+        }
+    }
+
 
     private void createAccount(){
         System.out.println("Please specify the type of account: (s)peaker, (o)rganizer or (a)ttendee:");
@@ -390,6 +438,7 @@ public class UserOptionsInterface {
             String userName = sc.nextLine();
             System.out.println("Please input the password:");
             String password = sc.nextLine();
+
             if (loginFacade.createUser(name, userName, password, "speaker")) {
 
                 System.out.println("Speaker account created successfully");
@@ -403,6 +452,7 @@ public class UserOptionsInterface {
             String userName = sc.nextLine();
             System.out.println("Please input the password:");
             String password = sc.nextLine();
+
             if (loginFacade.createUser(name, userName, password, "organizer")){
                 System.out.println("Organizer account created successfully");
             } else {
@@ -415,6 +465,7 @@ public class UserOptionsInterface {
             String userName = sc.nextLine();
             System.out.println("Please input the password:");
             String password = sc.nextLine();
+
             if (loginFacade.createUser(name, userName, password, "attendee")) {
                 System.out.println("Attendee account created successfully");
             } else {
