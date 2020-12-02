@@ -101,7 +101,7 @@ public class ConferenceSimulator {
 
         // Main user UI
         UserOptionsInterface ui = new UserOptionsInterface(loginFacade, eventCreatorPresenter, eventSignupPresenter,
-                chatMenuPresenter, friendsPresenter, outboxUI, inboxUI);
+                chatMenuPresenter, friendsPresenter, outboxUI, inboxUI, eventManager);
 
 
 

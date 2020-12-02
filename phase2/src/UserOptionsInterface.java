@@ -42,7 +42,8 @@ public class UserOptionsInterface {
      * @param fp                the FriendsPresenter instance for the current session
      */
     public UserOptionsInterface(LoginOptionsFacade loginFacade, EventCreatorPresenter ecp, EventSignupPresenter esp,
-                                ChatMenuPresenter cmp, FriendsPresenter fp, MessageOutboxUI mo, MessageInboxUI mi){
+                                ChatMenuPresenter cmp, FriendsPresenter fp, MessageOutboxUI mo, MessageInboxUI mi,
+                                EventManager em){
         this.loginFacade = loginFacade;
         this.ecp = ecp;
         this.esp = esp;
@@ -51,6 +52,7 @@ public class UserOptionsInterface {
         this.mo = mo;
         this.loginUI = new LoginUI(loginFacade);
         this.mi = mi;
+        this.em = em;
     }
 
     /**
@@ -346,7 +348,7 @@ public class UserOptionsInterface {
             System.out.println(eventId);
 
             try {
-                if (this.em.getEvent(eventId).isEmpty()) { //not working here. Need to get back to it.
+                if (this.em.getEvent(eventId).isEmpty()) {
                     System.out.println(this.ecp.promptEventDeletion(eventId));
                 } else {
                     System.out.println("This event still has registered users. Are you sure that you want to delete " +
@@ -368,8 +370,8 @@ public class UserOptionsInterface {
     private void showManageAccountsScreen(Registrar registrar) {
         System.out.println("Press 'c' to create an account. Press any other key to quit.");
         String choice = sc.nextLine();
-        while(choice.equals("c")){
-            if (choice.equals("c")) {
+        if(choice.equals("c") || choice.equals("C")){
+            while(choice.equals("c") || choice.equals("C")) {
                 createAccount();
                 System.out.println("Do you want to create another account? Press 'c' to continue. Press any other to exit");
                 choice = sc.nextLine();
@@ -380,32 +382,49 @@ public class UserOptionsInterface {
     private void createAccount(){
         System.out.println("Please specify the type of account: (s)peaker, (o)rganizer or (a)ttendee:");
         String type = sc.nextLine();
-        System.out.println("Please input the name of the user:");
-        String name = sc.nextLine();
-        System.out.println("Please input the username:");
-        String userName = sc.nextLine();
-        System.out.println("Please input the password:");
-        String password = sc.nextLine();
 
         if(type.equals("s") || type.equals("S")){
+            System.out.println("Please input the name of the user:");
+            String name = sc.nextLine();
+            System.out.println("Please input the username:");
+            String userName = sc.nextLine();
+            System.out.println("Please input the password:");
+            String password = sc.nextLine();
             if (loginFacade.createUser(name, userName, password, "speaker")) {
+
                 System.out.println("Speaker account created successfully");
             } else {
                 System.out.println("You cannot use those credentials. Please try again.");
             }
         } else if(type.equals("o") || type.equals("O")){
+            System.out.println("Please input the name of the user:");
+            String name = sc.nextLine();
+            System.out.println("Please input the username:");
+            String userName = sc.nextLine();
+            System.out.println("Please input the password:");
+            String password = sc.nextLine();
             if (loginFacade.createUser(name, userName, password, "organizer")){
                 System.out.println("Organizer account created successfully");
             } else {
                 System.out.println("You cannot use those credentials. Please try again.");
             }
         } else if(type.equals("a") || type.equals("A")){
+            System.out.println("Please input the name of the user:");
+            String name = sc.nextLine();
+            System.out.println("Please input the username:");
+            String userName = sc.nextLine();
+            System.out.println("Please input the password:");
+            String password = sc.nextLine();
             if (loginFacade.createUser(name, userName, password, "attendee")) {
                 System.out.println("Attendee account created successfully");
             } else {
                 System.out.println("You cannot use those credentials. Please try again.");
             }
+        } else {
+            System.out.println("Invalid option. Please try again.");
         }
+
+
     }
 
     private void showCreateSpeakerScreen() {
