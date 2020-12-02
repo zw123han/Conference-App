@@ -1,8 +1,5 @@
 package Gateway;
 
-import EventSystem.EventManager;
-import MessagingSystem.ChatroomManager;
-import UserSystem.Registrar;
 import com.mongodb.BasicDBObject;
 import com.mongodb.DB;
 import com.mongodb.DBCollection;
@@ -16,22 +13,11 @@ public class CollectionManager {
     ConversionStrategy strategy;
     DBCollection collection;
 
-    public CollectionManager(DB database, String collectionName, ConversionStrategy strategy) {
+    public CollectionManager(DB database, Savable sv) {
         this.database = database;
-        this.collectionName = collectionName;
-        this.strategy = strategy;
+        collectionName = sv.getCollectionName();
+        strategy = sv.getConversionStrategy();
         collection = database.getCollection(collectionName);
-    }
-
-    private ConversionStrategy insertable(Savable sv) {
-        if (sv instanceof Registrar && strategy instanceof RegistrarConverter) {
-            return new RegistrarConverter();
-        } else if (sv instanceof EventManager && strategy instanceof EventManagerConverter) {
-            return new EventManagerConverter();
-        } else if (sv instanceof ChatroomManager && strategy instanceof ChatroomManagerConverter) {
-            return new ChatroomManagerConverter();
-        }
-        return null;
     }
 
     private void clearCollection() {
@@ -39,18 +25,11 @@ public class CollectionManager {
         collection = database.getCollection(collectionName);
     }
 
-    public boolean insertToCollection(Savable sv) {
-        if (insertable(sv) != null) {
-            clearCollection();
-            ConversionStrategy converter = insertable(sv);
-            ArrayList<BasicDBObject> documentList = converter.convertAll(sv);
-            for (BasicDBObject doc : documentList) {
-                collection.insert(doc);
-            }
-            return true;
-        } else {
-            return false;
+    public void insertToCollection(Savable sv) {
+        clearCollection();
+        ArrayList<BasicDBObject> documentList = strategy.convertAll(sv);
+        for (BasicDBObject doc : documentList) {
+            collection.insert(doc);
         }
     }
-
 }

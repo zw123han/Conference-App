@@ -1,14 +1,49 @@
 package Gateway;
 
+import MessagingSystem.Chatroom;
+import MessagingSystem.ChatroomManager;
+import MessagingSystem.Message;
 import com.mongodb.BasicDBObject;
 
 import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.Map;
 
 public class ChatroomManagerConverter implements ConversionStrategy {
 
+    private BasicDBObject convertMessage(Message msg) {
+        BasicDBObject doc = new BasicDBObject();
+        doc.put("message", msg.getMessage());
+        doc.put("sender", msg.getSender());
+        doc.put("time", msg.getDate());
+        doc.put("read", msg.isRead());
+        doc.put("pinned", msg.isPinned());
+
+        return doc;
+    }
+
+    private BasicDBObject convertOne(ArrayList<String> users, Chatroom chatroom) {
+        BasicDBObject doc = new BasicDBObject();
+        doc.put("users", users);
+        ArrayList<BasicDBObject> messages = new ArrayList<>();
+        for (Message message : chatroom.getAllMessages()) {
+            messages.add(convertMessage(message));
+        }
+
+        doc.put("history", messages);
+
+        return doc;
+    }
 
     @Override
     public ArrayList<BasicDBObject> convertAll(Savable sv) {
-        return null;
+        ChatroomManager chatroomManager = (ChatroomManager) sv;
+        ArrayList<BasicDBObject> documentList = new ArrayList<>();
+        for (Map.Entry element : chatroomManager.getChatrooms().entrySet()) {
+
+            documentList.add(convertOne((ArrayList<String>) element.getKey(), (Chatroom) element.getValue()));
+        }
+
+        return documentList;
     }
 }

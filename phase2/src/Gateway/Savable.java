@@ -6,4 +6,6 @@ public interface Savable {
 
     public ConversionStrategy getConversionStrategy();
 
+    public ParserStrategy getDocumentParserStrategy();
+
 }

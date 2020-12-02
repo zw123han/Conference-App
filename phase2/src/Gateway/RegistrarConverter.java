@@ -1,30 +1,21 @@
 package Gateway;
 
 import UserSystem.Registrar;
-import com.mongodb.BasicDBList;
 import com.mongodb.BasicDBObject;
 import java.util.ArrayList;
 import UserSystem.User;
 import UserSystem.Speaker;
-import EventSystem.Event;
 
 public class RegistrarConverter implements ConversionStrategy {
 
     private BasicDBObject convertUser(User user) {
         BasicDBObject document = new BasicDBObject();
+        document.put("type", user.getClass().getName());
         document.put("name", user.getName());
         document.put("userName", user.getUserName());
         document.put("password", user.getPassword());
-        BasicDBList events = new BasicDBList();
-        for (Long evt : user.getEvents()) {
-            events.add(evt);
-        }
-        document.put("events", events);
-        BasicDBList friends = new BasicDBList();
-        for (String friend : user.getFriends()) {
-            friends.add(friend);
-        }
-        document.put("friends", friends);
+        document.put("events", user.getEvents());
+        document.put("friends", user.getFriends());
         document.put("vip", user.getVipStatus());
 
         return document;
@@ -32,11 +23,7 @@ public class RegistrarConverter implements ConversionStrategy {
 
     private BasicDBObject convertSpeaker(User user) {
         BasicDBObject document = convertUser(user);
-        BasicDBList talks = new BasicDBList();
-        for (Long evt : ((Speaker) user).getTalks()) {
-            talks.add(evt);
-        }
-        document.put("talks", talks);
+        document.put("talks", ((Speaker) user).getTalks());
         return document;
     }
 

@@ -1,12 +1,11 @@
 package UserSystem;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.lang.*;
 import java.util.HashMap;
 
-import Gateway.ConversionStrategy;
-import Gateway.RegistrarConverter;
-import Gateway.Savable;
+import Gateway.*;
 
 /**
  * Registrar is the use case class for all interactions with User objects. It contains an array list of User objects
@@ -46,6 +45,11 @@ public class Registrar implements Savable {
     @Override
     public ConversionStrategy getConversionStrategy() {
         return new RegistrarConverter();
+    }
+
+    @Override
+    public ParserStrategy getDocumentParserStrategy() {
+        return new ParseToRegistrar();
     }
 
     /**

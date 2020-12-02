@@ -1,5 +1,6 @@
 package MessagingSystem;
 
+import java.lang.reflect.Array;
 import java.util.*;
 import java.io.Serializable;
 
@@ -57,6 +58,10 @@ public class Chatroom implements Serializable {
      */
     public String getMessage(Integer position) {
         return history.get(position).getMessage();
+    }
+
+    public ArrayList<Message> getAllMessages() {
+        return history;
     }
 
     /**

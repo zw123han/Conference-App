@@ -1,5 +1,7 @@
 package MessagingSystem;
 
+import Gateway.*;
+
 import java.io.Serializable;
 import java.util.*;
 
@@ -8,8 +10,10 @@ import java.util.*;
  *
  * @author Elliot, Chrisee
  */
-public class ChatroomManager implements Serializable {
+public class ChatroomManager implements Serializable, Savable {
     private HashMap<ArrayList<String>, Chatroom> chatrooms;
+
+    public ChatroomManager(HashMap<ArrayList<String>, Chatroom> chatrooms) { this.chatrooms = chatrooms; }
 
     /**
      * Constructor for Chatroom, creates new empty HashMap.
@@ -17,6 +21,23 @@ public class ChatroomManager implements Serializable {
     public ChatroomManager(){
         this.chatrooms = new HashMap<>();
     }
+
+    @Override
+    public String getCollectionName() {
+        return "chatrooms";
+    }
+
+    @Override
+    public ConversionStrategy getConversionStrategy() {
+        return new ChatroomManagerConverter();
+    }
+
+    @Override
+    public ParserStrategy getDocumentParserStrategy() {
+        return new ParseToChatroomManager();
+    }
+
+    public HashMap<ArrayList<String>, Chatroom> getChatrooms() { return chatrooms; }
 
     /**
      * Get method for getting the Chatroom for a specific list of users.

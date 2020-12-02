@@ -1,5 +1,6 @@
 package EventSystem;
 
+import Gateway.*;
 import UserSystem.Registrar;
 import UserSystem.Speaker;
 import UserSystem.User;
@@ -14,7 +15,7 @@ import java.util.HashMap;
  *
  * @author Andy, Nithilan
  */
-public class EventManager implements Serializable {
+public class EventManager implements Serializable, Savable {
 
     private HashMap<Long, Event> events;
 
@@ -38,6 +39,21 @@ public class EventManager implements Serializable {
         this.events = new HashMap<Long, Event>();
     }
 
+    @Override
+    public String getCollectionName() {
+        return "events";
+    }
+
+    @Override
+    public ConversionStrategy getConversionStrategy() {
+        return new EventManagerConverter();
+    }
+
+    @Override
+    public ParserStrategy getDocumentParserStrategy() {
+        return new ParseToEventManager();
+    }
+
     /**
      * Creates a new Event and adds event to HashMap of events.
      *
@@ -57,16 +73,7 @@ public class EventManager implements Serializable {
         }
     }
 
-    public void deleteEvent(Long eventId, Registrar reg){
-        Event ev = this.events.get(eventId);
-        for(String u: ev.getSignedUpUsers()){
-            reg.getUserByUserName(u).removeEvent(eventId);
-        }
-        for (String s: ev.getSpeakerList()){
-            Speaker speaker = (Speaker) reg.getUserByUserName(s);
-            speaker.removeEvent(eventId);
-            speaker.removeTalk(eventId);
-        }
+    public void deleteEvent(Long eventId){
         this.events.remove(eventId);
     }
 
