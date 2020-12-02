@@ -15,7 +15,7 @@ public class DatabaseConnector {
 
     public DB connect() {
         try {
-            mongoClient = new MongoClient( new MongoClientURI("mongodb://localhost:27017") );
+            mongoClient = new MongoClient( new MongoClientURI(System.getenv("DBPATH")) );
 
             System.out.println("Connected to MongoDB!");
             return mongoClient.getDB("ConferenceApp");

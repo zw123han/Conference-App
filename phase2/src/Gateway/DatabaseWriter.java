@@ -10,7 +10,6 @@ public class DatabaseWriter {
         DB database = db;
 
         for (Savable sv : savables) {
-            System.out.println("Ping");
             CollectionManager collectionManager = new CollectionManager(database, sv);
             collectionManager.insertToCollection(sv);
         }

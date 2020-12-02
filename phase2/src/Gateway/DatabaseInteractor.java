@@ -12,10 +12,8 @@ public class DatabaseInteractor {
     DatabaseReader dbReader;
     MongoClient mongoClient;
     DB database;
-    ArrayList<Savable> savables;
 
-    public DatabaseInteractor(ArrayList<Savable> savables) {
-        this.savables = savables;
+    public DatabaseInteractor() {
         dbConnector = new DatabaseConnector(mongoClient);
         dbWriter = new DatabaseWriter();
         dbReader = new DatabaseReader();
@@ -25,19 +23,8 @@ public class DatabaseInteractor {
         dbWriter.save(savables, database);
     }
 
-    public ArrayList<Savable> readFromDatabase() {
-        ArrayList<Savable> updatedSavables = new ArrayList<>();
-
-        for (Savable savable : this.savables) {
-            Savable updatedSavable = dbReader.read(savable, database);
-            if (updatedSavable != null) {
-                updatedSavables.add(updatedSavable);
-            } else {
-                updatedSavables.add(savable);
-            }
-        }
-        this.savables = updatedSavables;
-        return updatedSavables;
+    public Savable readFromDatabase(Savable savable) {
+        return dbReader.read(savable, database);
     }
 
     public boolean connect() {

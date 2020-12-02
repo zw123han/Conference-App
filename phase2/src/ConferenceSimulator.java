@@ -2,6 +2,7 @@ import EventSystem.*;
 import LoginSystem.*;
 import MessagingSystem.*;
 import UserSystem.*;
+import Gateway.*;
 
 import java.util.*;
 
@@ -26,6 +27,7 @@ public class ConferenceSimulator {
     ChatroomManager chatroomManager;
     HashMap<String, String> profanities;
 
+    DatabaseInteractor databaseInteractor = new DatabaseInteractor();
     /**
      *  Constructor for Conference simulator. Creates gateways and necessary use cases to store data.
      */
@@ -40,13 +42,16 @@ public class ConferenceSimulator {
 
         saveEvents = new SaveEvents(eventFilepath);
         storeUsers = new StoreUsers(userFilepath);
-        registrar = new Registrar(readUsers.read());
-        eventManager = new EventManager(readEvents.read());
+        //registrar = new Registrar(readUsers.read());
+        //eventManager = new EventManager(readEvents.read());
+        registrar = new Registrar();
+        eventManager = new EventManager();
+        chatroomManager = new ChatroomManager();
 
         readChat = new ReadChat(chatFilepath);
         storeChat = new StoreChat(chatFilepath);
         readProfanitiesList = new ReadProfanityList(profanityListFilepath);
-        chatroomManager = readChat.readChatlog();
+        //chatroomManager = readChat.readChatlog();
         profanities = readProfanitiesList.readProfanities();
     }
 
@@ -54,15 +59,20 @@ public class ConferenceSimulator {
      * This method will save all users and events data to a ser file.
      */
     public void save(){
-        storeUsers.store(registrar.getUsers());
-        saveEvents.saveEvents(eventManager.getEventsList());
-        storeChat.storeChat(chatroomManager);
+        //storeUsers.store(registrar.getUsers());
+        //saveEvents.saveEvents(eventManager.getEventsList());
+        //storeChat.storeChat(chatroomManager);
     }
 
     /**
      * The static main method will run this method to start the application.
      */
     public void run() {
+        databaseInteractor.connect();
+
+        registrar = (Registrar) databaseInteractor.readFromDatabase(registrar);
+        eventManager = (EventManager) databaseInteractor.readFromDatabase(eventManager);
+        chatroomManager = (ChatroomManager) databaseInteractor.readFromDatabase(chatroomManager);
 
         EventSignup eventSignup = new EventSignup();
 
@@ -102,13 +112,15 @@ public class ConferenceSimulator {
             do {
                 ui.loggedIn();
                 save();
+                ArrayList<Savable> savables = new ArrayList<>(Arrays.asList(registrar, eventManager, chatroomManager));
+                databaseInteractor.saveToDatabase(savables);
             } while (loginFacade.getUser() != null);
             System.out.println("Press any key to log in again, or press Q to close the program.");
             exit = sc.nextLine().equals("Q");
 
         } while (!exit);
 
-
+        databaseInteractor.disconnect();
 
         // Reset user and event data
         // ArrayList<User> emptyUserList = new ArrayList<>();
