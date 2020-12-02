@@ -100,7 +100,7 @@ public class UserOptionsInterface {
                     showFriends(registrar, user);
                     break;
                 case "6":
-                    showCreateEventsScreen(registrar);
+                    showManageEventsScreen(registrar);
                     break;
                 case "7":
                     showManageAccountsScreen(registrar);
@@ -177,7 +177,7 @@ public class UserOptionsInterface {
         }
         else if (user instanceof Organizer){
             generalOptions();
-            System.out.println("6) Add Event");
+            System.out.println("6) Manage Events");
             System.out.println("7) Manage Accounts");
         }
         else if (user instanceof Administrator){
