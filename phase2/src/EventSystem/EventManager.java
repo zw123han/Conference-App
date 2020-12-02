@@ -9,6 +9,7 @@ import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
 
 /**
  * Use Case Class that stores all events in the program and enables creation and deletion of events.
@@ -66,7 +67,7 @@ public class EventManager implements Serializable, Savable {
      * @param speakerList       list of speaker objects for the speakers of this event
      */
     public void createEvent(String name, String room, LocalDateTime time, long duration, ArrayList<String> speakerNameList, int capacity, ArrayList<Speaker> speakerList) {
-        Event ev = new Event(name, room, time, duration, speakerNameList, capacity);
+        Event ev = new Event(name, room, time, duration, new ArrayList<String>(new HashSet<String>(speakerNameList)), capacity);
         this.events.put(ev.getId(), ev);
         for(Speaker s: speakerList){
             s.addTalk(ev.getId());

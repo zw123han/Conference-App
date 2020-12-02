@@ -202,4 +202,78 @@ public class  Event implements Serializable {
         return signedUpUsers;
     }
 
+    /**
+     * Sets the name of this event
+     *
+     * @param name      name of the event
+     */
+    public void setName(String name){
+        this.name = name;
+    }
+
+    /**
+     * Sets the room of this event
+     *
+     * @param room      room to be set
+     */
+    public void setRoom(String room){
+        this.room = room;
+    }
+
+    /**
+     * Sets the time and duration of this event
+     *
+     * @param time      start time of the event
+     * @param duration  duration of the event
+     */
+    public void setTime(LocalDateTime time, long duration){
+        this.time = time;
+        this.duration = duration;
+    }
+    /**
+     * Adds given speaker to this event
+     *
+     * @param speaker      username of the speaker
+     */
+    public void addSpeaker(String speaker){
+        this.speaker_list.add(speaker);
+        if(speaker_list.size() == 0){
+            this.type = "Party";
+        }
+        else if(speaker_list.size() == 1){
+            this.type = "Talk";
+        }
+        else{
+            this.type = "Panel";
+        }
+    }
+
+    /**
+     * removes given speaker to this event
+     *
+     * @param speaker      username of the speaker
+     */
+    public void removeSpeaker(String speaker){
+        this.speaker_list.remove(speaker);
+        if(speaker_list.size() == 0){
+            this.type = "Party";
+        }
+        else if(speaker_list.size() == 1){
+            this.type = "Talk";
+        }
+        else{
+            this.type = "Panel";
+        }
+    }
+    /**
+     * returns whether the given speaker is at this event
+     *
+     * @param speaker      username of the speaker
+     * @return             true iff speaker is attending this event
+     */
+    public boolean hasSpeaker(String speaker){
+        return this.speaker_list.contains(speaker);
+    }
+
+
 }

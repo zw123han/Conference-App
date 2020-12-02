@@ -317,13 +317,14 @@ public class UserOptionsInterface {
 
                     ArrayList<String> speakersNameList = new ArrayList<>();
                     boolean allSpeakersValid = true;
-                    for(String s: speakers.split(", ")){
-                        User user = registrar.getUserByUserName(s);
-                        if (user instanceof Speaker) {
-                            speakersNameList.add(s);
-                        }
-                        else{
-                            allSpeakersValid = false;
+                    for(String s: speakers.split(", ")) {
+                        if (registrar.userExisting(s)) {
+                            User user = registrar.getUserByUserName(s);
+                            if (user instanceof Speaker) {
+                                speakersNameList.add(s);
+                            } else {
+                                allSpeakersValid = false;
+                            }
                         }
                     }
                     if(allSpeakersValid){
