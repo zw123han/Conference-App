@@ -120,7 +120,7 @@ public class ChatroomManager implements Serializable, Savable {
      * @param message       Message to be sent
      */
     public void sendOne(ArrayList<String> users, String message, String sender) {
-        Message msg = new Message(message, sender);
+        Message msg = new Message(message + " ", sender);
         getChatroom(users).sendMessage(msg);
     }
 
@@ -135,7 +135,7 @@ public class ChatroomManager implements Serializable, Savable {
             ArrayList<String> recipients = new ArrayList<>();
             recipients.add(user);
             recipients.add(sender);
-            sendOne(recipients, message, sender);
+            sendOne(recipients, message + " ", sender);
         }
     }
 

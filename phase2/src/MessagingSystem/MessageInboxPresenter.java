@@ -131,7 +131,7 @@ public class MessageInboxPresenter extends CommandPresenter {
             }
             i += 80;
         }
-        return sbm.toString();
+        return sbm.toString().substring(0, sbm.toString().length()-1);
     }
 
     private ArrayList<String> getTrailingStrings(String profanity, ArrayList<String> allFiller) {
@@ -169,7 +169,7 @@ public class MessageInboxPresenter extends CommandPresenter {
 
     private String censorProfanity(String match, String message) {
         String result = message;
-        String regex = "[\\s.]*" + match + "[\\s.]*";
+        String regex = "[\\s.]*" + match + "[\\s.s]+";
         Pattern pattern = Pattern.compile(regex);
         Matcher matcher = pattern.matcher(message);
         while (matcher.find()) {
