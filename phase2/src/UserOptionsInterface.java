@@ -370,7 +370,8 @@ public class UserOptionsInterface {
     }
 
     private void showManageAccountsScreen(Registrar registrar) {
-        System.out.println("Press 'c' to create an account. Press 'v' to view accounts. Press any other key to quit.");
+        System.out.println("Press 'c' to create an account. Press 'v' to view accounts. Press 'm' to modify accounts." +
+                "Press any other key to quit.");
         String choice = sc.nextLine();
 
         if(choice.equals("c") || choice.equals("C")){
@@ -385,7 +386,36 @@ public class UserOptionsInterface {
                 System.out.println("Do you want to view other accounts? Press 'v' to view more. Press any other to exit");
                 choice = sc.nextLine();
             }
+        } else if(choice.equals("m") || choice.equals("M")){
+            while(choice.equals("m") || choice.equals("M")) {
+                modifyAccounts(registrar);
+                System.out.println("Do you want to modify another account? Press 'm' to continue. Press any other to exit");
+                choice = sc.nextLine();
+            }
         }
+    }
+
+    private void modifyAccounts(Registrar registrar){
+        System.out.println("Please enter the username that you want to modify or press 'v' to view accounts");
+        String input = sc.nextLine();
+
+        if(input.equals("v") || input.equals("V")){
+            viewAccounts(registrar);
+        } else {
+            System.out.println("Please enter the new name for the user");
+            String newName = sc.nextLine();
+
+            try {
+                registrar.getUserByUserName(input).setName(newName);
+                System.out.println("The new name has been set:");
+                System.out.println(registrar.getUserByUserName(input).getName());
+                System.out.println(registrar.getUserByUserName(input).getUserName() + "\n");
+            } catch(NullPointerException nps){
+                System.out.println("Error: User does not exist.");
+            }
+
+        }
+
     }
 
     private void viewAccounts(Registrar registrar){

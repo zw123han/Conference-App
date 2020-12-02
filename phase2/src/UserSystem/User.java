@@ -44,6 +44,13 @@ public abstract class User implements Serializable {
     public String getName(){ return name; }
 
     /**
+     * Allows changes to the users name.
+     *
+     * @param name The name to change to.
+     */
+    public void setName(String name){ this.name = name; }
+
+    /**
      * Returns the user's username.
      *
      * @return The user's username.
