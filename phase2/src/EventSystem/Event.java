@@ -54,22 +54,6 @@ public class  Event implements Serializable {
         this.id = d.getTime();
     }
 
-
-    public Event(String name, String room, LocalDateTime time, long duration, int capacity){
-        this.name = name;
-        this.room = room;
-        this.time = time;
-        this.duration = duration;
-        this.type = "Party";
-        this.speaker_list = speaker_list;
-        this.capacity = capacity;
-
-
-        Calendar c = Calendar.getInstance();
-        Date d = c.getTime();
-        this.id = d.getTime();
-    }
-
     /**
      * Returns the id of the event
      *

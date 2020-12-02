@@ -326,9 +326,7 @@ public class UserOptionsInterface {
                             allSpeakersValid = false;
                         }
                     }
-                    if(speakers.equals("")) {
-                        System.out.println(ecp.promptEventCreation(name, room, LocalDateTime.parse(time, formatter), duration, capacity));
-                    } else if(allSpeakersValid){
+                    if(allSpeakersValid){
                         System.out.println(ecp.promptEventCreation(name, room, LocalDateTime.parse(time, formatter), duration, speakersNameList, capacity));
                     }
                     else {
