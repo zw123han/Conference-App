@@ -22,7 +22,7 @@ public class ConferenceSimulator {
 
     ReadChat readChat;
     StoreChat storeChat;
-    ReadProfanityList readProfanities;
+    ReadProfanityList readProfanitiesList;
     ChatroomManager chatroomManager;
     HashMap<String, String> profanities;
 
@@ -33,7 +33,7 @@ public class ConferenceSimulator {
         String userFilepath = "phase2/src/UserSystem/userData.ser";
         String eventFilepath = "phase2/src/EventSystem/eventData.ser";
         String chatFilepath = "phase2/src/MessagingSystem/chatlog.ser";
-        String profanityListFilepath = "phase2/src/MessagingSystem/profanityList.csv";
+        String profanityListFilepath = "phase2/src/MessagingSystem/profanityList.ser";
 
         readEvents = new ReadEvents(eventFilepath);
         readUsers = new ReadUsers(userFilepath);
@@ -45,9 +45,9 @@ public class ConferenceSimulator {
 
         readChat = new ReadChat(chatFilepath);
         storeChat = new StoreChat(chatFilepath);
-        readProfanities = new ReadProfanityList(profanityListFilepath);
+        readProfanitiesList = new ReadProfanityList(profanityListFilepath);
         chatroomManager = readChat.readChatlog();
-        profanities = readProfanities.getProfanityList();
+        profanities = readProfanitiesList.readProfanities();
     }
 
     /**
