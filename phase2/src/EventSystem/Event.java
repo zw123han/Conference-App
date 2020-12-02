@@ -39,13 +39,21 @@ public class  Event implements Serializable {
         this.room = room;
         this.time = time;
         this.duration = duration;
-        if(speaker_list.size() == 1){
+        if( speaker_list == null || speaker_list.isEmpty()){
+            this.speaker_list = new ArrayList<>();
+        } else {
+            this.speaker_list = speaker_list;
+        }
+        if(this.speaker_list.size() == 0){
+            this.type = "Party";
+        }
+        else if(this.speaker_list.size() == 1){
             this.type = "Talk";
         }
         else{
             this.type = "Panel";
         }
-        this.speaker_list = speaker_list;
+
         this.capacity = capacity;
 
 
