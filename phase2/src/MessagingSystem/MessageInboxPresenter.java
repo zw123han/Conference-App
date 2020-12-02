@@ -134,6 +134,21 @@ public class MessageInboxPresenter extends CommandPresenter {
         return sbm.toString();
     }
 
+    private ArrayList<String> getTrailingStrings(String profanity, ArrayList<String> allFiller) {
+        ArrayList<String> result = new ArrayList<>();
+        if (profanity.substring(0, 1).matches("[a-zA-Z]")) {
+            result.add("");
+        } else {
+            result.add(allFiller.get(0));
+        }
+        if (profanity.substring(profanity.length()-1).matches("[a-zA-z]")) {
+            result.add("");
+        } else {
+            result.add(allFiller.get(allFiller.size()-1));
+        }
+        return result;
+    }
+
     private String censorProfanityBuilder(String match, String profanity) {
         String replacement = profanities.get(match);
         String upperReplacement = replacement.substring(0, 1).toUpperCase() + replacement.substring(1);
@@ -144,17 +159,12 @@ public class MessageInboxPresenter extends CommandPresenter {
             String filler = matcher.group();
             allFiller.add(filler);
         }
-        if (profanity.substring(0, 1).matches("[a-z]")) {
-            return replacement + allFiller.get(allFiller.size() - 1);
-        } else if (profanity.substring(0, 1).matches("[A-Z]")) {
-            return upperReplacement + allFiller.get(allFiller.size() - 1);
-        } else {
-            String firstChar = profanity.substring(allFiller.get(0).length(), allFiller.get(0).length() + 1);
-            if (firstChar.equals(firstChar.toUpperCase())) {
-                replacement = upperReplacement;
-            }
-            return allFiller.get(0) + replacement + allFiller.get(allFiller.size() - 1);
+        ArrayList<String> trailingStrings = getTrailingStrings(profanity, allFiller);
+        String firstChar = profanity.substring(trailingStrings.get(0).length(), trailingStrings.get(0).length() + 1);
+        if (firstChar.matches("[a-zA-Z]") && firstChar.equals(firstChar.toUpperCase())) {
+            replacement = upperReplacement;
         }
+        return trailingStrings.get(0) + replacement + trailingStrings.get(1);
     }
 
     private String censorProfanity(String match, String message) {
