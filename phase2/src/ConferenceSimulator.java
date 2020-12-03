@@ -2,7 +2,7 @@ import EventSystem.*;
 import LoginSystem.*;
 import MessagingSystem.*;
 import UserSystem.*;
-import Gateway.*;
+import DatabaseSystem.*;
 
 import java.util.*;
 

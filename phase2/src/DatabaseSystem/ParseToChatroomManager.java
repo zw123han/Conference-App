@@ -1,4 +1,4 @@
-package Gateway;
+package DatabaseSystem;
 
 import MessagingSystem.Chatroom;
 import MessagingSystem.ChatroomManager;

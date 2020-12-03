@@ -1,4 +1,4 @@
-package Gateway;
+package DatabaseSystem;
 
 import EventSystem.Event;
 import EventSystem.EventManager;

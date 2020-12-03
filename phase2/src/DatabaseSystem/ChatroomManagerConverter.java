@@ -1,4 +1,4 @@
-package Gateway;
+package DatabaseSystem;
 
 import MessagingSystem.Chatroom;
 import MessagingSystem.ChatroomManager;
@@ -6,7 +6,6 @@ import MessagingSystem.Message;
 import com.mongodb.BasicDBObject;
 
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.Map;
 
 public class ChatroomManagerConverter implements ConversionStrategy {

@@ -1,11 +1,9 @@
 package UserSystem;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.lang.*;
-import java.util.HashMap;
 
-import Gateway.*;
+import DatabaseSystem.*;
 
 /**
  * Registrar is the use case class for all interactions with User objects. It contains an array list of User objects

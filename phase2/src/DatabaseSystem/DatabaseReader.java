@@ -1,4 +1,4 @@
-package Gateway;
+package DatabaseSystem;
 
 import com.mongodb.DB;
 import com.mongodb.DBCollection;

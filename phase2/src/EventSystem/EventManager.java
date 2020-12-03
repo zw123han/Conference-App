@@ -1,9 +1,7 @@
 package EventSystem;
 
-import Gateway.*;
-import UserSystem.Registrar;
+import DatabaseSystem.*;
 import UserSystem.Speaker;
-import UserSystem.User;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;

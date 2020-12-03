@@ -1,6 +1,6 @@
 package MessagingSystem;
 
-import Gateway.*;
+import DatabaseSystem.*;
 
 import java.io.Serializable;
 import java.util.*;

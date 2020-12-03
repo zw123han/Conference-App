@@ -1,4 +1,4 @@
-package Gateway;
+package DatabaseSystem;
 
 public interface Savable {
 

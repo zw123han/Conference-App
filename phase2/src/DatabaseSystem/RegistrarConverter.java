@@ -1,4 +1,4 @@
-package Gateway;
+package DatabaseSystem;
 
 import UserSystem.Registrar;
 import com.mongodb.BasicDBObject;

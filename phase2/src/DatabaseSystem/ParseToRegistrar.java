@@ -1,4 +1,4 @@
-package Gateway;
+package DatabaseSystem;
 
 import UserSystem.*;
 import com.mongodb.*;
