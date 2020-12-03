@@ -9,7 +9,7 @@ import java.util.ArrayList;
  *
  * @author Elliot, Chrisee
  */
-public class MessageOutboxController implements MessageControllerInterface {
+public class MessageOutboxController {
     private String username;
     private Registrar reg;
     private EventManager em;
@@ -117,8 +117,8 @@ public class MessageOutboxController implements MessageControllerInterface {
     }
 
     private String formatSendAll(String message, Long evt) {
-        return "Notice for the event " + em.getName(evt) + " in room " + em.getRoom(evt) +
-                ", " + em.getTime(evt) + "\n" + message;
+        return "[Event: " + em.getName(evt) + " in room " + em.getRoom(evt) +
+                ", " + em.getTime(evt) + "]\n" + message;
     }
 
     /**
@@ -167,5 +167,9 @@ public class MessageOutboxController implements MessageControllerInterface {
             }
         }
         return s;
+    }
+
+    public String getPermissionLevel() {
+        return reg.getUserType(username);
     }
 }

@@ -27,7 +27,6 @@ public class UserOptionsInterface {
     private Scanner sc = new Scanner(System.in);
     private LoginOptionsFacade loginFacade;
     private FriendsPresenter fp;
-    private MessageOutboxUI mo;
     private MessageInboxUI mi;
     private EventManager em;
     // All other UIs go here too and in the constructor
@@ -42,14 +41,13 @@ public class UserOptionsInterface {
      * @param fp                the FriendsPresenter instance for the current session
      */
     public UserOptionsInterface(LoginOptionsFacade loginFacade, EventCreatorPresenter ecp, EventSignupPresenter esp,
-                                ChatMenuPresenter cmp, FriendsPresenter fp, MessageOutboxUI mo, MessageInboxUI mi,
+                                ChatMenuPresenter cmp, FriendsPresenter fp, MessageInboxUI mi,
                                 EventManager em){
         this.loginFacade = loginFacade;
         this.ecp = ecp;
         this.esp = esp;
         this.cmp = cmp;
         this.fp = fp;
-        this.mo = mo;
         this.loginUI = new LoginUI(loginFacade);
         this.mi = mi;
         this.em = em;
@@ -76,7 +74,6 @@ public class UserOptionsInterface {
     }
 
     private void homeScreenMenu(User user, Registrar registrar) {
-        mo.setLoggedInUser(user.getUserName());
         mi.setLoggedInUser(user.getUserName());
         System.out.println("\nWelcome " + user.getUserName());
         showOptions(user);
@@ -555,33 +552,34 @@ public class UserOptionsInterface {
     }
 
     private void showMessageScreen(Registrar reg, String username){
-        System.out.println(cmp.menuDisplay());
-        System.out.println(cmp.commandPrompt("prompt"));
-        String choice = sc.nextLine();
-        while (!choice.equals("$q")) {
-            if (choice.equals("1")) {
-                showOutbox(reg, username, mo);
-            }
-            else if (choice.equals("2")) {
-                mi.promptChatChoice();
-            } else {
-                System.out.println(cmp.invalidCommand("prompt"));
-            }
-            System.out.println(cmp.menuDisplay());
-            System.out.println(cmp.commandPrompt("prompt"));
-            choice = sc.nextLine();
-        }
+        mi.promptChatChoice();
+//        System.out.println(cmp.menuDisplay());
+//        System.out.println(cmp.commandPrompt("prompt"));
+//        String choice = sc.nextLine();
+//        while (!choice.equals("$q")) {
+//            if (choice.equals("1")) {
+//                showOutbox(reg, username, mo);
+//            }
+//            else if (choice.equals("2")) {
+//                mi.promptChatChoice();
+//            } else {
+//                System.out.println(cmp.invalidCommand("prompt"));
+//            }
+//            System.out.println(cmp.menuDisplay());
+//            System.out.println(cmp.commandPrompt("prompt"));
+//            choice = sc.nextLine();
+//        }
     }
 
-    private void showOutbox(Registrar reg, String username, MessageOutboxUI mo) {
-        if (reg.isOrganizer(username) || reg.isAdmin(username)) {
-            mo.promptChatChoice();
-        } else if (reg.isSpeaker(username)) {
-            mo.promptEvent();
-        } else if (reg.isAttendee(username)) {
-            mo.promptRecipient();
-        }
-    }
+//    private void showOutbox(Registrar reg, String username, MessageOutboxUI mo) {
+//        if (reg.isOrganizer(username) || reg.isAdmin(username)) {
+//            mo.promptChatChoice();
+//        } else if (reg.isSpeaker(username)) {
+//            mo.promptEvent();
+//        } else if (reg.isAttendee(username)) {
+//            mo.promptRecipient();
+//        }
+//    }
 
     private void login(){
         loginUI.login();

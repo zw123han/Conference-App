@@ -10,7 +10,7 @@ import java.util.HashMap;
  * @author Chrisee
  */
 
-public class MessageInboxController implements MessageControllerInterface {
+public class MessageInboxController {
     private Registrar reg;
     private String username;
     private ChatroomManager cm;
@@ -123,29 +123,6 @@ public class MessageInboxController implements MessageControllerInterface {
     public boolean canViewChat(String recipient) {
         ArrayList<String> friends = getUsersTalkTo();
         return friends.contains(recipient);
-    }
-
-    /**
-     * Checks if a message is valid. A message is valid when it has more than 1 character that is not a space.
-     *
-     * @param message     message to be sent
-     * @return            true if the message has at least 1 character that is not a space.
-     */
-    public boolean validateMessage(String message) {
-        return !message.matches("[\\s]*");
-    }
-
-    /**
-     * Sends a message to the recipient.
-     *
-     * @param recipient     username of the recipient
-     * @param message       message to be sent
-     */
-    public void sendMessage(String recipient, String message) {
-        ArrayList<String> recipients = new ArrayList<>();
-        recipients.add(username);
-        recipients.add(recipient);
-        cm.sendOne(recipients, message, username);
     }
 
     /**

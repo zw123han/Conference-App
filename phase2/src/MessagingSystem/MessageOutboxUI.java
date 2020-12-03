@@ -9,7 +9,7 @@ import java.util.*;
  *
  * @author  Chrisee Zhu
  */
-public class MessageOutboxUI implements MessageUI{
+public class MessageOutboxUI {
     private MessageOutboxController oc;
     private MessageOutboxPresenter op;
     private Scanner sc = new Scanner(System.in);
@@ -35,10 +35,21 @@ public class MessageOutboxUI implements MessageUI{
         oc.setLoggedInUser(currentUser);
     }
 
+    public void promptChatChoice() {
+        String level = oc.getPermissionLevel().toLowerCase();
+        if (level.equals("usersystem.administrator") || level.equals("usersystem.organizer")) {
+            promptAdminOption();
+        } else if (level.equals("usersystem.speaker")) {
+            promptSpeaker();
+        } else if (level.equals("usersystem.attendee")) {
+            promptRecipient();
+        }
+    }
+
     /**
      * Prompts and processes a user's request for message composition options by target.
      */
-    public void promptChatChoice() {
+    public void promptAdminOption() {
         System.out.println(op.menuDisplay());
         System.out.println(op.commandPrompt("prompt"));
         String choice = sc.nextLine();

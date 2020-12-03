@@ -67,7 +67,7 @@ public class MessageInboxPresenter extends CommandPresenter {
      */
     public String menuDisplay() {
         ArrayList<String> users = getUsersTalkto();
-        StringBuilder result = new StringBuilder("\nCHAT HISTORY:\n------------------------");
+        StringBuilder result = new StringBuilder("\nMESSAGE INBOX:\n------------------------");
         for (String user : users) {
             result.append("\n[")
                     .append(getNumUnread(user))
@@ -78,9 +78,9 @@ public class MessageInboxPresenter extends CommandPresenter {
                     .append(")");
         }
         if (users.isEmpty()) {
-            return result + "\nYou can't chat with any users.\n";
+            result.append("\nYou don't have any chats with other users.");
         }
-        return result + "\n";
+        return result + "\n\n1) Compose a new message.\n";
     }
 
     /**

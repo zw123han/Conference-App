@@ -7,9 +7,10 @@ import java.util.Scanner;
  *
  * @author Chrisee, Elliot
  */
-public class MessageInboxUI implements MessageUI {
+public class MessageInboxUI {
     private MessageInboxController ic;
     private MessageInboxPresenter ip;
+    private MessageOutboxUI mo;
     private Scanner sc = new Scanner(System.in);
 
     /**
@@ -18,9 +19,10 @@ public class MessageInboxUI implements MessageUI {
      * @param ip        InboxPresenter
      * @param ic        InboxController
      */
-    public MessageInboxUI(MessageInboxPresenter ip, MessageInboxController ic) {
+    public MessageInboxUI(MessageInboxPresenter ip, MessageInboxController ic, MessageOutboxUI mo) {
         this.ip = ip;
         this.ic = ic;
+        this.mo = mo;
     }
 
     /**
@@ -32,6 +34,7 @@ public class MessageInboxUI implements MessageUI {
     public void setLoggedInUser(String currentUser) {
         ip.setLoggedInUser(currentUser);
         ic.setLoggedInUser(currentUser);
+        mo.setLoggedInUser(currentUser);
     }
 
     /**
@@ -43,7 +46,9 @@ public class MessageInboxUI implements MessageUI {
         String recipient = sc.nextLine();
         while (!recipient.equals("$q")) {
             recipient = recipient.replace("@", "");
-            if (ic.canViewChat(recipient)) {
+            if (recipient.equals("1")) {
+                mo.promptChatChoice();
+            } else if (ic.canViewChat(recipient)) {
                 chatViewer(recipient);
                 ic.markAllRead(recipient);
             } else {
@@ -78,7 +83,7 @@ public class MessageInboxUI implements MessageUI {
                 System.out.println(ip.viewPinned(recipient));
                 promptPin(recipient);
             }else if (e.equals("4") && ic.canReply(recipient)){
-                promptMessage(recipient);
+                mo.promptMessage(recipient);
             }
             System.out.println(ip.chatView(recipient));
         }
@@ -118,27 +123,6 @@ public class MessageInboxUI implements MessageUI {
             }
             System.out.println(ip.whichMessage("pin/unpin"));
             re = sc.nextLine();
-        }
-    }
-
-    /**
-     * Prompts the user for a reply to be sent into the current chat.
-     *
-     * @param recipient     username of a user that the logged in user has chatted with
-     */
-    public void promptMessage(String recipient) {
-        System.out.println(ip.commandPrompt("message (requires at least 1 character)"));
-        String message = sc.nextLine();
-        while (!message.equals("$q")) {
-            if (ic.validateMessage(message)) {
-                ic.sendMessage(recipient, message);
-                System.out.println(ip.success(recipient));
-                message = "$q";
-            } else {
-                System.out.println(ip.invalidCommand("message"));
-                System.out.println(ip.commandPrompt("message (requires at least 1 character)"));
-                message = sc.nextLine();
-            }
         }
     }
 }

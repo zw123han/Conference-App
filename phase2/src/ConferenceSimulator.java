@@ -97,11 +97,11 @@ public class ConferenceSimulator {
 
         MessageInboxPresenter inboxPresenter = new MessageInboxPresenter(registrar, "", chatroomManager, profanities);
         MessageInboxController inboxController = new MessageInboxController(registrar, "", chatroomManager);
-        MessageInboxUI inboxUI = new MessageInboxUI(inboxPresenter, inboxController);
+        MessageInboxUI inboxUI = new MessageInboxUI(inboxPresenter, inboxController, outboxUI);
 
         // Main user UI
         UserOptionsInterface ui = new UserOptionsInterface(loginFacade, eventCreatorPresenter, eventSignupPresenter,
-                chatMenuPresenter, friendsPresenter, outboxUI, inboxUI, eventManager);
+                chatMenuPresenter, friendsPresenter, inboxUI, eventManager);
 
 
 
