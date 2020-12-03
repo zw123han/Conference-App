@@ -1,6 +1,5 @@
 package GUISystem;
 import LoginSystem.LoginOptionsFacade;
-import LoginSystem.LoginUI;
 import javafx.beans.InvalidationListener;
 import javafx.beans.Observable;
 import javafx.event.ActionEvent;
@@ -19,6 +18,9 @@ import java.util.ArrayList;
 
 public class LoginGUI extends Application{
     private LoginOptionsFacade loginOptions;
+    public LoginGUI(LoginOptionsFacade loginOptions){
+        this.loginOptions = loginOptions;
+    }
 
     @Override
     public void start(Stage primaryStage){

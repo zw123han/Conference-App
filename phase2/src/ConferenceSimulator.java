@@ -1,4 +1,5 @@
 import EventSystem.*;
+import GUISystem.LoginGUI;
 import LoginSystem.*;
 import MessagingSystem.*;
 import UserSystem.*;
@@ -55,19 +56,13 @@ public class ConferenceSimulator {
         profanities = readProfanitiesList.readProfanities();
     }
 
-    /**
-     * This method will save all users and events data to a ser file.
-     */
-    public void save(){
-        //storeUsers.store(registrar.getUsers());
-        //saveEvents.saveEvents(eventManager.getEventsList());
-        //storeChat.storeChat(chatroomManager);
-    }
 
     /**
      * The static main method will run this method to start the application.
      */
     public void run() {
+
+        System.out.println("The UI has been deleted and is being refactored. Do not panic.");
         databaseInteractor.connect();
 
         registrar = (Registrar) databaseInteractor.readFromDatabase(registrar);
@@ -100,18 +95,14 @@ public class ConferenceSimulator {
         MessageInboxUI inboxUI = new MessageInboxUI(inboxPresenter, inboxController, outboxUI);
 
         // Main user UI
-        UserOptionsInterface ui = new UserOptionsInterface(loginFacade, eventCreatorPresenter, eventSignupPresenter,
-                chatMenuPresenter, friendsPresenter, inboxUI, eventManager);
 
-
+        LoginGUI loginGUI = new LoginGUI(loginFacade);
 
         // Run the program
         Scanner sc = new Scanner(System.in);
         boolean exit;
         do{
             do {
-                ui.loggedIn();
-                save();
                 ArrayList<Savable> savables = new ArrayList<>(Arrays.asList(registrar, eventManager, chatroomManager));
                 databaseInteractor.saveToDatabase(savables);
             } while (loginFacade.getUser() != null);
