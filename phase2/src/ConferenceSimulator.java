@@ -1,9 +1,11 @@
 import EventSystem.*;
-import GUISystem.LoginGUI;
+import GUISystem.*;
 import LoginSystem.*;
 import MessagingSystem.*;
 import UserSystem.*;
 import DatabaseSystem.*;
+import javafx.application.Application;
+import javafx.stage.Stage;
 
 import java.util.*;
 
@@ -43,8 +45,7 @@ public class ConferenceSimulator {
 
         saveEvents = new SaveEvents(eventFilepath);
         storeUsers = new StoreUsers(userFilepath);
-        //registrar = new Registrar(readUsers.read());
-        //eventManager = new EventManager(readEvents.read());
+
         registrar = new Registrar();
         eventManager = new EventManager();
         chatroomManager = new ChatroomManager();
@@ -52,7 +53,6 @@ public class ConferenceSimulator {
         readChat = new ReadChat(chatFilepath);
         storeChat = new StoreChat(chatFilepath);
         readProfanitiesList = new ReadProfanityList(profanityListFilepath);
-        //chatroomManager = readChat.readChatlog();
         profanities = readProfanitiesList.readProfanities();
     }
 
@@ -95,16 +95,18 @@ public class ConferenceSimulator {
         MessageInboxUI inboxUI = new MessageInboxUI(inboxPresenter, inboxController, outboxUI);
 
         // Main user UI
-
-        LoginGUI loginGUI = new LoginGUI(loginFacade);
+        LoginGUI loginGUI = new LoginGUI();
+        loginGUI.setLogin(loginFacade);
+        javafx.application.Application.launch(LoginGUI.class);
 
         // Run the program
+        // We should just do mainMenuGUI.start() and encapsulate all of this in there
         Scanner sc = new Scanner(System.in);
         boolean exit;
         do{
             do {
                 ArrayList<Savable> savables = new ArrayList<>(Arrays.asList(registrar, eventManager, chatroomManager));
-                databaseInteractor.saveToDatabase(savables);
+                databaseInteractor.saveToDatabase(savables); // It is kind of risky doing this with every action
             } while (loginFacade.getUser() != null);
             System.out.println("Press any key to log in again, or press Q to close the program.");
             exit = sc.nextLine().equals("Q");

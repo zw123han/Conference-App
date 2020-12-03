@@ -1,7 +1,5 @@
 package GUISystem;
 import LoginSystem.LoginOptionsFacade;
-import javafx.beans.InvalidationListener;
-import javafx.beans.Observable;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
@@ -13,14 +11,9 @@ import javafx.scene.layout.VBox;
 import javafx.stage.*;
 import javafx.scene.text.*;
 
-import java.awt.event.MouseEvent;
-import java.util.ArrayList;
 
 public class LoginGUI extends Application{
-    private LoginOptionsFacade loginOptions;
-    public LoginGUI(LoginOptionsFacade loginOptions){
-        this.loginOptions = loginOptions;
-    }
+    private static LoginOptionsFacade loginOptionsFacade;
 
     @Override
     public void start(Stage primaryStage){
@@ -45,7 +38,7 @@ public class LoginGUI extends Application{
             public void handle(ActionEvent e) {
                 String username = usernameField.getText();
                 String password = passwordField.getText();
-                loginOptions.login(username, password);
+                loginOptionsFacade.login(username, password);
             }
         });
 
@@ -60,6 +53,9 @@ public class LoginGUI extends Application{
         primaryStage.show();
     }
 
+    public void setLogin(LoginOptionsFacade loginOptionsFacade){
+        LoginGUI.loginOptionsFacade = loginOptionsFacade;
+    }
 
 
 }
