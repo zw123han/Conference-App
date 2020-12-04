@@ -13,37 +13,40 @@ import sun.security.util.Password;
 import LoginSystem.*;
 
 // This entire class contains the home menu and login menus and allows easy swapping between them
-//
+// Considering making this an interface
 
 public class MenuFacade extends Application{
-private HomeMenuGUI homeMenuGUI;
+private static HomeMenuGUI homeMenuGUI;
 private static LoginGUI loginGUI;
-private AccountCreationMenu accountCreationMenu;
-private static LoginOptionsFacade loginOptionsFacade;
+private static AccountCreationMenu accountCreationMenu;
 
 @Override
 public void start(Stage primaryStage){
-    setVariables();
-    loginOrCreate(primaryStage);
-
+    login(primaryStage);
 
 }
-
-private void loginOrCreate(Stage primaryStage){
-        loginGUI.start(primaryStage);
-        //accountCreationMenu.start(primaryStage);
+private void create(Stage primaryStage){
+    MenuFacade.accountCreationMenu.start(primaryStage);
 }
 
-// Prompt user to create an account or login
-// Allow returning to default menu
-// Display home menu somewhere...
+private void login(Stage primaryStage){
+    MenuFacade.loginGUI.start(primaryStage);
+}
+private void home(Stage primaryStage){
+    //MenuFacade.homeMenuGUI.start(primaryStage);
+}
 
-    private void setVariables(){
-        MenuFacade.loginGUI.setLogin(loginOptionsFacade);
+public static void set(LoginGUI loginGUI, AccountCreationMenu accountCreationMenu){
+    MenuFacade.loginGUI = loginGUI;
+    MenuFacade.accountCreationMenu = accountCreationMenu;
     }
-
-    public static void set(LoginOptionsFacade loginOptionsFacade){
-        MenuFacade.loginGUI = new LoginGUI();
-        MenuFacade.loginOptionsFacade = loginOptionsFacade;
-    }
+public static HomeMenuGUI getHomeMenuGUI(){
+    return homeMenuGUI;
+}
+public static LoginGUI getLoginGUI(){
+    return loginGUI;
+}
+public static AccountCreationMenu getAccountCreationMenu(){
+    return accountCreationMenu;
+}
 }

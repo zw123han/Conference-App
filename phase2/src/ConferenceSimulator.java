@@ -1,4 +1,5 @@
 import EventSystem.*;
+import GUISystem.AccountCreationMenu;
 import GUISystem.LoginGUI;
 import GUISystem.MenuFacade;
 import LoginSystem.*;
@@ -97,10 +98,15 @@ public class ConferenceSimulator {
 
         // Main user UI
 
-        //LoginGUI loginGUI = new LoginGUI();
-        //loginGUI.setLogin(loginFacade);
-        MenuFacade.set(loginFacade);
-        javafx.application.Application.launch(MenuFacade.class);
+        LoginGUI loginGUI = new LoginGUI();
+        loginGUI.setLogin(loginFacade);
+
+        AccountCreationMenu accountCreationMenu = new AccountCreationMenu();
+        accountCreationMenu.setLogin(loginFacade);
+
+        MenuFacade.set(loginGUI, accountCreationMenu);
+
+        Application.launch(MenuFacade.class);
 
         // Run the program
         // We should just do mainMenuGUI.start() and encapsulate all of this in there

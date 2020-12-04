@@ -2,6 +2,7 @@ package GUISystem;
 import LoginSystem.LoginOptionsFacade;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
+import javafx.fxml.FXMLLoader;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.*;
@@ -12,9 +13,12 @@ import javafx.scene.paint.Color;
 import javafx.stage.*;
 import javafx.scene.text.*;
 
+import java.io.IOException;
+
 
 public class LoginGUI extends Application{
     private LoginOptionsFacade loginOptionsFacade;
+    private String returnType;
 
     @Override
     public void start(Stage primaryStage){
@@ -30,7 +34,7 @@ public class LoginGUI extends Application{
         Text failedLogin = new Text();
 
 
-        TextField usernameField = new TextField("Username");
+        TextField usernameField = new TextField();
         PasswordField passwordField = new PasswordField();
 
 
@@ -42,7 +46,7 @@ public class LoginGUI extends Application{
                 String username = usernameField.getText();
                 String password = passwordField.getText();
                 if(loginOptionsFacade.login(username, password)){
-                    primaryStage.close();
+                    goHome(primaryStage);
                 }
                 else{
                     failedLogin.setFill(Color.RED);
@@ -55,13 +59,13 @@ public class LoginGUI extends Application{
         returnButton.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
-                primaryStage.close();
+                goAccountCreation(primaryStage);
             }
         });
 
 
 
-        loginCanvas.getChildren().addAll(loginTitle, loginButton, usernameField, passwordField, failedLogin);
+        loginCanvas.getChildren().addAll(loginTitle, usernameField, passwordField, loginButton, returnButton, failedLogin);
 
         primaryStage.setTitle("Conference Simulator Phase 2");
         primaryStage.setScene(scene);
@@ -73,5 +77,15 @@ public class LoginGUI extends Application{
         this.loginOptionsFacade = loginOptionsFacade;
     }
 
+    public String getReturnType(){
+        return this.returnType;
+    }
 
+    private void goAccountCreation(Stage primaryStage){
+        MenuFacade.getAccountCreationMenu().start(primaryStage);
+    }
+
+    private void goHome(Stage primaryStage){
+        //MenuFacade.getHomeMenuGUI().start(primaryStage);
+    }
 }
