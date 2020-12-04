@@ -3,6 +3,8 @@ package GUISystem;
 import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.layout.StackPane;
@@ -11,7 +13,7 @@ import javafx.stage.Stage;
 import sun.security.util.Password;
 
 
-public class HomeMenuGUI {
+public class HomeMenuGUI extends Application { // TODO: doesn't account for different users yet
     private EventMenu eventMenu;
     private MessageMenu messageMenu;
     private FriendsMenu friendsMenu;
@@ -30,29 +32,35 @@ public class HomeMenuGUI {
     }
 
     Stage window;
-    Scene homeScene, messageScene, eventScene, manageEventScene, friendScene, passwordScene, manageAccountScene;
 
-    public void display() { // TODO: this is just a general template, will need to add functionality
-        window.setTitle("Home Menu");
+    @Override
+    public void start(Stage primaryStage) throws Exception {
+        Parent root = FXMLLoader.load(getClass().getResource("HomeMenuGUI.fxml"));
+        primaryStage.setTitle("Home Menu");
+        primaryStage.setScene(new Scene(root, 300, 275));
+        primaryStage.show();
+    }
 
-        // buttons
-        Button eventButton = new Button("Events");
-        Button messageButton = new Button("Messages");
-        Button manageEventButton = new Button("Manage Events");
-        Button friendButton = new Button("Friends");
-        Button passwordButton = new Button("Change Password");
-        Button manageAccountButton = new Button("Manage Account");
+    public void eventDisplay() {
+        eventMenu.display();
+    }
+    public void friendsDisplay() {
+        friendsMenu.display();
+    }
 
-        eventButton.setOnAction(e -> eventMenu.display());
-        messageButton.setOnAction(e -> messageMenu.display(window));
-        manageEventButton.setOnAction(e -> manageEventMenu.display());
-        friendButton.setOnAction(e -> friendsMenu.display());
-        passwordButton.setOnAction(e -> passwordMenu.display());
-        manageAccountButton.setOnAction(e -> manageAccountMenu.display());
+    public void messageDisplay() {
+        messageMenu.display(window);
+    }
 
-        // layout construction
-        VBox layout = new VBox(20);
-        layout.getChildren().addAll(eventButton, messageButton, manageEventButton, friendButton, passwordButton, manageAccountButton);
-        homeScene = new Scene(layout, 200, 500);
+    public void passwordDisplay() {
+        passwordMenu.display();
+    }
+
+    public void manageAccountMenuDisplay() {
+        manageAccountMenu.display();
+    }
+
+    public void manageEventMenuDisplay() {
+        manageEventMenu.display();
     }
 }
