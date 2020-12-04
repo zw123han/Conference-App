@@ -1,5 +1,8 @@
 package GUISystem;
 
+import javafx.event.ActionEvent;
+import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.scene.*;
 import javafx.scene.paint.Color;
 import javafx.scene.text.*;
@@ -9,6 +12,8 @@ import javafx.scene.layout.*;
 import javafx.stage.*;
 import javafx.geometry.*;
 import MessagingSystem.*;
+
+import java.io.IOException;
 import java.util.*;
 
 public class MessageInboxGUI extends Application implements MessageInboxPresenter.IView {
@@ -34,25 +39,33 @@ public class MessageInboxGUI extends Application implements MessageInboxPresente
         VBox chatroomCanvas = new VBox();
         chatroomCanvas.setAlignment(Pos.TOP_CENTER);
         // CHILD #1: TITLE BAR
-        HBox chatroomBar = new HBox(10);
+        HBox chatroomBar = new HBox();
         chatroomBar.setAlignment(Pos.CENTER_LEFT);
         chatroomBar.setPrefSize(180, 40);
-        // New Message Button
-        Button newMessage = new Button("+");
-        newMessage.setPrefSize(20, 20);
-        newMessage.setFont(Font.loadFont(getClass().getResourceAsStream("/open-sans/os-extrabold.ttf"), 12));
-        newMessage.setBackground(new Background(new BackgroundFill(Color.WHITE, new CornerRadii(10), new Insets(0))));
-        newMessage.setPadding(new Insets(0, 6, 0, 6));
+        // Go back button
+        Button goBack = new Button("×");
+        goBack.setPrefSize(40, 40);
+        goBack.setFont(Font.loadFont(getClass().getResourceAsStream("/open-sans/os-extrabold.ttf"), 16));
+        goBack.setBackground(new Background(new BackgroundFill(Color.CRIMSON, CornerRadii.EMPTY, Insets.EMPTY)));
+        goBack.setTextFill(Color.WHITE);
+        goBack.setBorder(new Border(new BorderStroke(Color.CRIMSON, BorderStrokeStyle.SOLID, CornerRadii.EMPTY, new BorderWidths(4))));
+        goBack.setOnAction(e -> {
+            try {
+                goBack(e);
+            } catch (IOException ioException) {
+                ioException.printStackTrace();
+            }
+        });
         // Chatroom Title
         chatroomCanvasTitle = new Label("Inbox");
         chatroomCanvasTitle.setFont(Font.loadFont(getClass().getResourceAsStream("/open-sans/os-bold.ttf"), 16));
         chatroomCanvasTitle.setTextFill(Color.WHITE);
-        Background chatroomCanvasBackground = new Background(new BackgroundFill(Color.BLACK, new CornerRadii(0), new Insets(0)));
+        Background chatroomCanvasBackground = new Background(new BackgroundFill(Color.BLACK, CornerRadii.EMPTY, Insets.EMPTY));
         chatroomCanvas.setBackground(chatroomCanvasBackground);
-        chatroomCanvasTitle.setPadding(new Insets(10));
+        chatroomCanvasTitle.setPadding(new Insets(10, 12, 10, 12));
         chatroomCanvasTitle.setPrefSize(140, 40);
         // Putting everything into chatroomBar
-        chatroomBar.getChildren().addAll(chatroomCanvasTitle,newMessage);
+        chatroomBar.getChildren().addAll(goBack, chatroomCanvasTitle);
         // CHILD #2: SCROLLABLE CHATROOM OPTIONS
         ScrollPane chatroomOptionsScrollable = new ScrollPane();
         chatroomOptions = new VBox();
@@ -66,10 +79,27 @@ public class MessageInboxGUI extends Application implements MessageInboxPresente
         VBox messageCanvas = new VBox();
         messageCanvas.setAlignment(Pos.TOP_CENTER);
         // CHILD #1: TITLE BAR
+        HBox messageBar = new HBox();
+        messageBar.setAlignment(Pos.CENTER_RIGHT);
+        messageBar.setPrefSize(320, 40);
+        // Message Canvas Title
         messageCanvasTitle = new Label("Select a chat");
         messageCanvasTitle.setFont(Font.loadFont(getClass().getResourceAsStream("/open-sans/os-bold.ttf"), 16));
         messageCanvasTitle.setPadding(new Insets(10));
         messageCanvasTitle.setPrefSize(320, 40);
+        // New Message Button
+        Button newMessage = new Button("+");
+        newMessage.setPrefSize(40, 40);
+        newMessage.setFont(Font.loadFont(getClass().getResourceAsStream("/open-sans/os-extrabold.ttf"), 16));
+        newMessage.setBackground(new Background(new BackgroundFill(Color.CORNFLOWERBLUE, CornerRadii.EMPTY, Insets.EMPTY)));
+        newMessage.setBorder(new Border(new BorderStroke(Color.CORNFLOWERBLUE, BorderStrokeStyle.SOLID, CornerRadii.EMPTY, new BorderWidths(4))));
+        newMessage.setOnAction(e -> {
+            MessageOutboxGUI outbox = new MessageOutboxGUI();
+            Stage outboxWindow = new Stage();
+            outbox.start(outboxWindow);
+        });
+        // Putting everything into messageBar
+        messageBar.getChildren().addAll(messageCanvasTitle, newMessage);
         // CHILD #2: SCROLLABLE MESSAGE HISTORY
         ScrollPane messagesScrollable = new ScrollPane();
         messageDisplay = new VBox(10);
@@ -77,10 +107,10 @@ public class MessageInboxGUI extends Application implements MessageInboxPresente
         messagesScrollable.setContent(messageDisplay);
         messagesScrollable.setVvalue(1.0);
         // CHILD #3: MESSAGE TEXT AREA
-        HBox messageBar = new HBox(5);
-        messageBar.setPrefSize(320, 160);
-        messageBar.setAlignment(Pos.BOTTOM_LEFT);
-        messageBar.setPadding(new Insets(5));
+        HBox textFieldBar = new HBox(5);
+        textFieldBar.setPrefSize(320, 160);
+        textFieldBar.setAlignment(Pos.BOTTOM_LEFT);
+        textFieldBar.setPadding(new Insets(5));
         // Message Box (Field)
         messageBox = new TextArea();
         messageBox.setFont(Font.loadFont(getClass().getResourceAsStream("/open-sans/os-regular.ttf"), 12));
@@ -91,14 +121,17 @@ public class MessageInboxGUI extends Application implements MessageInboxPresente
         Button sendMessage = new Button("SEND");
         sendMessage.setPrefSize(50, 30);
         sendMessage.setFont(Font.loadFont(getClass().getResourceAsStream("/open-sans/os-bold.ttf"), 10));
-        sendMessage.setBackground(new Background(new BackgroundFill(Color.BLACK, new CornerRadii(10), new Insets(0))));
+        sendMessage.setBackground(new Background(new BackgroundFill(Color.BLACK, new CornerRadii(4), Insets.EMPTY)));
         sendMessage.setTextFill(Color.WHITE);
         sendMessage.setPadding(new Insets(8));
-        sendMessage.setOnAction(e -> sendMessage(messageBox));
+        sendMessage.setOnAction(e -> {
+            mi.sendMessage(messageBox.getText(), recipient);
+            messageBox.setText("");
+        });
         // Putting everything into MessageBar
-        messageBar.getChildren().addAll(messageBox, sendMessage);
+        textFieldBar.getChildren().addAll(messageBox, sendMessage);
         // PUTTING EVERYTHING INTO MESSAGECANVAS
-        messageCanvas.getChildren().addAll(messageCanvasTitle, messagesScrollable, messageBar);
+        messageCanvas.getChildren().addAll(messageBar, messagesScrollable, textFieldBar);
 
         // PRELIMINARY VIEW LOADING
         //mi.loadChatroomCanvasView();
@@ -123,7 +156,10 @@ public class MessageInboxGUI extends Application implements MessageInboxPresente
         Button chat = new Button();
         chat.setPrefSize(150, 50);
         chat.setId(option.get(1));
-        chat.setOnAction(e -> onSelectChat(chat.getId()));
+        chat.setOnAction(e -> {
+            this.recipient = chat.getId();
+            mi.loadMessageCanvasView(recipient);
+        });
 
         HBox chatroomOptionContainer = new HBox(5);
         chatroomOptionContainer.setAlignment(Pos.BOTTOM_LEFT);
@@ -139,8 +175,7 @@ public class MessageInboxGUI extends Application implements MessageInboxPresente
         if (!option.get(2).equals("0")) {
             unread.setText(option.get(2));
             unread.setFont(Font.loadFont(getClass().getResourceAsStream("/open-sans/os-extrabold.ttf"), 10));
-            CornerRadii corn = new CornerRadii(10);
-            Background background = new Background(new BackgroundFill(Color.BLACK, corn, new Insets(0, 6, 0, 6)));
+            Background background = new Background(new BackgroundFill(Color.BLACK, new CornerRadii(10), new Insets(0, 6, 0, 6)));
             unread.setPrefHeight(16);
             unread.setBackground(background);
         }
@@ -148,11 +183,6 @@ public class MessageInboxGUI extends Application implements MessageInboxPresente
 
         chat.setGraphic(chatroomOptionContainer);
         chatroomOptions.getChildren().add(chat);
-    }
-
-    private void onSelectChat(String id) {
-        this.recipient = id;
-        mi.loadMessageCanvasView(recipient);
     }
 
     public void setMessageCanvasTitle(String recipientName) {
@@ -184,15 +214,14 @@ public class MessageInboxGUI extends Application implements MessageInboxPresente
         messageDisplay.getChildren().add(messageContainer);
     }
 
-    public void sendMessage(TextArea messageBox) {
-        messageBox.setText("");
-        mi.sendMessage(messageBox.getText(), recipient);
-    }
+    @FXML //TODO: doesn't account for user types yet
+    private void goBack(ActionEvent event) throws IOException {
+        Parent parent = FXMLLoader.load(getClass().getResource("Menu1.fxml"));
+        Scene scene = new Scene(parent);
 
-    public void openOutbox() {
-        MessageOutboxGUI outbox = new MessageOutboxGUI();
-        Stage outboxWindow = new Stage();
-        outbox.start(outboxWindow);
+        Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
+        window.setScene(scene);
+        window.show();
     }
 
     public void display(Stage primaryStage) {

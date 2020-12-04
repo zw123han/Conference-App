@@ -12,7 +12,7 @@ import java.io.IOException;
 
 public abstract class Menu {
 
-    private MessageMenu messageMenu;
+    private MessageInboxGUI messageMenu;
 
     Stage window;
 
