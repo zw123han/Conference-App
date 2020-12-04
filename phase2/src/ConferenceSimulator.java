@@ -95,9 +95,9 @@ public class ConferenceSimulator {
         MessageInboxUI inboxUI = new MessageInboxUI(inboxPresenter, inboxController, outboxUI);
 
         // Main user UI
-        LoginGUI loginGUI = new LoginGUI();
-        loginGUI.setLogin(loginFacade);
-        javafx.application.Application.launch(LoginGUI.class);
+        //LoginGUI loginGUI = new LoginGUI();
+        //loginGUI.setLogin(loginFacade);
+        //javafx.application.Application.launch(LoginGUI.class);
 
         // Run the program
         // We should just do mainMenuGUI.start() and encapsulate all of this in there

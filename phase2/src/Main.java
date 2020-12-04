@@ -14,8 +14,6 @@ public class Main {
 
         ConferenceSimulator conference = new ConferenceSimulator();
 
-        Runtime.getRuntime().addShutdownHook(new Thread(conference::save));
-
         conference.run();
 
     }
