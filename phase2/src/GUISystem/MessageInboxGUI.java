@@ -221,6 +221,8 @@ public class MessageInboxGUI extends Application implements MessageInboxPresente
 
         Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
         window.setScene(scene);
+        window.setHeight(500);
+        window.setWidth(500);
         window.show();
     }
 

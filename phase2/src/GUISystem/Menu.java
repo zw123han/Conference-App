@@ -33,7 +33,8 @@ public abstract class Menu {
 
     @FXML
     public void messageDisplay(ActionEvent event) {
-
+        messageMenu = new MessageInboxGUI();
+        Stage window = (Stage)((Node)event.getSource()).getScene().getWindow();
         messageMenu.display(window);
     }
 
