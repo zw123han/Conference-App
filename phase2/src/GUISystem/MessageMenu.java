@@ -36,7 +36,7 @@ public class MessageMenu extends Application implements MessageInboxUI.IView {
         chatroomCanvas.setAlignment(Pos.TOP_CENTER);
         // CHILD #1: TITLE BAR
         chatroomCanvasTitle = new Label("Chats");
-        chatroomCanvasTitle.setFont(Font.loadFont(getClass().getResourceAsStream("/os/os-bold.ttf"), 16));
+        chatroomCanvasTitle.setFont(Font.loadFont(getClass().getResourceAsStream("/open-sans/os-bold.ttf"), 16));
         chatroomCanvasTitle.setTextFill(Color.WHITE);
         Background chatroomCanvasBackground = new Background(new BackgroundFill(Color.BLACK, new CornerRadii(0), new Insets(0)));
         chatroomCanvas.setBackground(chatroomCanvasBackground);
@@ -55,7 +55,7 @@ public class MessageMenu extends Application implements MessageInboxUI.IView {
         messageCanvas.setAlignment(Pos.TOP_CENTER);
         // CHILD #1: TITLE BAR
         messageCanvasTitle = new Label("Select a chat");
-        messageCanvasTitle.setFont(Font.loadFont(getClass().getResourceAsStream("/os/os-bold.ttf"), 16));
+        messageCanvasTitle.setFont(Font.loadFont(getClass().getResourceAsStream("/open-sans/os-bold.ttf"), 16));
         messageCanvasTitle.setPadding(new Insets(10));
         messageCanvasTitle.setPrefSize(320, 40);
         // CHILD #2: SCROLLABLE MESSAGE HISTORY
@@ -71,7 +71,7 @@ public class MessageMenu extends Application implements MessageInboxUI.IView {
         messageBar.setPadding(new Insets(5));
         // Message Box (Field)
         messageBox = new TextArea();
-        messageBox.setFont(Font.loadFont(getClass().getResourceAsStream("/os/os-regular.ttf"), 12));
+        messageBox.setFont(Font.loadFont(getClass().getResourceAsStream("/open-sans/os-regular.ttf"), 12));
         messageBox.setPadding(new Insets(4));
         messageBox.setPrefSize(260, 40);
         messageBox.setWrapText(true);
@@ -79,7 +79,7 @@ public class MessageMenu extends Application implements MessageInboxUI.IView {
         // Send Message Button
         Button sendMessage = new Button("SEND");
         sendMessage.setPrefSize(50, 30);
-        sendMessage.setFont(Font.loadFont(getClass().getResourceAsStream("/os/os-bold.ttf"), 10));
+        sendMessage.setFont(Font.loadFont(getClass().getResourceAsStream("/open-sans/os-bold.ttf"), 10));
         CornerRadii corn = new CornerRadii(10);
         Background background = new Background(new BackgroundFill(Color.BLACK, corn, new Insets(0)));
         sendMessage.setBackground(background);
@@ -121,14 +121,14 @@ public class MessageMenu extends Application implements MessageInboxUI.IView {
         chatroomOptionContainer.setPadding(new Insets(25, 22, 22, 25));
 
         Label displayName = new Label(option.get(0));
-        displayName.setFont(Font.loadFont(getClass().getResourceAsStream("/os/os-bold.ttf"), 12));
+        displayName.setFont(Font.loadFont(getClass().getResourceAsStream("/open-sans/os-bold.ttf"), 12));
         Label username = new Label(option.get(1));
-        username.setFont(Font.loadFont(getClass().getResourceAsStream("/os/os-regular.ttf"), 12));
+        username.setFont(Font.loadFont(getClass().getResourceAsStream("/open-sans/os-regular.ttf"), 12));
         username.setTextFill(Color.GREY);
         Label unread = new Label();
         if (!option.get(2).equals("0")) {
             unread.setText(option.get(2));
-            unread.setFont(Font.loadFont(getClass().getResourceAsStream("/os/os-regular.ttf"), 12));
+            unread.setFont(Font.loadFont(getClass().getResourceAsStream("/open-sans/os-regular.ttf"), 12));
             CornerRadii corn = new CornerRadii(10);
             Background background = new Background(new BackgroundFill(Color.BLACK, corn, new Insets(2)));
             unread.setBackground(background);
@@ -157,14 +157,14 @@ public class MessageMenu extends Application implements MessageInboxUI.IView {
         VBox senderData = new VBox();
         senderData.setAlignment(Pos.TOP_LEFT);
         Label sender = new Label(messageData.get(0));
-        sender.setFont(Font.font("Open Sans", FontWeight.BOLD, 16));
+        sender.setFont(Font.loadFont(getClass().getResourceAsStream("/open-sans/os-bold.ttf"), 12));
         Label date = new Label(messageData.get(1));
-        date.setFont(Font.font("Open Sans", 16));
+        date.setFont(Font.loadFont(getClass().getResourceAsStream("/open-sans/os-regular.ttf"), 12));
         date.setTextFill(Color.GREY);
         senderData.getChildren().addAll(sender, date);
 
         Label message = new Label(messageData.get(2));
-        message.setFont(Font.font("Open Sans", 16));
+        message.setFont(Font.loadFont(getClass().getResourceAsStream("/open-sans/os-regular.ttf"), 12));
         message.setWrapText(true);
 
         messageContainer.getChildren().addAll(senderData, message);
@@ -178,6 +178,6 @@ public class MessageMenu extends Application implements MessageInboxUI.IView {
     }
 
     public void display(Stage primaryStage) {
-        //start(primaryStage);
+        start(primaryStage);
     }
 }
