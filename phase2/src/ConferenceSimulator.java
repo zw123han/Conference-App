@@ -1,8 +1,12 @@
 import EventSystem.*;
+import GUISystem.LoginGUI;
+import GUISystem.MenuFacade;
 import LoginSystem.*;
 import MessagingSystem.*;
 import UserSystem.*;
 import DatabaseSystem.*;
+import javafx.application.Application;
+import javafx.stage.Stage;
 
 import java.util.*;
 
@@ -92,9 +96,11 @@ public class ConferenceSimulator {
         MessageInboxPresenter inboxUI = new MessageInboxPresenter(inboxPresenter, inboxController);
 
         // Main user UI
+
         //LoginGUI loginGUI = new LoginGUI();
         //loginGUI.setLogin(loginFacade);
-        //javafx.application.Application.launch(LoginGUI.class);
+        MenuFacade.set(loginFacade);
+        javafx.application.Application.launch(MenuFacade.class);
 
         // Run the program
         // We should just do mainMenuGUI.start() and encapsulate all of this in there

@@ -8,6 +8,7 @@ import javafx.scene.*;
 import javafx.application.*;
 import javafx.scene.control.*;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
 import javafx.stage.*;
 import javafx.scene.text.*;
 
@@ -26,11 +27,13 @@ public class LoginGUI extends Application{
         Text loginTitle = new Text ("Welcome to the Conference!");
         loginTitle.setFont(Font.font("Times New Roman", FontWeight.EXTRA_BOLD,30));
 
+        Text failedLogin = new Text();
 
 
-
-        TextField usernameField = new TextField();
+        TextField usernameField = new TextField("Username");
         PasswordField passwordField = new PasswordField();
+
+
 
         Button loginButton = new Button("Login");
         loginButton.setOnAction(new EventHandler<ActionEvent>() {
@@ -38,24 +41,33 @@ public class LoginGUI extends Application{
             public void handle(ActionEvent e) {
                 String username = usernameField.getText();
                 String password = passwordField.getText();
-                loginOptionsFacade.login(username, password);
+                if(loginOptionsFacade.login(username, password)){
+                    primaryStage.close();
+                }
+                else{
+                    failedLogin.setFill(Color.RED);
+                    failedLogin.setText("Login failed. Please check your credentials");
+                }
+            }
+        });
+
+        Button returnButton = new Button("Create Account Instead");
+        returnButton.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                primaryStage.close();
             }
         });
 
 
 
-
-
-        loginCanvas.getChildren().addAll(loginTitle, loginButton, usernameField, passwordField);
+        loginCanvas.getChildren().addAll(loginTitle, loginButton, usernameField, passwordField, failedLogin);
 
         primaryStage.setTitle("Conference Simulator Phase 2");
         primaryStage.setScene(scene);
         primaryStage.show();
     }
 
-    public void display(){
-
-    };
 
     public void setLogin(LoginOptionsFacade loginOptionsFacade){
         this.loginOptionsFacade = loginOptionsFacade;
