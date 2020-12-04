@@ -13,7 +13,7 @@ import javafx.scene.text.*;
 
 
 public class LoginGUI extends Application{
-    private static LoginOptionsFacade loginOptionsFacade;
+    private LoginOptionsFacade loginOptionsFacade;
 
     @Override
     public void start(Stage primaryStage){
@@ -53,8 +53,12 @@ public class LoginGUI extends Application{
         primaryStage.show();
     }
 
+    public void display(){
+
+    };
+
     public void setLogin(LoginOptionsFacade loginOptionsFacade){
-        LoginGUI.loginOptionsFacade = loginOptionsFacade;
+        this.loginOptionsFacade = loginOptionsFacade;
     }
 
 
