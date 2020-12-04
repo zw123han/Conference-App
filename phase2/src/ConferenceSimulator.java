@@ -1,11 +1,8 @@
 import EventSystem.*;
-import GUISystem.*;
 import LoginSystem.*;
 import MessagingSystem.*;
 import UserSystem.*;
 import DatabaseSystem.*;
-import javafx.application.Application;
-import javafx.stage.Stage;
 
 import java.util.*;
 
@@ -86,13 +83,13 @@ public class ConferenceSimulator {
         ChatMenuPresenter chatMenuPresenter = new ChatMenuPresenter();
         FriendsPresenter friendsPresenter = new FriendsPresenter();
 
-        MessageOutboxPresenter outboxPresenter = new MessageOutboxPresenter("", registrar, eventManager);
+        MessageOutboxDataCollector outboxPresenter = new MessageOutboxDataCollector("", registrar, eventManager);
         MessageOutboxController outboxController = new MessageOutboxController("", registrar, eventManager, chatroomManager);
-        MessageOutboxUI outboxUI = new MessageOutboxUI(outboxController, outboxPresenter);
+        MessageOutboxPresenter outboxUI = new MessageOutboxPresenter(outboxController, outboxPresenter);
 
-        MessageInboxPresenter inboxPresenter = new MessageInboxPresenter(registrar, "", chatroomManager, profanities);
+        MessageInboxDataCollector inboxPresenter = new MessageInboxDataCollector(registrar, "", chatroomManager, profanities);
         MessageInboxController inboxController = new MessageInboxController(registrar, "", chatroomManager);
-        MessageInboxUI inboxUI = new MessageInboxUI(inboxPresenter, inboxController, outboxUI);
+        MessageInboxPresenter inboxUI = new MessageInboxPresenter(inboxPresenter, inboxController);
 
         // Main user UI
         //LoginGUI loginGUI = new LoginGUI();

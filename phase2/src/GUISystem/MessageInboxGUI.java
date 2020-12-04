@@ -6,14 +6,13 @@ import javafx.scene.text.*;
 import javafx.application.Application;
 import javafx.scene.control.*;
 import javafx.scene.layout.*;
-import javafx.scene.image.*;
 import javafx.stage.*;
 import javafx.geometry.*;
 import MessagingSystem.*;
 import java.util.*;
 
-public class MessageInboxGUI extends Application implements MessageInboxUI.IView {
-    private MessageInboxUI mi;
+public class MessageInboxGUI extends Application implements MessageInboxPresenter.IView {
+    private MessageInboxPresenter mi;
     private VBox chatroomOptions;
     private VBox messageDisplay;
     private Label chatroomCanvasTitle;
@@ -21,7 +20,7 @@ public class MessageInboxGUI extends Application implements MessageInboxUI.IView
     private TextArea messageBox;
     private String recipient;
 
-    public void setLogin(MessageInboxUI mi) {
+    public void setLogin(MessageInboxPresenter mi) {
         this.mi = mi;
     }
 

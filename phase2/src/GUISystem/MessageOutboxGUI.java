@@ -1,18 +1,12 @@
 package GUISystem;
 
 import javafx.scene.*;
-import javafx.scene.paint.Color;
-import javafx.scene.text.*;
 import javafx.application.Application;
-import javafx.scene.control.*;
 import javafx.scene.layout.*;
-import javafx.scene.image.*;
 import javafx.stage.*;
-import javafx.geometry.*;
 import MessagingSystem.*;
-import java.util.*;
 
-public class MessageOutboxGUI extends Application implements MessageOutboxUI.OView {
+public class MessageOutboxGUI extends Application implements MessageOutboxPresenter.OView {
 
     @Override
     public void start(Stage primaryStage) {
