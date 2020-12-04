@@ -52,7 +52,6 @@ public class MessageMenu extends Application implements MessageInboxUI.IView {
         chatroomOptions.setPadding(new Insets(20, 20, 20, 20));
         chatroomOptions.setPrefWidth(150);
         chatroomOptionsScrollable.setContent(chatroomOptions);
-
         chatroomCanvas.getChildren().addAll(chatroomCanvasTitle, chatroomOptionsScrollable);
 
 
