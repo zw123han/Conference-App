@@ -2,6 +2,7 @@ import EventSystem.*;
 import GUISystem.AccountCreationMenu;
 import GUISystem.LoginGUI;
 import GUISystem.MenuFacade;
+import GUISystem.MessageInboxGUI;
 import LoginSystem.*;
 import MessagingSystem.*;
 import UserSystem.*;
@@ -88,13 +89,14 @@ public class ConferenceSimulator {
         ChatMenuPresenter chatMenuPresenter = new ChatMenuPresenter();
         FriendsPresenter friendsPresenter = new FriendsPresenter();
 
-        MessageOutboxDataCollector outboxPresenter = new MessageOutboxDataCollector("", registrar, eventManager);
+        MessageOutboxDataCollector outboxDateCollector = new MessageOutboxDataCollector("", registrar, eventManager);
         MessageOutboxController outboxController = new MessageOutboxController("", registrar, eventManager, chatroomManager);
-        MessageOutboxPresenter outboxUI = new MessageOutboxPresenter(outboxController, outboxPresenter);
-
-        MessageInboxDataCollector inboxPresenter = new MessageInboxDataCollector(registrar, "", chatroomManager, profanities);
+        MessageOutboxPresenter outboxPresenter = new MessageOutboxPresenter(outboxController, outboxDateCollector);
+        //MessageOutboxGUI outboxGUI = new MessageOutboxGUI(outboxPresenter);
+        MessageInboxDataCollector inboxDataCollector = new MessageInboxDataCollector(registrar, "", chatroomManager, profanities);
         MessageInboxController inboxController = new MessageInboxController(registrar, "", chatroomManager);
-        MessageInboxPresenter inboxUI = new MessageInboxPresenter(inboxPresenter, inboxController);
+        MessageInboxPresenter inboxPresenter = new MessageInboxPresenter(inboxDataCollector, inboxController);
+        //MessageInboxGUI inboxGUI = new MessageInboxGUI(inboxPresenter);
 
         // Main user UI
 

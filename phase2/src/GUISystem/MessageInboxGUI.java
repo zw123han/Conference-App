@@ -24,6 +24,7 @@ public class MessageInboxGUI extends Application implements MessageInboxPresente
     private Label messageCanvasTitle;
     private TextArea messageBox;
     private String recipient;
+    private HBox messageBar;
 
     public void setLogin(MessageInboxPresenter mi) {
         this.mi = mi;
@@ -43,12 +44,7 @@ public class MessageInboxGUI extends Application implements MessageInboxPresente
         chatroomBar.setAlignment(Pos.CENTER_LEFT);
         chatroomBar.setPrefSize(180, 40);
         // Go back button
-        Button goBack = new Button("×");
-        goBack.setPrefSize(40, 40);
-        goBack.setFont(Font.loadFont(getClass().getResourceAsStream("/open-sans/os-extrabold.ttf"), 16));
-        goBack.setBackground(new Background(new BackgroundFill(Color.CRIMSON, CornerRadii.EMPTY, Insets.EMPTY)));
-        goBack.setTextFill(Color.WHITE);
-        goBack.setBorder(new Border(new BorderStroke(Color.CRIMSON, BorderStrokeStyle.SOLID, CornerRadii.EMPTY, new BorderWidths(4))));
+        Button goBack = squareButtonConstructor(Color.CRIMSON, "×");
         goBack.setOnAction(e -> {
             try {
                 goBack(e);
@@ -79,7 +75,7 @@ public class MessageInboxGUI extends Application implements MessageInboxPresente
         VBox messageCanvas = new VBox();
         messageCanvas.setAlignment(Pos.TOP_CENTER);
         // CHILD #1: TITLE BAR
-        HBox messageBar = new HBox();
+        messageBar = new HBox();
         messageBar.setAlignment(Pos.CENTER_RIGHT);
         messageBar.setPrefSize(320, 40);
         // Message Canvas Title
@@ -88,11 +84,7 @@ public class MessageInboxGUI extends Application implements MessageInboxPresente
         messageCanvasTitle.setPadding(new Insets(10));
         messageCanvasTitle.setPrefSize(320, 40);
         // New Message Button
-        Button newMessage = new Button("+");
-        newMessage.setPrefSize(40, 40);
-        newMessage.setFont(Font.loadFont(getClass().getResourceAsStream("/open-sans/os-extrabold.ttf"), 16));
-        newMessage.setBackground(new Background(new BackgroundFill(Color.CORNFLOWERBLUE, CornerRadii.EMPTY, Insets.EMPTY)));
-        newMessage.setBorder(new Border(new BorderStroke(Color.CORNFLOWERBLUE, BorderStrokeStyle.SOLID, CornerRadii.EMPTY, new BorderWidths(4))));
+        Button newMessage = squareButtonConstructor(Color.ROYALBLUE, "+");
         newMessage.setOnAction(e -> {
             MessageOutboxGUI outbox = new MessageOutboxGUI();
             Stage outboxWindow = new Stage();
@@ -143,9 +135,21 @@ public class MessageInboxGUI extends Application implements MessageInboxPresente
         primaryStage.setScene(scene);
         primaryStage.setMinHeight(500);
         primaryStage.setMaxHeight(600);
+        primaryStage.setHeight(600);
         primaryStage.setMinWidth(500);
         primaryStage.setMaxWidth(500);
+        primaryStage.setWidth(500);
         primaryStage.show();
+    }
+
+    private Button squareButtonConstructor(Color buttonColor, String symbol) {
+        Button button = new Button(symbol);
+        button.setPrefSize(40, 40);
+        button.setFont(Font.loadFont(getClass().getResourceAsStream("/open-sans/os-extrabold.ttf"), 16));
+        button.setBackground(new Background(new BackgroundFill(buttonColor, CornerRadii.EMPTY, Insets.EMPTY)));
+        button.setBorder(new Border(new BorderStroke(buttonColor, BorderStrokeStyle.SOLID, CornerRadii.EMPTY, new BorderWidths(4))));
+        button.setTextFill(Color.WHITE);
+        return button;
     }
 
     public void setChatroomCanvasTitle(String numberUnread) {
@@ -187,6 +191,9 @@ public class MessageInboxGUI extends Application implements MessageInboxPresente
 
     public void setMessageCanvasTitle(String recipientName) {
         messageCanvasTitle.setText(recipientName);
+        Button pinnedMessages = squareButtonConstructor(Color.GOLDENROD, "¶");
+        messageBar.getChildren().add(1, pinnedMessages);
+        //pinnedMessages.setOnAction(e -> );
     }
 
     public void setMessageArea(ArrayList<String> messageData) {
@@ -221,6 +228,8 @@ public class MessageInboxGUI extends Application implements MessageInboxPresente
 
         Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
         window.setScene(scene);
+        window.setHeight(500);
+        window.setWidth(500);
         window.show();
     }
 
