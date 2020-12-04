@@ -21,7 +21,7 @@ public class MessageInboxGUI extends Application implements MessageInboxUI.IView
     private TextArea messageBox;
     private String recipient;
 
-    public MessageMenu(MessageInboxUI mi) {
+    public MessageInboxGUI(MessageInboxUI mi) {
         this.mi = mi;
     }
 
