@@ -12,7 +12,7 @@ import javafx.geometry.*;
 import MessagingSystem.*;
 import java.util.*;
 
-public class MessageMenu extends Application implements MessageInboxUI.IView {
+public class MessageInboxGUI extends Application implements MessageInboxUI.IView {
     private MessageInboxUI mi;
     private VBox chatroomOptions;
     private VBox messageDisplay;
@@ -188,6 +188,12 @@ public class MessageMenu extends Application implements MessageInboxUI.IView {
     public void sendMessage(TextArea messageBox) {
         messageBox.setText("");
         mi.sendMessage(messageBox.getText(), recipient);
+    }
+
+    public void openOutbox() {
+        MessageOutboxGUI outbox = new MessageOutboxGUI();
+        Stage outboxWindow = new Stage();
+        outbox.start(outboxWindow);
     }
 
     public void display(Stage primaryStage) {
