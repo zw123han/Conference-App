@@ -49,24 +49,28 @@ public class MessageInboxUI {
     public void loadMessageCanvasView(String recipient) {
         view.setMessageCanvasTitle(recipient);
         for (ArrayList<String> messageData : ip.getAllMessages(recipient)) {
-
+            view.setMessageArea(messageData);
         }
     }
 
     public void sendMessage(String message, String recipient) {
         if (ic.validateMessage(message)) {
             ic.sendMessage(recipient, message);
-            loadMessageCanvasView(recipient);
+            updateMessageCanvasView(recipient);
         }
     }
 
-    public void updateMessageCanvasView() {
+    public void updateMessageCanvasView(String recipient) {
+        view.setMessageArea(ip.getNewestMessage(recipient));
+    }
+
+    public void updateChatroomCanvasView() {
 
     }
 
-    /**
-     * Prompts the user to choose a chatlog from a list of existing chatlogs by username.
-     */
+        /**
+         * Prompts the user to choose a chatlog from a list of existing chatlogs by username.
+         */
     public void promptChatChoice() {
         view.setChatroomCanvasTitle(ip.getTotalUnread());
         System.out.println(ip.commandPrompt("username"));

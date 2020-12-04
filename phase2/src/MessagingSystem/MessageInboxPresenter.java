@@ -101,6 +101,10 @@ public class MessageInboxPresenter extends CommandPresenter {
         return result;
     }
 
+    public ArrayList<String> getNewestMessage(String recipient) {
+        return getAllMessages(recipient).get(getAllMessages(recipient).size());
+    }
+
     /**
      * Formats the chatlog, including message content, the sender name and username, and the date and time the message was sent, converted to local time.
      *
