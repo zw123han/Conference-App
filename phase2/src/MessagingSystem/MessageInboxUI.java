@@ -125,4 +125,12 @@ public class MessageInboxUI {
             re = sc.nextLine();
         }
     }
+
+    public interface IView {
+        void setChatroomOptions();
+        void setMessageCanvasTitle(String newTitle);
+        void setChatroomCanvasTitle(String newTitle);
+        void setMessageText();
+
+    }
 }

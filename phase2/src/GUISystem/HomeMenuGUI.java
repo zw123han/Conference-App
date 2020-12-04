@@ -44,7 +44,7 @@ public class HomeMenuGUI {
         Button manageAccountButton = new Button("Manage Account");
 
         eventButton.setOnAction(e -> eventMenu.display());
-        messageButton.setOnAction(e -> messageMenu.display());
+        messageButton.setOnAction(e -> messageMenu.display(window));
         manageEventButton.setOnAction(e -> manageEventMenu.display());
         friendButton.setOnAction(e -> friendsMenu.display());
         passwordButton.setOnAction(e -> passwordMenu.display());
