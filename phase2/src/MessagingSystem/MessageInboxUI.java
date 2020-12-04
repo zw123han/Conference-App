@@ -39,11 +39,29 @@ public class MessageInboxUI {
         mo.setLoggedInUser(currentUser);
     }
 
-    public void updateMessageCanvasView() {
+    public void loadChatroomCanvasView() {
         view.setChatroomCanvasTitle(ip.getTotalUnread());
         for (ArrayList<String> option: ip.getChatroomOptions()) {
             view.setChatroomOption(option);
         }
+    }
+
+    public void loadMessageCanvasView(String recipient) {
+        view.setMessageCanvasTitle(recipient);
+        for (ArrayList<String> messageData : ip.getAllMessages(recipient)) {
+
+        }
+    }
+
+    public void sendMessage(String message, String recipient) {
+        if (ic.validateMessage(message)) {
+            ic.sendMessage(recipient, message);
+            loadMessageCanvasView(recipient);
+        }
+    }
+
+    public void updateMessageCanvasView() {
+
     }
 
     /**
@@ -138,7 +156,7 @@ public class MessageInboxUI {
         void setChatroomOption(ArrayList<String> option);
         void setMessageCanvasTitle(String newTitle);
         void setChatroomCanvasTitle(String newTitle);
-        void setMessageText();
+        void setMessageArea(ArrayList<String> messageData);
 
     }
 }

@@ -139,4 +139,27 @@ public class MessageInboxController {
         }
     }
 
+    /**
+     * Sends message to a recipient.
+     *
+     * @param recipient         Username of recipient
+     * @param message           Message to be sent
+     */
+    public void sendMessage(String recipient, String message) {
+        ArrayList<String> recipients = new ArrayList<>();
+        recipients.add(username);
+        recipients.add(recipient);
+        cm.sendOne(recipients, message, username);
+    }
+
+    /**
+     * Checks if message is valid (Non-empty).
+     *
+     * @param message       Message
+     * @return boolean      True if length is not 0, false otherwise
+     */
+    public boolean validateMessage(String message) {
+        return message.length() != 0;
+    }
+
 }

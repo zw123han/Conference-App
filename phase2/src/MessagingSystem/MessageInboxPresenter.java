@@ -86,6 +86,21 @@ public class MessageInboxPresenter extends CommandPresenter {
         return result;
     }
 
+    public ArrayList<ArrayList<String>> getAllMessages(String recipient) {
+        Chatroom c = cm.getChatroom(username, recipient);
+        ArrayList<ArrayList<String>> result = new ArrayList<>();
+        ArrayList<Integer> history = c.getMessagePositions();
+        for (Integer i : history) {
+            ArrayList<String> messageData = new ArrayList<>();
+            messageData.add(c.getSender(i));
+            messageData.add(c.getDate(i));
+            messageData.add(filterProfanity(c.getMessage(i)));
+            messageData.add(i.toString());
+            result.add(messageData);
+        }
+        return result;
+    }
+
     /**
      * Formats the chatlog, including message content, the sender name and username, and the date and time the message was sent, converted to local time.
      *
