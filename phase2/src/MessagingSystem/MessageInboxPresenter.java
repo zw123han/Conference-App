@@ -60,27 +60,30 @@ public class MessageInboxPresenter extends CommandPresenter {
         return c.getUnread(username);
     }
 
+    public String getTotalUnread() {
+        int counter = 0;
+        for (String friend : getUsersTalkto()) {
+            counter += getNumUnread(friend);
+        }
+        return Integer.toString(counter);
+    }
+
     /**
      * Formats a series of users with whom the logged in user has chatted, including the number of unread messages, name of the sender, and username.
      *
      * @return     text display for chat histories
      */
-    public String menuDisplay() {
+    public ArrayList<ArrayList<String>> getChatroomOptions() {
         ArrayList<String> users = getUsersTalkto();
-        StringBuilder result = new StringBuilder("\nMESSAGE INBOX:\n------------------------");
+        ArrayList<ArrayList<String>> result = new ArrayList<>();
         for (String user : users) {
-            result.append("\n[")
-                    .append(getNumUnread(user))
-                    .append(" Unread] ")
-                    .append(reg.getNameByUsername(user))
-                    .append(" (@")
-                    .append(user)
-                    .append(")");
+            ArrayList<String> temp = new ArrayList<>();
+            temp.add(reg.getNameByUsername(user));
+            temp.add(user);
+            temp.add(getNumUnread(user).toString());
+            result.add(temp);
         }
-        if (users.isEmpty()) {
-            result.append("\nYou don't have any chats with other users.");
-        }
-        return result + "\n\n1) Compose a new message.\n";
+        return result;
     }
 
     /**

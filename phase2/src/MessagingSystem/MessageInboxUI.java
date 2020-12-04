@@ -1,6 +1,7 @@
 package MessagingSystem;
 
 import java.util.Scanner;
+import java.util.*;
 
 /**
  * For taking in user inputs for viewing chat history and replying to messages.
@@ -12,6 +13,7 @@ public class MessageInboxUI {
     private MessageInboxPresenter ip;
     private MessageOutboxUI mo;
     private Scanner sc = new Scanner(System.in);
+    private IView view;
 
     /**
      * Initiates a new InboxController
@@ -37,11 +39,18 @@ public class MessageInboxUI {
         mo.setLoggedInUser(currentUser);
     }
 
+    public void updateMessageCanvasView() {
+        view.setChatroomCanvasTitle(ip.getTotalUnread());
+        for (ArrayList<String> option: ip.getChatroomOptions()) {
+            view.setChatroomOption(option);
+        }
+    }
+
     /**
      * Prompts the user to choose a chatlog from a list of existing chatlogs by username.
      */
     public void promptChatChoice() {
-        System.out.println(ip.menuDisplay());
+        view.setChatroomCanvasTitle(ip.getTotalUnread());
         System.out.println(ip.commandPrompt("username"));
         String recipient = sc.nextLine();
         while (!recipient.equals("$q")) {
@@ -54,7 +63,6 @@ public class MessageInboxUI {
             } else {
                 System.out.println(ip.invalidCommand("username"));
             }
-            System.out.println(ip.menuDisplay());
             System.out.println(ip.commandPrompt("username"));
             recipient = sc.nextLine();
         }
@@ -127,7 +135,7 @@ public class MessageInboxUI {
     }
 
     public interface IView {
-        void setChatroomOptions();
+        void setChatroomOption(ArrayList<String> option);
         void setMessageCanvasTitle(String newTitle);
         void setChatroomCanvasTitle(String newTitle);
         void setMessageText();
