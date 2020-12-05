@@ -25,6 +25,7 @@ public class MessageInboxGUI extends Application implements MessageInboxPresente
     private TextArea messageBox;
     private String recipient;
     private HBox messageBar;
+    private Button sendMessage;
 
     public void setLogin(MessageInboxPresenter mi) {
         this.mi = mi;
@@ -109,13 +110,15 @@ public class MessageInboxGUI extends Application implements MessageInboxPresente
         messageBox.setPadding(new Insets(4));
         messageBox.setPrefSize(260, 160);
         messageBox.setWrapText(true);
+        messageBox.setDisable(true);
         // Send Message Button
-        Button sendMessage = new Button("SEND");
+        sendMessage = new Button("SEND");
         sendMessage.setPrefSize(50, 30);
         sendMessage.setFont(Font.loadFont(getClass().getResourceAsStream("/open-sans/os-bold.ttf"), 10));
         sendMessage.setBackground(new Background(new BackgroundFill(Color.BLACK, new CornerRadii(4), Insets.EMPTY)));
         sendMessage.setTextFill(Color.WHITE);
         sendMessage.setPadding(new Insets(8));
+        sendMessage.setDisable(true);
         sendMessage.setOnAction(e -> {
             mi.sendMessage(messageBox.getText(), recipient);
             messageBox.setText("");
@@ -161,6 +164,8 @@ public class MessageInboxGUI extends Application implements MessageInboxPresente
         chat.setPrefSize(150, 50);
         chat.setId(option.get(1));
         chat.setOnAction(e -> {
+            sendMessage.setDisable(false);
+            messageBox.setDisable(false);
             this.recipient = chat.getId();
             mi.loadMessageCanvasView(recipient);
         });
