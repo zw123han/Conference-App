@@ -28,7 +28,7 @@ import java.io.File;
 import java.io.IOException;
 
 
-public class HomeMenuGUI extends Application implements MenuInteractor, LoginInteractor{
+public class HomeMenuGUI extends Application implements MenuInteractor, LoginInteractor, UserMenuGetter {
     private LoginOptionsFacade loginOptionsFacade;
     private MenuGetter menuGetter;
     private MessageInboxGUI messageMenu;
@@ -140,6 +140,10 @@ public class HomeMenuGUI extends Application implements MenuInteractor, LoginInt
 
     public void setMessageMenu(MessageInboxGUI messageMenu) {
         this.messageMenu = messageMenu;
+    }
+
+    public void goBack(Stage primaryStage) {
+        start(primaryStage);
     }
 
 }

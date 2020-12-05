@@ -17,8 +17,10 @@ import java.io.IOException;
 import java.util.*;
 
 public class MessageInboxGUI extends Application implements MessageInboxPresenter.IView {
-    private static MessageInboxPresenter mi;
-    private static MessageOutboxGUI mo;
+    private MessageInboxPresenter mi;
+    private MessageOutboxGUI mo;
+    private UserMenuGetter mg;
+
     private VBox chatroomOptions;
     private VBox messageDisplay;
     private Label chatroomCanvasTitle;
@@ -39,6 +41,10 @@ public class MessageInboxGUI extends Application implements MessageInboxPresente
         mo.setLogin(username);
     }
 
+    public void setUserMenuGetter(UserMenuGetter userMenuGetter) {
+        this.mg = userMenuGetter;
+    }
+
     @Override
     public void start(Stage primaryStage) {
         // MESSAGE INBOX CONTAINER
@@ -55,11 +61,7 @@ public class MessageInboxGUI extends Application implements MessageInboxPresente
         // Go back button
         Button goBack = squareButtonConstructor(Color.CRIMSON, "×");
         goBack.setOnAction(e -> {
-            try {
-                goBack(e);
-            } catch (IOException ioException) {
-                ioException.printStackTrace();
-            }
+            mg.goBack(primaryStage);
         });
         // Chatroom Title
         chatroomCanvasTitle = new Label("Inbox");
@@ -246,17 +248,17 @@ public class MessageInboxGUI extends Application implements MessageInboxPresente
         messageDisplay.getChildren().add(messageContainer);
     }
 
-    @FXML //TODO: doesn't account for user types yet
-    private void goBack(ActionEvent event) throws IOException {
-        Parent parent = FXMLLoader.load(getClass().getResource("Menu1.fxml"));
-        Scene scene = new Scene(parent);
-
-        Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
-        window.setScene(scene);
-        window.setHeight(500);
-        window.setWidth(500);
-        window.show();
-    }
+//    @FXML //TODO: doesn't account for user types yet
+//    private void goBack(ActionEvent event) throws IOException {
+//        Parent parent = FXMLLoader.load(getClass().getResource("Menu1.fxml"));
+//        Scene scene = new Scene(parent);
+//
+//        Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
+//        window.setScene(scene);
+//        window.setHeight(500);
+//        window.setWidth(500);
+//        window.show();
+//    }
 
     public void display(Stage primaryStage) {
         start(primaryStage);

@@ -117,6 +117,9 @@ public class ConferenceSimulator {
         accountCreationMenu.setMenuGetter(menuFacade);
         homeMenuGUI.setMenuGetter(menuFacade);
 
+        //  DI userMenuGetter into various submenus
+        inboxGUI.setUserMenuGetter(homeMenuGUI);
+
         // Launch application
         LaunchMenu.setMenuFacade(menuFacade);
         Application.launch(LaunchMenu.class);
