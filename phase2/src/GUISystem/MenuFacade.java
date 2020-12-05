@@ -34,15 +34,15 @@ public void set(LoginGUI loginGUI, AccountCreationMenu accountCreationMenu, Home
     }
 
 @Override
-public HomeMenuGUI getHomeMenuGUI(){
-    return this.homeMenuGUI;
+public void goLogin(Stage primaryStage){
+    this.loginGUI.start(primaryStage);
 }
 @Override
-public LoginGUI getLoginGUI(){
-    return this.loginGUI;
+public void goHome(Stage primaryStage){
+    this.homeMenuGUI.start(primaryStage);
 }
 @Override
-public AccountCreationMenu getAccountCreationMenu(){
-    return this.accountCreationMenu;
+public void goCreateAccount(Stage primaryStage){
+    this.accountCreationMenu.start(primaryStage);
 }
 }

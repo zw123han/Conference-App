@@ -18,7 +18,7 @@ import javafx.util.Duration;
 
 import java.io.File;
 
-public class LoginGUI extends Application implements MenuInteractor, LoginInteractor{
+public class LoginGUI extends Application{
     private LoginOptionsFacade loginOptionsFacade;
     private MenuGetter menuGetter;
 
@@ -62,7 +62,7 @@ public class LoginGUI extends Application implements MenuInteractor, LoginIntera
                 if(loginOptionsFacade.login(username, password)){
                     // Stops playing song upon menu change
                     mediaPlayer.stop();
-                    goHome(primaryStage);
+                    menuGetter.goHome(primaryStage);
                 }
                 else{
                     failedLogin.setFill(Color.RED);
@@ -78,7 +78,7 @@ public class LoginGUI extends Application implements MenuInteractor, LoginIntera
             public void handle(ActionEvent event) {
                 // Stops playing song upon menu change
                 mediaPlayer.stop();
-                goAccountCreation(primaryStage);
+                menuGetter.goCreateAccount(primaryStage);
             }
         });
 
@@ -106,20 +106,13 @@ public class LoginGUI extends Application implements MenuInteractor, LoginIntera
 
     }
 
-    @Override
+
     public void setLogin(LoginOptionsFacade loginOptionsFacade){
         this.loginOptionsFacade = loginOptionsFacade;
     }
-    @Override
+
     public void setMenuGetter(MenuGetter menuGetter){
         this.menuGetter = menuGetter;
     }
 
-    private void goAccountCreation(Stage primaryStage){
-        menuGetter.getAccountCreationMenu().start(primaryStage);
-    }
-
-    private void goHome(Stage primaryStage){
-        menuGetter.getHomeMenuGUI().start(primaryStage);
-    }
 }

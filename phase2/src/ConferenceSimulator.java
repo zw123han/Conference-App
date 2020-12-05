@@ -54,13 +54,13 @@ public class ConferenceSimulator {
         readProfanitiesList = new ReadProfanityList(profanityListFilepath);
         profanities = readProfanitiesList.readProfanities();
     }
-
+    // Add a local save class in addition to the database save
 
     /**
      * The static main method will run this method to start the application.
      */
     public void run() {
-
+        // Move all of this into a builder. No return necessary since we use a static class.
         System.out.println("The UI has been deleted and is being refactored. Do not panic.");
         databaseInteractor.connect();
 

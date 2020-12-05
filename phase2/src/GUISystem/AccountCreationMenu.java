@@ -18,7 +18,7 @@ import javafx.scene.text.*;
 import java.io.File;
 
 
-public class AccountCreationMenu extends Application implements MenuInteractor, LoginInteractor{
+public class AccountCreationMenu extends Application{
     private LoginOptionsFacade loginOptionsFacade;
     private MenuGetter menuGetter;
 
@@ -80,7 +80,7 @@ public class AccountCreationMenu extends Application implements MenuInteractor, 
             @Override
             public void handle(ActionEvent event) {
                 mediaPlayer.stop();
-                goLogin(primaryStage);
+                menuGetter.goLogin(primaryStage);
             }
         });
 
@@ -107,16 +107,12 @@ public class AccountCreationMenu extends Application implements MenuInteractor, 
 
     }
 
-    @Override
+
     public void setLogin(LoginOptionsFacade loginOptionsFacade){
         this.loginOptionsFacade = loginOptionsFacade;
     }
 
-    private void goLogin(Stage primaryStage){
-        menuGetter.getLoginGUI().start(primaryStage);
-    }
 
-    @Override
     public void setMenuGetter(MenuGetter menuGetter) {
         this.menuGetter = menuGetter;
     }

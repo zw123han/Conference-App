@@ -1,8 +1,10 @@
 package GUISystem;
 
+import javafx.stage.Stage;
+
 public interface MenuGetter {
 
-    public HomeMenuGUI getHomeMenuGUI();
-    public LoginGUI getLoginGUI();
-    public AccountCreationMenu getAccountCreationMenu();
+    public void goLogin(Stage primaryStage);
+    public void goHome(Stage primaryStage);
+    public void goCreateAccount(Stage primaryStage);
 }
