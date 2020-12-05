@@ -24,6 +24,7 @@
                 <Button maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#friendsDisplay" prefHeight="266.0" prefWidth="644.0" style="-fx-font-family: 'Open Sans'; -fx-font-size: 24px; -fx-font-weight: bold;" text="Friends" GridPane.columnIndex="1" />
                 <Button maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#messageDisplay" prefHeight="224.0" prefWidth="638.0" style="-fx-font-family: 'Open Sans'; -fx-font-size: 24px; -fx-font-weight: bold;" text="Messages" GridPane.columnIndex="1" GridPane.rowIndex="1" />
                 <Button maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#passwordDisplay" prefHeight="135.0" prefWidth="299.0" style="-fx-font-family: 'Open Sans'; -fx-font-size: 24px; -fx-font-weight: bold;" text="Change Password" GridPane.rowIndex="1" />
+                <Button fx:id="logoutButton" mnemonicParsing="false" prefHeight="72.0" prefWidth="128.0" text="Logout" GridPane.rowIndex="2" />
             </children>
         </GridPane>
     </children>
