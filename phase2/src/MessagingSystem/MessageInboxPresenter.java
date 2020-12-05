@@ -23,6 +23,10 @@ public class MessageInboxPresenter {
         this.ic = ic;
     }
 
+    public void setView(IView view) {
+        this.view = view;
+    }
+
     /**
      * Sets username to that of the currently logged in user.
      *
@@ -41,9 +45,9 @@ public class MessageInboxPresenter {
         }
     }
 
-    public void loadMessageCanvasView(String recipient) {
-        view.setMessageCanvasTitle(recipient);
-        for (ArrayList<String> messageData : ip.getAllMessages(recipient)) {
+    public void loadMessageCanvasView(String recipientName, String username) {
+        view.setMessageCanvasTitle(recipientName);
+        for (ArrayList<String> messageData : ip.getAllMessages(username)) {
             view.setMessageArea(messageData);
         }
     }

@@ -88,12 +88,15 @@ public class ConferenceSimulator {
         MessageOutboxDataCollector outboxDateCollector = new MessageOutboxDataCollector("", registrar, eventManager);
         MessageOutboxController outboxController = new MessageOutboxController("", registrar, eventManager, chatroomManager);
         MessageOutboxPresenter outboxPresenter = new MessageOutboxPresenter(outboxController, outboxDateCollector);
-        //MessageOutboxGUI outboxGUI = new MessageOutboxGUI(outboxPresenter);
+        MessageOutboxGUI outboxGUI = new MessageOutboxGUI();
+        outboxPresenter.setView(outboxGUI);
+        outboxGUI.setOutboxElements(outboxPresenter);
         MessageInboxDataCollector inboxDataCollector = new MessageInboxDataCollector(registrar, "", chatroomManager, profanities);
         MessageInboxController inboxController = new MessageInboxController(registrar, "", chatroomManager);
         MessageInboxPresenter inboxPresenter = new MessageInboxPresenter(inboxDataCollector, inboxController);
-        //MessageInboxGUI inboxGUI = new MessageInboxGUI(inboxPresenter);
-
+        MessageInboxGUI inboxGUI = new MessageInboxGUI();
+        inboxPresenter.setView(inboxGUI);
+        inboxGUI.setInboxElements(inboxPresenter, outboxGUI);
         // Main user UI
 
         //Create menus

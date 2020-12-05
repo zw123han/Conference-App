@@ -11,6 +11,7 @@ public class MessageOutboxPresenter {
     private MessageOutboxController oc;
     private MessageOutboxDataCollector op;
     private Scanner sc = new Scanner(System.in);
+    private OView view;
 
     /**
      * initializes a new OutboxController.
@@ -22,6 +23,11 @@ public class MessageOutboxPresenter {
         this.op = op;
         this.oc = oc;
     }
+
+    public void setView(MessageOutboxPresenter.OView view) {
+        this.view = view;
+    }
+
 
     /**
      * Sets username to that of the currently logged in user.

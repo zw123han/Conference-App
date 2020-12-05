@@ -7,6 +7,15 @@ import javafx.stage.*;
 import MessagingSystem.*;
 
 public class MessageOutboxGUI extends Application implements MessageOutboxPresenter.OView {
+    private MessageOutboxPresenter mo;
+
+    public void setOutboxElements(MessageOutboxPresenter mo) {
+        this.mo = mo;
+    }
+
+    public void setLogin(String username) {
+        mo.setLoggedInUser(username);
+    }
 
     @Override
     public void start(Stage primaryStage) {
