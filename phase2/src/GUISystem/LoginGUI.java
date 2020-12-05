@@ -57,7 +57,7 @@ public class LoginGUI extends Application implements MenuInteractor, LoginIntera
             }
         });
 
-        Button returnButton = new Button("Create Account Instead");
+        Button returnButton = new Button("Create Account");
         returnButton.setFont(Font.loadFont(getClass().getResourceAsStream("/open-sans/os-bold.ttf"), 12));
         returnButton.setOnAction(new EventHandler<ActionEvent>() {
             @Override
@@ -66,9 +66,16 @@ public class LoginGUI extends Application implements MenuInteractor, LoginIntera
             }
         });
 
-        // Add a quit button to each login/creation screen
+        Button quitButton = new Button("Quit");
+        quitButton.setFont(Font.loadFont(getClass().getResourceAsStream("/open-sans/os-bold.ttf"), 12));
+        quitButton.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                primaryStage.close();
+            }
+        });
 
-        loginCanvas.getChildren().addAll(loginTitle, usernameField, passwordField, loginButton, returnButton, failedLogin);
+        loginCanvas.getChildren().addAll(loginTitle, usernameField, passwordField, loginButton, returnButton, failedLogin, quitButton);
 
         primaryStage.setTitle("Conference Simulator Phase 2");
         primaryStage.setScene(scene);

@@ -26,12 +26,15 @@ public class AccountCreationMenu extends Application implements MenuInteractor, 
         Scene scene = new Scene (loginCanvas, 500, 500);
 
         Text loginTitle = new Text ("Welcome to the Conference!");
-        loginTitle.setFont(Font.font("Times New Roman", FontWeight.EXTRA_BOLD,30));
+        loginTitle.setFont(Font.loadFont(getClass().getResourceAsStream("/open-sans/os-bold.ttf"), 30));
 
         Text accountMessage = new Text();
+        accountMessage.setFont(Font.loadFont(getClass().getResourceAsStream("/open-sans/os-bold.ttf"), 12));
 
         TextField nameField = new TextField();
+        nameField.setFont(Font.loadFont(getClass().getResourceAsStream("/open-sans/os-bold.ttf"), 12));
         TextField usernameField = new TextField();
+        usernameField.setFont(Font.loadFont(getClass().getResourceAsStream("/open-sans/os-bold.ttf"), 12));
         PasswordField passwordField = new PasswordField();
 
 
@@ -62,8 +65,16 @@ public class AccountCreationMenu extends Application implements MenuInteractor, 
         });
 
 
+        Button quitButton = new Button("Quit");
+        quitButton.setFont(Font.loadFont(getClass().getResourceAsStream("/open-sans/os-bold.ttf"), 12));
+        quitButton.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                primaryStage.close();
+            }
+        });
 
-        loginCanvas.getChildren().addAll(loginTitle, nameField, usernameField, passwordField, creationButton, loginButton, accountMessage);
+        loginCanvas.getChildren().addAll(loginTitle, nameField, usernameField, passwordField, creationButton, loginButton, accountMessage, quitButton);
 
         primaryStage.setTitle("Conference Simulator Phase 2");
         primaryStage.setScene(scene);
