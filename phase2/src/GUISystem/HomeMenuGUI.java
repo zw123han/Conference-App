@@ -17,13 +17,12 @@ public class HomeMenuGUI extends Application { // TODO: doesn't account for diff
         try{Parent adminMenu = FXMLLoader.load(getClass().getResource("Menu2.fxml"));
 //        Parent orgMenu =
 //        Parent otherMenu =
-        primaryStage.setTitle("Home Menu");
-        primaryStage.setScene(new Scene(adminMenu));
-        primaryStage.show();}
+            primaryStage.setTitle("Home Menu");
+            primaryStage.setScene(new Scene(adminMenu));
+            primaryStage.show();}
         catch(IOException e){
             e.printStackTrace();
         }
     }
-
 
 }
