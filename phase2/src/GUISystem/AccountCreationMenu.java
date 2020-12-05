@@ -65,7 +65,6 @@ public class AccountCreationMenu extends Application implements MenuInteractor, 
                 String password = passwordField.getText();
                 if(loginOptionsFacade.createUser(name, username, password, "attendee")){
                     // Stops playing song upon menu change
-                    mediaPlayer.stop();
                     accountMessage.setText("Account creation successful. Please login to continue.");
                 }
                 else{
@@ -80,6 +79,7 @@ public class AccountCreationMenu extends Application implements MenuInteractor, 
         loginButton.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
+                mediaPlayer.stop();
                 goLogin(primaryStage);
             }
         });
