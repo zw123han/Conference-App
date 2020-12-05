@@ -118,9 +118,10 @@ public class ConferenceSimulator {
         LaunchMenu.setMenuFacade(menuFacade);
         Application.launch(LaunchMenu.class);
 
-        //Saving changes, need to move this into a menu
+        //Saving changes, need to move this into the homemenu
         ArrayList<Savable> savables = new ArrayList<>(Arrays.asList(registrar, eventManager, chatroomManager));
         databaseInteractor.saveToDatabase(savables);
+        System.out.println("Save successful");
         databaseInteractor.disconnect();
 
     }

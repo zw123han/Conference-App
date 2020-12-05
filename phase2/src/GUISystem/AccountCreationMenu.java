@@ -40,6 +40,7 @@ public class AccountCreationMenu extends Application implements MenuInteractor, 
 
 
         Button creationButton = new Button("Create Account");
+        creationButton.setFont(Font.loadFont(getClass().getResourceAsStream("/open-sans/os-bold.ttf"), 12));
         creationButton.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent e) {
@@ -57,6 +58,7 @@ public class AccountCreationMenu extends Application implements MenuInteractor, 
         });
 
         Button loginButton = new Button("Login");
+        loginButton.setFont(Font.loadFont(getClass().getResourceAsStream("/open-sans/os-bold.ttf"), 12));
         loginButton.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
