@@ -14,6 +14,8 @@ import javafx.stage.*;
 import javafx.scene.text.*;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
+import javafx.util.Duration;
+
 import java.io.File;
 
 public class LoginGUI extends Application implements MenuInteractor, LoginInteractor{
@@ -44,6 +46,12 @@ public class LoginGUI extends Application implements MenuInteractor, LoginIntera
         Text password = new Text("Password");
         password.setFont(Font.loadFont(getClass().getResourceAsStream("/open-sans/os-regular.ttf"), 12));
 
+        // Play a song
+        Media song = new Media(new File("phase2/src/GUISystem/O-Canada.mp3").toURI().toString());
+        MediaPlayer mediaPlayer= new MediaPlayer(song);
+        mediaPlayer.setCycleCount(MediaPlayer.INDEFINITE);
+        MediaView mediaView = new MediaView(mediaPlayer);
+
         Button loginButton = new Button("Login");
         loginButton.setFont(Font.loadFont(getClass().getResourceAsStream("/open-sans/os-bold.ttf"), 12));
         loginButton.setOnAction(new EventHandler<ActionEvent>() {
@@ -52,6 +60,8 @@ public class LoginGUI extends Application implements MenuInteractor, LoginIntera
                 String username = usernameField.getText();
                 String password = passwordField.getText();
                 if(loginOptionsFacade.login(username, password)){
+                    // Stops playing song upon menu change
+                    mediaPlayer.stop();
                     goHome(primaryStage);
                 }
                 else{
@@ -66,6 +76,8 @@ public class LoginGUI extends Application implements MenuInteractor, LoginIntera
         returnButton.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
+                // Stops playing song upon menu change
+                mediaPlayer.stop();
                 goAccountCreation(primaryStage);
             }
         });
@@ -78,11 +90,9 @@ public class LoginGUI extends Application implements MenuInteractor, LoginIntera
                 primaryStage.close();
             }
         });
-        // Play a song
-        Media song = new Media(new File("phase2/src/GUISystem/O-Canada.mp3").toURI().toString());
-        MediaPlayer mediaPlayer= new MediaPlayer(song);
-        MediaView mediaView = new MediaView(mediaPlayer);
 
+
+        // mediaView added to vbox
         loginCanvas.getChildren().addAll(mediaView, loginTitle, username, usernameField, password, passwordField, loginButton, returnButton, failedLogin, quitButton);
 
 

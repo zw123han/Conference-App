@@ -8,9 +8,14 @@ import javafx.scene.*;
 import javafx.application.*;
 import javafx.scene.control.*;
 import javafx.scene.layout.VBox;
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
+import javafx.scene.media.MediaView;
 import javafx.scene.paint.Color;
 import javafx.stage.*;
 import javafx.scene.text.*;
+
+import java.io.File;
 
 
 public class AccountCreationMenu extends Application implements MenuInteractor, LoginInteractor{
@@ -44,6 +49,12 @@ public class AccountCreationMenu extends Application implements MenuInteractor, 
         Text password = new Text("Password");
         password.setFont(Font.loadFont(getClass().getResourceAsStream("/open-sans/os-regular.ttf"), 12));
 
+        // Play a song
+        Media song = new Media(new File("phase2/src/GUISystem/O-Canada.mp3").toURI().toString());
+        MediaPlayer mediaPlayer= new MediaPlayer(song);
+        mediaPlayer.setCycleCount(MediaPlayer.INDEFINITE);
+        MediaView mediaView = new MediaView(mediaPlayer);
+
         Button creationButton = new Button("Create Account");
         creationButton.setFont(Font.loadFont(getClass().getResourceAsStream("/open-sans/os-bold.ttf"), 12));
         creationButton.setOnAction(new EventHandler<ActionEvent>() {
@@ -53,6 +64,7 @@ public class AccountCreationMenu extends Application implements MenuInteractor, 
                 String username = usernameField.getText();
                 String password = passwordField.getText();
                 if(loginOptionsFacade.createUser(name, username, password, "attendee")){
+                    // Stops playing song upon menu change
                     accountMessage.setText("Account creation successful. Please login to continue.");
                 }
                 else{
@@ -67,6 +79,7 @@ public class AccountCreationMenu extends Application implements MenuInteractor, 
         loginButton.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
+                mediaPlayer.stop();
                 goLogin(primaryStage);
             }
         });
@@ -81,11 +94,15 @@ public class AccountCreationMenu extends Application implements MenuInteractor, 
             }
         });
 
-        loginCanvas.getChildren().addAll(loginTitle, name, nameField, username, usernameField, password, passwordField, creationButton, loginButton, accountMessage, quitButton);
+        // mediaView added to vbox
+        loginCanvas.getChildren().addAll(mediaView, loginTitle, name, nameField, username, usernameField, password, passwordField, creationButton, loginButton, accountMessage, quitButton);
 
         primaryStage.setTitle("Conference Simulator Phase 2");
         primaryStage.setScene(scene);
         primaryStage.show();
+
+        // Play the song
+        mediaPlayer.play();
     }
 
     @Override
