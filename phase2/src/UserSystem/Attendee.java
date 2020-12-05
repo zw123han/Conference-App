@@ -20,4 +20,13 @@ public class Attendee extends User {
         super(name, userName, password);
     }
 
+    /**
+     * Gets the type of user this user is.
+     *
+     * @return "attendee"
+     */
+    @Override
+    public String getUserType(){
+        return "attendee";
+    };
 }

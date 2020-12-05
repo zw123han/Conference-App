@@ -18,4 +18,13 @@ public class Administrator extends User{
      */
     public Administrator(String name, String userName, String password){ super(name, userName, password); }
 
+    /**
+     * Gets the type of user this user is.
+     *
+     * @return "admin"
+     */
+    @Override
+    public String getUserType(){
+        return "admin";
+    };
 }

@@ -18,4 +18,13 @@ public class Organizer extends User {
         super(name, userName, password);
     }
 
+    /**
+     * Gets the type of user this user is.
+     *
+     * @return "organizer"
+     */
+    @Override
+    public String getUserType(){
+        return "organizer";
+    };
 }

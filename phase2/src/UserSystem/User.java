@@ -144,5 +144,12 @@ public abstract class User implements Serializable {
     public void setVipStatus(boolean vipStatus){
         this.vip = vipStatus;
     }
+
+    /**
+     * Gets the type of user this user is.
+     *
+     * @return The type of user as a string.
+     */
+    public abstract String getUserType();
 }
 

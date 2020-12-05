@@ -45,5 +45,13 @@ public class Speaker extends User {
     public void removeTalk(Long talkId) {
         talks.remove(talkId);
     }
-
+    /**
+     * Gets the type of user this user is.
+     *
+     * @return "speaker"
+     */
+    @Override
+    public String getUserType(){
+        return "speaker";
+    };
 }
