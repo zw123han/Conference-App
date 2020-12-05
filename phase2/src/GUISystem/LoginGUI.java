@@ -2,20 +2,19 @@ package GUISystem;
 import LoginSystem.LoginOptionsFacade;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
-import javafx.fxml.FXMLLoader;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.*;
 import javafx.application.*;
 import javafx.scene.control.*;
-import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import javafx.scene.media.MediaView;
 import javafx.scene.paint.Color;
 import javafx.stage.*;
 import javafx.scene.text.*;
-
-import java.io.IOException;
-
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
+import java.io.File;
 
 public class LoginGUI extends Application implements MenuInteractor, LoginInteractor{
     private LoginOptionsFacade loginOptionsFacade;
@@ -79,19 +78,28 @@ public class LoginGUI extends Application implements MenuInteractor, LoginIntera
                 primaryStage.close();
             }
         });
+        // Play a song
+        Media song = new Media(new File("phase2/src/GUISystem/O-Canada.mp3").toURI().toString());
+        MediaPlayer mediaPlayer= new MediaPlayer(song);
+        MediaView mediaView = new MediaView(mediaPlayer);
 
-        loginCanvas.getChildren().addAll(loginTitle, username, usernameField, password, passwordField, loginButton, returnButton, failedLogin, quitButton);
+        loginCanvas.getChildren().addAll(mediaView, loginTitle, username, usernameField, password, passwordField, loginButton, returnButton, failedLogin, quitButton);
+
+
 
         primaryStage.setTitle("Conference Simulator Phase 2");
         primaryStage.setScene(scene);
         primaryStage.show();
+
+        //Plays song
+        mediaPlayer.play();
+
     }
 
     @Override
     public void setLogin(LoginOptionsFacade loginOptionsFacade){
         this.loginOptionsFacade = loginOptionsFacade;
     }
-
     @Override
     public void setMenuGetter(MenuGetter menuGetter){
         this.menuGetter = menuGetter;
