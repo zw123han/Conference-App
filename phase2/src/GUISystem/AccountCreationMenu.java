@@ -97,12 +97,14 @@ public class AccountCreationMenu extends Application implements MenuInteractor, 
         // mediaView added to vbox
         loginCanvas.getChildren().addAll(mediaView, loginTitle, name, nameField, username, usernameField, password, passwordField, creationButton, loginButton, accountMessage, quitButton);
 
+        // Play the song
+        mediaPlayer.play();
+
         primaryStage.setTitle("Conference Simulator Phase 2");
         primaryStage.setScene(scene);
         primaryStage.show();
 
-        // Play the song
-        mediaPlayer.play();
+
     }
 
     @Override
