@@ -77,7 +77,8 @@ public class HomeMenuGUI extends Application implements MenuInteractor, LoginInt
         messagingButton.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
-                // Go to messaging menu
+                messageMenu.setLogin(loginOptionsFacade.getUser().getUserName());
+                messageMenu.display(primaryStage);
             }
         });
 
@@ -135,6 +136,10 @@ public class HomeMenuGUI extends Application implements MenuInteractor, LoginInt
 
     private void goLogin(Stage primaryStage){
         menuGetter.getLoginGUI().start(primaryStage);
+    }
+
+    public void setMessageMenu(MessageInboxGUI messageMenu) {
+        this.messageMenu = messageMenu;
     }
 
 }

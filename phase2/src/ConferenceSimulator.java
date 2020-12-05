@@ -106,6 +106,7 @@ public class ConferenceSimulator {
         accountCreationMenu.setLogin(loginFacade);
         HomeMenuGUI homeMenuGUI = new HomeMenuGUI();
         homeMenuGUI.setLogin(loginFacade);
+        homeMenuGUI.setMessageMenu(inboxGUI);
 
         // Create menu facade and DI menus
         MenuFacade menuFacade = new MenuFacade();
