@@ -66,7 +66,7 @@ public class LoginGUI extends Application{
             }
         });
 
-
+        // Add a quit button to each login/creation screen
 
         loginCanvas.getChildren().addAll(loginTitle, usernameField, passwordField, loginButton, returnButton, failedLogin);
 
@@ -89,6 +89,6 @@ public class LoginGUI extends Application{
     }
 
     private void goHome(Stage primaryStage){
-        //MenuFacade.getHomeMenuGUI().start(primaryStage);
+        MenuFacade.getHomeMenuGUI().start(primaryStage);
     }
 }

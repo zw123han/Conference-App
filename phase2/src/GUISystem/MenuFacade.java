@@ -33,7 +33,7 @@ private void login(Stage primaryStage){
     MenuFacade.loginGUI.start(primaryStage);
 }
 private void home(Stage primaryStage){
-    //MenuFacade.homeMenuGUI.start(primaryStage);
+    MenuFacade.homeMenuGUI.start(primaryStage);
 }
 
 public static void set(LoginGUI loginGUI, AccountCreationMenu accountCreationMenu){
