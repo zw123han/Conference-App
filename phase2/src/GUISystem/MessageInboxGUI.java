@@ -17,7 +17,8 @@ import java.io.IOException;
 import java.util.*;
 
 public class MessageInboxGUI extends Application implements MessageInboxPresenter.IView {
-    private MessageInboxPresenter mi;
+    private static MessageInboxPresenter mi;
+    private static MessageOutboxGUI mo;
     private VBox chatroomOptions;
     private VBox messageDisplay;
     private Label chatroomCanvasTitle;
@@ -26,9 +27,16 @@ public class MessageInboxGUI extends Application implements MessageInboxPresente
     private String recipient;
     private HBox messageBar;
     private Button sendMessage;
+    private Button pinnedMessages;
 
-    public void setLogin(MessageInboxPresenter mi) {
+    public void setInboxElements(MessageInboxPresenter mi, MessageOutboxGUI mo) {
         this.mi = mi;
+        this.mo = mo;
+    }
+
+    public void setLogin(String username) {
+        mi.setLoggedInUser(username);
+        mo.setLogin(username);
     }
 
     @Override
@@ -66,7 +74,6 @@ public class MessageInboxGUI extends Application implements MessageInboxPresente
         // CHILD #2: SCROLLABLE CHATROOM OPTIONS
         ScrollPane chatroomOptionsScrollable = new ScrollPane();
         chatroomOptions = new VBox();
-        chatroomOptions.setPadding(new Insets(10));
         chatroomOptionsScrollable.setPrefSize(180, 540);
         chatroomOptionsScrollable.setContent(chatroomOptions);
         // PUTTING EVERYTHING INTO CHATROOM CANVAS
@@ -84,15 +91,18 @@ public class MessageInboxGUI extends Application implements MessageInboxPresente
         messageCanvasTitle.setFont(Font.loadFont(getClass().getResourceAsStream("/open-sans/os-bold.ttf"), 16));
         messageCanvasTitle.setPadding(new Insets(10));
         messageCanvasTitle.setPrefSize(320, 40);
+        // Pin Message Button
+        pinnedMessages = squareButtonConstructor(Color.GOLDENROD, "¶");
+        pinnedMessages.setDisable(true);
+        //pinnedMessages.setOnAction(e -> );
         // New Message Button
         Button newMessage = squareButtonConstructor(Color.ROYALBLUE, "+");
         newMessage.setOnAction(e -> {
-            MessageOutboxGUI outbox = new MessageOutboxGUI();
             Stage outboxWindow = new Stage();
-            outbox.start(outboxWindow);
+            mo.start(outboxWindow);
         });
         // Putting everything into messageBar
-        messageBar.getChildren().addAll(messageCanvasTitle, newMessage);
+        messageBar.getChildren().addAll(messageCanvasTitle, pinnedMessages, newMessage);
         // CHILD #2: SCROLLABLE MESSAGE HISTORY
         ScrollPane messagesScrollable = new ScrollPane();
         messageDisplay = new VBox(10);
@@ -129,7 +139,7 @@ public class MessageInboxGUI extends Application implements MessageInboxPresente
         messageCanvas.getChildren().addAll(messageBar, messagesScrollable, textFieldBar);
 
         // PRELIMINARY VIEW LOADING
-        //mi.loadChatroomCanvasView();
+        mi.loadChatroomCanvasView();
 
         // SCENE AND STAGE
         inboxCanvas.getChildren().addAll(chatroomCanvas, messageCanvas);
@@ -159,46 +169,56 @@ public class MessageInboxGUI extends Application implements MessageInboxPresente
         chatroomCanvasTitle.setText("Inbox (" + numberUnread + ")");
     }
 
+    private VBox chatroomOptionConstructor(String name, String usr, String unrd) {
+        VBox chatroomOptionContainer = new VBox(2);
+        chatroomOptionContainer.setAlignment(Pos.BOTTOM_LEFT);
+        chatroomOptionContainer.setPrefSize(150, 60);
+        chatroomOptionContainer.setPadding(new Insets(5));
+        HBox nameContainer = new HBox(2);
+        nameContainer.setAlignment(Pos.BOTTOM_LEFT);
+
+        Label displayName = new Label(name);
+        displayName.setFont(Font.loadFont(getClass().getResourceAsStream("/open-sans/os-bold.ttf"), 12));
+        Label username = new Label("(@" + usr + ")");
+        username.setFont(Font.loadFont(getClass().getResourceAsStream("/open-sans/os-regular.ttf"), 12));
+        username.setTextFill(Color.GREY);
+        Label unread = new Label();
+        unread.setText(unrd);
+        unread.setFont(Font.loadFont(getClass().getResourceAsStream("/open-sans/os-extrabold.ttf"), 10));
+        unread.setTextFill(Color.CRIMSON);
+        unread.setPrefHeight(16);
+        nameContainer.getChildren().addAll(displayName, unread);
+        chatroomOptionContainer.getChildren().addAll(nameContainer, username);
+        return chatroomOptionContainer;
+    }
+
     public void setChatroomOption(ArrayList<String> option) {
         Button chat = new Button();
-        chat.setPrefSize(150, 50);
+        chat.setPrefSize(178, 20);
         chat.setId(option.get(1));
+        chat.setBackground(new Background(new BackgroundFill(Color.WHITE, CornerRadii.EMPTY, Insets.EMPTY)));
         chat.setOnAction(e -> {
             sendMessage.setDisable(false);
             messageBox.setDisable(false);
             this.recipient = chat.getId();
-            mi.loadMessageCanvasView(recipient);
+            chat.setBackground(new Background(new BackgroundFill(Color.LIGHTGREY, CornerRadii.EMPTY, Insets.EMPTY)));
+            chat.setGraphic(chatroomOptionConstructor(option.get(0), option.get(1), "0"));
+            mi.loadMessageCanvasView(option.get(0), recipient);
+            for (Object obj : chatroomOptions.getChildren().toArray()) {
+                if (obj instanceof Button && !obj.equals(chat)) {
+                    Button b = (Button) obj;
+                    b.setBackground(new Background(new BackgroundFill(Color.WHITE, CornerRadii.EMPTY, Insets.EMPTY)));
+                }
+            }
         });
 
-        HBox chatroomOptionContainer = new HBox(5);
-        chatroomOptionContainer.setAlignment(Pos.BOTTOM_LEFT);
-        chatroomOptionContainer.setPrefSize(150, 60);
-        chatroomOptionContainer.setPadding(new Insets(25, 22, 22, 25));
-
-        Label displayName = new Label(option.get(0));
-        displayName.setFont(Font.loadFont(getClass().getResourceAsStream("/open-sans/os-bold.ttf"), 12));
-        Label username = new Label(option.get(1));
-        username.setFont(Font.loadFont(getClass().getResourceAsStream("/open-sans/os-regular.ttf"), 12));
-        username.setTextFill(Color.GREY);
-        Label unread = new Label();
-        if (!option.get(2).equals("0")) {
-            unread.setText(option.get(2));
-            unread.setFont(Font.loadFont(getClass().getResourceAsStream("/open-sans/os-extrabold.ttf"), 10));
-            Background background = new Background(new BackgroundFill(Color.BLACK, new CornerRadii(10), new Insets(0, 6, 0, 6)));
-            unread.setPrefHeight(16);
-            unread.setBackground(background);
-        }
-        chatroomOptionContainer.getChildren().addAll(displayName, username, unread);
-
-        chat.setGraphic(chatroomOptionContainer);
+        chat.setGraphic(chatroomOptionConstructor(option.get(0), option.get(1), option.get(2)));
         chatroomOptions.getChildren().add(chat);
     }
 
     public void setMessageCanvasTitle(String recipientName) {
         messageCanvasTitle.setText(recipientName);
-        Button pinnedMessages = squareButtonConstructor(Color.GOLDENROD, "¶");
-        messageBar.getChildren().add(1, pinnedMessages);
-        //pinnedMessages.setOnAction(e -> );
+        pinnedMessages.setDisable(false);
     }
 
     public void setMessageArea(ArrayList<String> messageData) {
@@ -240,5 +260,10 @@ public class MessageInboxGUI extends Application implements MessageInboxPresente
 
     public void display(Stage primaryStage) {
         start(primaryStage);
+    }
+
+    public void launchApplication() {
+
+        launch();
     }
 }
