@@ -29,17 +29,19 @@ public class LoginGUI extends Application{
         Scene scene = new Scene (loginCanvas, 500, 500);
 
         Text loginTitle = new Text ("Welcome to the Conference!");
-        loginTitle.setFont(Font.font("Times New Roman", FontWeight.EXTRA_BOLD,30));
+        loginTitle.setFont(Font.loadFont(getClass().getResourceAsStream("/open-sans/os-bold.ttf"),30));
 
         Text failedLogin = new Text();
 
 
         TextField usernameField = new TextField();
+        usernameField.setFont(Font.loadFont(getClass().getResourceAsStream("/open-sans/os-regular.ttf"), 12));
         PasswordField passwordField = new PasswordField();
-
+        passwordField.setFont(Font.loadFont(getClass().getResourceAsStream("/open-sans/os-regular.ttf"), 12));
 
 
         Button loginButton = new Button("Login");
+        loginButton.setFont(Font.loadFont(getClass().getResourceAsStream("/open-sans/os-bold.ttf"), 12));
         loginButton.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent e) {
@@ -56,6 +58,7 @@ public class LoginGUI extends Application{
         });
 
         Button returnButton = new Button("Create Account Instead");
+        returnButton.setFont(Font.loadFont(getClass().getResourceAsStream("/open-sans/os-bold.ttf"), 12));
         returnButton.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
