@@ -3,13 +3,18 @@ package GUISystem;
 import LoginSystem.LoginOptionsFacade;
 import javafx.application.Application;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
+import javafx.scene.text.Font;
 import javafx.stage.Stage;
+import javafx.stage.Window;
 
 import java.io.IOException;
 
@@ -20,7 +25,7 @@ public class HomeMenuGUI extends Application implements MenuInteractor, LoginInt
     private MessageInboxGUI messageMenu;
 
     Stage window;
-
+    Button logoutButton;
     @Override
     public void start(Stage primaryStage){
         try {
@@ -28,6 +33,19 @@ public class HomeMenuGUI extends Application implements MenuInteractor, LoginInt
 //        Parent orgMenu =
 //        Parent otherMenu =
         primaryStage.setTitle("Home Menu");
+        HBox thing = new HBox(10);
+        Button logoutButton = new Button("Logout");
+        logoutButton.setFont(Font.loadFont(getClass().getResourceAsStream("/open-sans/os-bold.ttf"), 12));
+        logoutButton.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent e) {
+
+                loginOptionsFacade.logout();
+                goLogin(primaryStage);
+            }
+        });
+        thing.getChildren().add(logoutButton);
+
         primaryStage.setScene(new Scene(adminMenu));
         primaryStage.show();
         }
@@ -62,13 +80,14 @@ public class HomeMenuGUI extends Application implements MenuInteractor, LoginInt
     void passwordDisplay(ActionEvent event) {
 
     }
-
-    @FXML
-    void logout(ActionEvent event) {
-        loginOptionsFacade.logout();
-        Stage primarystage = (Stage)((Node)event.getSource()).getScene().getWindow();
-        goLogin(primarystage);
-    }
+//
+//    @FXML
+//    void logout(ActionEvent event) {
+//        loginOptionsFacade.logout();
+//        Node source = (Node) event.getSource();
+//        Stage primaryStage = (Stage) source.getScene().getWindow();
+//        goLogin(primaryStage);
+//    }
 
     @FXML
     void manageAccountMenuDisplay(ActionEvent event) {
