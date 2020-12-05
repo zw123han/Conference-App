@@ -1,52 +1,48 @@
 package GUISystem;
 import javafx.application.Application;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.layout.StackPane;
-import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
-import sun.security.util.Password;
-import LoginSystem.*;
+
 
 // This entire class contains the home menu and login menus and allows easy swapping between them
 // Considering making this an interface
 
-public class MenuFacade extends Application{
-private static HomeMenuGUI homeMenuGUI;
-private static LoginGUI loginGUI;
-private static AccountCreationMenu accountCreationMenu;
+public class MenuFacade extends Application implements MenuGetter{
+private HomeMenuGUI homeMenuGUI;
+private LoginGUI loginGUI;
+private AccountCreationMenu accountCreationMenu;
 
 @Override
 public void start(Stage primaryStage){
     login(primaryStage);
 
 }
-private void create(Stage primaryStage){
-    MenuFacade.accountCreationMenu.start(primaryStage);
-}
+//private void create(Stage primaryStage){
+    //accountCreationMenu.start(primaryStage);
+//}
 
 private void login(Stage primaryStage){
-    MenuFacade.loginGUI.start(primaryStage);
+    loginGUI.start(primaryStage);
 }
-private void home(Stage primaryStage){
-    MenuFacade.homeMenuGUI.start(primaryStage);
-}
+//private void home(Stage primaryStage){
+    //homeMenuGUI.start(primaryStage);
+//}
 
-public static void set(LoginGUI loginGUI, AccountCreationMenu accountCreationMenu){
-    MenuFacade.loginGUI = loginGUI;
-    MenuFacade.accountCreationMenu = accountCreationMenu;
+public void set(LoginGUI loginGUI, AccountCreationMenu accountCreationMenu, HomeMenuGUI homeMenuGUI){
+    this.homeMenuGUI = homeMenuGUI;
+    this.loginGUI = loginGUI;
+    this.accountCreationMenu = accountCreationMenu;
     }
-public static HomeMenuGUI getHomeMenuGUI(){
-    return homeMenuGUI;
+
+@Override
+public HomeMenuGUI getHomeMenuGUI(){
+    return this.homeMenuGUI;
 }
-public static LoginGUI getLoginGUI(){
-    return loginGUI;
+@Override
+public LoginGUI getLoginGUI(){
+    return this.loginGUI;
 }
-public static AccountCreationMenu getAccountCreationMenu(){
-    return accountCreationMenu;
+@Override
+public AccountCreationMenu getAccountCreationMenu(){
+    return this.accountCreationMenu;
 }
 }

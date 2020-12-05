@@ -13,9 +13,10 @@ import javafx.stage.*;
 import javafx.scene.text.*;
 
 
-public class AccountCreationMenu extends Application {
+public class AccountCreationMenu extends Application implements MenuInteractor, LoginInteractor{
     private LoginOptionsFacade loginOptionsFacade;
-    private String returnType;
+    private MenuGetter menuGetter;
+
     @Override
     public void start(Stage primaryStage){
         VBox loginCanvas = new VBox(5);
@@ -69,14 +70,17 @@ public class AccountCreationMenu extends Application {
         primaryStage.show();
     }
 
+    @Override
     public void setLogin(LoginOptionsFacade loginOptionsFacade){
         this.loginOptionsFacade = loginOptionsFacade;
     }
 
-    public String getReturnType(){
-        return this.returnType;
-    }
     private void goLogin(Stage primaryStage){
-        MenuFacade.getLoginGUI().start(primaryStage);
+        menuGetter.getLoginGUI().start(primaryStage);
+    }
+
+    @Override
+    public void setMenuGetter(MenuGetter menuGetter) {
+        this.menuGetter = menuGetter;
     }
 }

@@ -1,14 +1,10 @@
 import EventSystem.*;
-import GUISystem.AccountCreationMenu;
-import GUISystem.LoginGUI;
-import GUISystem.MenuFacade;
-import GUISystem.MessageInboxGUI;
+import GUISystem.*;
 import LoginSystem.*;
 import MessagingSystem.*;
 import UserSystem.*;
 import DatabaseSystem.*;
 import javafx.application.Application;
-import javafx.stage.Stage;
 
 import java.util.*;
 
@@ -100,15 +96,24 @@ public class ConferenceSimulator {
 
         // Main user UI
 
+        //Create menus
         LoginGUI loginGUI = new LoginGUI();
         loginGUI.setLogin(loginFacade);
-
         AccountCreationMenu accountCreationMenu = new AccountCreationMenu();
         accountCreationMenu.setLogin(loginFacade);
+        HomeMenuGUI homeMenuGUI = new HomeMenuGUI();
 
-        MenuFacade.set(loginGUI, accountCreationMenu);
+        // Create menu facade and DI menus
+        MenuFacade menuFacade = new MenuFacade();
+        menuFacade.set(loginGUI, accountCreationMenu, homeMenuGUI);
 
-        Application.launch(MenuFacade.class);
+        // Add interface into menus
+        loginGUI.setMenuGetter(menuFacade);
+        accountCreationMenu.setMenuGetter(menuFacade);
+
+        // Launch application
+        LaunchMenu.setMenuFacade(menuFacade);
+        Application.launch(LaunchMenu.class);
 
         // Run the program
         // We should just do mainMenuGUI.start() and encapsulate all of this in there

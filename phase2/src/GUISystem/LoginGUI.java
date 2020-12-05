@@ -16,9 +16,9 @@ import javafx.scene.text.*;
 import java.io.IOException;
 
 
-public class LoginGUI extends Application{
+public class LoginGUI extends Application implements MenuInteractor, LoginInteractor{
     private LoginOptionsFacade loginOptionsFacade;
-    private String returnType;
+    private MenuGetter menuGetter;
 
     @Override
     public void start(Stage primaryStage){
@@ -37,7 +37,7 @@ public class LoginGUI extends Application{
         TextField usernameField = new TextField();
         usernameField.setFont(Font.loadFont(getClass().getResourceAsStream("/open-sans/os-regular.ttf"), 12));
         PasswordField passwordField = new PasswordField();
-        passwordField.setFont(Font.loadFont(getClass().getResourceAsStream("/open-sans/os-regular.ttf"), 12));
+        passwordField.setFont(Font.font("Times New Roman"));
 
 
         Button loginButton = new Button("Login");
@@ -75,20 +75,21 @@ public class LoginGUI extends Application{
         primaryStage.show();
     }
 
-
+    @Override
     public void setLogin(LoginOptionsFacade loginOptionsFacade){
         this.loginOptionsFacade = loginOptionsFacade;
     }
 
-    public String getReturnType(){
-        return this.returnType;
+    @Override
+    public void setMenuGetter(MenuGetter menuGetter){
+        this.menuGetter = menuGetter;
     }
 
     private void goAccountCreation(Stage primaryStage){
-        MenuFacade.getAccountCreationMenu().start(primaryStage);
+        menuGetter.getAccountCreationMenu().start(primaryStage);
     }
 
     private void goHome(Stage primaryStage){
-        MenuFacade.getHomeMenuGUI().start(primaryStage);
+        menuGetter.getHomeMenuGUI().start(primaryStage);
     }
 }
