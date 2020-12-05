@@ -32,9 +32,11 @@ public class HomeMenuGUI extends Application implements MenuInteractor, LoginInt
     private LoginOptionsFacade loginOptionsFacade;
     private MenuGetter menuGetter;
     private MessageInboxGUI messageMenu;
+    private FriendsMenuGUI friendsMenu;
+
 
     @Override
-    public void start(Stage primaryStage){
+    public void start(Stage primaryStage) {
         VBox vbox = new VBox(5);
         vbox.setAlignment(Pos.CENTER);
         vbox.setPadding(new Insets(20, 20, 20, 20));
@@ -68,7 +70,7 @@ public class HomeMenuGUI extends Application implements MenuInteractor, LoginInt
         changePasswordButton.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
-                // Go to password menu
+                friendsMenu.start(primaryStage);
             }
         });
 
@@ -141,7 +143,9 @@ public class HomeMenuGUI extends Application implements MenuInteractor, LoginInt
     public void setMessageMenu(MessageInboxGUI messageMenu) {
         this.messageMenu = messageMenu;
     }
-
+    public void setFriendsMenu(FriendsMenuGUI friendsMenu) {
+        this.friendsMenu = friendsMenu;
+    }
     public void goBack(Stage primaryStage) {
         start(primaryStage);
     }
