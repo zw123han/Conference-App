@@ -37,7 +37,7 @@ public class AccountCreationMenu extends Application implements MenuInteractor, 
         usernameField.setFont(Font.loadFont(getClass().getResourceAsStream("/open-sans/os-bold.ttf"), 12));
         PasswordField passwordField = new PasswordField();
 
-        Text name = new Text("Name (First and last)");
+        Text name = new Text("Name (First Name and Surname)");
         name.setFont(Font.loadFont(getClass().getResourceAsStream("/open-sans/os-regular.ttf"), 12));
         Text username = new Text("Username");
         username.setFont(Font.loadFont(getClass().getResourceAsStream("/open-sans/os-regular.ttf"), 12));
