@@ -8,6 +8,7 @@ import javafx.geometry.Pos;
 import javafx.scene.*;
 import javafx.application.*;
 import javafx.scene.control.*;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.stage.*;
@@ -32,13 +33,17 @@ public class LoginGUI extends Application implements MenuInteractor, LoginIntera
         loginTitle.setFont(Font.loadFont(getClass().getResourceAsStream("/open-sans/os-bold.ttf"),30));
 
         Text failedLogin = new Text();
-
+        failedLogin.setFont(Font.loadFont(getClass().getResourceAsStream("/open-sans/os-bold.ttf"), 12));
 
         TextField usernameField = new TextField();
         usernameField.setFont(Font.loadFont(getClass().getResourceAsStream("/open-sans/os-regular.ttf"), 12));
         PasswordField passwordField = new PasswordField();
         passwordField.setFont(Font.font("Times New Roman"));
 
+        Text username = new Text("Username");
+        username.setFont(Font.loadFont(getClass().getResourceAsStream("/open-sans/os-regular.ttf"), 12));
+        Text password = new Text("Password");
+        password.setFont(Font.loadFont(getClass().getResourceAsStream("/open-sans/os-regular.ttf"), 12));
 
         Button loginButton = new Button("Login");
         loginButton.setFont(Font.loadFont(getClass().getResourceAsStream("/open-sans/os-bold.ttf"), 12));
@@ -75,7 +80,7 @@ public class LoginGUI extends Application implements MenuInteractor, LoginIntera
             }
         });
 
-        loginCanvas.getChildren().addAll(loginTitle, usernameField, passwordField, loginButton, returnButton, failedLogin, quitButton);
+        loginCanvas.getChildren().addAll(loginTitle, username, usernameField, password, passwordField, loginButton, returnButton, failedLogin, quitButton);
 
         primaryStage.setTitle("Conference Simulator Phase 2");
         primaryStage.setScene(scene);

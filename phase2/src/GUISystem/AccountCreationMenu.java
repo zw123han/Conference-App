@@ -37,7 +37,12 @@ public class AccountCreationMenu extends Application implements MenuInteractor, 
         usernameField.setFont(Font.loadFont(getClass().getResourceAsStream("/open-sans/os-bold.ttf"), 12));
         PasswordField passwordField = new PasswordField();
 
-
+        Text name = new Text("Name (First and last)");
+        name.setFont(Font.loadFont(getClass().getResourceAsStream("/open-sans/os-regular.ttf"), 12));
+        Text username = new Text("Username");
+        username.setFont(Font.loadFont(getClass().getResourceAsStream("/open-sans/os-regular.ttf"), 12));
+        Text password = new Text("Password");
+        password.setFont(Font.loadFont(getClass().getResourceAsStream("/open-sans/os-regular.ttf"), 12));
 
         Button creationButton = new Button("Create Account");
         creationButton.setFont(Font.loadFont(getClass().getResourceAsStream("/open-sans/os-bold.ttf"), 12));
@@ -76,7 +81,7 @@ public class AccountCreationMenu extends Application implements MenuInteractor, 
             }
         });
 
-        loginCanvas.getChildren().addAll(loginTitle, nameField, usernameField, passwordField, creationButton, loginButton, accountMessage, quitButton);
+        loginCanvas.getChildren().addAll(loginTitle, name, nameField, username, usernameField, password, passwordField, creationButton, loginButton, accountMessage, quitButton);
 
         primaryStage.setTitle("Conference Simulator Phase 2");
         primaryStage.setScene(scene);
