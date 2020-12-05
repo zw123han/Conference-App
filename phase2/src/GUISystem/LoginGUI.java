@@ -95,14 +95,14 @@ public class LoginGUI extends Application implements MenuInteractor, LoginIntera
         // mediaView added to vbox
         loginCanvas.getChildren().addAll(mediaView, loginTitle, username, usernameField, password, passwordField, loginButton, returnButton, failedLogin, quitButton);
 
-
+        //Plays song
+        mediaPlayer.play();
 
         primaryStage.setTitle("Conference Simulator Phase 2");
         primaryStage.setScene(scene);
         primaryStage.show();
 
-        //Plays song
-        mediaPlayer.play();
+
 
     }
 
