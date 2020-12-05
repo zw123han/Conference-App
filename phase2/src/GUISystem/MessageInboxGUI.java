@@ -158,6 +158,7 @@ public class MessageInboxGUI extends Application implements MessageInboxPresente
     }
 
     private Button squareButtonConstructor(Color buttonColor, String symbol) {
+        // Makes a new square button.
         Button button = new Button(symbol);
         button.setPrefSize(40, 40);
         button.setFont(Font.loadFont(getClass().getResourceAsStream("/open-sans/os-extrabold.ttf"), 16));
@@ -172,29 +173,35 @@ public class MessageInboxGUI extends Application implements MessageInboxPresente
     }
 
     private VBox chatroomOptionConstructor(String name, String usr, String unrd) {
+        // Outer container box
         VBox chatroomOptionContainer = new VBox(2);
         chatroomOptionContainer.setAlignment(Pos.BOTTOM_LEFT);
         chatroomOptionContainer.setPrefSize(150, 60);
         chatroomOptionContainer.setPadding(new Insets(5));
+        // Display Name (12)
+        // @username
         HBox nameContainer = new HBox(2);
         nameContainer.setAlignment(Pos.BOTTOM_LEFT);
-
         Label displayName = new Label(name);
         displayName.setFont(Font.loadFont(getClass().getResourceAsStream("/open-sans/os-bold.ttf"), 12));
         Label username = new Label("(@" + usr + ")");
         username.setFont(Font.loadFont(getClass().getResourceAsStream("/open-sans/os-regular.ttf"), 12));
         username.setTextFill(Color.GREY);
-        Label unread = new Label();
-        unread.setText(unrd);
+        Label unread = new Label(unrd);
+        if (unrd.equals("0")) {
+            unread.setText("");
+        }
         unread.setFont(Font.loadFont(getClass().getResourceAsStream("/open-sans/os-extrabold.ttf"), 10));
         unread.setTextFill(Color.CRIMSON);
         unread.setPrefHeight(16);
         nameContainer.getChildren().addAll(displayName, unread);
+
         chatroomOptionContainer.getChildren().addAll(nameContainer, username);
         return chatroomOptionContainer;
     }
 
     public void setChatroomOption(ArrayList<String> option) {
+        // Every chat option is stored in a button
         Button chat = new Button();
         chat.setPrefSize(178, 20);
         chat.setId(option.get(1));
@@ -204,8 +211,9 @@ public class MessageInboxGUI extends Application implements MessageInboxPresente
             messageBox.setDisable(false);
             this.recipient = chat.getId();
             chat.setBackground(new Background(new BackgroundFill(Color.LIGHTGREY, CornerRadii.EMPTY, Insets.EMPTY)));
-            chat.setGraphic(chatroomOptionConstructor(option.get(0), option.get(1), "0"));
+            chat.setGraphic(chatroomOptionConstructor(option.get(0), option.get(1), ""));
             mi.loadMessageCanvasView(option.get(0), recipient);
+            // Sets only the current button background to grey -- everything else is reset to white
             for (Object obj : chatroomOptions.getChildren().toArray()) {
                 if (obj instanceof Button && !obj.equals(chat)) {
                     Button b = (Button) obj;
@@ -224,6 +232,7 @@ public class MessageInboxGUI extends Application implements MessageInboxPresente
     }
 
     public void setMessageArea(ArrayList<String> messageData) {
+        // TODO: Test and update after outbox is completed
         HBox messageContainer = new HBox(10);
         CornerRadii corn = new CornerRadii(10);
         Background background = new Background(new BackgroundFill(Color.ALICEBLUE, corn, new Insets(20)));
@@ -247,18 +256,6 @@ public class MessageInboxGUI extends Application implements MessageInboxPresente
 
         messageDisplay.getChildren().add(messageContainer);
     }
-
-//    @FXML //TODO: doesn't account for user types yet
-//    private void goBack(ActionEvent event) throws IOException {
-//        Parent parent = FXMLLoader.load(getClass().getResource("Menu1.fxml"));
-//        Scene scene = new Scene(parent);
-//
-//        Stage window = (Stage) ((Node) event.getSource()).getScene().getWindow();
-//        window.setScene(scene);
-//        window.setHeight(500);
-//        window.setWidth(500);
-//        window.show();
-//    }
 
     public void display(Stage primaryStage) {
         start(primaryStage);
