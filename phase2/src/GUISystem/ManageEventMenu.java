@@ -1,11 +1,13 @@
 package GUISystem;
 
+import EventSystem.EventCreatorPresenter;
 import javafx.application.Application;
 import javafx.stage.Stage;
 
-public class ManageEventMenu {
+public class ManageEventMenu extends Application implements EventCreatorPresenter.EventCreatorInterface {
 
-    public  void display() {
+    @Override
+    public void start(Stage primaryStage) {
 
     }
 }

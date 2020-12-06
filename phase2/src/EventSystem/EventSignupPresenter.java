@@ -3,6 +3,7 @@ package EventSystem;
 import UserSystem.*;
 import java.time.format.DateTimeFormatter;
 import java.time.format.FormatStyle;
+import java.util.ArrayList;
 
 /**
  * Presenter for the event signup process.
@@ -12,7 +13,7 @@ import java.time.format.FormatStyle;
 public class EventSignupPresenter {
     private EventManager em;
     private EventSignup es;
-
+    private EventInterface eventInterface;
     /**
      * Creates an instance of EvenSignupPresenter
      *
@@ -24,6 +25,9 @@ public class EventSignupPresenter {
         this.em = em;
     }
 
+    public void setInterface(EventInterface eventInterface) {
+        this.eventInterface = eventInterface;
+    }
     /**
      * prints response after trying to signup given user for the event corresponding to event id.
      *
@@ -34,14 +38,18 @@ public class EventSignupPresenter {
         EventSignupController esc = new EventSignupController(this.es, this.em);
         try {
             if (!(esc.signUserUp(user, Long.parseLong(event_id)))) {
-                System.out.println("Unable to join event");
+                String message = "Unable to join event";
+                eventInterface.joinEvent(message);
             } else {
-                System.out.println("Joined event");
+                String message = "Joined event";
+                eventInterface.joinEvent(message);
             }
         } catch (EventNotFoundException e) {
-            System.out.println("This event has not yet been registered.");
+            String message = "This event has not yet been registered.";
+            eventInterface.joinEvent(message);
         } catch (NumberFormatException e){
-            System.out.println("Please enter a valid event ID");
+            String message = "Please enter a valid event ID";
+            eventInterface.joinEvent(message);
         }
     }
 
@@ -55,14 +63,18 @@ public class EventSignupPresenter {
         EventSignupController esc = new EventSignupController(this.es, this.em);
         try {
             if (!(esc.removeUser(user, Long.parseLong(event_id)))) {
-                System.out.println("Unable to leave event. You are already in this event.");
+                String message = "Unable to leave event. You are already in this event.";
+                eventInterface.leaveEvent(message);
             } else {
-                System.out.println("Left event.");
+                String message = "Left event";
+                eventInterface.leaveEvent(message);
             }
         } catch (EventNotFoundException e) {
-            System.out.println("This event has not yet been registered.");
+            String message = "This event has not yet been registered.";
+            eventInterface.leaveEvent(message);
         } catch (NumberFormatException e) {
-            System.out.println("Please enter a valid event ID");
+            String message = "Please enter a valid event ID";
+            eventInterface.leaveEvent(message);
         }
     }
 
@@ -70,19 +82,31 @@ public class EventSignupPresenter {
      * Lists all the events available in the program for user to signup to
      */
     public void viewEvents(){
-        System.out.println("\nAVAILABLE EVENTS:");
-        System.out.println("------------------------");
+//        System.out.println("\nAVAILABLE EVENTS:");
+//        System.out.println("------------------------");
+//        for(Event ev: this.em.getEventsList()){
+//            if(!ev.isFull()) {
+//                System.out.println("Name: " + ev.getName());
+//                System.out.println("id: " + ev.getId());
+//                System.out.println("Time: " + DateTimeFormatter.ofLocalizedDateTime(
+//                        FormatStyle.SHORT)
+//                        .format(ev.getTime()));
+//                System.out.println("Room: " + ev.getRoom());
+//                System.out.println("Capacity: " + ev.getNumberOfSignedUpUsers() + "/" + ev.getCapacity());
+//                System.out.println("Speakers: " + ev.getSpeakerList());
+//                System.out.println("------------------------");
+//            }
+//        }
+        System.out.println("viewEvents");
         for(Event ev: this.em.getEventsList()){
             if(!ev.isFull()) {
-                System.out.println("Name: " + ev.getName());
-                System.out.println("id: " + ev.getId());
-                System.out.println("Time: " + DateTimeFormatter.ofLocalizedDateTime(
-                        FormatStyle.SHORT)
-                        .format(ev.getTime()));
-                System.out.println("Room: " + ev.getRoom());
-                System.out.println("Capacity: " + ev.getNumberOfSignedUpUsers() + "/" + ev.getCapacity());
-                System.out.println("Speakers: " + ev.getSpeakerList());
-                System.out.println("------------------------");
+                String name = "Name: " + ev.getName();
+                String id = "id: " + ev.getId();
+                String time = "Time: " + DateTimeFormatter.ofLocalizedDateTime(FormatStyle.SHORT).format(ev.getTime());
+                String room = "Room: " + ev.getRoom();
+                String capacity = "Capacity: " + ev.getNumberOfSignedUpUsers() + "/" + ev.getCapacity();
+                String speakers = "Speakers: " + ev.getSpeakerList();
+                eventInterface.loadAllEvents(name,id, time, room, capacity, speakers);
             }
         }
     }
@@ -93,19 +117,29 @@ public class EventSignupPresenter {
      * @param user      User that is logged in
      */
     public void usersEvents(User user) {
-        System.out.println("\nYOUR EVENTS:");
-        System.out.println("------------------------");
+//        System.out.println("\nYOUR EVENTS:");
+//        System.out.println("------------------------");
+//        for (Long event_long: user.getEvents())  {
+//            Event ev = em.getEvent(event_long);
+//            System.out.println("Name: " + ev.getName());
+//            System.out.println("id: " + ev.getId());
+//            System.out.println("Time: " + DateTimeFormatter.ofLocalizedDateTime(
+//                    FormatStyle.SHORT)
+//                    .format(ev.getTime()));
+//            System.out.println("Room: " + ev.getRoom());
+//            System.out.println("Capacity: " + ev.getNumberOfSignedUpUsers() + "/" + ev.getCapacity());
+//            System.out.println("Speakers: " + ev.getSpeakerList());
+//            System.out.println("------------------------");
+//        }
         for (Long event_long: user.getEvents())  {
             Event ev = em.getEvent(event_long);
-            System.out.println("Name: " + ev.getName());
-            System.out.println("id: " + ev.getId());
-            System.out.println("Time: " + DateTimeFormatter.ofLocalizedDateTime(
-                    FormatStyle.SHORT)
-                    .format(ev.getTime()));
-            System.out.println("Room: " + ev.getRoom());
-            System.out.println("Capacity: " + ev.getNumberOfSignedUpUsers() + "/" + ev.getCapacity());
-            System.out.println("Speakers: " + ev.getSpeakerList());
-            System.out.println("------------------------");
+            String name = "Name: " + ev.getName();
+            String id = "id: " + ev.getId();
+            String time = "Time: " + DateTimeFormatter.ofLocalizedDateTime(FormatStyle.SHORT).format(ev.getTime());
+            String room = "Room: " + ev.getRoom();
+            String capacity = "Capacity: " + ev.getNumberOfSignedUpUsers() + "/" + ev.getCapacity();
+            String speakers = "Speakers: " + ev.getSpeakerList();
+            eventInterface.loadUserEvents(name,id, time, room, capacity, speakers);
         }
     }
     /**
@@ -115,17 +149,30 @@ public class EventSignupPresenter {
      */
     public void getEventInfo(String id){
         try{
-
-            System.out.println("\n PARTICIPANTS:");
+//            System.out.println("\n PARTICIPANTS:");
+            ArrayList<String> list = new ArrayList<>();
             for (String username: em.getSignedUpUsers(Long.parseLong(id))){
-                System.out.println("@"+username);
+//                System.out.println("@"+username);
+                list.add("@" + username);
+
             }
+            eventInterface.eventInfo(list);
         }
         catch(NumberFormatException e){
-            System.out.println("Please enter a valid event ID");
+            eventInterface.eventInfoError("Please enter a valid event ID");
+//            System.out.println("Please enter a valid event ID");
         }
         catch(EventNotFoundException e){
-            System.out.println("That event has not yet been registered");
+            eventInterface.eventInfoError("That event has not yet been registered");
+//            System.out.println("That event has not yet been registered");
         }
+    }
+    public interface EventInterface {
+        void loadUserEvents(String name, String id, String time, String room, String capacity, String speakers);
+        void loadAllEvents(String name, String id, String time, String room, String capacity, String speakers);
+        void joinEvent(String message);
+        void leaveEvent(String message);
+        void eventInfo(ArrayList<String> usernames);
+        void eventInfoError(String username);
     }
 }

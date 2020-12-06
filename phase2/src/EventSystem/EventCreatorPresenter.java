@@ -92,4 +92,7 @@ public class EventCreatorPresenter {
             }
         }
     }
+    public interface EventCreatorInterface {
+
+    }
 }
