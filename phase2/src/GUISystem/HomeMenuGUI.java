@@ -34,6 +34,7 @@ public class HomeMenuGUI extends Application implements UserMenuGetter {
     private MenuGetter menuGetter;
     private MessageInboxGUI messageMenu;
     private FriendsMenuGUI friendsMenu;
+    private PasswordMenu passwordMenu;
     private DatabaseInteractor databaseInteractor;
     private EventMenuGUI eventMenu;
 
@@ -64,7 +65,7 @@ public class HomeMenuGUI extends Application implements UserMenuGetter {
         friendsButton.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
-                // Go to friends menu
+                friendsMenu.start(primaryStage);
             }
         });
 
@@ -73,7 +74,7 @@ public class HomeMenuGUI extends Application implements UserMenuGetter {
         changePasswordButton.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
-                friendsMenu.start(primaryStage);
+                passwordMenu.start(primaryStage);
             }
         });
 
@@ -153,6 +154,9 @@ public class HomeMenuGUI extends Application implements UserMenuGetter {
     }
     public void setFriendsMenu(FriendsMenuGUI friendsMenu) {
         this.friendsMenu = friendsMenu;
+    }
+    public void setPasswordMenu(PasswordMenu passwordMenu){
+        this.passwordMenu = passwordMenu;
     }
     public void setSave(DatabaseInteractor databaseInteractor){
         this.databaseInteractor = databaseInteractor;

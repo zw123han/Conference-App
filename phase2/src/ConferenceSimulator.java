@@ -91,6 +91,7 @@ public class ConferenceSimulator {
         ChatMenuPresenter chatMenuPresenter = new ChatMenuPresenter();
         FriendsPresenter friendsPresenter = new FriendsPresenter();
 
+        // Lots of GUI creation
         MessageOutboxDataCollector outboxDateCollector = new MessageOutboxDataCollector("", registrar, eventManager);
         MessageOutboxController outboxController = new MessageOutboxController("", registrar, eventManager, chatroomManager);
         MessageOutboxPresenter outboxPresenter = new MessageOutboxPresenter(outboxController, outboxDateCollector);
@@ -107,30 +108,31 @@ public class ConferenceSimulator {
 
         // Main user UI
         // Create menus and dependency inject necessary classes
-        EventMenuGUI eventMenu = new EventMenuGUI();
         LoginGUI loginGUI = new LoginGUI();
         loginGUI.setLogin(loginFacade);
         AccountCreationMenu accountCreationMenu = new AccountCreationMenu();
         accountCreationMenu.setLogin(loginFacade);
+        PasswordMenu passwordMenu = new PasswordMenu();
+        passwordMenu.setLogin(loginFacade);
         HomeMenuGUI homeMenuGUI = new HomeMenuGUI();
         homeMenuGUI.setLogin(loginFacade);
         homeMenuGUI.setMessageMenu(inboxGUI);
-        homeMenuGUI.setEventMenu(eventMenu);
+        homeMenuGUI.setPasswordMenu(passwordMenu);
         homeMenuGUI.setSave(databaseInteractor);
-        eventSignupPresenter.setInterface(eventMenu);
-        eventMenu.setEventElements(eventSignupPresenter);
+
         // Create menu facade and DI menus
         MenuFacade menuFacade = new MenuFacade();
         menuFacade.set(loginGUI, accountCreationMenu, homeMenuGUI);
 
-        // Add interface into menus
+        //  DI userMenuGetter into various submenus
+        inboxGUI.setUserMenuGetter(homeMenuGUI);
+        passwordMenu.setUserMenuGetter(homeMenuGUI);
+
+        // DI MenuGetter into menus
         loginGUI.setMenuGetter(menuFacade);
         accountCreationMenu.setMenuGetter(menuFacade);
         homeMenuGUI.setMenuGetter(menuFacade);
 
-        //  DI userMenuGetter into various submenus
-        inboxGUI.setUserMenuGetter(homeMenuGUI);
-        eventMenu.setUserMenuGetter(homeMenuGUI);
         // Launch application
         LaunchMenu.setMenuFacade(menuFacade);
         Application.launch(LaunchMenu.class);
