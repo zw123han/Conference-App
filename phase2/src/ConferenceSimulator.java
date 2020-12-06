@@ -62,12 +62,18 @@ public class ConferenceSimulator {
     public void run() {
         // Move all of this into a builder. No return necessary since we use a static class.
         System.out.println("The UI has been deleted and is being refactored. Do not panic.");
-        databaseInteractor.connect();
 
+        // Connect to database and get use cases
+        databaseInteractor.connect();
         registrar = (Registrar) databaseInteractor.readFromDatabase(registrar);
         eventManager = (EventManager) databaseInteractor.readFromDatabase(eventManager);
         chatroomManager = (ChatroomManager) databaseInteractor.readFromDatabase(chatroomManager);
 
+        // Set savables
+        ArrayList<Savable> savables = new ArrayList<>(Arrays.asList(registrar, eventManager, chatroomManager));
+        databaseInteractor.setSavables(savables);
+
+        // Ok
         EventSignup eventSignup = new EventSignup();
 
         // Make administrator account
@@ -97,9 +103,10 @@ public class ConferenceSimulator {
         MessageInboxGUI inboxGUI = new MessageInboxGUI();
         inboxPresenter.setView(inboxGUI);
         inboxGUI.setInboxElements(inboxPresenter, outboxGUI);
-        // Main user UI
 
-        //Create menus and dependency inject necessary classes
+
+        // Main user UI
+        // Create menus and dependency inject necessary classes
         LoginGUI loginGUI = new LoginGUI();
         loginGUI.setLogin(loginFacade);
         AccountCreationMenu accountCreationMenu = new AccountCreationMenu();
@@ -107,6 +114,7 @@ public class ConferenceSimulator {
         HomeMenuGUI homeMenuGUI = new HomeMenuGUI();
         homeMenuGUI.setLogin(loginFacade);
         homeMenuGUI.setMessageMenu(inboxGUI);
+        homeMenuGUI.setSave(databaseInteractor);
 
         // Create menu facade and DI menus
         MenuFacade menuFacade = new MenuFacade();
@@ -124,11 +132,7 @@ public class ConferenceSimulator {
         LaunchMenu.setMenuFacade(menuFacade);
         Application.launch(LaunchMenu.class);
 
-        //Saving changes, need to move this into the homemenu
-        ArrayList<Savable> savables = new ArrayList<>(Arrays.asList(registrar, eventManager, chatroomManager));
-        databaseInteractor.setSavables(savables);
-        databaseInteractor.saveToDatabase();
-        System.out.println("Save successful");
+        // Disconnect from database
         databaseInteractor.disconnect();
 
     }

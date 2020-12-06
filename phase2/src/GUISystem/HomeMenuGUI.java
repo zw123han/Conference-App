@@ -1,5 +1,6 @@
 package GUISystem;
 
+import DatabaseSystem.DatabaseInteractor;
 import LoginSystem.LoginOptionsFacade;
 import javafx.application.Application;
 import javafx.event.ActionEvent;
@@ -33,7 +34,7 @@ public class HomeMenuGUI extends Application implements UserMenuGetter {
     private MenuGetter menuGetter;
     private MessageInboxGUI messageMenu;
     private FriendsMenuGUI friendsMenu;
-
+    private DatabaseInteractor databaseInteractor;
 
     @Override
     public void start(Stage primaryStage) {
@@ -108,16 +109,27 @@ public class HomeMenuGUI extends Application implements UserMenuGetter {
             @Override
             public void handle(ActionEvent event) {
                 loginOptionsFacade.logout();
+                databaseInteractor.saveToDatabase();
+                System.out.println("Save successful");
                 menuGetter.goLogin(primaryStage);
             }
         });
 
+        Button saveButton = new Button("Save changes");
+        saveButton.setFont(Font.loadFont(getClass().getResourceAsStream("/open-sans/os-bold.ttf"), 12));
+        saveButton.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                databaseInteractor.saveToDatabase();
+                System.out.println("Save successful");
+            }
+        });
 
         vbox.getChildren().addAll(title,eventButton, friendsButton, changePasswordButton, messagingButton);
         if (loginOptionsFacade.getUser().getUserType().equals("admin")|loginOptionsFacade.getUser().getUserType().equals("organizer")){
             vbox.getChildren().addAll(manageAccountButton, manageEventsButton);
         }
-        vbox.getChildren().add(logoutButton);
+        vbox.getChildren().addAll(logoutButton, saveButton);
 
 
         primaryStage.setTitle("Conference Simulator Phase 2");
@@ -142,6 +154,10 @@ public class HomeMenuGUI extends Application implements UserMenuGetter {
     public void setFriendsMenu(FriendsMenuGUI friendsMenu) {
         this.friendsMenu = friendsMenu;
     }
+    public void setSave(DatabaseInteractor databaseInteractor){
+        this.databaseInteractor = databaseInteractor;
+    }
+    @Override
     public void goBack(Stage primaryStage) {
         start(primaryStage);
     }
