@@ -91,6 +91,7 @@ public class ConferenceSimulator {
         ChatMenuPresenter chatMenuPresenter = new ChatMenuPresenter();
         FriendsPresenter friendsPresenter = new FriendsPresenter();
 
+        // Lots of GUI creation
         MessageOutboxDataCollector outboxDateCollector = new MessageOutboxDataCollector("", registrar, eventManager);
         MessageOutboxController outboxController = new MessageOutboxController("", registrar, eventManager, chatroomManager);
         MessageOutboxPresenter outboxPresenter = new MessageOutboxPresenter(outboxController, outboxDateCollector);
@@ -111,22 +112,26 @@ public class ConferenceSimulator {
         loginGUI.setLogin(loginFacade);
         AccountCreationMenu accountCreationMenu = new AccountCreationMenu();
         accountCreationMenu.setLogin(loginFacade);
+        PasswordMenu passwordMenu = new PasswordMenu();
+        passwordMenu.setLogin(loginFacade);
         HomeMenuGUI homeMenuGUI = new HomeMenuGUI();
         homeMenuGUI.setLogin(loginFacade);
         homeMenuGUI.setMessageMenu(inboxGUI);
+        homeMenuGUI.setPasswordMenu(passwordMenu);
         homeMenuGUI.setSave(databaseInteractor);
 
         // Create menu facade and DI menus
         MenuFacade menuFacade = new MenuFacade();
         menuFacade.set(loginGUI, accountCreationMenu, homeMenuGUI);
 
-        // Add interface into menus
+        //  DI userMenuGetter into various submenus
+        inboxGUI.setUserMenuGetter(homeMenuGUI);
+        passwordMenu.setUserMenuGetter(homeMenuGUI);
+
+        // DI MenuGetter into menus
         loginGUI.setMenuGetter(menuFacade);
         accountCreationMenu.setMenuGetter(menuFacade);
         homeMenuGUI.setMenuGetter(menuFacade);
-
-        //  DI userMenuGetter into various submenus
-        inboxGUI.setUserMenuGetter(homeMenuGUI);
 
         // Launch application
         LaunchMenu.setMenuFacade(menuFacade);
