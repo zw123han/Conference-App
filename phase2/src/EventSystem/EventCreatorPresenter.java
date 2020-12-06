@@ -17,7 +17,7 @@ import java.util.ArrayList;
 public class EventCreatorPresenter {
     private EventManager em;
     private Registrar reg;
-
+    private EventCreatorInterface eci;
     /**
      * The constructor for EventCreatorPresenter
      *
@@ -28,7 +28,9 @@ public class EventCreatorPresenter {
         this.em = em;
         this.reg = reg;
     }
-
+    public void setInterface(EventCreatorInterface eci) {
+        this.eci = eci;
+    }
     /**
      * Prompts the creation of the specified event and returns whether the event was successfully created
      *
@@ -40,19 +42,25 @@ public class EventCreatorPresenter {
      * @param capacity       The capacity of the event
      * @return               A string detailing whether the event was successfully created
      */
-    public String promptEventCreation(String name, String room, LocalDateTime time, long duration, ArrayList<String> speaker_list, int capacity) {
+    public void promptEventCreation(String name, String room, LocalDateTime time, long duration, ArrayList<String> speaker_list, int capacity) {
 
         EventCreator ec = new EventCreator(this.em, reg);
         try {
             if (!(ec.createEvent(name, room, time, duration, speaker_list, capacity))) {
-                return ("Unable to create event");
+//                return ("Unable to create event");
+                String message = "Unable to create event";
+                eci.createPopUp(message);
+
             } else {
-                return ("Event created");
+//                return ("Event created");
+                String message = "Event created";
+                eci.createPopUp(message);
             }
         } catch (EventCreationFailureException e) {
 //            e.printStackTrace();
 //            return ("");
-            return e.getMessage();
+//            return e.getMessage();
+            eci.createPopUp(e.getMessage());
         }
     }
 
@@ -62,37 +70,53 @@ public class EventCreatorPresenter {
      * @param eventId           The id of the event
      * @return               A string detailing whether the event was successfully deleted
      */
-    public String promptEventDeletion(Long eventId) {
+    public void  promptEventDeletion(Long eventId) {
         EventCreator ec = new EventCreator(this.em, reg);
         try {
             ec.deleteEvent(eventId);
-            return "Event has been successfully cancelled";
+            String message = "Event has been successfully cancelled";
+            eci.createPopUp(message);
+//            return "Event has been successfully cancelled";
         } catch (EventNotFoundException e) {
 //            e.printStackTrace();
 //            return ("");
-            return e.getMessage();
+//            return e.getMessage();
+            eci.createPopUp(e.getMessage());
         }
     }
 
-    public void viewEvents(){
-        System.out.println("\nEXISTING EVENTS:");
-        System.out.println("------------------------");
+    public void viewEvents() {
+//        System.out.println("\nEXISTING EVENTS:");
+//        System.out.println("------------------------");
+//        for(Event ev: this.em.getEventsList()){
+//            if(!ev.isFull()) {
+//                System.out.println("Name: " + ev.getName());
+//                System.out.println("id: " + ev.getId());
+//                System.out.println("Time: " + DateTimeFormatter.ofLocalizedDateTime(
+//                        FormatStyle.SHORT)
+//                        .format(ev.getTime()));
+//                System.out.println("Type: " + ev.getType());
+//                System.out.println("Room: " + ev.getRoom());
+//                System.out.println("Capacity: " + ev.getNumberOfSignedUpUsers() + "/" + ev.getCapacity());
+//                System.out.println("Speakers: " + ev.getSpeakerList());
+//                System.out.println("------------------------");
+//            }
+//        }
         for(Event ev: this.em.getEventsList()){
             if(!ev.isFull()) {
-                System.out.println("Name: " + ev.getName());
-                System.out.println("id: " + ev.getId());
-                System.out.println("Time: " + DateTimeFormatter.ofLocalizedDateTime(
-                        FormatStyle.SHORT)
-                        .format(ev.getTime()));
-                System.out.println("Type: " + ev.getType());
-                System.out.println("Room: " + ev.getRoom());
-                System.out.println("Capacity: " + ev.getNumberOfSignedUpUsers() + "/" + ev.getCapacity());
-                System.out.println("Speakers: " + ev.getSpeakerList());
-                System.out.println("------------------------");
+                String name = "Name: " + ev.getName();
+                String id = "id: " + ev.getId();
+                String time = "Time: " + DateTimeFormatter.ofLocalizedDateTime(FormatStyle.SHORT).format(ev.getTime());
+                String room = "Room: " + ev.getRoom();
+                String capacity = "Capacity: " + ev.getNumberOfSignedUpUsers() + "/" + ev.getCapacity();
+                String speakers = "Speakers: " + ev.getSpeakerList();
+                eci.loadAllEvents(name,id, time, room, capacity, speakers);
             }
         }
     }
     public interface EventCreatorInterface {
-
+        public void loadAllEvents(String name,String id, String time, String room, String capacity, String speakers);
+        public void createPopUp(String message);
+        public void removeEvent();
     }
 }

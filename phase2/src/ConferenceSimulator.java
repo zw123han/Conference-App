@@ -109,6 +109,7 @@ public class ConferenceSimulator {
         // Main user UI
         // Create menus and dependency inject necessary classes
         EventMenuGUI eventMenu = new EventMenuGUI();
+        ManageEventMenu manageEventMenu = new ManageEventMenu();
         LoginGUI loginGUI = new LoginGUI();
         loginGUI.setLogin(loginFacade);
         AccountCreationMenu accountCreationMenu = new AccountCreationMenu();
@@ -119,10 +120,15 @@ public class ConferenceSimulator {
         homeMenuGUI.setLogin(loginFacade);
         homeMenuGUI.setMessageMenu(inboxGUI);
         homeMenuGUI.setEventMenu(eventMenu);
+        homeMenuGUI.setManageEventMenu(manageEventMenu);
         homeMenuGUI.setPasswordMenu(passwordMenu);
         homeMenuGUI.setSave(databaseInteractor);
         eventSignupPresenter.setInterface(eventMenu);
+        eventCreatorPresenter.setInterface(manageEventMenu);
         eventMenu.setEventElements(eventSignupPresenter);
+        manageEventMenu.setEventCreatorElements(eventCreatorPresenter);
+        manageEventMenu.setFacade(loginFacade);
+
 
         // Create menu facade and DI menus
         MenuFacade menuFacade = new MenuFacade();
@@ -132,6 +138,7 @@ public class ConferenceSimulator {
         inboxGUI.setUserMenuGetter(homeMenuGUI);
         passwordMenu.setUserMenuGetter(homeMenuGUI);
         eventMenu.setUserMenuGetter(homeMenuGUI);
+        manageEventMenu.setUserMenuGetter(homeMenuGUI);
 
         // DI MenuGetter into menus
         loginGUI.setMenuGetter(menuFacade);

@@ -59,13 +59,14 @@ public class EventMenuGUI extends Application implements EventSignupPresenter.Ev
         Button goBack = new Button("Back");
         topView.getChildren().addAll(joinEvent, leaveEvent, eventInfo, goBack);
 
-        Label label = new Label("hi");
-        Label label2 = new Label("3");
-        //preliminary loading
-        VBox box = new VBox();
+//        Label label = new Label("hi");
+//        Label label2 = new Label("3");
+//        VBox box = new VBox();
 //        box.getChildren().addAll(label, label2);
 //        allEvents.getItems().addAll(box);
-        yourEvents.getItems().addAll(label2);
+//        yourEvents.getItems().addAll(label2);
+
+        //preliminary loading
         esp.usersEvents(user);
         esp.viewEvents();
 
