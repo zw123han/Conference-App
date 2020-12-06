@@ -185,6 +185,8 @@ public class ManageEventMenu extends Application implements EventCreatorPresente
                 } else {
                     createPopUp("Must be an Integer");
                 }
+                allEvents.getItems().clear();
+                ecp.viewEvents();
             });
             closeButton.setOnAction(ae -> window.close());
 
@@ -236,7 +238,7 @@ public class ManageEventMenu extends Application implements EventCreatorPresente
     }
     private boolean isInt(TextField input) {
         try {
-            long number = Integer.parseInt(input.getText());
+            long number = Long.parseLong(input.getText());
             return true;
         } catch (NumberFormatException e) {
             return false;
