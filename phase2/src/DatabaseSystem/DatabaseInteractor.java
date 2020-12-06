@@ -12,14 +12,24 @@ public class DatabaseInteractor {
     DatabaseReader dbReader;
     MongoClient mongoClient;
     DB database;
+    ArrayList<Savable> savables;
 
     public DatabaseInteractor() {
         dbConnector = new DatabaseConnector(mongoClient);
         dbWriter = new DatabaseWriter();
         dbReader = new DatabaseReader();
+        savables = new ArrayList<>();
     }
 
-    public void saveToDatabase(ArrayList<Savable> savables) {
+    public ArrayList<Savable> getSavables() {
+        return savables;
+    }
+
+    public void setSavables(ArrayList<Savable> savables) {
+        this.savables = savables;
+    }
+
+    public void saveToDatabase() {
         dbWriter.save(savables, database);
     }
 
