@@ -117,6 +117,5 @@ public class EventCreatorPresenter {
     public interface EventCreatorInterface {
         public void loadAllEvents(String name,String id, String time, String room, String capacity, String speakers);
         public void createPopUp(String message);
-        public void removeEvent();
     }
 }

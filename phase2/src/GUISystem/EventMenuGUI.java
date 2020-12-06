@@ -259,7 +259,7 @@ public class EventMenuGUI extends Application implements EventSignupPresenter.Ev
         window.showAndWait();
     }
     @Override
-    public void eventInfoError(String username) {
+    public void eventInfoError(String message) {
         Stage window = new Stage();
         window.initModality(Modality.APPLICATION_MODAL);
         window.setTitle("Event info");
@@ -267,7 +267,7 @@ public class EventMenuGUI extends Application implements EventSignupPresenter.Ev
         VBox layout = new VBox();
         layout.setAlignment(Pos.CENTER);
 
-        Label label = new Label(username);
+        Label label = new Label(message);
         Button closeButton = new Button("Close");
         closeButton.setOnAction(ae -> window.close());
 

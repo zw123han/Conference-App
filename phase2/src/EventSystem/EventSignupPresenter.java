@@ -173,6 +173,6 @@ public class EventSignupPresenter {
         void joinEvent(String message);
         void leaveEvent(String message);
         void eventInfo(ArrayList<String> usernames);
-        void eventInfoError(String username);
+        void eventInfoError(String message);
     }
 }

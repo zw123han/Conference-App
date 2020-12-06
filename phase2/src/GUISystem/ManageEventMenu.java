@@ -275,9 +275,4 @@ public class ManageEventMenu extends Application implements EventCreatorPresente
         window.showAndWait();
     }
 
-    @Override
-    public void removeEvent() {
-
-    }
-
 }
