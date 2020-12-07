@@ -36,33 +36,37 @@ public class ConferenceSimulator {
      *  Constructor for Conference simulator. Creates gateways and necessary use cases to store data.
      */
     public ConferenceSimulator() {
-        String userFilepath = "phase2/src/UserSystem/userData.ser";
-        String eventFilepath = "phase2/src/EventSystem/eventData.ser";
-        String chatFilepath = "phase2/src/MessagingSystem/chatlog.ser";
-        String profanityListFilepath = "phase2/src/MessagingSystem/profanityList.ser";
+        // Local save methods
 
-        readEvents = new ReadEvents(eventFilepath);
-        readUsers = new ReadUsers(userFilepath);
+        //String userFilepath = "phase2/src/UserSystem/userData.ser";
+        //String eventFilepath = "phase2/src/EventSystem/eventData.ser";
+        //String chatFilepath = "phase2/src/MessagingSystem/chatlog.ser";
+        //String profanityListFilepath = "phase2/src/MessagingSystem/profanityList.ser";
 
-        saveEvents = new SaveEvents(eventFilepath);
-        storeUsers = new StoreUsers(userFilepath);
+        //readEvents = new ReadEvents(eventFilepath);
+        //readUsers = new ReadUsers(userFilepath);
 
-        registrar = new Registrar();
-        eventManager = new EventManager();
-        chatroomManager = new ChatroomManager();
+        //saveEvents = new SaveEvents(eventFilepath);
+        //storeUsers = new StoreUsers(userFilepath);
 
-        readChat = new ReadChat(chatFilepath);
-        storeChat = new StoreChat(chatFilepath);
-        readProfanitiesList = new ReadProfanityList(profanityListFilepath);
-        profanities = readProfanitiesList.readProfanities();
+        //readChat = new ReadChat(chatFilepath);
+        //storeChat = new StoreChat(chatFilepath);
 
-        // Connect to database and get use cases
+        //registrar = new Registrar(readUsers.read());
+        //eventManager = new EventManager(readEvents.read());
+        //chatroomManager = readChat.readChatlog();
+
+        //readProfanitiesList = new ReadProfanityList(profanityListFilepath);
+        //profanities = readProfanitiesList.readProfanities();
+
+        // Database save methods
         databaseInteractor.connect();
-        registrar = (Registrar) databaseInteractor.readFromDatabase(registrar);
-        eventManager = (EventManager) databaseInteractor.readFromDatabase(eventManager);
-        chatroomManager = (ChatroomManager) databaseInteractor.readFromDatabase(chatroomManager);
 
-        profanities2 = databaseInteractor.getProfanityList();
+        registrar = (Registrar) databaseInteractor.readFromDatabase(new Registrar());
+        eventManager = (EventManager) databaseInteractor.readFromDatabase(new EventManager());
+        chatroomManager = (ChatroomManager) databaseInteractor.readFromDatabase(new ChatroomManager());
+        profanities = databaseInteractor.getProfanityList();
+
     }
     // Add a local save class in addition to the database save
 
