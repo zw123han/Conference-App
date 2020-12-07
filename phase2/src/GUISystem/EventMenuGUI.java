@@ -93,6 +93,7 @@ public class EventMenuGUI extends Application implements EventSignupPresenter.Ev
                 esp.joinEvent(user, input.getText());
                 yourEvents.getItems().clear();
                 esp.usersEvents(user);
+                start(primaryStage);
             });
             layout.getChildren().addAll(hBox, joinButton, closeButton);
 
@@ -122,6 +123,7 @@ public class EventMenuGUI extends Application implements EventSignupPresenter.Ev
                 esp.leaveEvent(user, input.getText());
                 yourEvents.getItems().clear();
                 esp.usersEvents(user);
+                start(primaryStage);
             });
             layout.getChildren().addAll(hBox, leaveButton, closeButton);
 

@@ -168,7 +168,8 @@ public class ConferenceSimulator {
         LaunchMenu.setMenuFacade(menuFacade);
         Application.launch(LaunchMenu.class);
 
-        // Disconnect from database
+        // Save and disconnect from database
+        databaseInteractor.saveToDatabase();
         databaseInteractor.disconnect();
 
     }

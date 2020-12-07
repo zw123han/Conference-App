@@ -97,7 +97,6 @@ public class EventSignupPresenter {
 //                System.out.println("------------------------");
 //            }
 //        }
-        System.out.println("viewEvents");
         for(Event ev: this.em.getEventsList()){
             if(!ev.isFull()) {
                 String name = "Name: " + ev.getName();
