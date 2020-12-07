@@ -117,7 +117,9 @@ public class EventManager implements Serializable, Savable {
      * @return      Event object corresponding to given id
      */
     public Event getEvent(Long id){
+
         return this.events.get(id);
+
     }
 
     /**

@@ -38,6 +38,7 @@ public class HomeMenuGUI extends Application implements UserMenuGetter {
     private DatabaseInteractor databaseInteractor;
     private EventMenuGUI eventMenu;
     private ManageEventMenu manageEventMenu;
+    private ManageAccountMenu manageAccountMenu;
 
     @Override
     public void start(Stage primaryStage) {
@@ -95,7 +96,8 @@ public class HomeMenuGUI extends Application implements UserMenuGetter {
         manageAccountButton.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
-                // Go to manage account menu
+                manageAccountMenu.setUser(loginOptionsFacade.getUser());
+                manageAccountMenu.start(primaryStage);
             }
         });
 
@@ -153,6 +155,7 @@ public class HomeMenuGUI extends Application implements UserMenuGetter {
     }
     public void setEventMenu(EventMenuGUI eventMenu) {this.eventMenu = eventMenu;}
     public void setManageEventMenu(ManageEventMenu manageEventMenu) {this.manageEventMenu = manageEventMenu;}
+    public void setManageAccountMenu(ManageAccountMenu manageAccountMenu) {this.manageAccountMenu = manageAccountMenu;}
     public void setMessageMenu(MessageInboxGUI messageMenu) {
         this.messageMenu = messageMenu;
     }
