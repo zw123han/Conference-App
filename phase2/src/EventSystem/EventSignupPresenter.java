@@ -148,12 +148,13 @@ public class EventSignupPresenter {
     }
 
     /**
-     * Will download list of events of user to print to a file.
+     * Will create a list of events of user to print.
      *
      * @param user The current user whose list will be printed.
      */
     public void downloadUserEvents(User user){
         StringBuilder doc = new StringBuilder();
+        PrintEvents printer = new PrintEvents();
 
         for (Long event_long: user.getEvents())  {
             Event ev = em.getEvent(event_long);
@@ -167,8 +168,9 @@ public class EventSignupPresenter {
             doc.append("----------------------------\n");
             doc.append(name + "\n" + id + "\n" + time + "\n" + room + "\n" + capacity + "\n" + speakers + "\n");
             doc.append("----------------------------\n");
-
         }
+
+        printer.print(doc);
 
     }
 
