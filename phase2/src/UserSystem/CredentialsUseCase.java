@@ -40,8 +40,7 @@ public class CredentialsUseCase {
         if(registrar.userExisting(username)){
             return false;
         }
-        registrar.createUser(name, username, Base64.getEncoder().encodeToString(password.getBytes()), type);
-        return true;
+        return registrar.createUser(name, username, Base64.getEncoder().encodeToString(password.getBytes()), type);
     }
 
     /**
