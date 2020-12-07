@@ -4,6 +4,7 @@ import LoginSystem.*;
 import MessagingSystem.*;
 import UserSystem.*;
 import DatabaseSystem.*;
+import com.mongodb.BasicDBObject;
 import javafx.application.Application;
 
 import java.util.*;
@@ -28,6 +29,7 @@ public class ConferenceSimulator {
     ReadProfanityList readProfanitiesList;
     ChatroomManager chatroomManager;
     HashMap<String, String> profanities;
+    HashMap<String, String> profanities2;
 
     DatabaseInteractor databaseInteractor = new DatabaseInteractor();
     /**
@@ -53,6 +55,14 @@ public class ConferenceSimulator {
         storeChat = new StoreChat(chatFilepath);
         readProfanitiesList = new ReadProfanityList(profanityListFilepath);
         profanities = readProfanitiesList.readProfanities();
+
+        // Connect to database and get use cases
+        databaseInteractor.connect();
+        registrar = (Registrar) databaseInteractor.readFromDatabase(registrar);
+        eventManager = (EventManager) databaseInteractor.readFromDatabase(eventManager);
+        chatroomManager = (ChatroomManager) databaseInteractor.readFromDatabase(chatroomManager);
+
+        profanities2 = databaseInteractor.getProfanityList();
     }
     // Add a local save class in addition to the database save
 
@@ -62,12 +72,6 @@ public class ConferenceSimulator {
     public void run() {
         // Move all of this into a builder. No return necessary since we use a static class.
         System.out.println("The UI has been deleted and is being refactored. Do not panic.");
-
-        // Connect to database and get use cases
-        databaseInteractor.connect();
-        registrar = (Registrar) databaseInteractor.readFromDatabase(registrar);
-        eventManager = (EventManager) databaseInteractor.readFromDatabase(eventManager);
-        chatroomManager = (ChatroomManager) databaseInteractor.readFromDatabase(chatroomManager);
 
         // Set savables
         ArrayList<Savable> savables = new ArrayList<>(Arrays.asList(registrar, eventManager, chatroomManager));

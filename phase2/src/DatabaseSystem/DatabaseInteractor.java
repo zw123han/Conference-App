@@ -1,9 +1,9 @@
 package DatabaseSystem;
 
-import com.mongodb.DB;
-import com.mongodb.MongoClient;
+import com.mongodb.*;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 public class DatabaseInteractor {
 
@@ -35,6 +35,10 @@ public class DatabaseInteractor {
 
     public Savable readFromDatabase(Savable savable) {
         return dbReader.read(savable, database);
+    }
+
+    public HashMap<String, String> getProfanityList() {
+        return dbReader.getProfanityList(database);
     }
 
     public boolean connect() {
