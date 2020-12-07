@@ -102,8 +102,6 @@ public class LoginGUI extends Application{
         primaryStage.setScene(scene);
         primaryStage.show();
 
-
-
     }
 
 

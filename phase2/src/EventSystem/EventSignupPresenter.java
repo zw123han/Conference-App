@@ -25,9 +25,14 @@ public class EventSignupPresenter {
         this.em = em;
     }
 
+    /**
+     *
+     * @param eventInterface
+     */
     public void setInterface(EventInterface eventInterface) {
         this.eventInterface = eventInterface;
     }
+
     /**
      * prints response after trying to signup given user for the event corresponding to event id.
      *
@@ -141,6 +146,32 @@ public class EventSignupPresenter {
             eventInterface.loadUserEvents(name,id, time, room, capacity, speakers);
         }
     }
+
+    /**
+     * Will download list of events of user to print to a file.
+     *
+     * @param user The current user whose list will be printed.
+     */
+    public void downloadUserEvents(User user){
+        StringBuilder doc = new StringBuilder();
+
+        for (Long event_long: user.getEvents())  {
+            Event ev = em.getEvent(event_long);
+            String name = "Name: " + ev.getName();
+            String id = "id: " + ev.getId();
+            String time = "Time: " + DateTimeFormatter.ofLocalizedDateTime(FormatStyle.SHORT).format(ev.getTime());
+            String room = "Room: " + ev.getRoom();
+            String capacity = "Capacity: " + ev.getNumberOfSignedUpUsers() + "/" + ev.getCapacity();
+            String speakers = "Speakers: " + ev.getSpeakerList();
+
+            doc.append("----------------------------\n");
+            doc.append(name + "\n" + id + "\n" + time + "\n" + room + "\n" + capacity + "\n" + speakers + "\n");
+            doc.append("----------------------------\n");
+
+        }
+
+    }
+
     /**
      * Prints out a list of usernames registered in an event.
      *
@@ -166,6 +197,10 @@ public class EventSignupPresenter {
 //            System.out.println("That event has not yet been registered");
         }
     }
+
+    /**
+     *
+     */
     public interface EventInterface {
         void loadUserEvents(String name, String id, String time, String room, String capacity, String speakers);
         void loadAllEvents(String name, String id, String time, String room, String capacity, String speakers);
