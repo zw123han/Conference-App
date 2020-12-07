@@ -74,6 +74,7 @@ public class PasswordMenu extends Application {
                     passwordChangeMessage.setText("Invalid username");
                 }
                 else if(loginOptionsFacade.resetPassword(usernameField.getText(), currentPassword.getText(), newPassword.getText())){
+                    passwordChangeMessage.setFill(Color.GREEN);
                     passwordChangeMessage.setText("Password change successful");
                 }
                 else{
