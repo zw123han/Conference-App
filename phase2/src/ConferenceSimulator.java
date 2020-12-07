@@ -93,7 +93,7 @@ public class ConferenceSimulator {
         organizerCreationScript.createOrganizers(registrar);
 
         // Add necessary presenters and controllers
-        LoginOptionsFacade loginFacade = new LoginOptionsFacade(registrar);
+        LoginOptionsFacade loginFacade = new LoginOptionsFacade(registrar, eventManager);
         EventCreatorPresenter eventCreatorPresenter = new EventCreatorPresenter(eventManager, registrar);
         EventSignupPresenter eventSignupPresenter = new EventSignupPresenter(eventSignup, eventManager);
         ChatMenuPresenter chatMenuPresenter = new ChatMenuPresenter();
@@ -170,7 +170,6 @@ public class ConferenceSimulator {
         Application.launch(LaunchMenu.class);
 
         // Save and disconnect from database
-        databaseInteractor.saveToDatabase();
         databaseInteractor.disconnect();
 
     }

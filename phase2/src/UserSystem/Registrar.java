@@ -83,6 +83,21 @@ public class Registrar implements Savable {
     }
 
     /**
+     * Deletes a user from the registrar.
+     *
+     * @param username The username of the user to be removed.
+     * @return True if and only if the user exists and was removed.
+     */
+    public boolean removeUser(String username){
+        for(User user: this.users){
+            if(user.getUserName().equals(username)){
+                return true;
+            }
+        }
+        return false;
+    }
+
+    /**
      * Returns the User object attending the conference that has the given username. Returns null if there is no user
      * attending the conference with the given username
      *
