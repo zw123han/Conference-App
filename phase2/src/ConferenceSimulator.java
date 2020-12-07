@@ -94,6 +94,7 @@ public class ConferenceSimulator {
         EventSignupPresenter eventSignupPresenter = new EventSignupPresenter(eventSignup, eventManager);
         ChatMenuPresenter chatMenuPresenter = new ChatMenuPresenter();
         FriendsPresenter friendsPresenter = new FriendsPresenter();
+        FriendsController friendsController = new FriendsController(registrar, friendsPresenter);
 
         // Lots of GUI creation
         MessageOutboxDataCollector outboxDateCollector = new MessageOutboxDataCollector("", registrar, eventManager);
@@ -114,6 +115,7 @@ public class ConferenceSimulator {
         // Create menus and dependency inject necessary classes
         EventMenuGUI eventMenu = new EventMenuGUI();
         ManageEventMenu manageEventMenu = new ManageEventMenu();
+        FriendsMenuGUI friendsMenuGUI = new FriendsMenuGUI();
         LoginGUI loginGUI = new LoginGUI();
         loginGUI.setLogin(loginFacade);
         AccountCreationMenu accountCreationMenu = new AccountCreationMenu();
@@ -125,13 +127,17 @@ public class ConferenceSimulator {
         homeMenuGUI.setMessageMenu(inboxGUI);
         homeMenuGUI.setEventMenu(eventMenu);
         homeMenuGUI.setManageEventMenu(manageEventMenu);
+        homeMenuGUI.setFriendsMenu(friendsMenuGUI);
         homeMenuGUI.setPasswordMenu(passwordMenu);
         homeMenuGUI.setSave(databaseInteractor);
         eventSignupPresenter.setInterface(eventMenu);
         eventCreatorPresenter.setInterface(manageEventMenu);
+        friendsController.setInterface(friendsMenuGUI);
         eventMenu.setEventElements(eventSignupPresenter);
         manageEventMenu.setEventCreatorElements(eventCreatorPresenter);
         manageEventMenu.setFacade(loginFacade);
+        friendsMenuGUI.setFriendsElements(friendsController);
+        friendsMenuGUI.setFacade(loginFacade);
 
 
         // Create menu facade and DI menus
@@ -143,6 +149,7 @@ public class ConferenceSimulator {
         passwordMenu.setUserMenuGetter(homeMenuGUI);
         eventMenu.setUserMenuGetter(homeMenuGUI);
         manageEventMenu.setUserMenuGetter(homeMenuGUI);
+        friendsMenuGUI.setUserMenuGetter(homeMenuGUI);
 
         // DI MenuGetter into menus
         loginGUI.setMenuGetter(menuFacade);

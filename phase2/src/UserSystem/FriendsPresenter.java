@@ -76,23 +76,5 @@ public class FriendsPresenter {
         return "Would you like to add or remove a friend? Enter 1 to add, 2 to remove. Enter $q to exit";
     }
 
-    /**
-     * Displays the friends of the user
-     *
-     * @param user      the user whose list will be displayed
-     */
-    public void viewFriends(User user) {
-        ArrayList<String> friends = user.getFriends();
-        System.out.println("\nFriends");
-        System.out.println("__________\n");
-        if (friends.isEmpty()) {
-            System.out.println("You got no friends hehe");
-        }
-        else {
-            for (String friend : friends) {
-                System.out.println(friend);
-            }
-        }
-        System.out.println("\n");
-    }
+
 }

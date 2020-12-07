@@ -66,6 +66,7 @@ public class HomeMenuGUI extends Application implements UserMenuGetter {
         friendsButton.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
+                friendsMenu.setUser(loginOptionsFacade.getUser());
                 friendsMenu.start(primaryStage);
             }
         });
@@ -104,7 +105,6 @@ public class HomeMenuGUI extends Application implements UserMenuGetter {
             @Override
             public void handle(ActionEvent event) {
                 // Go to manage events menu
-                manageEventMenu.setUser(loginOptionsFacade.getUser());
                 manageEventMenu.start(primaryStage);
             }
         });

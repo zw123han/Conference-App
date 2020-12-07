@@ -30,15 +30,11 @@ import java.util.ArrayList;
 
 public class ManageEventMenu extends Application implements EventCreatorPresenter.EventCreatorInterface {
 
-    private User user;
     private EventCreatorPresenter ecp;
     private UserMenuGetter mg;
     private ListView allEvents;
     private LoginOptionsFacade facade;
 
-    public void setUser(User user) {
-        this.user = user;
-    }
     public void setEventCreatorElements(EventCreatorPresenter ecp) {
         this.ecp = ecp;
     }
@@ -262,7 +258,7 @@ public class ManageEventMenu extends Application implements EventCreatorPresente
     public void createPopUp(String message) {
         Stage window = new Stage();
         window.initModality(Modality.APPLICATION_MODAL);
-        window.setTitle("Event Creation");
+        window.setTitle("Pop up");
 
         VBox layout = new VBox();
         layout.setAlignment(Pos.CENTER);
