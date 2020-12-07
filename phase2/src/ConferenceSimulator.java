@@ -5,6 +5,7 @@ import MessagingSystem.*;
 import UserSystem.*;
 import DatabaseSystem.*;
 import com.mongodb.BasicDBObject;
+import com.sun.xml.internal.bind.v2.TODO;
 import javafx.application.Application;
 
 import java.util.*;
@@ -74,8 +75,10 @@ public class ConferenceSimulator {
      * The static main method will run this method to start the application.
      */
     public void run() {
-        // Move all of this into a builder. No return necessary since we use a static class.
-        System.out.println("The UI has been deleted and is being refactored. Do not panic.");
+        // TODO: outbox menus - Elliot
+        // TODO: add everything into a builder (no need to return, static class) - Ziwen
+        // TODO: implement updateUsername in ManageAccountMenu - William
+        // TODO: add the eventSchedule html generator in the eventsMenu - William
 
         // Set savables
         ArrayList<Savable> savables = new ArrayList<>(Arrays.asList(registrar, eventManager, chatroomManager));
@@ -93,7 +96,7 @@ public class ConferenceSimulator {
         organizerCreationScript.createOrganizers(registrar);
 
         // Add necessary presenters and controllers
-        LoginOptionsFacade loginFacade = new LoginOptionsFacade(registrar, eventManager);
+        LoginOptionsFacade loginFacade = new LoginOptionsFacade(registrar, eventManager, chatroomManager);
         EventCreatorPresenter eventCreatorPresenter = new EventCreatorPresenter(eventManager, registrar);
         EventSignupPresenter eventSignupPresenter = new EventSignupPresenter(eventSignup, eventManager);
         ChatMenuPresenter chatMenuPresenter = new ChatMenuPresenter();

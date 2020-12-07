@@ -2,6 +2,7 @@ package LoginSystem;
 
 import EventSystem.Event;
 import EventSystem.EventManager;
+import MessagingSystem.ChatroomManager;
 import UserSystem.CredentialsUseCase;
 import UserSystem.Registrar;
 import UserSystem.User;
@@ -16,28 +17,33 @@ public class LoginOptionsFacade {
     private Login login;
     private Registrar registrar;
     private EventManager eventManager;
+    private ChatroomManager chatroomManager;
+
     /**
      * Initializes a new LoginSystem.LoginOptionsFacade.
      *
      * @param registrar     Registrar use case which stores users.
      * @param eventManager  EventManager which stores events.
+     * @param chatroomManager ChatroomManager which stores chat rooms.
      */
-    public LoginOptionsFacade(Registrar registrar, EventManager eventManager){
+    public LoginOptionsFacade(Registrar registrar, EventManager eventManager, ChatroomManager chatroomManager){
         this.credentialsUseCase = new CredentialsUseCase(registrar);
         this.login = new Login(registrar);
         this.registrar = registrar;
         this.eventManager = eventManager;
+        this.chatroomManager = chatroomManager;
     }
     /**
-     * Changes the username of a user.
+     * Updates the username of a user.
      *
      * @param username The old username of the user.
      * @param newUsername The new username of the user.
      * @return True if and only if a user with the username was changed to have newUsername.
      */
-    public boolean changeUsername(String username, String newUsername){
+    public boolean updateUsername(String username, String newUsername){
         if(credentialsUseCase.updateUsername(username, newUsername)){
             eventManager.updateUsername(username, newUsername);
+            chatroomManager.updateChatroomUsername(username, newUsername);
             return true;
         }
         return false;
