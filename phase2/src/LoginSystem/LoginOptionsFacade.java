@@ -1,5 +1,7 @@
 package LoginSystem;
 
+import EventSystem.Event;
+import EventSystem.EventManager;
 import UserSystem.CredentialsUseCase;
 import UserSystem.Registrar;
 import UserSystem.User;
@@ -13,16 +15,38 @@ public class LoginOptionsFacade {
     private CredentialsUseCase credentialsUseCase;
     private Login login;
     private Registrar registrar;
-
+    private EventManager eventManager;
     /**
      * Initializes a new LoginSystem.LoginOptionsFacade.
      *
      * @param registrar     Registrar use case which stores users.
+     * @param eventManager  EventManager which stores events.
      */
-    public LoginOptionsFacade(Registrar registrar){
+    public LoginOptionsFacade(Registrar registrar, EventManager eventManager){
         this.credentialsUseCase = new CredentialsUseCase(registrar);
         this.login = new Login(registrar);
         this.registrar = registrar;
+        this.eventManager = eventManager;
+    }
+
+    /**
+     * Deletes a user completely from the system.
+     *
+     * @param username The username of the user to be deleted
+     * @return True if and only if a user with the username was deleted.
+     */
+    public boolean deleteUser(String username){
+        if(registrar.removeUser(username)){
+            for (User user : registrar.getUsers()) {
+                user.removeFriend(username);
+            }
+            for (Event event : eventManager.getEventsList()) {
+                event.removeUser(username);
+                event.removeSpeaker(username);
+            }
+            return true;
+        }
+        return false;
     }
 
     /**
