@@ -93,6 +93,7 @@ public class ManageAccountMenu extends Application {
                 String password1 = passwordInput.getText();
                 if (facade.createUser(name1, userName1, password1, choice.getValue())) {
                     createPopUp("Account created successfully");
+                    choiceBoxListener(registrar, choice.getValue(), row2);
                 } else {
                     createPopUp("You cannot use those credentials. Please try again.");
                 }
@@ -114,16 +115,21 @@ public class ManageAccountMenu extends Application {
 
             VBox layout = new VBox(5);
 
-            HBox titleBox = new HBox();
-            Label title = new Label("Name");
-            TextField nameInput = new TextField();
-            titleBox.getChildren().addAll(title, nameInput);
+            HBox enterNameBox = new HBox();
+            Label enterName = new Label("Please enter the username that you want to modify");
+            TextField input = new TextField();
+            enterNameBox.getChildren().addAll(enterName, input);
 
             HBox selectBox = new HBox();
             Label select = new Label("View accounts");
             ChoiceBox<String> choice = new ChoiceBox<>();
             choice.getItems().addAll("speaker", "organizer", "attendee");
             selectBox.getChildren().addAll(select, choice);
+
+            HBox  enterNewNameBox = new HBox();
+            Label enterNewName = new Label("Please enter the new name for the user");
+            TextField newName = new TextField();
+            enterNewNameBox.getChildren().addAll(enterNewName, newName);
 
             ListView<String> list = new ListView();
 
@@ -133,50 +139,20 @@ public class ManageAccountMenu extends Application {
 
             Button submitButton = new Button("Submit");
             submitButton.setOnAction(ae -> {
-                Stage window1 = new Stage();
-                window1.initModality(Modality.APPLICATION_MODAL);
-                window1.setTitle("Pop up");
-                VBox layout1 = new VBox();
-                layout.setAlignment(Pos.CENTER);
-                //layout
-                VBox vBox = new VBox();
 
-                HBox enterNameBox = new HBox();
-                Label enterName = new Label("Please enter the username that you want to modify");
-                TextField input = new TextField();
-                enterNameBox.getChildren().addAll(enterName, input);
-
-                HBox  enterNewNameBox = new HBox();
-                Label enterNewName = new Label("Please enter the new name for the user");
-                TextField newName = new TextField();
-                enterNewNameBox.getChildren().addAll(enterNewName, newName);
-
-                vBox.getChildren().addAll(enterNameBox, enterNewNameBox);
-                // buttons
-                Button submit = new Button("Submit");
-                Button closeButton = new Button("Close");
-
-                submit.setOnAction(actionEvent -> {
-                    try {
-                        registrar.getUserByUserName(input.getText()).setName(newName.getText());
-                        String message = "The new name has been set:\n" + registrar.getUserByUserName(input.getText()).getName()+ "\n" +registrar.getUserByUserName(input.getText()).getUserName();
-                        createPopUp(message);
-                    } catch (NullPointerException nps) {
-                        createPopUp("Error: User does not exist");
-                    }
-                });
-                closeButton.setOnAction(actionEvent -> window1.close());
-
-                layout1.getChildren().addAll(vBox, submit, closeButton);
-                Scene scene = new Scene(layout1);
-                window1.setScene(scene);
-                window1.showAndWait();
+                try {
+                    registrar.getUserByUserName(input.getText()).setName(newName.getText());
+                    String message = "The new name has been set:\n" + registrar.getUserByUserName(input.getText()).getName()+ "\n" +registrar.getUserByUserName(input.getText()).getUserName();
+                    createPopUp(message);
+                } catch (NullPointerException nps) {
+                    createPopUp("Error: User does not exist");
+                }
             });
 
             Button closeButton = new Button("Close");
             closeButton.setOnAction(ae -> window.close());
 
-            layout.getChildren().addAll(titleBox, selectBox, submitButton, closeButton);
+            layout.getChildren().addAll(enterNameBox, enterNewNameBox, selectBox, submitButton, closeButton);
             Scene scene = new Scene(layout);
             window.setScene(scene);
             window.showAndWait();
@@ -212,27 +188,26 @@ public class ManageAccountMenu extends Application {
 
         if (newValue.equals("speaker")) {
             list.getItems().clear();
-            for (User s : registrar.getUsersByType("speaker")) {
+            for (User s : registrar.getUsersByType("Speaker")) {
                 String string = "name: " + s.getName() + " | " + "username: " + s.getUserName();
                 list.getItems().addAll(string);
-                System.out.println("hei");
             }
         } else if (newValue.equals("organizer")) {
             list.getItems().clear();
-            for (User s : registrar.getUsersByType("organizer")) {
+            for (User s : registrar.getUsersByType("Organizer")) {
                 String string = "name: " + s.getName() + " | " + "username: " + s.getUserName();
                 list.getItems().addAll(string);
 
             }
         } else if (newValue.equals("attendee")) {
             list.getItems().clear();
-            for (User s : registrar.getUsersByType("attendee")) {
+            for (User s : registrar.getUsersByType("Attendee")) {
                 String string = "name: " + s.getName() + " | " + "username: " + s.getUserName();
                 list.getItems().addAll(string);
             }
         } else {
             list.getItems().clear();
-            for (User s : registrar.getUsersByType("administrator")) {
+            for (User s : registrar.getUsersByType("Administrator")) {
                 String string = "name: " + s.getName() + " | " + "username: " + s.getUserName();
                 list.getItems().addAll(string);
             }
