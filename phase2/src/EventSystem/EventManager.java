@@ -135,6 +135,24 @@ public class EventManager implements Serializable, Savable {
     }
 
     /**
+     * Changes all instances of a username in the speaker or attendee list to a new username
+     *
+     * @param username The username to be changed
+     * @param newUsername The new username to be changed to
+     */
+    public void updateUsername(String username, String newUsername){
+        for(Event event: getEventsList()){
+            if(event.hasSpeaker(username)){
+                event.removeSpeaker(username);
+                event.addSpeaker(newUsername);
+            }
+            if(event.hasUser(username)){
+                event.removeUser(username);
+                event.addUser(newUsername);
+            }
+        }
+    }
+    /**
      *
      * gets the name of event with given id
      *

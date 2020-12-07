@@ -1,5 +1,6 @@
 package UserSystem;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Base64;
 
@@ -65,6 +66,28 @@ public class CredentialsUseCase {
 
         }
         return false;
+    }
+
+    /**
+     * Changes the username of a user.
+     *
+     * @param username The old username of the user.
+     * @param newUsername The new username of the user.
+     * @return True if and only if the username is successfully changed to newUsername.
+     */
+    public boolean updateUsername(String username, String newUsername){
+        if(registrar.userExisting(newUsername)){
+            return false;
+        }
+        for(User user: registrar.getUsers()){
+            ArrayList<String> friendsList = user.getFriends();
+            if(friendsList.contains(username)){
+                friendsList.remove(username);
+                friendsList.add(newUsername);
+            }
+        }
+        registrar.getUserByUserName(username).setUserName(newUsername);
+        return true;
     }
 }
 

@@ -28,6 +28,20 @@ public class LoginOptionsFacade {
         this.registrar = registrar;
         this.eventManager = eventManager;
     }
+    /**
+     * Changes the username of a user.
+     *
+     * @param username The old username of the user.
+     * @param newUsername The new username of the user.
+     * @return True if and only if a user with the username was changed to have newUsername.
+     */
+    public boolean changeUsername(String username, String newUsername){
+        if(credentialsUseCase.updateUsername(username, newUsername)){
+            eventManager.updateUsername(username, newUsername);
+            return true;
+        }
+        return false;
+    }
 
     /**
      * Deletes a user completely from the system.
