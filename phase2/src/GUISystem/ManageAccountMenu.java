@@ -20,7 +20,7 @@ public class ManageAccountMenu extends Application {
     private UserMenuGetter mg;
     private LoginOptionsFacade facade;
     private ListView<String> row2;
-
+    private Registrar registrar;
     public void setUserMenuGetter(UserMenuGetter userMenuGetter) {
         this.mg = userMenuGetter;
     }
@@ -31,7 +31,7 @@ public class ManageAccountMenu extends Application {
 
     @Override
     public void start(Stage primaryStage) {
-        Registrar registrar = facade.getRegistrar();
+        registrar = facade.getRegistrar();
 
         VBox root = new VBox();
         root.setAlignment(Pos.CENTER);
@@ -91,7 +91,7 @@ public class ManageAccountMenu extends Application {
                 String userName1 = usernameInput.getText();
                 String password1 = passwordInput.getText();
                 if (facade.createUser(name1, userName1, password1, choice.getValue())) {
-                    createPopUp("Speaker account created successfully");
+                    createPopUp("Account created successfully");
                 } else {
                     createPopUp("You cannot use those credentials. Please try again.");
                 }
@@ -208,11 +208,13 @@ public class ManageAccountMenu extends Application {
         window.showAndWait();
     }
     private void choiceBoxListener(Registrar registrar, String newValue, ListView<String> list) {
+
         if (newValue.equals("speakers")) {
             list.getItems().clear();
             for (User s : registrar.getUsersByType("speakers")) {
                 String string = "name: " + s.getName() + " | " + "username: " + s.getUserName();
                 list.getItems().addAll(string);
+                System.out.println("hei");
             }
         } else if (newValue.equals("organizers")) {
             list.getItems().clear();
