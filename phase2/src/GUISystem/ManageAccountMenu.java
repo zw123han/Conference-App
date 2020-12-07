@@ -48,9 +48,10 @@ public class ManageAccountMenu extends Application {
         // row 2
         // row 3
         Button createButton = new Button("Create");
+        Button deleteButton = new Button("Delete");
         Button modifyButton = new Button("Modify");
         Button goBack = new Button("Back");
-        row3.getChildren().addAll(createButton, modifyButton, goBack);
+        row3.getChildren().addAll(createButton, deleteButton, modifyButton, goBack);
 
         // view users
         choiceBox.getSelectionModel().selectedItemProperty().addListener( (observable, oldValue, newValue) -> {
@@ -94,6 +95,7 @@ public class ManageAccountMenu extends Application {
                 if (facade.createUser(name1, userName1, password1, choice.getValue())) {
                     createPopUp("Account created successfully");
                     choiceBoxListener(registrar, choice.getValue(), row2);
+                    choiceBox.setValue(choice.getValue());
                 } else {
                     createPopUp("You cannot use those credentials. Please try again.");
                 }
@@ -103,6 +105,44 @@ public class ManageAccountMenu extends Application {
             closeButton.setOnAction(ae -> window.close());
 
             layout.getChildren().addAll(titleBox, nameBox, usernameBox, passwordBox, submitButton, closeButton);
+            Scene scene = new Scene(layout);
+            window.setScene(scene);
+            window.showAndWait();
+        });
+        // delete user
+        deleteButton.setOnAction(e -> {
+            Stage window = new Stage();
+            window.initModality(Modality.APPLICATION_MODAL);
+            window.setTitle("Create User");
+
+            VBox layout = new VBox(5);
+
+            HBox titleBox = new HBox();
+            Label title = new Label("Please enter the user you would like the delete");
+            TextField input = new TextField();
+            titleBox.getChildren().addAll(title, input);
+
+
+            Button submitButton = new Button("Submit");
+
+            submitButton.setOnAction(ae -> {
+                String userType = registrar.getUserType(input.getText());
+                String userTypeLower = userType.toLowerCase();
+                String userTypeLower1 = userTypeLower.substring(userTypeLower.indexOf(".")+1);
+                System.out.println(userTypeLower1);
+                if (facade.deleteUser(input.getText())) {
+                    createPopUp("Account deleted");
+                    choiceBoxListener(registrar, userTypeLower1, row2);
+                    choiceBox.setValue(userTypeLower1);
+                } else {
+                    createPopUp("User doesn't exist");
+                }
+            });
+
+            Button closeButton = new Button("Close");
+            closeButton.setOnAction(ae -> window.close());
+
+            layout.getChildren().addAll(titleBox, submitButton, closeButton);
             Scene scene = new Scene(layout);
             window.setScene(scene);
             window.showAndWait();
@@ -141,9 +181,17 @@ public class ManageAccountMenu extends Application {
             submitButton.setOnAction(ae -> {
 
                 try {
+                    String userType = registrar.getUserType(input.getText());
+                    String userTypeLower = userType.toLowerCase();
+                    String userTypeLower1 = userTypeLower.substring(userTypeLower.indexOf(".")+1);
                     registrar.getUserByUserName(input.getText()).setName(newName.getText());
                     String message = "The new name has been set:\n" + registrar.getUserByUserName(input.getText()).getName()+ "\n" +registrar.getUserByUserName(input.getText()).getUserName();
                     createPopUp(message);
+                    choiceBoxListener(registrar, userTypeLower1, list);
+                    choiceBoxListener(registrar, userTypeLower1, row2);
+                    choiceBox.setValue(userTypeLower1);
+
+
                 } catch (NullPointerException nps) {
                     createPopUp("Error: User does not exist");
                 }
@@ -152,7 +200,7 @@ public class ManageAccountMenu extends Application {
             Button closeButton = new Button("Close");
             closeButton.setOnAction(ae -> window.close());
 
-            layout.getChildren().addAll(enterNameBox, enterNewNameBox, selectBox, submitButton, closeButton);
+            layout.getChildren().addAll(enterNameBox, enterNewNameBox, selectBox, list, submitButton, closeButton);
             Scene scene = new Scene(layout);
             window.setScene(scene);
             window.showAndWait();
