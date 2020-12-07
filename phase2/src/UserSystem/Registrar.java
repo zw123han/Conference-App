@@ -91,6 +91,7 @@ public class Registrar implements Savable {
     public boolean removeUser(String username){
         for(User user: this.users){
             if(user.getUserName().equals(username)){
+                this.users.remove(user);
                 return true;
             }
         }
