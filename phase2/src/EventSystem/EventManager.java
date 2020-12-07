@@ -123,6 +123,18 @@ public class EventManager implements Serializable, Savable {
     }
 
     /**
+     * Removes a user from all events, including as attendees and speakers
+     *
+     * @param username The username of the user to be removed.
+     */
+    public void deleteUser(String username){
+        for(Event event: getEventsList()){
+            event.removeSpeaker(username);
+            event.removeUser(username);
+        }
+    }
+
+    /**
      *
      * gets the name of event with given id
      *

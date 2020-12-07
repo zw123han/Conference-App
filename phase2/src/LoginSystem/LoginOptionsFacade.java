@@ -36,14 +36,8 @@ public class LoginOptionsFacade {
      * @return True if and only if a user with the username was deleted.
      */
     public boolean deleteUser(String username){
-        if(registrar.removeUser(username)){
-            for (User user : registrar.getUsers()) {
-                user.removeFriend(username);
-            }
-            for (Event event : eventManager.getEventsList()) {
-                event.removeUser(username);
-                event.removeSpeaker(username);
-            }
+        if(registrar.deleteUser(username)){
+            eventManager.deleteUser(username);
             return true;
         }
         return false;

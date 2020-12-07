@@ -83,14 +83,17 @@ public class Registrar implements Savable {
     }
 
     /**
-     * Deletes a user from the registrar.
+     * Deletes a user from the registrar and from all its friends.
      *
      * @param username The username of the user to be removed.
      * @return True if and only if the user exists and was removed.
      */
-    public boolean removeUser(String username){
+    public boolean deleteUser(String username){
         for(User user: this.users){
             if(user.getUserName().equals(username)){
+                for(User user1: this.users){
+                    user1.removeFriend(username);
+                }
                 this.users.remove(user);
                 return true;
             }
