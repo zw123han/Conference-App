@@ -198,4 +198,8 @@ public class EventManager implements Serializable, Savable {
         }
         return getEvent(id).getSignedUpUsers();
     }
+
+    public void setName(Long eventId, String name){
+        this.events.get(eventId).setName(name);
+    }
 }

@@ -179,11 +179,11 @@ public class ManageEventMenu extends Application implements EventCreatorPresente
             Button closeButton = new Button("Close");
 
             submitButton.setOnAction(ae -> {
-                if (isInt(input)) {
+                try{
                     long id = Long.parseLong(input.getText());
                     ecp.promptEventDeletion(id);
-                } else {
-                    createPopUp("Must be an Integer");
+                } catch(NumberFormatException n) {
+                    createPopUp("Must be an Number");
                 }
                 allEvents.getItems().clear();
                 ecp.viewEvents();
