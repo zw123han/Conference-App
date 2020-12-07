@@ -43,7 +43,7 @@ public class ManageAccountMenu extends Application {
         Label label = new Label("Please specify the type of accounts to view");
 
         ChoiceBox<String> choiceBox = new ChoiceBox<>();
-        choiceBox.getItems().addAll("speakers", "organizers", "attendees", "administrators");
+        choiceBox.getItems().addAll("speaker", "organizer", "attendee", "administrator");
         row1.getChildren().addAll(label, choiceBox);
         // row 2
         // row 3
@@ -67,8 +67,9 @@ public class ManageAccountMenu extends Application {
             HBox titleBox = new HBox();
             Label title = new Label("Please specify the type of account");
             ChoiceBox<String> choice = new ChoiceBox<>();
-            choice.getItems().addAll("speakers", "organizers", "attendees");
+            choice.getItems().addAll("speaker", "organizer", "attendee");
             titleBox.getChildren().addAll(title, choice);
+            choice.setValue("attendee");
 
             HBox nameBox = new HBox();
             Label name = new Label("Name");
@@ -121,7 +122,7 @@ public class ManageAccountMenu extends Application {
             HBox selectBox = new HBox();
             Label select = new Label("View accounts");
             ChoiceBox<String> choice = new ChoiceBox<>();
-            choice.getItems().addAll("speakers", "organizers", "attendees");
+            choice.getItems().addAll("speaker", "organizer", "attendee");
             selectBox.getChildren().addAll(select, choice);
 
             ListView<String> list = new ListView();
@@ -155,13 +156,13 @@ public class ManageAccountMenu extends Application {
                 Button submit = new Button("Submit");
                 Button closeButton = new Button("Close");
 
-                submitButton.setOnAction(actionEvent -> {
+                submit.setOnAction(actionEvent -> {
                     try {
                         registrar.getUserByUserName(input.getText()).setName(newName.getText());
-                        String message = "The new name has been set:\n registrar.getUserByUserName(input).getName()\nregistrar.getUserByUserName(input).getUserName()";
+                        String message = "The new name has been set:\n" + registrar.getUserByUserName(input.getText()).getName()+ "\n" +registrar.getUserByUserName(input.getText()).getUserName();
                         createPopUp(message);
                     } catch (NullPointerException nps) {
-                        createPopUp("Error: User does not exist.");
+                        createPopUp("Error: User does not exist");
                     }
                 });
                 closeButton.setOnAction(actionEvent -> window1.close());
@@ -209,29 +210,29 @@ public class ManageAccountMenu extends Application {
     }
     private void choiceBoxListener(Registrar registrar, String newValue, ListView<String> list) {
 
-        if (newValue.equals("speakers")) {
+        if (newValue.equals("speaker")) {
             list.getItems().clear();
-            for (User s : registrar.getUsersByType("speakers")) {
+            for (User s : registrar.getUsersByType("speaker")) {
                 String string = "name: " + s.getName() + " | " + "username: " + s.getUserName();
                 list.getItems().addAll(string);
                 System.out.println("hei");
             }
-        } else if (newValue.equals("organizers")) {
+        } else if (newValue.equals("organizer")) {
             list.getItems().clear();
-            for (User s : registrar.getUsersByType("organizers")) {
+            for (User s : registrar.getUsersByType("organizer")) {
                 String string = "name: " + s.getName() + " | " + "username: " + s.getUserName();
                 list.getItems().addAll(string);
 
             }
-        } else if (newValue.equals("attendees")) {
+        } else if (newValue.equals("attendee")) {
             list.getItems().clear();
-            for (User s : registrar.getUsersByType("attendees")) {
+            for (User s : registrar.getUsersByType("attendee")) {
                 String string = "name: " + s.getName() + " | " + "username: " + s.getUserName();
                 list.getItems().addAll(string);
             }
         } else {
             list.getItems().clear();
-            for (User s : registrar.getUsersByType("administrators")) {
+            for (User s : registrar.getUsersByType("administrator")) {
                 String string = "name: " + s.getName() + " | " + "username: " + s.getUserName();
                 list.getItems().addAll(string);
             }

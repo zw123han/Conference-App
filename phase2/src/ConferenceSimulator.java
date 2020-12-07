@@ -142,9 +142,10 @@ public class ConferenceSimulator {
         eventMenu.setEventElements(eventSignupPresenter);
         manageEventMenu.setEventCreatorElements(eventCreatorPresenter);
         manageEventMenu.setFacade(loginFacade);
+        manageAccountMenu.setFacade(loginFacade);
         friendsMenuGUI.setFriendsElements(friendsController);
         friendsMenuGUI.setFacade(loginFacade);
-        manageAccountMenu.setFacade(loginFacade);
+
 
 
         // Create menu facade and DI menus
