@@ -80,6 +80,7 @@ public class FriendsMenuGUI extends Application implements FriendsController.Fri
 
             submitButton.setOnAction(ae -> {
                 fc.addFriends(user, input.getText());
+                start(primaryStage);
             });
             closeButton.setOnAction(ae -> window.close());
 
@@ -107,6 +108,7 @@ public class FriendsMenuGUI extends Application implements FriendsController.Fri
 
             submitButton.setOnAction(ae -> {
                 fc.removeFriends(user, input.getText());
+                start(primaryStage);
             });
             closeButton.setOnAction(ae -> window.close());
 
