@@ -159,4 +159,13 @@ public class Chatroom implements Serializable {
         boolean current = history.get(position).isPinned();
         history.get(position).setPinned(!current);
     }
+
+    public void updateSenders(String prevSender, String newSender) {
+        for (Message m : history) {
+            if (m.getSender().equals(prevSender)) {
+                m.setSender(newSender);
+            }
+        }
+    }
+
 }

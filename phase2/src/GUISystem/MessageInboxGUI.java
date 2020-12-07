@@ -1,8 +1,5 @@
 package GUISystem;
 
-import javafx.event.ActionEvent;
-import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.scene.*;
 import javafx.scene.paint.Color;
 import javafx.scene.text.*;
@@ -13,7 +10,6 @@ import javafx.stage.*;
 import javafx.geometry.*;
 import MessagingSystem.*;
 
-import java.io.IOException;
 import java.util.*;
 
 public class MessageInboxGUI extends Application implements MessageInboxPresenter.IView {
@@ -259,10 +255,5 @@ public class MessageInboxGUI extends Application implements MessageInboxPresente
 
     public void display(Stage primaryStage) {
         start(primaryStage);
-    }
-
-    public void launchApplication() {
-
-        launch();
     }
 }

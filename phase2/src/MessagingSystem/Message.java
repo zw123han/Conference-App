@@ -44,6 +44,10 @@ public class Message implements Serializable {
         return sender;
     }
 
+    public void setSender(String sender) {
+        this.sender = sender;
+    }
+
     /**
      * Gets the date and time this message was sent, converted to local time.
      *
