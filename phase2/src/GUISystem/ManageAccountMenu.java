@@ -40,7 +40,7 @@ public class ManageAccountMenu extends Application {
         row2 = new ListView<>();
         HBox row3 = new HBox();
         // row 1
-        Label label = new Label("Please specify the type of accounts to view: speakers, organizers, attendees or administrators:)");
+        Label label = new Label("Please specify the type of accounts to view");
 
         ChoiceBox<String> choiceBox = new ChoiceBox<>();
         choiceBox.getItems().addAll("speakers", "organizers", "attendees", "administrators");
@@ -65,7 +65,7 @@ public class ManageAccountMenu extends Application {
             VBox layout = new VBox(5);
 
             HBox titleBox = new HBox();
-            Label title = new Label("Please specify the type of account: speaker, organizer or attendee:");
+            Label title = new Label("Please specify the type of account");
             ChoiceBox<String> choice = new ChoiceBox<>();
             choice.getItems().addAll("speakers", "organizers", "attendees");
             titleBox.getChildren().addAll(title, choice);
@@ -76,13 +76,13 @@ public class ManageAccountMenu extends Application {
             nameBox.getChildren().addAll(name, nameInput);
 
             HBox usernameBox = new HBox();
-            TextField usernameInput = new TextField();
             Label username = new Label("Username");
+            TextField usernameInput = new TextField();
             usernameBox.getChildren().addAll(username, usernameInput);
 
             HBox passwordBox = new HBox();
-            TextField passwordInput = new TextField();
             Label password = new Label("Password");
+            TextField passwordInput = new TextField();
             passwordBox.getChildren().addAll(password, passwordInput);
 
             Button submitButton = new Button("Submit");
@@ -141,7 +141,7 @@ public class ManageAccountMenu extends Application {
                 VBox vBox = new VBox();
 
                 HBox enterNameBox = new HBox();
-                Label enterName = new Label("Please enter the new name for the user");
+                Label enterName = new Label("Please enter the username that you want to modify");
                 TextField input = new TextField();
                 enterNameBox.getChildren().addAll(enterName, input);
 
@@ -166,8 +166,8 @@ public class ManageAccountMenu extends Application {
                 });
                 closeButton.setOnAction(actionEvent -> window1.close());
 
-                layout.getChildren().addAll(vBox, submit, closeButton);
-                Scene scene = new Scene(layout);
+                layout1.getChildren().addAll(vBox, submit, closeButton);
+                Scene scene = new Scene(layout1);
                 window1.setScene(scene);
                 window1.showAndWait();
             });
