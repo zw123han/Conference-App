@@ -27,7 +27,7 @@ public class MessageInboxGUI extends Application implements MessageInboxPresente
     private String recipient;
     private HBox messageBar;
     private Button sendMessage;
-    private MenuButton pinnedMessages;
+    private ToggleButton pinnedMessages;
     private ScrollPane messagesScrollable;
 
     public void setInboxElements(MessageInboxPresenter mi, MessageOutboxGUI mo) {
@@ -119,22 +119,27 @@ public class MessageInboxGUI extends Application implements MessageInboxPresente
         messageCanvasTitle = new Label("Select a chat");
         messageCanvasTitle.setFont(Font.loadFont(getClass().getResourceAsStream("/open-sans/os-bold.ttf"), 16));
         messageCanvasTitle.setPadding(new Insets(10));
-        messageCanvasTitle.setPrefSize(320, 40);
+        messageCanvasTitle.setPrefSize(225, 40);
         // Pin Message
-        pinnedMessages = new MenuButton("¶");
-        pinnedMessages.setFont(Font.loadFont(getClass().getResourceAsStream("/open-sans/os-extrabold.ttf"), 16));
+        pinnedMessages = new ToggleButton("Pins");
+        pinnedMessages.setFont(Font.loadFont(getClass().getResourceAsStream("/open-sans/os-bold.ttf"), 12));
+        pinnedMessages.setPadding(new Insets(8));
+        pinnedMessages.setPrefHeight(40);
+        pinnedMessages.setPrefWidth(50);
         pinnedMessages.setBackground(new Background(new BackgroundFill(Color.WHITE, CornerRadii.EMPTY, Insets.EMPTY)));
         pinnedMessages.setBorder(new Border(new BorderStroke(Color.WHITE, BorderStrokeStyle.SOLID, CornerRadii.EMPTY, new BorderWidths(4))));
         pinnedMessages.setTextFill(Color.BLACK);
-        pinnedMessages.showingProperty().addListener(new ChangeListener<Boolean>() {
+        pinnedMessages.selectedProperty().addListener(new ChangeListener<Boolean>() {
             @Override
             public void changed(ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) {
                 if (newValue) {
                     pinnedMessages.setBackground(new Background(new BackgroundFill(Color.LIGHTGRAY, CornerRadii.EMPTY, Insets.EMPTY)));
                     pinnedMessages.setBorder(new Border(new BorderStroke(Color.LIGHTGRAY, BorderStrokeStyle.SOLID, CornerRadii.EMPTY, new BorderWidths(4))));
+                    mi.loadPinnedView(recipient);
                 } else {
                     pinnedMessages.setBackground(new Background(new BackgroundFill(Color.WHITE, CornerRadii.EMPTY, Insets.EMPTY)));
                     pinnedMessages.setBorder(new Border(new BorderStroke(Color.WHITE, BorderStrokeStyle.SOLID, CornerRadii.EMPTY, new BorderWidths(4))));
+                    mi.loadMessageCanvasView(recipient);
                 }
             }
         });
@@ -287,7 +292,6 @@ public class MessageInboxGUI extends Application implements MessageInboxPresente
     private VBox constructMessageBox(ArrayList<String> messageData) {
         VBox messageContainer = new VBox();
         messageContainer.setPadding(new Insets(10, 10, 10, 10));
-        messageContainer.setId(messageData.get(3));
 
         HBox senderData = new HBox(10);
         senderData.setAlignment(Pos.TOP_LEFT);
@@ -307,19 +311,30 @@ public class MessageInboxGUI extends Application implements MessageInboxPresente
 
         if (mi.canDelete(messageData.get(0))) {
             Hyperlink delete = new Hyperlink("Delete");
+            delete.setId(messageData.get(3));
             delete.setPadding(Insets.EMPTY);
             delete.setFont(Font.loadFont(getClass().getResourceAsStream("/open-sans/os-bold.ttf"), 10));
             delete.setTextFill(Color.CRIMSON);
-            delete.setOnAction(e -> {
-                mi.removeMessage(messageContainer.getId(), recipient);
-            });
+            delete.setOnAction(e -> mi.removeMessage(delete.getId(), recipient));
             messageOptions.getChildren().add(delete);
         }
 
         Hyperlink pin = new Hyperlink("Pin Message");
+        pin.setId(messageData.get(3));
+        if (mi.isPinned(pin.getId(), recipient)) {
+            pin.setText("Unpin Message");
+        }
         pin.setPadding(Insets.EMPTY);
         pin.setFont(Font.loadFont(getClass().getResourceAsStream("/open-sans/os-bold.ttf"), 10));
         pin.setTextFill(Color.BLACK);
+        pin.setOnAction(e -> {
+            if (pin.getText().equals("Pin Message")) {
+                pin.setText("Unpin Message");
+            } else {
+                pin.setText("Pin Message");
+            }
+            mi.pinUnpinMessage(pin.getId(), recipient);
+        });
         messageOptions.getChildren().add(pin);
 
         messageContainer.getChildren().addAll(senderData, message, messageOptions);
@@ -327,7 +342,7 @@ public class MessageInboxGUI extends Application implements MessageInboxPresente
     }
 
     public void setPinnedMessage(ArrayList<String> messageData) {
-        pinnedMessages.getItems().add(new CustomMenuItem(constructMessageBox(messageData)));
+        messageDisplay.getChildren().add(constructMessageBox(messageData));
     }
 
     public void setMessageCanvasTitle(String recipientName) {

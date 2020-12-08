@@ -74,10 +74,15 @@ public class MessageInboxPresenter {
         view.clearMessages();
         view.setMessageCanvasTitle(ip.getDisplayName(recipient));
         view.setChatroomCanvasTitle(ip.getTotalUnread());
-        for (ArrayList<String> messageData : ip.getMessages(recipient, "all")) {
+        for (ArrayList<String> messageData : ip.getMessages(recipient)) {
             view.setMessageArea(messageData);
         }
-        for (ArrayList<String> messageData : ip.getMessages(recipient, "pinned")) {
+    }
+
+    public void loadPinnedView(String recipient) {
+        view.clearMessages();
+        view.setMessageCanvasTitle("Pinned Messages");
+        for (ArrayList<String> messageData : ip.getPinned(recipient)) {
             view.setPinnedMessage(messageData);
         }
     }
@@ -106,6 +111,14 @@ public class MessageInboxPresenter {
 
     public boolean canDelete(String username) {
         return ic.canDelete(username);
+    }
+
+    public boolean isPinned(String id, String recipient) {
+        return ip.isPinned(id, recipient);
+    }
+
+    public void pinUnpinMessage(String id, String recipient) {
+        ic.pinUnpinMessage(recipient, id);
     }
 
 //        /**

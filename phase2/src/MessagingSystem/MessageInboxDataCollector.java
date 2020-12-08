@@ -88,34 +88,43 @@ public class MessageInboxDataCollector extends CommandPresenter {
         return result;
     }
 
-    public ArrayList<ArrayList<String>> getMessages(String recipient, String type) {
+    public ArrayList<ArrayList<String>> getMessages(String recipient) {
         Chatroom c = cm.getChatroom(username, recipient);
         ArrayList<ArrayList<String>> result = new ArrayList<>();
         ArrayList<Integer> history = c.getMessagePositions();
         for (Integer i : history) {
-            if (type.equals("all")) {
-                ArrayList<String> messageData = new ArrayList<>();
-                messageData.add(c.getSender(i));
-                messageData.add(c.getDate(i));
-                messageData.add(filterProfanity(c.getMessage(i)));
-                messageData.add(i.toString());
-                result.add(messageData);
-            } else if (type.equals("pinned")) {
-                if (c.isPinned(i)) {
-                    ArrayList<String> messageData = new ArrayList<>();
-                    messageData.add(c.getSender(i));
-                    messageData.add(c.getDate(i));
-                    messageData.add(filterProfanity(c.getMessage(i)));
-                    messageData.add(i.toString());
-                    result.add(messageData);
-                }
-            }
+            ArrayList<String> messageData = new ArrayList<>();
+            messageData.add(c.getSender(i));
+            messageData.add(c.getDate(i));
+            messageData.add(filterProfanity(c.getMessage(i)));
+            messageData.add(i.toString());
+            result.add(messageData);
         }
         return result;
     }
 
+    public ArrayList<ArrayList<String>> getPinned(String recipient) {
+        Chatroom c = cm.getChatroom(username, recipient);
+        ArrayList<ArrayList<String>> result = new ArrayList<>();
+        ArrayList<Integer> pinned = c.getPinned();
+        for (Integer i : pinned) {
+            ArrayList<String> messageData = new ArrayList<>();
+            messageData.add(c.getSender(i));
+            messageData.add(c.getDate(i));
+            messageData.add(filterProfanity(c.getMessage(i)));
+            messageData.add(i.toString());
+            result.add(messageData);
+        }
+        return result;
+    }
+
+    public boolean isPinned(String id, String recipient) {
+        Chatroom c = cm.getChatroom(username, recipient);
+        return c.isPinned(Integer.parseInt(id));
+    }
+
     public ArrayList<String> getNewestMessage(String recipient) {
-        return getMessages(recipient, "all").get(getMessages(recipient, "all").size()-1);
+        return getMessages(recipient).get(getMessages(recipient).size()-1);
     }
 
     public String getDisplayName(String username) {
