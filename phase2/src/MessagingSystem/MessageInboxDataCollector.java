@@ -88,23 +88,34 @@ public class MessageInboxDataCollector extends CommandPresenter {
         return result;
     }
 
-    public ArrayList<ArrayList<String>> getAllMessages(String recipient) {
+    public ArrayList<ArrayList<String>> getMessages(String recipient, String type) {
         Chatroom c = cm.getChatroom(username, recipient);
         ArrayList<ArrayList<String>> result = new ArrayList<>();
         ArrayList<Integer> history = c.getMessagePositions();
         for (Integer i : history) {
-            ArrayList<String> messageData = new ArrayList<>();
-            messageData.add(c.getSender(i));
-            messageData.add(c.getDate(i));
-            messageData.add(filterProfanity(c.getMessage(i)));
-            messageData.add(i.toString());
-            result.add(messageData);
+            if (type.equals("all")) {
+                ArrayList<String> messageData = new ArrayList<>();
+                messageData.add(c.getSender(i));
+                messageData.add(c.getDate(i));
+                messageData.add(filterProfanity(c.getMessage(i)));
+                messageData.add(i.toString());
+                result.add(messageData);
+            } else if (type.equals("pinned")) {
+                if (c.isPinned(i)) {
+                    ArrayList<String> messageData = new ArrayList<>();
+                    messageData.add(c.getSender(i));
+                    messageData.add(c.getDate(i));
+                    messageData.add(filterProfanity(c.getMessage(i)));
+                    messageData.add(i.toString());
+                    result.add(messageData);
+                }
+            }
         }
         return result;
     }
 
     public ArrayList<String> getNewestMessage(String recipient) {
-        return getAllMessages(recipient).get(getAllMessages(recipient).size());
+        return getMessages(recipient, "all").get(getMessages(recipient, "all").size());
     }
 
     /**

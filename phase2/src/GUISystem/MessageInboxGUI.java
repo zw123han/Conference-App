@@ -1,5 +1,7 @@
 package GUISystem;
 
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.scene.*;
 import javafx.scene.paint.Color;
 import javafx.scene.text.*;
@@ -25,7 +27,7 @@ public class MessageInboxGUI extends Application implements MessageInboxPresente
     private String recipient;
     private HBox messageBar;
     private Button sendMessage;
-    private Button pinnedMessages;
+    private MenuButton pinnedMessages;
 
     public void setInboxElements(MessageInboxPresenter mi, MessageOutboxGUI mo) {
         this.mi = mi;
@@ -46,6 +48,7 @@ public class MessageInboxGUI extends Application implements MessageInboxPresente
         // MESSAGE INBOX CONTAINER
         HBox inboxCanvas = new HBox();
         inboxCanvas.setAlignment(Pos.CENTER_LEFT);
+        inboxCanvas.setBackground(new Background(new BackgroundFill(Color.WHITE, CornerRadii.EMPTY, Insets.EMPTY)));
 
         // CHATROOM OPTIONS CONTAINER
         VBox chatroomCanvas = new VBox();
@@ -89,10 +92,25 @@ public class MessageInboxGUI extends Application implements MessageInboxPresente
         messageCanvasTitle.setFont(Font.loadFont(getClass().getResourceAsStream("/open-sans/os-bold.ttf"), 16));
         messageCanvasTitle.setPadding(new Insets(10));
         messageCanvasTitle.setPrefSize(320, 40);
-        // Pin Message Button
-        pinnedMessages = squareButtonConstructor(Color.GOLDENROD, "¶");
+        // Pin Message
+        pinnedMessages = new MenuButton("¶");
+        pinnedMessages.setFont(Font.loadFont(getClass().getResourceAsStream("/open-sans/os-extrabold.ttf"), 16));
+        pinnedMessages.setBackground(new Background(new BackgroundFill(Color.WHITE, CornerRadii.EMPTY, Insets.EMPTY)));
+        pinnedMessages.setBorder(new Border(new BorderStroke(Color.WHITE, BorderStrokeStyle.SOLID, CornerRadii.EMPTY, new BorderWidths(4))));
+        pinnedMessages.setTextFill(Color.BLACK);
+        pinnedMessages.showingProperty().addListener(new ChangeListener<Boolean>() {
+            @Override
+            public void changed(ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) {
+                if (newValue) {
+                    pinnedMessages.setBackground(new Background(new BackgroundFill(Color.LIGHTGRAY, CornerRadii.EMPTY, Insets.EMPTY)));
+                    pinnedMessages.setBorder(new Border(new BorderStroke(Color.LIGHTGRAY, BorderStrokeStyle.SOLID, CornerRadii.EMPTY, new BorderWidths(4))));
+                } else {
+                    pinnedMessages.setBackground(new Background(new BackgroundFill(Color.WHITE, CornerRadii.EMPTY, Insets.EMPTY)));
+                    pinnedMessages.setBorder(new Border(new BorderStroke(Color.WHITE, BorderStrokeStyle.SOLID, CornerRadii.EMPTY, new BorderWidths(4))));
+                }
+            }
+        });
         pinnedMessages.setDisable(true);
-        //pinnedMessages.setOnAction(e -> );
         // New Message Button
         Button newMessage = squareButtonConstructor(Color.ROYALBLUE, "+");
         newMessage.setOnAction(e -> {
@@ -222,13 +240,7 @@ public class MessageInboxGUI extends Application implements MessageInboxPresente
         chatroomOptions.getChildren().add(chat);
     }
 
-    public void setMessageCanvasTitle(String recipientName) {
-        messageCanvasTitle.setText(recipientName);
-        pinnedMessages.setDisable(false);
-    }
-
-    public void setMessageArea(ArrayList<String> messageData) {
-        // TODO: Test and update after outbox is completed
+    private HBox constructMessageBox(ArrayList<String> messageData) {
         HBox messageContainer = new HBox(10);
         CornerRadii corn = new CornerRadii(10);
         Background background = new Background(new BackgroundFill(Color.ALICEBLUE, corn, new Insets(20)));
@@ -249,8 +261,21 @@ public class MessageInboxGUI extends Application implements MessageInboxPresente
 
         messageContainer.getChildren().addAll(senderData, message);
         messageContainer.setId(messageData.get(3));
+        return messageContainer;
+    }
 
-        messageDisplay.getChildren().add(messageContainer);
+    public void setPinnedMessage(ArrayList<String> messageData) {
+        pinnedMessages.getItems().add(new CustomMenuItem(constructMessageBox(messageData)));
+    }
+
+    public void setMessageCanvasTitle(String recipientName) {
+        messageCanvasTitle.setText(recipientName);
+        pinnedMessages.setDisable(false);
+    }
+
+    public void setMessageArea(ArrayList<String> messageData) {
+        // TODO: Test and update after outbox is completed
+        messageDisplay.getChildren().add(constructMessageBox(messageData));
     }
 
     public void display(Stage primaryStage) {

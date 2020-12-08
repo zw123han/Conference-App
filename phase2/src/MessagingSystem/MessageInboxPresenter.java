@@ -38,17 +38,39 @@ public class MessageInboxPresenter {
         ic.setLoggedInUser(currentUser);
     }
 
+    private ArrayList<ArrayList<String>> sortChatrooms(ArrayList<ArrayList<String>> chatrooms) {
+        ArrayList<ArrayList<String>> sortedChatrooms = new ArrayList<>();
+        int i = 0;
+        for (ArrayList<String> chatroom : chatrooms) {
+            while (i < sortedChatrooms.size()) {
+                if (Integer.parseInt(sortedChatrooms.get(i).get(2)) < Integer.parseInt(chatroom.get(2))) {
+                    sortedChatrooms.add(i, chatroom);
+                    break;
+                }
+                i += 1;
+            }
+            if (i == sortedChatrooms.size()) {
+                sortedChatrooms.add(i, chatroom);
+            }
+            i = 0;
+        }
+        return sortedChatrooms;
+    }
+
     public void loadChatroomCanvasView() {
         view.setChatroomCanvasTitle(ip.getTotalUnread());
-        for (ArrayList<String> option: ip.getChatroomOptions()) {
+        for (ArrayList<String> option: sortChatrooms(ip.getChatroomOptions())) {
             view.setChatroomOption(option);
         }
     }
 
     public void loadMessageCanvasView(String recipientName, String username) {
         view.setMessageCanvasTitle(recipientName);
-        for (ArrayList<String> messageData : ip.getAllMessages(username)) {
+        for (ArrayList<String> messageData : ip.getMessages(username, "all")) {
             view.setMessageArea(messageData);
+        }
+        for (ArrayList<String> messageData : ip.getMessages(username, "pinned")) {
+            view.setPinnedMessage(messageData);
         }
     }
 
@@ -160,6 +182,6 @@ public class MessageInboxPresenter {
         void setMessageCanvasTitle(String newTitle);
         void setChatroomCanvasTitle(String newTitle);
         void setMessageArea(ArrayList<String> messageData);
-
+        void setPinnedMessage(ArrayList<String> messageData);
     }
 }
