@@ -33,7 +33,7 @@ public class MessageOutboxGUI extends Application implements MessageOutboxPresen
         //Outbox Title bar
         VBox outboxBar = new VBox();
         outboxBar.setAlignment(Pos.TOP_CENTER);
-        outboxBar.setPrefSize(500, 420);
+        outboxBar.setPrefSize(500, 20);
 
         Label outboxCanvasTitle = new Label("Send Group Message");
         outboxCanvasTitle.setFont(Font.loadFont(getClass().getResourceAsStream("/open-sans/os-bold.ttf"), 16));
