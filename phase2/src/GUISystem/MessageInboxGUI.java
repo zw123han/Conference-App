@@ -89,17 +89,14 @@ public class MessageInboxGUI extends Application implements MessageInboxPresente
         searchBar.setFont(Font.loadFont(getClass().getResourceAsStream("/open-sans/os-regular.ttf"), 12));
         searchBar.setStyle("-fx-text-fill: #888");
         searchBar.setBackground(new Background(new BackgroundFill(Color.WHITE, CornerRadii.EMPTY, Insets.EMPTY)));
-        searchBar.focusedProperty().addListener(new ChangeListener<Boolean>() {
-            @Override
-            public void changed(ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) {
-                if (newValue) {
-                    searchBar.setText("");
-                    searchBar.setStyle("-fx-text-fill: black");
-                } else {
-                    searchBar.setText("Search user...");
-                    searchBar.setStyle("-fx-text-fill: #888");
-                    mi.loadChatroomCanvasView();
-                }
+        searchBar.focusedProperty().addListener((observable, oldValue, newValue) -> {
+            if (newValue) {
+                searchBar.setText("");
+                searchBar.setStyle("-fx-text-fill: black");
+            } else {
+                searchBar.setText("Search user...");
+                searchBar.setStyle("-fx-text-fill: #888");
+                mi.loadChatroomCanvasView();
             }
         });
         searchBar.setOnKeyReleased(e -> mi.updateChatroomCanvasView(searchBar.getText()));
@@ -129,18 +126,15 @@ public class MessageInboxGUI extends Application implements MessageInboxPresente
         pinnedMessages.setBackground(new Background(new BackgroundFill(Color.WHITE, CornerRadii.EMPTY, Insets.EMPTY)));
         pinnedMessages.setBorder(new Border(new BorderStroke(Color.WHITE, BorderStrokeStyle.SOLID, CornerRadii.EMPTY, new BorderWidths(4))));
         pinnedMessages.setTextFill(Color.BLACK);
-        pinnedMessages.selectedProperty().addListener(new ChangeListener<Boolean>() {
-            @Override
-            public void changed(ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) {
-                if (newValue) {
-                    pinnedMessages.setBackground(new Background(new BackgroundFill(Color.LIGHTGRAY, CornerRadii.EMPTY, Insets.EMPTY)));
-                    pinnedMessages.setBorder(new Border(new BorderStroke(Color.LIGHTGRAY, BorderStrokeStyle.SOLID, CornerRadii.EMPTY, new BorderWidths(4))));
-                    mi.loadPinnedView(recipient);
-                } else {
-                    pinnedMessages.setBackground(new Background(new BackgroundFill(Color.WHITE, CornerRadii.EMPTY, Insets.EMPTY)));
-                    pinnedMessages.setBorder(new Border(new BorderStroke(Color.WHITE, BorderStrokeStyle.SOLID, CornerRadii.EMPTY, new BorderWidths(4))));
-                    mi.loadMessageCanvasView(recipient);
-                }
+        pinnedMessages.selectedProperty().addListener((observable, oldValue, newValue) -> {
+            if (newValue) {
+                pinnedMessages.setBackground(new Background(new BackgroundFill(Color.LIGHTGRAY, CornerRadii.EMPTY, Insets.EMPTY)));
+                pinnedMessages.setBorder(new Border(new BorderStroke(Color.LIGHTGRAY, BorderStrokeStyle.SOLID, CornerRadii.EMPTY, new BorderWidths(4))));
+                mi.loadPinnedView(recipient);
+            } else {
+                pinnedMessages.setBackground(new Background(new BackgroundFill(Color.WHITE, CornerRadii.EMPTY, Insets.EMPTY)));
+                pinnedMessages.setBorder(new Border(new BorderStroke(Color.WHITE, BorderStrokeStyle.SOLID, CornerRadii.EMPTY, new BorderWidths(4))));
+                mi.loadMessageCanvasView(recipient);
             }
         });
         pinnedMessages.setDisable(true);
@@ -352,7 +346,7 @@ public class MessageInboxGUI extends Application implements MessageInboxPresente
 
     public void setMessageArea(ArrayList<String> messageData) {
         messageDisplay.getChildren().add(constructMessageBox(messageData));
-        messagesScrollable.setVvalue(1.0);
+        messageDisplay.heightProperty().addListener(observable -> messagesScrollable.setVvalue(1D));
     }
 
     public void display(Stage primaryStage) {

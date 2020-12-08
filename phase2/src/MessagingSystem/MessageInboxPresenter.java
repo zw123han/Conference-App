@@ -96,7 +96,7 @@ public class MessageInboxPresenter {
 
     public void updateChatroomCanvasView(String search) {
         view.clearChatroomOptions();
-        String regex = search + "[\\w]*";
+        String regex = "(?i)" + search + "[\\w]*";
         for (ArrayList<String> option: sortChatrooms(ip.getChatroomOptions())) {
             if (option.get(0).matches(regex) || option.get(1).matches(regex)) {
                 view.setChatroomOption(option);
