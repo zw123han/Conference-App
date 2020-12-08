@@ -107,10 +107,11 @@ public class EventSignupPresenter {
                 String name = "Name: " + ev.getName();
                 String id = "id: " + ev.getId();
                 String time = "Time: " + DateTimeFormatter.ofLocalizedDateTime(FormatStyle.SHORT).format(ev.getTime());
+                String duration = "Duration: " + ev.getDuration() + " minutes";
                 String room = "Room: " + ev.getRoom();
                 String capacity = "Capacity: " + ev.getNumberOfSignedUpUsers() + "/" + ev.getCapacity();
                 String speakers = "Speakers: " + ev.getSpeakerList();
-                eventInterface.loadAllEvents(name,id, time, room, capacity, speakers);
+                eventInterface.loadAllEvents(name,id, time, duration, room, capacity, speakers);
             }
         }
     }
@@ -140,10 +141,11 @@ public class EventSignupPresenter {
             String name = "Name: " + ev.getName();
             String id = "id: " + ev.getId();
             String time = "Time: " + DateTimeFormatter.ofLocalizedDateTime(FormatStyle.SHORT).format(ev.getTime());
+            String duration = "Duration: " + ev.getDuration() + " minutes";
             String room = "Room: " + ev.getRoom();
             String capacity = "Capacity: " + ev.getNumberOfSignedUpUsers() + "/" + ev.getCapacity();
             String speakers = "Speakers: " + ev.getSpeakerList();
-            eventInterface.loadUserEvents(name,id, time, room, capacity, speakers);
+            eventInterface.loadUserEvents(name,id, time, duration, room, capacity, speakers);
         }
     }
 
@@ -161,12 +163,13 @@ public class EventSignupPresenter {
             String name = "Name: " + ev.getName();
             String id = "id: " + ev.getId();
             String time = "Time: " + DateTimeFormatter.ofLocalizedDateTime(FormatStyle.SHORT).format(ev.getTime());
+            String duration = "Duration: " + ev.getDuration() + " minutes";
             String room = "Room: " + ev.getRoom();
             String capacity = "Capacity: " + ev.getNumberOfSignedUpUsers() + "/" + ev.getCapacity();
             String speakers = "Speakers: " + ev.getSpeakerList();
 
             doc.append("----------------------------\n");
-            doc.append(name + "\n" + id + "\n" + time + "\n" + room + "\n" + capacity + "\n" + speakers + "\n");
+            doc.append(name + "\n" + id + "\n" + time + "\n" + duration + "\n" + room + "\n" + capacity + "\n" + speakers + "\n");
             doc.append("----------------------------\n");
         }
 
@@ -204,8 +207,8 @@ public class EventSignupPresenter {
      *
      */
     public interface EventInterface {
-        void loadUserEvents(String name, String id, String time, String room, String capacity, String speakers);
-        void loadAllEvents(String name, String id, String time, String room, String capacity, String speakers);
+        void loadUserEvents(String name, String id, String time, String duration, String room, String capacity, String speakers);
+        void loadAllEvents(String name, String id, String time, String duration, String room, String capacity, String speakers);
         void joinEvent(String message);
         void leaveEvent(String message);
         void eventInfo(ArrayList<String> usernames);

@@ -33,6 +33,7 @@ public class ConferenceSimulator {
         // TODO: implement updateUsername in ManageAccountMenu - William
         // TODO: let event ids be copiable in ManageEventMenu and EventMenu - William
 
+        // For database saving
         // Connect to database
         databaseInteractor.connect();
 
@@ -54,9 +55,12 @@ public class ConferenceSimulator {
         // Launch application
         Application.launch(LaunchMenu.class);
 
+        // For database saving
         // Save and disconnect from database
         databaseInteractor.disconnect();
 
+        // For local saving
+        // localSave.save();
     }
 
 }
