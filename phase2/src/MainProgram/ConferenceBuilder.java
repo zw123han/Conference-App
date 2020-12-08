@@ -27,7 +27,6 @@ public class ConferenceBuilder {
     private HashMap<String, String> profanities;
 
     private EventSignup eventSignup = new EventSignup();
-    private ChatMenuPresenter chatMenuPresenter = new ChatMenuPresenter();
     private FriendsPresenter friendsPresenter = new FriendsPresenter();
 
     private LoginOptionsFacade loginFacade;

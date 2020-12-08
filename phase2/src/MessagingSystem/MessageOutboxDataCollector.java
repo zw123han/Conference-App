@@ -9,7 +9,7 @@ import java.util.*;
  *
  * @author Chrisee Zhu
  */
-public class MessageOutboxDataCollector extends CommandPresenter {
+public class MessageOutboxDataCollector {
     private String username;
     private Registrar reg;
     private EventManager em;

@@ -11,7 +11,7 @@ import java.util.regex.Pattern;
  *
  * @author Chrisee, Elliot
  */
-public class MessageInboxController extends CommandPresenter {
+public class MessageInboxController {
     private Registrar registrar;
     private String username;
     private ChatroomManager chatroomManager;
