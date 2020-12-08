@@ -1,7 +1,5 @@
 package GUISystem;
 
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
 import javafx.scene.*;
 import javafx.scene.paint.Color;
 import javafx.scene.text.*;
@@ -65,7 +63,7 @@ public class MessageInboxGUI extends Application implements MessageInboxPresente
         });
         // Chatroom Title
         chatroomCanvasTitle = new Label("Inbox");
-        chatroomCanvasTitle.setFont(Font.loadFont(getClass().getResourceAsStream("/open-sans/os-bold.ttf"), 16));
+        chatroomCanvasTitle.setFont(Font.loadFont(getClass().getResourceAsStream("/resources/os-bold.ttf"), 16));
         chatroomCanvasTitle.setTextFill(Color.WHITE);
         Background chatroomCanvasBackground = new Background(new BackgroundFill(Color.BLACK, CornerRadii.EMPTY, Insets.EMPTY));
         chatroomCanvas.setBackground(chatroomCanvasBackground);
@@ -86,7 +84,7 @@ public class MessageInboxGUI extends Application implements MessageInboxPresente
         userSearch.setPrefSize(180, 20);
         userSearch.setPadding(new Insets(5));
         TextField searchBar = new TextField("Search user...");
-        searchBar.setFont(Font.loadFont(getClass().getResourceAsStream("/open-sans/os-regular.ttf"), 12));
+        searchBar.setFont(Font.loadFont(getClass().getResourceAsStream("/resources/os-regular.ttf"), 12));
         searchBar.setStyle("-fx-text-fill: #888");
         searchBar.setBackground(new Background(new BackgroundFill(Color.WHITE, CornerRadii.EMPTY, Insets.EMPTY)));
         searchBar.focusedProperty().addListener((observable, oldValue, newValue) -> {
@@ -114,12 +112,12 @@ public class MessageInboxGUI extends Application implements MessageInboxPresente
         messageBar.setPrefSize(320, 40);
         // Message Canvas Title
         messageCanvasTitle = new Label("Select a chat");
-        messageCanvasTitle.setFont(Font.loadFont(getClass().getResourceAsStream("/open-sans/os-bold.ttf"), 16));
+        messageCanvasTitle.setFont(Font.loadFont(getClass().getResourceAsStream("/resources/os-bold.ttf"), 16));
         messageCanvasTitle.setPadding(new Insets(10));
         messageCanvasTitle.setPrefSize(210, 40);
         // Pin Message
         pinnedMessages = new ToggleButton("Pins");
-        pinnedMessages.setFont(Font.loadFont(getClass().getResourceAsStream("/open-sans/os-bold.ttf"), 12));
+        pinnedMessages.setFont(Font.loadFont(getClass().getResourceAsStream("/resources/os-bold.ttf"), 12));
         pinnedMessages.setPadding(new Insets(8));
         pinnedMessages.setPrefHeight(45);
         pinnedMessages.setPrefWidth(65);
@@ -178,7 +176,7 @@ public class MessageInboxGUI extends Application implements MessageInboxPresente
         textFieldBar.setPadding(new Insets(5));
         // Message Box (Field)
         messageBox = new TextArea("Select a chat to send a message.");
-        messageBox.setFont(Font.loadFont(getClass().getResourceAsStream("/open-sans/os-regular.ttf"), 12));
+        messageBox.setFont(Font.loadFont(getClass().getResourceAsStream("/resources/os-regular.ttf"), 12));
         messageBox.setPadding(new Insets(4));
         messageBox.setPrefSize(260, 160);
         messageBox.setWrapText(true);
@@ -186,7 +184,7 @@ public class MessageInboxGUI extends Application implements MessageInboxPresente
         // Send Message Button
         sendMessage = new Button("SEND");
         sendMessage.setPrefSize(50, 30);
-        sendMessage.setFont(Font.loadFont(getClass().getResourceAsStream("/open-sans/os-bold.ttf"), 10));
+        sendMessage.setFont(Font.loadFont(getClass().getResourceAsStream("/resources/os-bold.ttf"), 10));
         sendMessage.setBackground(new Background(new BackgroundFill(Color.BLACK, new CornerRadii(4), Insets.EMPTY)));
         sendMessage.setTextFill(Color.WHITE);
         sendMessage.setPadding(new Insets(8));
@@ -222,7 +220,7 @@ public class MessageInboxGUI extends Application implements MessageInboxPresente
         // Makes a new square button.
         Button button = new Button(symbol);
         button.setPrefSize(40, 40);
-        button.setFont(Font.loadFont(getClass().getResourceAsStream("/open-sans/os-extrabold.ttf"), 16));
+        button.setFont(Font.loadFont(getClass().getResourceAsStream("/resources/os-extrabold.ttf"), 16));
         button.setBackground(new Background(new BackgroundFill(buttonColor, CornerRadii.EMPTY, Insets.EMPTY)));
         button.setBorder(new Border(new BorderStroke(buttonColor, BorderStrokeStyle.SOLID, CornerRadii.EMPTY, new BorderWidths(4))));
         button.setTextFill(Color.WHITE);
@@ -244,15 +242,15 @@ public class MessageInboxGUI extends Application implements MessageInboxPresente
         HBox nameContainer = new HBox(2);
         nameContainer.setAlignment(Pos.BOTTOM_LEFT);
         Label displayName = new Label(name);
-        displayName.setFont(Font.loadFont(getClass().getResourceAsStream("/open-sans/os-bold.ttf"), 12));
+        displayName.setFont(Font.loadFont(getClass().getResourceAsStream("/resources/os-bold.ttf"), 12));
         Label username = new Label("(@" + usr + ")");
-        username.setFont(Font.loadFont(getClass().getResourceAsStream("/open-sans/os-regular.ttf"), 12));
+        username.setFont(Font.loadFont(getClass().getResourceAsStream("/resources/os-regular.ttf"), 12));
         username.setTextFill(Color.GREY);
         Label unread = new Label(unrd);
         if (unrd.equals("0")) {
             unread.setText("");
         }
-        unread.setFont(Font.loadFont(getClass().getResourceAsStream("/open-sans/os-extrabold.ttf"), 10));
+        unread.setFont(Font.loadFont(getClass().getResourceAsStream("/resources/os-extrabold.ttf"), 10));
         unread.setTextFill(Color.CRIMSON);
         unread.setPrefHeight(16);
         nameContainer.getChildren().addAll(displayName, unread);
@@ -306,15 +304,15 @@ public class MessageInboxGUI extends Application implements MessageInboxPresente
         HBox senderData = new HBox(6);
         senderData.setAlignment(Pos.TOP_LEFT);
         Label sender = new Label(mi.getDisplayName(messageData.get(0)));
-        sender.setFont(Font.loadFont(getClass().getResourceAsStream("/open-sans/os-bold.ttf"), 12));
+        sender.setFont(Font.loadFont(getClass().getResourceAsStream("/resources/os-bold.ttf"), 12));
         Label date = new Label(messageData.get(1));
-        date.setFont(Font.loadFont(getClass().getResourceAsStream("/open-sans/os-regular.ttf"), 12));
+        date.setFont(Font.loadFont(getClass().getResourceAsStream("/resources/os-regular.ttf"), 12));
         date.setTextFill(Color.GREY);
         senderData.getChildren().addAll(sender, date);
 
         Label message = new Label(messageData.get(2));
         message.setPrefWidth(280);
-        message.setFont(Font.loadFont(getClass().getResourceAsStream("/open-sans/os-regular.ttf"), 12));
+        message.setFont(Font.loadFont(getClass().getResourceAsStream("/resources/os-regular.ttf"), 12));
         message.setWrapText(true);
 
         HBox messageOptions = new HBox(6);
@@ -323,7 +321,7 @@ public class MessageInboxGUI extends Application implements MessageInboxPresente
             Hyperlink delete = new Hyperlink("Delete");
             delete.setId(messageData.get(3));
             delete.setPadding(Insets.EMPTY);
-            delete.setFont(Font.loadFont(getClass().getResourceAsStream("/open-sans/os-bold.ttf"), 10));
+            delete.setFont(Font.loadFont(getClass().getResourceAsStream("/resources/os-bold.ttf"), 10));
             delete.setTextFill(Color.CRIMSON);
             delete.setOnAction(e -> {
                 mi.removeMessage(delete.getId(), recipient);
@@ -342,7 +340,7 @@ public class MessageInboxGUI extends Application implements MessageInboxPresente
             pin.setText("Unpin Message");
         }
         pin.setPadding(Insets.EMPTY);
-        pin.setFont(Font.loadFont(getClass().getResourceAsStream("/open-sans/os-bold.ttf"), 10));
+        pin.setFont(Font.loadFont(getClass().getResourceAsStream("/resources/os-bold.ttf"), 10));
         pin.setTextFill(Color.BLACK);
         pin.setOnAction(e -> {
             if (pin.getText().equals("Pin Message")) {

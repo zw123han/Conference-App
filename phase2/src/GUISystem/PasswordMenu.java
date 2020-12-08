@@ -30,13 +30,13 @@ public class PasswordMenu extends Application {
         Scene scene = new Scene (vbox, 500, 500);
 
         Text title = new Text ("Change password");
-        title.setFont(Font.loadFont(getClass().getResourceAsStream("/open-sans/os-bold.ttf"),20));
+        title.setFont(Font.loadFont(getClass().getResourceAsStream("/resources/os-bold.ttf"),20));
 
         Text passwordChangeMessage = new Text();
-        passwordChangeMessage.setFont(Font.loadFont(getClass().getResourceAsStream("/open-sans/os-bold.ttf"), 12));
+        passwordChangeMessage.setFont(Font.loadFont(getClass().getResourceAsStream("/resources/os-bold.ttf"), 12));
 
         TextField usernameField = new TextField();
-        usernameField.setFont(Font.loadFont(getClass().getResourceAsStream("/open-sans/os-regular.ttf"), 12));
+        usernameField.setFont(Font.loadFont(getClass().getResourceAsStream("/resources/os-regular.ttf"), 12));
 
         PasswordField currentPassword = new PasswordField();
         currentPassword.setFont(Font.font("Times New Roman"));
@@ -48,16 +48,16 @@ public class PasswordMenu extends Application {
         passwordConfirmField.setFont(Font.font("Times New Roman"));
 
         Text username = new Text("Username");
-        username.setFont(Font.loadFont(getClass().getResourceAsStream("/open-sans/os-regular.ttf"), 12));
+        username.setFont(Font.loadFont(getClass().getResourceAsStream("/resources/os-regular.ttf"), 12));
         Text passwordText = new Text("Current Password");
-        passwordText.setFont(Font.loadFont(getClass().getResourceAsStream("/open-sans/os-regular.ttf"), 12));
+        passwordText.setFont(Font.loadFont(getClass().getResourceAsStream("/resources/os-regular.ttf"), 12));
         Text newPasswordText = new Text("New Password");
-        newPasswordText.setFont(Font.loadFont(getClass().getResourceAsStream("/open-sans/os-regular.ttf"), 12));
+        newPasswordText.setFont(Font.loadFont(getClass().getResourceAsStream("/resources/os-regular.ttf"), 12));
         Text confirmPasswordText = new Text("Confirm New Password");
-        confirmPasswordText.setFont(Font.loadFont(getClass().getResourceAsStream("/open-sans/os-regular.ttf"), 12));
+        confirmPasswordText.setFont(Font.loadFont(getClass().getResourceAsStream("/resources/os-regular.ttf"), 12));
 
         Button changePasswordButton = new Button("Change password");
-        changePasswordButton.setFont(Font.loadFont(getClass().getResourceAsStream("/open-sans/os-bold.ttf"), 12));
+        changePasswordButton.setFont(Font.loadFont(getClass().getResourceAsStream("/resources/os-bold.ttf"), 12));
         changePasswordButton.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
@@ -85,7 +85,7 @@ public class PasswordMenu extends Application {
         });
 
         Button goBack = new Button("Go back");
-        goBack.setFont(Font.loadFont(getClass().getResourceAsStream("/open-sans/os-bold.ttf"), 12));
+        goBack.setFont(Font.loadFont(getClass().getResourceAsStream("/resources/os-bold.ttf"), 12));
         goBack.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {

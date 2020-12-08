@@ -14,7 +14,6 @@ import javafx.stage.*;
 import javafx.scene.text.*;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
-import javafx.util.Duration;
 
 import java.io.File;
 
@@ -31,20 +30,20 @@ public class LoginGUI extends Application{
         Scene scene = new Scene (loginCanvas, 500, 600);
 
         Text loginTitle = new Text ("Welcome to the Conference!");
-        loginTitle.setFont(Font.loadFont(getClass().getResourceAsStream("/open-sans/os-bold.ttf"),30));
+        loginTitle.setFont(Font.loadFont(getClass().getResourceAsStream("/resources/os-bold.ttf"),30));
 
         Text failedLogin = new Text();
-        failedLogin.setFont(Font.loadFont(getClass().getResourceAsStream("/open-sans/os-bold.ttf"), 12));
+        failedLogin.setFont(Font.loadFont(getClass().getResourceAsStream("/resources/os-bold.ttf"), 12));
 
         TextField usernameField = new TextField();
-        usernameField.setFont(Font.loadFont(getClass().getResourceAsStream("/open-sans/os-regular.ttf"), 12));
+        usernameField.setFont(Font.loadFont(getClass().getResourceAsStream("/resources/os-regular.ttf"), 12));
         PasswordField passwordField = new PasswordField();
         passwordField.setFont(Font.font("Times New Roman"));
 
         Text username = new Text("Username");
-        username.setFont(Font.loadFont(getClass().getResourceAsStream("/open-sans/os-regular.ttf"), 12));
+        username.setFont(Font.loadFont(getClass().getResourceAsStream("/resources/os-regular.ttf"), 12));
         Text password = new Text("Password");
-        password.setFont(Font.loadFont(getClass().getResourceAsStream("/open-sans/os-regular.ttf"), 12));
+        password.setFont(Font.loadFont(getClass().getResourceAsStream("/resources/os-regular.ttf"), 12));
 
         // Play a song
         Media song = new Media(new File("phase2/src/GUISystem/O-Canada.mp3").toURI().toString());
@@ -53,7 +52,7 @@ public class LoginGUI extends Application{
         MediaView mediaView = new MediaView(mediaPlayer);
 
         Button loginButton = new Button("Login");
-        loginButton.setFont(Font.loadFont(getClass().getResourceAsStream("/open-sans/os-bold.ttf"), 12));
+        loginButton.setFont(Font.loadFont(getClass().getResourceAsStream("/resources/os-bold.ttf"), 12));
         loginButton.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent e) {
@@ -72,7 +71,7 @@ public class LoginGUI extends Application{
         });
 
         Button accountCreationButton = new Button("Create Account");
-        accountCreationButton.setFont(Font.loadFont(getClass().getResourceAsStream("/open-sans/os-bold.ttf"), 12));
+        accountCreationButton.setFont(Font.loadFont(getClass().getResourceAsStream("/resources/os-bold.ttf"), 12));
         accountCreationButton.setPrefSize(130, 25);
         accountCreationButton.setOnAction(new EventHandler<ActionEvent>() {
             @Override
@@ -84,7 +83,7 @@ public class LoginGUI extends Application{
         });
 
         Button quitButton = new Button("Quit");
-        quitButton.setFont(Font.loadFont(getClass().getResourceAsStream("/open-sans/os-bold.ttf"), 12));
+        quitButton.setFont(Font.loadFont(getClass().getResourceAsStream("/resources/os-bold.ttf"), 12));
         quitButton.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {

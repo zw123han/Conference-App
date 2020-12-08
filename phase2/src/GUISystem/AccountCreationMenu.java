@@ -31,23 +31,23 @@ public class AccountCreationMenu extends Application{
         Scene scene = new Scene (loginCanvas, 500, 600);
 
         Text loginTitle = new Text ("Welcome to the Conference!");
-        loginTitle.setFont(Font.loadFont(getClass().getResourceAsStream("/open-sans/os-bold.ttf"), 30));
+        loginTitle.setFont(Font.loadFont(getClass().getResourceAsStream("/resources/os-bold.ttf"), 30));
 
         Text accountMessage = new Text();
-        accountMessage.setFont(Font.loadFont(getClass().getResourceAsStream("/open-sans/os-bold.ttf"), 12));
+        accountMessage.setFont(Font.loadFont(getClass().getResourceAsStream("/resources/os-bold.ttf"), 12));
 
         TextField nameField = new TextField();
-        nameField.setFont(Font.loadFont(getClass().getResourceAsStream("/open-sans/os-bold.ttf"), 12));
+        nameField.setFont(Font.loadFont(getClass().getResourceAsStream("/resources/os-bold.ttf"), 12));
         TextField usernameField = new TextField();
-        usernameField.setFont(Font.loadFont(getClass().getResourceAsStream("/open-sans/os-bold.ttf"), 12));
+        usernameField.setFont(Font.loadFont(getClass().getResourceAsStream("/resources/os-bold.ttf"), 12));
         PasswordField passwordField = new PasswordField();
 
         Text name = new Text("Name (First Name and Surname)");
-        name.setFont(Font.loadFont(getClass().getResourceAsStream("/open-sans/os-regular.ttf"), 12));
+        name.setFont(Font.loadFont(getClass().getResourceAsStream("/resources/os-regular.ttf"), 12));
         Text username = new Text("Username");
-        username.setFont(Font.loadFont(getClass().getResourceAsStream("/open-sans/os-regular.ttf"), 12));
+        username.setFont(Font.loadFont(getClass().getResourceAsStream("/resources/os-regular.ttf"), 12));
         Text password = new Text("Password");
-        password.setFont(Font.loadFont(getClass().getResourceAsStream("/open-sans/os-regular.ttf"), 12));
+        password.setFont(Font.loadFont(getClass().getResourceAsStream("/resources/os-regular.ttf"), 12));
 
         // Play a song
         Media song = new Media(new File("phase2/src/GUISystem/O-Canada.mp3").toURI().toString());
@@ -56,7 +56,7 @@ public class AccountCreationMenu extends Application{
         MediaView mediaView = new MediaView(mediaPlayer);
 
         Button creationButton = new Button("Create Account");
-        creationButton.setFont(Font.loadFont(getClass().getResourceAsStream("/open-sans/os-bold.ttf"), 12));
+        creationButton.setFont(Font.loadFont(getClass().getResourceAsStream("/resources/os-bold.ttf"), 12));
         creationButton.setPrefSize(130, 25);
         creationButton.setOnAction(new EventHandler<ActionEvent>() {
             @Override
@@ -77,7 +77,7 @@ public class AccountCreationMenu extends Application{
         });
 
         Button loginButton = new Button("Back to Login");
-        loginButton.setFont(Font.loadFont(getClass().getResourceAsStream("/open-sans/os-bold.ttf"), 12));
+        loginButton.setFont(Font.loadFont(getClass().getResourceAsStream("/resources/os-bold.ttf"), 12));
         loginButton.setPrefSize(130, 25);
         loginButton.setOnAction(new EventHandler<ActionEvent>() {
             @Override
@@ -89,7 +89,7 @@ public class AccountCreationMenu extends Application{
 
 
         Button quitButton = new Button("Quit");
-        quitButton.setFont(Font.loadFont(getClass().getResourceAsStream("/open-sans/os-bold.ttf"), 12));
+        quitButton.setFont(Font.loadFont(getClass().getResourceAsStream("/resources/os-bold.ttf"), 12));
         quitButton.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {

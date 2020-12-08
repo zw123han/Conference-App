@@ -36,7 +36,7 @@ public class MessageOutboxGUI extends Application implements MessageOutboxPresen
         outboxBar.setPrefSize(500, 20);
 
         Label outboxCanvasTitle = new Label("Send Group Message");
-        outboxCanvasTitle.setFont(Font.loadFont(getClass().getResourceAsStream("/open-sans/os-bold.ttf"), 16));
+        outboxCanvasTitle.setFont(Font.loadFont(getClass().getResourceAsStream("/resources/os-bold.ttf"), 16));
         outboxCanvasTitle.setTextFill(Color.WHITE);
         Background outboxCanvasTitleBackground = new Background(new BackgroundFill(Color.BLACK, CornerRadii.EMPTY, Insets.EMPTY));
         outboxCanvasTitle.setBackground(outboxCanvasTitleBackground);
@@ -52,7 +52,7 @@ public class MessageOutboxGUI extends Application implements MessageOutboxPresen
 
         Label optionsBarLabel = new Label("Send to ");
         optionsBarLabel.setAlignment(Pos.CENTER_LEFT);
-        optionsBarLabel.setFont(Font.loadFont(getClass().getResourceAsStream("/open-sans/os-regular.ttf"), 12));
+        optionsBarLabel.setFont(Font.loadFont(getClass().getResourceAsStream("/resources/os-regular.ttf"), 12));
 
         ComboBox dropdownMenu = new ComboBox();
         HashMap<String, Long> events = mo.getAllEventInfo();
@@ -70,7 +70,7 @@ public class MessageOutboxGUI extends Application implements MessageOutboxPresen
         textFieldBar.setPadding(new Insets(5));
         // Message Box (Field)
         TextArea messageBox = new TextArea("");
-        messageBox.setFont(Font.loadFont(getClass().getResourceAsStream("/open-sans/os-regular.ttf"), 12));
+        messageBox.setFont(Font.loadFont(getClass().getResourceAsStream("/resources/os-regular.ttf"), 12));
         messageBox.setPadding(new Insets(4));
         messageBox.setPrefSize(400, 380);
         messageBox.setWrapText(true);
@@ -78,7 +78,7 @@ public class MessageOutboxGUI extends Application implements MessageOutboxPresen
         // Send Message Button
         Button sendMessage = new Button("SEND");
         sendMessage.setPrefSize(50, 30);
-        sendMessage.setFont(Font.loadFont(getClass().getResourceAsStream("/open-sans/os-bold.ttf"), 10));
+        sendMessage.setFont(Font.loadFont(getClass().getResourceAsStream("/resources/os-bold.ttf"), 10));
         sendMessage.setBackground(new Background(new BackgroundFill(Color.BLACK, new CornerRadii(4), Insets.EMPTY)));
         sendMessage.setTextFill(Color.WHITE);
         sendMessage.setPadding(new Insets(8));

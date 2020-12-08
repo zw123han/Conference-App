@@ -5,28 +5,15 @@ import LoginSystem.LoginOptionsFacade;
 import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
-import javafx.fxml.FXMLLoader;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
-import javafx.scene.Node;
-import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.control.PasswordField;
-import javafx.scene.control.TextField;
-import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
-import javafx.scene.media.Media;
-import javafx.scene.media.MediaPlayer;
-import javafx.scene.media.MediaView;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
-import javafx.stage.Window;
-
-import java.io.File;
-import java.io.IOException;
 
 
 public class HomeMenuGUI extends Application implements UserMenuGetter {
@@ -52,11 +39,11 @@ public class HomeMenuGUI extends Application implements UserMenuGetter {
         Scene scene = new Scene (vbox, 500, 600);
 
         Text title = new Text ("Hello "+loginOptionsFacade.getUser().getName());
-        title.setFont(Font.loadFont(getClass().getResourceAsStream("/open-sans/os-bold.ttf"),30));
+        title.setFont(Font.loadFont(getClass().getResourceAsStream("/resources/os-bold.ttf"),30));
 
 
         Button eventButton = new Button("Events");
-        eventButton.setFont(Font.loadFont(getClass().getResourceAsStream("/open-sans/os-bold.ttf"), 12));
+        eventButton.setFont(Font.loadFont(getClass().getResourceAsStream("/resources/os-bold.ttf"), 12));
         eventButton.setPrefSize(100, 25);
         eventButton.setOnAction(new EventHandler<ActionEvent>() {
             @Override
@@ -67,7 +54,7 @@ public class HomeMenuGUI extends Application implements UserMenuGetter {
         });
 
         Button friendsButton = new Button("Friends");
-        friendsButton.setFont(Font.loadFont(getClass().getResourceAsStream("/open-sans/os-bold.ttf"), 12));
+        friendsButton.setFont(Font.loadFont(getClass().getResourceAsStream("/resources/os-bold.ttf"), 12));
         friendsButton.setPrefSize(100, 25);
         friendsButton.setOnAction(new EventHandler<ActionEvent>() {
             @Override
@@ -78,7 +65,7 @@ public class HomeMenuGUI extends Application implements UserMenuGetter {
         });
 
         Button changePasswordButton = new Button("Password");
-        changePasswordButton.setFont(Font.loadFont(getClass().getResourceAsStream("/open-sans/os-bold.ttf"), 12));
+        changePasswordButton.setFont(Font.loadFont(getClass().getResourceAsStream("/resources/os-bold.ttf"), 12));
         changePasswordButton.setPrefSize(100, 25);
         changePasswordButton.setOnAction(new EventHandler<ActionEvent>() {
             @Override
@@ -88,7 +75,7 @@ public class HomeMenuGUI extends Application implements UserMenuGetter {
         });
 
         Button messagingButton = new Button("Messages");
-        messagingButton.setFont(Font.loadFont(getClass().getResourceAsStream("/open-sans/os-bold.ttf"), 12));
+        messagingButton.setFont(Font.loadFont(getClass().getResourceAsStream("/resources/os-bold.ttf"), 12));
         messagingButton.setPrefSize(100, 25);
         messagingButton.setOnAction(new EventHandler<ActionEvent>() {
             @Override
@@ -99,7 +86,7 @@ public class HomeMenuGUI extends Application implements UserMenuGetter {
         });
 
         Button manageAccountButton = new Button("Manage Accounts");
-        manageAccountButton.setFont(Font.loadFont(getClass().getResourceAsStream("/open-sans/os-bold.ttf"), 12));
+        manageAccountButton.setFont(Font.loadFont(getClass().getResourceAsStream("/resources/os-bold.ttf"), 12));
         manageAccountButton.setTextFill(Color.RED);
         manageAccountButton.setPrefSize(130, 30);
         manageAccountButton.setOnAction(new EventHandler<ActionEvent>() {
@@ -111,7 +98,7 @@ public class HomeMenuGUI extends Application implements UserMenuGetter {
         });
 
         Button manageEventsButton = new Button("Manage Events");
-        manageEventsButton.setFont(Font.loadFont(getClass().getResourceAsStream("/open-sans/os-bold.ttf"), 12));
+        manageEventsButton.setFont(Font.loadFont(getClass().getResourceAsStream("/resources/os-bold.ttf"), 12));
         manageEventsButton.setTextFill(Color.RED);
         manageEventsButton.setPrefSize(130, 30);
         manageEventsButton.setOnAction(new EventHandler<ActionEvent>() {
@@ -123,7 +110,7 @@ public class HomeMenuGUI extends Application implements UserMenuGetter {
         });
         Text emptyText = new Text();
         Button logoutButton = new Button("Logout");
-        logoutButton.setFont(Font.loadFont(getClass().getResourceAsStream("/open-sans/os-bold.ttf"), 12));
+        logoutButton.setFont(Font.loadFont(getClass().getResourceAsStream("/resources/os-bold.ttf"), 12));
         logoutButton.setPrefSize(100, 25);;
         logoutButton.setOnAction(new EventHandler<ActionEvent>() {
             @Override
@@ -139,7 +126,7 @@ public class HomeMenuGUI extends Application implements UserMenuGetter {
         });
 
         Button saveButton = new Button("Save");
-        saveButton.setFont(Font.loadFont(getClass().getResourceAsStream("/open-sans/os-bold.ttf"), 12));
+        saveButton.setFont(Font.loadFont(getClass().getResourceAsStream("/resources/os-bold.ttf"), 12));
         saveButton.setPrefSize(100, 25);
         saveButton.setTextFill(Color.GREEN);
         saveButton.setOnAction(new EventHandler<ActionEvent>() {
