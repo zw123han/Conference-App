@@ -33,6 +33,21 @@ public class LoginOptionsFacade {
         this.eventManager = eventManager;
         this.chatroomManager = chatroomManager;
     }
+
+    /**
+     * Updates the type of user everywhere, and removes them as speakers if they were a speaker type.
+     *
+     * @param username The username of the user to be updated.
+     * @param newType The newType to be assigned to that user.
+     * @return True if and only if the type of the user is updated to a different type newType.
+     */
+    public boolean updateUserType(String username, String newType){
+        if(registrar.updateUserType(username, newType)){
+            eventManager.removeSpeaker(username);
+            return true;
+        }
+        return false;
+    }
     /**
      * Updates the username of a user.
      *
@@ -50,9 +65,9 @@ public class LoginOptionsFacade {
     }
 
     /**
-     * Deletes a user completely from the system.
+     * Deletes a user completely from the system. Users cannot delete themselves.
      *
-     * @param username The username of the user to be deleted
+     * @param username The username of the user to be deleted.
      * @return True if and only if a user with the username was deleted.
      */
     public boolean deleteUser(String username){
