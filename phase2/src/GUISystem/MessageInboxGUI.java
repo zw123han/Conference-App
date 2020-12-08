@@ -75,10 +75,32 @@ public class MessageInboxGUI extends Application implements MessageInboxPresente
         // CHILD #2: SCROLLABLE CHATROOM OPTIONS
         ScrollPane chatroomOptionsScrollable = new ScrollPane();
         chatroomOptions = new VBox();
-        chatroomOptionsScrollable.setPrefSize(180, 540);
+        chatroomOptionsScrollable.setPrefSize(180, 500);
         chatroomOptionsScrollable.setContent(chatroomOptions);
+        // CHILD #3: SEARCH BAR
+        VBox userSearch = new VBox();
+        userSearch.setPrefSize(180, 40);
+        userSearch.setPadding(new Insets(10, 5, 10, 5));
+        TextField searchBar = new TextField("Search user...");
+        searchBar.setFont(Font.loadFont(getClass().getResourceAsStream("/open-sans/os-regular.ttf"), 12));
+        searchBar.setStyle("-fx-text-fill: #aaa");
+        searchBar.setBackground(new Background(new BackgroundFill(Color.BLACK, CornerRadii.EMPTY, Insets.EMPTY)));
+        userSearch.getChildren().add(searchBar);
+        searchBar.focusedProperty().addListener(new ChangeListener<Boolean>() {
+            @Override
+            public void changed(ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) {
+                if (newValue) {
+                    searchBar.setText("");
+                    searchBar.setStyle("-fx-text-fill: white");
+                } else {
+                    searchBar.setText("Search user...");
+                    searchBar.setStyle("-fx-text-fill: #aaa");
+                }
+            }
+        });
+        searchBar.setOnKeyPressed(e -> mi.updateChatroomCanvasView(searchBar.getText()));
         // PUTTING EVERYTHING INTO CHATROOM CANVAS
-        chatroomCanvas.getChildren().addAll(chatroomBar, chatroomOptionsScrollable);
+        chatroomCanvas.getChildren().addAll(chatroomBar, chatroomOptionsScrollable, userSearch);
 
         // CHAT MESSAGES CONTAINER
         VBox messageCanvas = new VBox();
@@ -131,7 +153,7 @@ public class MessageInboxGUI extends Application implements MessageInboxPresente
         textFieldBar.setAlignment(Pos.BOTTOM_LEFT);
         textFieldBar.setPadding(new Insets(5));
         // Message Box (Field)
-        messageBox = new TextArea();
+        messageBox = new TextArea("Select a chat to send a message.");
         messageBox.setFont(Font.loadFont(getClass().getResourceAsStream("/open-sans/os-regular.ttf"), 12));
         messageBox.setPadding(new Insets(4));
         messageBox.setPrefSize(260, 160);
@@ -162,7 +184,7 @@ public class MessageInboxGUI extends Application implements MessageInboxPresente
         Scene scene = new Scene(inboxCanvas, 500, 600);
         primaryStage.setTitle("Messages - Conference Simulator Phase 2");
         primaryStage.setScene(scene);
-        primaryStage.setMinHeight(500);
+        primaryStage.setMinHeight(600);
         primaryStage.setMaxHeight(600);
         primaryStage.setHeight(600);
         primaryStage.setMinWidth(500);
@@ -214,6 +236,14 @@ public class MessageInboxGUI extends Application implements MessageInboxPresente
         return chatroomOptionContainer;
     }
 
+    public void clearMessages() {
+        messageDisplay.getChildren().removeAll();
+    }
+
+    public void clearChatroomOptions() {
+        chatroomOptions.getChildren().removeAll();
+    }
+
     public void setChatroomOption(ArrayList<String> option) {
         // Every chat option is stored in a button
         Button chat = new Button();
@@ -222,6 +252,7 @@ public class MessageInboxGUI extends Application implements MessageInboxPresente
         chat.setBackground(new Background(new BackgroundFill(Color.WHITE, CornerRadii.EMPTY, Insets.EMPTY)));
         chat.setOnAction(e -> {
             sendMessage.setDisable(false);
+            messageBox.setText("");
             messageBox.setDisable(false);
             this.recipient = chat.getId();
             chat.setBackground(new Background(new BackgroundFill(Color.LIGHTGREY, CornerRadii.EMPTY, Insets.EMPTY)));

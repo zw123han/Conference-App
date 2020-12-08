@@ -59,13 +59,17 @@ public class MessageInboxPresenter {
 
     public void loadChatroomCanvasView() {
         view.setChatroomCanvasTitle(ip.getTotalUnread());
+        view.clearChatroomOptions();
         for (ArrayList<String> option: sortChatrooms(ip.getChatroomOptions())) {
             view.setChatroomOption(option);
         }
     }
 
     public void loadMessageCanvasView(String recipientName, String username) {
+        ic.markAllRead(recipientName);
+        view.clearMessages();
         view.setMessageCanvasTitle(recipientName);
+        view.setChatroomCanvasTitle(ip.getTotalUnread());
         for (ArrayList<String> messageData : ip.getMessages(username, "all")) {
             view.setMessageArea(messageData);
         }
@@ -77,16 +81,18 @@ public class MessageInboxPresenter {
     public void sendMessage(String message, String recipient) {
         if (ic.validateMessage(message)) {
             ic.sendMessage(recipient, message);
-            updateMessageCanvasView(recipient);
+            view.setMessageArea(ip.getNewestMessage(recipient));
         }
     }
 
-    public void updateMessageCanvasView(String recipient) {
-        view.setMessageArea(ip.getNewestMessage(recipient));
-    }
-
-    public void updateChatroomCanvasView() {
-
+    public void updateChatroomCanvasView(String search) {
+        view.clearChatroomOptions();
+        String regex = search + "[\\w]*";
+        for (ArrayList<String> option: sortChatrooms(ip.getChatroomOptions())) {
+            if (option.get(0).matches(regex) || option.get(1).matches(regex)) {
+                view.setChatroomOption(option);
+            }
+        }
     }
 
 //        /**
@@ -183,5 +189,7 @@ public class MessageInboxPresenter {
         void setChatroomCanvasTitle(String newTitle);
         void setMessageArea(ArrayList<String> messageData);
         void setPinnedMessage(ArrayList<String> messageData);
+        void clearMessages();
+        void clearChatroomOptions();
     }
 }
