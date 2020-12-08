@@ -20,6 +20,10 @@ import java.util.*;
 public class ConferenceSimulator {
     // For database saving
     DatabaseInteractor databaseInteractor = new DatabaseInteractor();
+    // For local saving, must modify the following classes by following appropriate comments
+    // ConferenceSimulator
+    // ConferenceBuilder
+    // HomeMenuGUI
 
     /**
      * The static main method will run this method to start the application.
