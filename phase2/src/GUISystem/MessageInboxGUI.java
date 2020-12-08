@@ -78,7 +78,7 @@ public class MessageInboxGUI extends Application implements MessageInboxPresente
         chatroomOptionsScrollable.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
         chatroomOptionsScrollable.setVbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
         chatroomOptions = new VBox();
-        chatroomOptionsScrollable.setPrefSize(180, 500);
+        chatroomOptionsScrollable.setPrefSize(180, 510);
         chatroomOptionsScrollable.setContent(chatroomOptions);
         chatroomOptionsScrollable.setStyle("-fx-background-color:white;");
         // CHILD #3: SEARCH BAR
@@ -131,10 +131,16 @@ public class MessageInboxGUI extends Application implements MessageInboxPresente
                 pinnedMessages.setBackground(new Background(new BackgroundFill(Color.LIGHTGRAY, CornerRadii.EMPTY, Insets.EMPTY)));
                 pinnedMessages.setBorder(new Border(new BorderStroke(Color.LIGHTGRAY, BorderStrokeStyle.SOLID, CornerRadii.EMPTY, new BorderWidths(4))));
                 mi.loadPinnedView(recipient);
+                sendMessage.setDisable(true);
+                messageBox.setText("You are currently viewing pinned messages.");
+                messageBox.setDisable(true);
             } else {
                 pinnedMessages.setBackground(new Background(new BackgroundFill(Color.WHITE, CornerRadii.EMPTY, Insets.EMPTY)));
                 pinnedMessages.setBorder(new Border(new BorderStroke(Color.WHITE, BorderStrokeStyle.SOLID, CornerRadii.EMPTY, new BorderWidths(4))));
                 mi.loadMessageCanvasView(recipient);
+                sendMessage.setDisable(false);
+                messageBox.setText("");
+                messageBox.setDisable(false);
             }
         });
         pinnedMessages.setDisable(true);
@@ -287,7 +293,7 @@ public class MessageInboxGUI extends Application implements MessageInboxPresente
         VBox messageContainer = new VBox();
         messageContainer.setPadding(new Insets(10, 10, 10, 10));
 
-        HBox senderData = new HBox(10);
+        HBox senderData = new HBox(6);
         senderData.setAlignment(Pos.TOP_LEFT);
         Label sender = new Label(mi.getDisplayName(messageData.get(0)));
         sender.setFont(Font.loadFont(getClass().getResourceAsStream("/open-sans/os-bold.ttf"), 12));
@@ -309,7 +315,14 @@ public class MessageInboxGUI extends Application implements MessageInboxPresente
             delete.setPadding(Insets.EMPTY);
             delete.setFont(Font.loadFont(getClass().getResourceAsStream("/open-sans/os-bold.ttf"), 10));
             delete.setTextFill(Color.CRIMSON);
-            delete.setOnAction(e -> mi.removeMessage(delete.getId(), recipient));
+            delete.setOnAction(e -> {
+                mi.removeMessage(delete.getId(), recipient);
+                if (sendMessage.isDisable()) {
+                    sendMessage.setDisable(false);
+                    messageBox.setText("");
+                    messageBox.setDisable(false);
+                }
+            });
             messageOptions.getChildren().add(delete);
         }
 
