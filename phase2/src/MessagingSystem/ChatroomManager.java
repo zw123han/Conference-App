@@ -106,6 +106,14 @@ public class ChatroomManager implements Serializable, Savable {
         chatrooms.remove(usernames);
     }
 
+    public void deleteChatrooms(String username) {
+        for (ArrayList<String> key : chatrooms.keySet()) {
+            if (key.contains(username)) {
+                chatrooms.remove(key);
+            }
+        }
+    }
+
     /**
      * Deletes Chatroom with specific users.
      *
