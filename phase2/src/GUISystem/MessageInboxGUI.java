@@ -24,7 +24,7 @@ public class MessageInboxGUI extends Application implements MessageInboxPresente
     private Label chatroomCanvasTitle;
     private Label messageCanvasTitle;
     private TextArea messageBox;
-    private String recipient;
+    private String recipient = "";
     private HBox messageBar;
     private Button sendMessage;
     private ToggleButton pinnedMessages;
@@ -146,18 +146,20 @@ public class MessageInboxGUI extends Application implements MessageInboxPresente
         // Putting everything into messageBar
         messageBar.getChildren().addAll(messageCanvasTitle, pinnedMessages);
         pinnedMessages.setDisable(true);
+        Button newMessage = squareButtonConstructor(Color.ROYALBLUE, "+");
+        newMessage.setOnAction(e -> {
+            Stage outboxWindow = new Stage();
+            mo.start(outboxWindow);
+            mi.loadChatroomCanvasView();
+            mi.loadMessageCanvasView(recipient);
+        });
+        StackPane block = new StackPane();
+        block.setPrefSize(40, 40);
         if (mi.canSendAll()) {
-            // New Message Button if user has permission
-            Button newMessage = squareButtonConstructor(Color.ROYALBLUE, "+");
-            newMessage.setOnAction(e -> {
-                Stage outboxWindow = new Stage();
-                mo.start(outboxWindow);
-            });
+            // adds New Message Button if user has permission
             messageBar.getChildren().add(newMessage);
         } else {
-            // Builds a block the same size as the new message button otherwise
-            StackPane block = new StackPane();
-            block.setPrefSize(40, 40);
+            // Adds a block the same size as the new message button otherwise
             messageBar.getChildren().add(1, block);
         }
         // CHILD #2: SCROLLABLE MESSAGE HISTORY

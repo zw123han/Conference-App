@@ -66,12 +66,14 @@ public class MessageInboxPresenter {
     }
 
     public void loadMessageCanvasView(String recipient) {
-        messageInboxController.markAllRead(recipient);
-        view.clearMessages();
-        view.setMessageCanvasTitle(messageInboxController.getDisplayName(recipient));
-        view.setChatroomCanvasTitle(messageInboxController.getTotalUnread());
-        for (ArrayList<String> messageData : messageInboxController.getMessages(recipient)) {
-            view.setMessageArea(messageData);
+        if (!recipient.equals("")) {
+            messageInboxController.markAllRead(recipient);
+            view.clearMessages();
+            view.setMessageCanvasTitle(messageInboxController.getDisplayName(recipient));
+            view.setChatroomCanvasTitle(messageInboxController.getTotalUnread());
+            for (ArrayList<String> messageData : messageInboxController.getMessages(recipient)) {
+                view.setMessageArea(messageData);
+            }
         }
     }
 
