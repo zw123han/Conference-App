@@ -66,7 +66,7 @@ public class AccountCreationMenu extends Application{
                 if(loginOptionsFacade.createUser(name, username, password, "attendee")){
                     // Stops playing song upon menu change
                     accountMessage.setFill(Color.GREEN);
-                    accountMessage.setText("Account creation successful. Please login and save to activate your account.");
+                    accountMessage.setText("Account creation successful. Please login.");
                 }
                 else{
                     accountMessage.setFill(Color.RED);

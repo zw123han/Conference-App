@@ -57,6 +57,8 @@ public class ConferenceSimulator {
 
         // For database saving
         // Save and disconnect from database
+        databaseInteractor.saveToDatabase();
+        System.out.println("Save successful");
         databaseInteractor.disconnect();
 
         // For local saving
