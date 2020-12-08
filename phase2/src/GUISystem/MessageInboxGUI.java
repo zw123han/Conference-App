@@ -95,10 +95,11 @@ public class MessageInboxGUI extends Application implements MessageInboxPresente
                 } else {
                     searchBar.setText("Search user...");
                     searchBar.setStyle("-fx-text-fill: #aaa");
+                    mi.loadChatroomCanvasView();
                 }
             }
         });
-        searchBar.setOnKeyPressed(e -> mi.updateChatroomCanvasView(searchBar.getText()));
+        searchBar.setOnKeyReleased(e -> mi.updateChatroomCanvasView(searchBar.getText()));
         // PUTTING EVERYTHING INTO CHATROOM CANVAS
         chatroomCanvas.getChildren().addAll(chatroomBar, chatroomOptionsScrollable, userSearch);
 
@@ -143,7 +144,7 @@ public class MessageInboxGUI extends Application implements MessageInboxPresente
         messageBar.getChildren().addAll(messageCanvasTitle, pinnedMessages, newMessage);
         // CHILD #2: SCROLLABLE MESSAGE HISTORY
         ScrollPane messagesScrollable = new ScrollPane();
-        messageDisplay = new VBox(10);
+        messageDisplay = new VBox();
         messagesScrollable.setPrefSize(320, 500);
         messagesScrollable.setContent(messageDisplay);
         messagesScrollable.setVvalue(1.0);
@@ -168,8 +169,9 @@ public class MessageInboxGUI extends Application implements MessageInboxPresente
         sendMessage.setPadding(new Insets(8));
         sendMessage.setDisable(true);
         sendMessage.setOnAction(e -> {
-            mi.sendMessage(messageBox.getText(), recipient);
+            String temp = messageBox.getText();
             messageBox.setText("");
+            mi.sendMessage(temp, recipient);
         });
         // Putting everything into MessageBar
         textFieldBar.getChildren().addAll(messageBox, sendMessage);
@@ -237,11 +239,11 @@ public class MessageInboxGUI extends Application implements MessageInboxPresente
     }
 
     public void clearMessages() {
-        messageDisplay.getChildren().removeAll();
+        messageDisplay.getChildren().clear();
     }
 
     public void clearChatroomOptions() {
-        chatroomOptions.getChildren().removeAll();
+        chatroomOptions.getChildren().clear();
     }
 
     public void setChatroomOption(ArrayList<String> option) {
@@ -257,7 +259,7 @@ public class MessageInboxGUI extends Application implements MessageInboxPresente
             this.recipient = chat.getId();
             chat.setBackground(new Background(new BackgroundFill(Color.LIGHTGREY, CornerRadii.EMPTY, Insets.EMPTY)));
             chat.setGraphic(chatroomOptionConstructor(option.get(0), option.get(1), ""));
-            mi.loadMessageCanvasView(option.get(0), recipient);
+            mi.loadMessageCanvasView(recipient);
             // Sets only the current button background to grey -- everything else is reset to white
             for (Object obj : chatroomOptions.getChildren().toArray()) {
                 if (obj instanceof Button && !obj.equals(chat)) {
@@ -271,15 +273,14 @@ public class MessageInboxGUI extends Application implements MessageInboxPresente
         chatroomOptions.getChildren().add(chat);
     }
 
-    private HBox constructMessageBox(ArrayList<String> messageData) {
-        HBox messageContainer = new HBox(10);
-        CornerRadii corn = new CornerRadii(10);
-        Background background = new Background(new BackgroundFill(Color.ALICEBLUE, corn, new Insets(20)));
-        messageContainer.setBackground(background);
+    private VBox constructMessageBox(ArrayList<String> messageData) {
+        VBox messageContainer = new VBox();
+        messageContainer.setPadding(new Insets(10, 10, 10, 10));
+        messageContainer.setId(messageData.get(3));
 
-        VBox senderData = new VBox();
+        HBox senderData = new HBox(10);
         senderData.setAlignment(Pos.TOP_LEFT);
-        Label sender = new Label(messageData.get(0));
+        Label sender = new Label(mi.getDisplayName(messageData.get(0)));
         sender.setFont(Font.loadFont(getClass().getResourceAsStream("/open-sans/os-bold.ttf"), 12));
         Label date = new Label(messageData.get(1));
         date.setFont(Font.loadFont(getClass().getResourceAsStream("/open-sans/os-regular.ttf"), 12));
@@ -287,11 +288,30 @@ public class MessageInboxGUI extends Application implements MessageInboxPresente
         senderData.getChildren().addAll(sender, date);
 
         Label message = new Label(messageData.get(2));
+        message.setPrefWidth(280);
         message.setFont(Font.loadFont(getClass().getResourceAsStream("/open-sans/os-regular.ttf"), 12));
         message.setWrapText(true);
 
-        messageContainer.getChildren().addAll(senderData, message);
-        messageContainer.setId(messageData.get(3));
+        HBox messageOptions = new HBox(6);
+
+        if (mi.canDelete(messageData.get(0))) {
+            Hyperlink delete = new Hyperlink("Delete");
+            delete.setPadding(Insets.EMPTY);
+            delete.setFont(Font.loadFont(getClass().getResourceAsStream("/open-sans/os-bold.ttf"), 10));
+            delete.setTextFill(Color.CRIMSON);
+            delete.setOnAction(e -> {
+                mi.removeMessage(messageContainer.getId(), recipient);
+            });
+            messageOptions.getChildren().add(delete);
+        }
+
+        Hyperlink pin = new Hyperlink("Pin Message");
+        pin.setPadding(Insets.EMPTY);
+        pin.setFont(Font.loadFont(getClass().getResourceAsStream("/open-sans/os-bold.ttf"), 10));
+        pin.setTextFill(Color.BLACK);
+        messageOptions.getChildren().add(pin);
+
+        messageContainer.getChildren().addAll(senderData, message, messageOptions);
         return messageContainer;
     }
 
@@ -305,7 +325,6 @@ public class MessageInboxGUI extends Application implements MessageInboxPresente
     }
 
     public void setMessageArea(ArrayList<String> messageData) {
-        // TODO: Test and update after outbox is completed
         messageDisplay.getChildren().add(constructMessageBox(messageData));
     }
 

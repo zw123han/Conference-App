@@ -28,6 +28,10 @@ public class MessageInboxController {
         this.cm = cm;
     }
 
+    public boolean canDelete(String person) {
+        return username.equals(person) || reg.isAdmin(username);
+    }
+
     /**
      * Sets username to that of the currently logged in user.
      *
@@ -149,7 +153,7 @@ public class MessageInboxController {
         ArrayList<String> recipients = new ArrayList<>();
         recipients.add(username);
         recipients.add(recipient);
-        cm.sendOne(recipients, message, username);
+        cm.sendOne(recipients, message.trim(), username);
     }
 
     /**
@@ -159,7 +163,7 @@ public class MessageInboxController {
      * @return boolean      True if length is not 0, false otherwise
      */
     public boolean validateMessage(String message) {
-        return message.length() != 0;
+        return message.trim().length() != 0;
     }
 
 }

@@ -115,7 +115,11 @@ public class MessageInboxDataCollector extends CommandPresenter {
     }
 
     public ArrayList<String> getNewestMessage(String recipient) {
-        return getMessages(recipient, "all").get(getMessages(recipient, "all").size());
+        return getMessages(recipient, "all").get(getMessages(recipient, "all").size()-1);
+    }
+
+    public String getDisplayName(String username) {
+        return reg.getNameByUsername(username);
     }
 
     /**

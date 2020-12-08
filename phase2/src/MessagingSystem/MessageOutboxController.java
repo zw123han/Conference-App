@@ -45,7 +45,7 @@ public class MessageOutboxController {
      * @return boolean      True if length is not 0, false otherwise
      */
     public boolean validateMessage(String message) {
-        return message.length() != 0;
+        return message.trim().length() != 0;
     }
 
     /**
@@ -113,7 +113,7 @@ public class MessageOutboxController {
         ArrayList<String> recipients = new ArrayList<>();
         recipients.add(username);
         recipients.add(recipient);
-        cm.sendOne(recipients, message, username);
+        cm.sendOne(recipients, message.trim(), username);
     }
 
     private String formatSendAll(String message, Long evt) {
@@ -131,7 +131,7 @@ public class MessageOutboxController {
     public boolean sendMessage(Long evt, String message) {
         try {
             ArrayList<String> recipients = em.getSignedUpUsers(evt);
-            cm.sendAll(recipients, formatSendAll(message, evt), username);
+            cm.sendAll(recipients, formatSendAll(message.trim(), evt), username);
             return true;
         } catch (EventNotFoundException e) {
             return false;

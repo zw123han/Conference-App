@@ -38,6 +38,10 @@ public class MessageInboxPresenter {
         ic.setLoggedInUser(currentUser);
     }
 
+    public String getDisplayName(String username) {
+        return ip.getDisplayName(username);
+    }
+
     private ArrayList<ArrayList<String>> sortChatrooms(ArrayList<ArrayList<String>> chatrooms) {
         ArrayList<ArrayList<String>> sortedChatrooms = new ArrayList<>();
         int i = 0;
@@ -65,15 +69,15 @@ public class MessageInboxPresenter {
         }
     }
 
-    public void loadMessageCanvasView(String recipientName, String username) {
-        ic.markAllRead(recipientName);
+    public void loadMessageCanvasView(String recipient) {
+        ic.markAllRead(recipient);
         view.clearMessages();
-        view.setMessageCanvasTitle(recipientName);
+        view.setMessageCanvasTitle(ip.getDisplayName(recipient));
         view.setChatroomCanvasTitle(ip.getTotalUnread());
-        for (ArrayList<String> messageData : ip.getMessages(username, "all")) {
+        for (ArrayList<String> messageData : ip.getMessages(recipient, "all")) {
             view.setMessageArea(messageData);
         }
-        for (ArrayList<String> messageData : ip.getMessages(username, "pinned")) {
+        for (ArrayList<String> messageData : ip.getMessages(recipient, "pinned")) {
             view.setPinnedMessage(messageData);
         }
     }
@@ -93,6 +97,15 @@ public class MessageInboxPresenter {
                 view.setChatroomOption(option);
             }
         }
+    }
+
+    public void removeMessage(String id, String recipient) {
+        ic.deleteMessage(recipient, id);
+        loadMessageCanvasView(recipient);
+    }
+
+    public boolean canDelete(String username) {
+        return ic.canDelete(username);
     }
 
 //        /**
