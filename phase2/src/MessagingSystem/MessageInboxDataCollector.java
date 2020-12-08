@@ -42,21 +42,21 @@ public class MessageInboxDataCollector extends CommandPresenter {
         username = currentUser;
     }
 
-    private ArrayList<String> getUsersTalkto() {
-        ArrayList<String> users = new ArrayList<>();
-        HashMap<ArrayList<String>, Chatroom> cms = cm.getAllChatrooms(username);
-        for (ArrayList<String> key : cms.keySet()) {
-            if (key.contains(username)) {
-                for (String person : key) {
-                    if (!person.equals(username)) {
-                        users.add(person);
-                    }
-                }
-            }
-        }
-        return users;
-    }
-
+//    private ArrayList<String> getUsersTalkto() {
+//        ArrayList<String> users = new ArrayList<>();
+//        HashMap<ArrayList<String>, Chatroom> cms = cm.getAllChatrooms(username);
+//        for (ArrayList<String> key : cms.keySet()) {
+//            if (key.contains(username)) {
+//                for (String person : key) {
+//                    if (!person.equals(username)) {
+//                        users.add(person);
+//                    }
+//                }
+//            }
+//        }
+//        return users;
+//    }
+//
     private Integer getNumUnread(String friend) {
         Chatroom c = cm.getChatroom(username, friend);
         return c.getUnread(username);
@@ -64,7 +64,7 @@ public class MessageInboxDataCollector extends CommandPresenter {
 
     public String getTotalUnread() {
         int counter = 0;
-        for (String friend : getUsersTalkto()) {
+        for (String friend : reg.getUserFriends(username)) {
             counter += getNumUnread(friend);
         }
         return Integer.toString(counter);
@@ -76,7 +76,7 @@ public class MessageInboxDataCollector extends CommandPresenter {
      * @return     text display for chat histories
      */
     public ArrayList<ArrayList<String>> getChatroomOptions() {
-        ArrayList<String> users = getUsersTalkto();
+        ArrayList<String> users = reg.getUserFriends(username);
         ArrayList<ArrayList<String>> result = new ArrayList<>();
         for (String user : users) {
             ArrayList<String> temp = new ArrayList<>();
@@ -123,66 +123,66 @@ public class MessageInboxDataCollector extends CommandPresenter {
      *
      * @return   text display for chatlog
      */
-    public String chatView(String recipient) {
-        Chatroom c = cm.getChatroom(username, recipient);
-        ArrayList<Integer> history = c.getMessagePositions();
-        return chatroomFormatter(history, c);
-    }
+//    public String chatView(String recipient) {
+//        Chatroom c = cm.getChatroom(username, recipient);
+//        ArrayList<Integer> history = c.getMessagePositions();
+//        return chatroomFormatter(history, c);
+//    }
 
     /**
      * Formats the pinned messages in the same manner as in the chat.
      *
      * @return   text display for pinned messages
      */
-    public String viewPinned(String recipient) {
-        Chatroom c = cm.getChatroom(username, recipient);
-        ArrayList<Integer> pinned = c.getPinned();
-        String result = "\nPINNED MESSAGES:\n------------------------";
-        if (pinned.isEmpty()) {
-            return result + "\nThere are no pinned messages.\n";
-        }
-        return result + chatroomFormatter(pinned, c);
-    }
+//    public String viewPinned(String recipient) {
+//        Chatroom c = cm.getChatroom(username, recipient);
+//        ArrayList<Integer> pinned = c.getPinned();
+//        String result = "\nPINNED MESSAGES:\n------------------------";
+//        if (pinned.isEmpty()) {
+//            return result + "\nThere are no pinned messages.\n";
+//        }
+//        return result + chatroomFormatter(pinned, c);
+//    }
 
-    private String chatroomFormatter(ArrayList<Integer> positions, Chatroom c) {
-        StringBuilder result = new StringBuilder();
-        for (Integer m : positions) {
-            String sender = c.getSender(m);
-            result.append("\n(")
-                    .append(m)
-                    .append(") ");
-            if (c.isPinned(m)) {
-                result.append("PIN");
-            }
-            if (c.isUnread(username, m)) {
-                result.append("*");
-            }
-            result.append("\nFrom: ")
-                    .append(reg.getNameByUsername(sender))
-                    .append(" (@")
-                    .append(sender)
-                    .append(")")
-                    .append("\nSent: ")
-                    .append(c.getDate(m))
-                    .append("\n")
-                    .append(messageFormatter(c.getMessage(m)))
-                    .append("\n");
-        }
-        return result.toString();
-    }
+//    private String chatroomFormatter(ArrayList<Integer> positions, Chatroom c) {
+//        StringBuilder result = new StringBuilder();
+//        for (Integer m : positions) {
+//            String sender = c.getSender(m);
+//            result.append("\n(")
+//                    .append(m)
+//                    .append(") ");
+//            if (c.isPinned(m)) {
+//                result.append("PIN");
+//            }
+//            if (c.isUnread(username, m)) {
+//                result.append("*");
+//            }
+//            result.append("\nFrom: ")
+//                    .append(reg.getNameByUsername(sender))
+//                    .append(" (@")
+//                    .append(sender)
+//                    .append(")")
+//                    .append("\nSent: ")
+//                    .append(c.getDate(m))
+//                    .append("\n")
+//                    .append(messageFormatter(c.getMessage(m)))
+//                    .append("\n");
+//        }
+//        return result.toString();
+//    }
 
-    private String messageFormatter(String message) {
-        StringBuilder sbm = new StringBuilder(filterProfanity(message));
-        int i = 0;
-        while (i + 80 < sbm.length()) {
-            int firstSpace = sbm.indexOf(" ", i + 80);
-            if (firstSpace != -1) {
-                sbm.replace(firstSpace, firstSpace + 1, "\n");
-            }
-            i += 80;
-        }
-        return sbm.substring(0, sbm.toString().length()-1);
-    }
+//    private String messageFormatter(String message) {
+//        StringBuilder sbm = new StringBuilder(filterProfanity(message));
+//        int i = 0;
+//        while (i + 80 < sbm.length()) {
+//            int firstSpace = sbm.indexOf(" ", i + 80);
+//            if (firstSpace != -1) {
+//                sbm.replace(firstSpace, firstSpace + 1, "\n");
+//            }
+//            i += 80;
+//        }
+//        return sbm.substring(0, sbm.toString().length()-1);
+//    }
 
     private ArrayList<String> getTrailingStrings(String profanity, ArrayList<String> allFiller) {
         ArrayList<String> result = new ArrayList<>();
@@ -244,25 +244,25 @@ public class MessageInboxDataCollector extends CommandPresenter {
      * @return         text display for chatlog
      */
 
-    public String whichMessage(String option){
-        return "Type the number above the message you want to " + option +".";
-    }
-
-    /**
-     * Formats a menu for messaging that includes basic options the select.
-     *
-     * @return     text display for message menu.
-     */
-    public String messageMenu() {
-        return "1) Delete messages\n2) Pin/Unpin message\n3) View pinned";
-    }
-
-    /**
-     * Formats a menu option for when a user can reply to a message.
-     *
-     * @return    text display option for a reply.
-     */
-    public String replyMessage() {
-        return "4) Reply to messages";
-    }
+//    public String whichMessage(String option){
+//        return "Type the number above the message you want to " + option +".";
+//    }
+//
+//    /**
+//     * Formats a menu for messaging that includes basic options the select.
+//     *
+//     * @return     text display for message menu.
+//     */
+//    public String messageMenu() {
+//        return "1) Delete messages\n2) Pin/Unpin message\n3) View pinned";
+//    }
+//
+//    /**
+//     * Formats a menu option for when a user can reply to a message.
+//     *
+//     * @return    text display option for a reply.
+//     */
+//    public String replyMessage() {
+//        return "4) Reply to messages";
+//    }
 }
