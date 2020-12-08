@@ -116,27 +116,27 @@ public class MessageInboxGUI extends Application implements MessageInboxPresente
         messageCanvasTitle = new Label("Select a chat");
         messageCanvasTitle.setFont(Font.loadFont(getClass().getResourceAsStream("/open-sans/os-bold.ttf"), 16));
         messageCanvasTitle.setPadding(new Insets(10));
-        messageCanvasTitle.setPrefSize(225, 40);
+        messageCanvasTitle.setPrefSize(210, 40);
         // Pin Message
         pinnedMessages = new ToggleButton("Pins");
         pinnedMessages.setFont(Font.loadFont(getClass().getResourceAsStream("/open-sans/os-bold.ttf"), 12));
         pinnedMessages.setPadding(new Insets(8));
-        pinnedMessages.setPrefHeight(40);
-        pinnedMessages.setPrefWidth(50);
-        pinnedMessages.setBackground(new Background(new BackgroundFill(Color.WHITE, CornerRadii.EMPTY, Insets.EMPTY)));
-        pinnedMessages.setBorder(new Border(new BorderStroke(Color.WHITE, BorderStrokeStyle.SOLID, CornerRadii.EMPTY, new BorderWidths(4))));
-        pinnedMessages.setTextFill(Color.BLACK);
+        pinnedMessages.setPrefHeight(45);
+        pinnedMessages.setPrefWidth(65);
+        pinnedMessages.setBackground(new Background(new BackgroundFill(Color.CRIMSON, CornerRadii.EMPTY, Insets.EMPTY)));
+        pinnedMessages.setBorder(new Border(new BorderStroke(Color.CRIMSON, BorderStrokeStyle.SOLID, CornerRadii.EMPTY, new BorderWidths(4))));
+        pinnedMessages.setTextFill(Color.WHITE);
         pinnedMessages.selectedProperty().addListener((observable, oldValue, newValue) -> {
             if (newValue) {
-                pinnedMessages.setBackground(new Background(new BackgroundFill(Color.LIGHTGRAY, CornerRadii.EMPTY, Insets.EMPTY)));
-                pinnedMessages.setBorder(new Border(new BorderStroke(Color.LIGHTGRAY, BorderStrokeStyle.SOLID, CornerRadii.EMPTY, new BorderWidths(4))));
+                pinnedMessages.setBackground(new Background(new BackgroundFill(Color.DARKRED, CornerRadii.EMPTY, Insets.EMPTY)));
+                pinnedMessages.setBorder(new Border(new BorderStroke(Color.DARKRED, BorderStrokeStyle.SOLID, CornerRadii.EMPTY, new BorderWidths(4))));
                 mi.loadPinnedView(recipient);
                 sendMessage.setDisable(true);
                 messageBox.setText("You are currently viewing pinned messages.");
                 messageBox.setDisable(true);
             } else {
-                pinnedMessages.setBackground(new Background(new BackgroundFill(Color.WHITE, CornerRadii.EMPTY, Insets.EMPTY)));
-                pinnedMessages.setBorder(new Border(new BorderStroke(Color.WHITE, BorderStrokeStyle.SOLID, CornerRadii.EMPTY, new BorderWidths(4))));
+                pinnedMessages.setBackground(new Background(new BackgroundFill(Color.CRIMSON, CornerRadii.EMPTY, Insets.EMPTY)));
+                pinnedMessages.setBorder(new Border(new BorderStroke(Color.CRIMSON, BorderStrokeStyle.SOLID, CornerRadii.EMPTY, new BorderWidths(4))));
                 mi.loadMessageCanvasView(recipient);
                 sendMessage.setDisable(false);
                 messageBox.setText("");
