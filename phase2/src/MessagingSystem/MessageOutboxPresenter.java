@@ -39,6 +39,27 @@ public class MessageOutboxPresenter {
         oc.setLoggedInUser(currentUser);
     }
 
+    /**
+     * Sends message to all attendees in an event.
+     *
+     * @param evt           ID of an event
+     * @param message       String of message to be sent
+     * @return true if messages are sent
+     */
+    public boolean sendMessage(Long evt, String message) {
+        return oc.sendMessage(evt, message);
+    }
+
+
+    /**
+     * Gets the info of the events to which this user can send a message.
+     *
+     * @return   A HashMap with event info as keys and ids as values.
+     */
+    public HashMap<String, Long> getAllEventInfo() {
+        return oc.getAllEventInfo();
+    }
+
 //    public void promptChatChoice() {
 //        String level = oc.getPermissionLevel().toLowerCase();
 //        if (level.equals("usersystem.administrator") || level.equals("usersystem.organizer")) {

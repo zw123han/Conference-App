@@ -3,6 +3,7 @@ package MessagingSystem;
 import UserSystem.*;
 import EventSystem.*;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 /**
  * For managing user permissions when sending messages.
@@ -150,6 +151,27 @@ public class MessageOutboxController {
             return reg.getSpeakerTalks(username);
         }
         return new ArrayList<>();
+    }
+
+    /**
+     * Gets the info of the events to which this user can send a message.
+     *
+     * @return   A HashMap with event info as keys and ids as values.
+     */
+    public HashMap<String, Long> getAllEventInfo() {
+        HashMap<String, Long> info = new HashMap<>();
+        if (reg.isOrganizer(username) || reg.isAdmin(username)) {
+            for(Long id : em.getEventIDs()){
+                String temp = em.getName(id) + " (" + em.getType(id) +") [Room " + em.getRoom(id) + " at " + em.getTime(id) + "]";
+                info.put(temp, id);
+            }
+        } else if (reg.isSpeaker(username)) {
+            for(Long id : reg.getSpeakerTalks(username)) {
+                String temp = em.getName(id) + " (" + em.getType(id) +") [Room " + em.getRoom(id) + " at " + em.getTime(id) + "]";
+                info.put(temp, id);
+            }
+        }
+        return info;
     }
 
     /**
