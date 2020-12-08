@@ -15,7 +15,7 @@ public class EventSignupPresenter {
     private EventSignup es;
     private EventInterface eventInterface;
     /**
-     * Creates an instance of EvenSignupPresenter
+     * Creates an instance of EventSignupPresenter
      *
      * @param es        instance of EventSignup to be used for the program
      * @param em        instance of EventMangaer used by the program

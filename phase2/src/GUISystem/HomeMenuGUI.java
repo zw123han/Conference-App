@@ -35,7 +35,10 @@ public class HomeMenuGUI extends Application implements UserMenuGetter {
     private MessageInboxGUI messageMenu;
     private FriendsMenuGUI friendsMenu;
     private PasswordMenu passwordMenu;
+    // For database saving
     private DatabaseInteractor databaseInteractor;
+    // For local saving
+    // private MainProgram.LocalSave localSave;
     private EventMenuGUI eventMenu;
     private ManageEventMenu manageEventMenu;
     private ManageAccountMenu manageAccountMenu;
@@ -117,7 +120,10 @@ public class HomeMenuGUI extends Application implements UserMenuGetter {
             @Override
             public void handle(ActionEvent event) {
                 loginOptionsFacade.logout();
+                // For database saving
                 databaseInteractor.saveToDatabase();
+                // For local saving
+                // localSave.save();
                 System.out.println("Save successful");
                 menuGetter.goLogin(primaryStage);
             }
@@ -128,7 +134,10 @@ public class HomeMenuGUI extends Application implements UserMenuGetter {
         saveButton.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
+                // For database saving
                 databaseInteractor.saveToDatabase();
+                // For local saving
+                // localSave.save();
                 System.out.println("Save successful");
             }
         });
@@ -165,9 +174,14 @@ public class HomeMenuGUI extends Application implements UserMenuGetter {
     public void setPasswordMenu(PasswordMenu passwordMenu){
         this.passwordMenu = passwordMenu;
     }
+    // For database saving
     public void setSave(DatabaseInteractor databaseInteractor){
         this.databaseInteractor = databaseInteractor;
     }
+    // For local saving
+    // public void steSave(MainProgram.LocalSave localSave){
+        // this.localSave = localSave;
+    // }
     @Override
     public void goBack(Stage primaryStage) {
         start(primaryStage);

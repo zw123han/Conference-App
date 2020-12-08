@@ -1,3 +1,5 @@
+import MainProgram.ConferenceSimulator;
+
 /**
  * Main static method of program.
  *

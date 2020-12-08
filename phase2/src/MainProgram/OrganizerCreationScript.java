@@ -1,3 +1,5 @@
+package MainProgram;
+
 import UserSystem.CredentialsUseCase;
 import UserSystem.Registrar;
 
