@@ -28,6 +28,7 @@ public class MessageInboxGUI extends Application implements MessageInboxPresente
     private HBox messageBar;
     private Button sendMessage;
     private MenuButton pinnedMessages;
+    private ScrollPane messagesScrollable;
 
     public void setInboxElements(MessageInboxPresenter mi, MessageOutboxGUI mo) {
         this.mi = mi;
@@ -74,34 +75,38 @@ public class MessageInboxGUI extends Application implements MessageInboxPresente
         chatroomBar.getChildren().addAll(goBack, chatroomCanvasTitle);
         // CHILD #2: SCROLLABLE CHATROOM OPTIONS
         ScrollPane chatroomOptionsScrollable = new ScrollPane();
+        chatroomOptionsScrollable.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
+        chatroomOptionsScrollable.setVbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
         chatroomOptions = new VBox();
         chatroomOptionsScrollable.setPrefSize(180, 500);
         chatroomOptionsScrollable.setContent(chatroomOptions);
+        chatroomOptionsScrollable.setStyle("-fx-background-color:white;");
         // CHILD #3: SEARCH BAR
         VBox userSearch = new VBox();
-        userSearch.setPrefSize(180, 40);
-        userSearch.setPadding(new Insets(10, 5, 10, 5));
+        userSearch.setPrefSize(180, 20);
+        userSearch.setPadding(new Insets(5));
         TextField searchBar = new TextField("Search user...");
         searchBar.setFont(Font.loadFont(getClass().getResourceAsStream("/open-sans/os-regular.ttf"), 12));
-        searchBar.setStyle("-fx-text-fill: #aaa");
-        searchBar.setBackground(new Background(new BackgroundFill(Color.BLACK, CornerRadii.EMPTY, Insets.EMPTY)));
-        userSearch.getChildren().add(searchBar);
+        searchBar.setStyle("-fx-text-fill: #888");
+        searchBar.setBackground(new Background(new BackgroundFill(Color.WHITE, CornerRadii.EMPTY, Insets.EMPTY)));
         searchBar.focusedProperty().addListener(new ChangeListener<Boolean>() {
             @Override
             public void changed(ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) {
                 if (newValue) {
                     searchBar.setText("");
-                    searchBar.setStyle("-fx-text-fill: white");
+                    searchBar.setStyle("-fx-text-fill: black");
                 } else {
                     searchBar.setText("Search user...");
-                    searchBar.setStyle("-fx-text-fill: #aaa");
+                    searchBar.setStyle("-fx-text-fill: #888");
                     mi.loadChatroomCanvasView();
                 }
             }
         });
         searchBar.setOnKeyReleased(e -> mi.updateChatroomCanvasView(searchBar.getText()));
+        userSearch.setBackground(new Background(new BackgroundFill(Color.WHITE, CornerRadii.EMPTY, Insets.EMPTY)));
+        userSearch.getChildren().add(searchBar);
         // PUTTING EVERYTHING INTO CHATROOM CANVAS
-        chatroomCanvas.getChildren().addAll(chatroomBar, chatroomOptionsScrollable, userSearch);
+        chatroomCanvas.getChildren().addAll(chatroomBar, userSearch, chatroomOptionsScrollable);
 
         // CHAT MESSAGES CONTAINER
         VBox messageCanvas = new VBox();
@@ -143,11 +148,14 @@ public class MessageInboxGUI extends Application implements MessageInboxPresente
         // Putting everything into messageBar
         messageBar.getChildren().addAll(messageCanvasTitle, pinnedMessages, newMessage);
         // CHILD #2: SCROLLABLE MESSAGE HISTORY
-        ScrollPane messagesScrollable = new ScrollPane();
+        messagesScrollable = new ScrollPane();
         messageDisplay = new VBox();
         messagesScrollable.setPrefSize(320, 500);
         messagesScrollable.setContent(messageDisplay);
         messagesScrollable.setVvalue(1.0);
+        messagesScrollable.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
+        messagesScrollable.setVbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
+        messagesScrollable.setStyle("-fx-background-color:white;");
         // CHILD #3: MESSAGE TEXT AREA
         HBox textFieldBar = new HBox(5);
         textFieldBar.setPrefSize(320, 160);
@@ -270,6 +278,9 @@ public class MessageInboxGUI extends Application implements MessageInboxPresente
         });
 
         chat.setGraphic(chatroomOptionConstructor(option.get(0), option.get(1), option.get(2)));
+        chat.setBorder(new Border(new BorderStroke(Color.LIGHTGRAY, Color.LIGHTGRAY, Color.LIGHTGRAY, Color.LIGHTGRAY,
+                BorderStrokeStyle.SOLID, BorderStrokeStyle.NONE, BorderStrokeStyle.NONE, BorderStrokeStyle.NONE,
+                CornerRadii.EMPTY, new BorderWidths(1), Insets.EMPTY)));
         chatroomOptions.getChildren().add(chat);
     }
 
@@ -326,6 +337,7 @@ public class MessageInboxGUI extends Application implements MessageInboxPresente
 
     public void setMessageArea(ArrayList<String> messageData) {
         messageDisplay.getChildren().add(constructMessageBox(messageData));
+        messagesScrollable.setVvalue(1.0);
     }
 
     public void display(Stage primaryStage) {
