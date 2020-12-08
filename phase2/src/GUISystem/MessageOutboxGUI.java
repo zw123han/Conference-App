@@ -56,6 +56,9 @@ public class MessageOutboxGUI extends Application implements MessageOutboxPresen
 
         ComboBox dropdownMenu = new ComboBox();
         HashMap<String, Long> events = mo.getAllEventInfo();
+        if(mo.canSendToSpeakers()){
+            dropdownMenu.getItems().add("All speakers");
+        }
         for(String info : events.keySet()){
             dropdownMenu.getItems().add(info);
         }
@@ -82,12 +85,16 @@ public class MessageOutboxGUI extends Application implements MessageOutboxPresen
         sendMessage.setDisable(false);
 
         sendMessage.setOnAction(e -> {
-            String tempEventInfo = dropdownMenu.getValue().toString();
+            String tempChoice = dropdownMenu.getValue().toString();
             String tempMessage = messageBox.getText();
-            if(!tempMessage.equals("") && !tempEventInfo.equals("")){
+            if(!tempMessage.equals("") && !tempChoice.equals("")){
                 messageBox.setText("");
                 dropdownMenu.setValue(null);
-                mo.sendMessage(events.get(tempEventInfo), tempMessage);
+                if(tempChoice.equals("All speakers")){
+                    mo.sendtoSpeakers(tempMessage);
+                }else {
+                    mo.sendMessage(events.get(tempChoice), tempMessage);
+                }
             }
         });
 

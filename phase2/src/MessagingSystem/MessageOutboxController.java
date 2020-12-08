@@ -105,6 +105,15 @@ public class MessageOutboxController {
     }
 
     /**
+     * Checks if sender can send a message to all Speakers.
+     *
+     * @return                  True if sender has permission to message all speakers
+     */
+    public boolean canSendToSpeakers() {
+        return reg.isOrganizer(username) || reg.isAdmin(username);
+    }
+
+    /**
      * Sends message to a recipient.
      *
      * @param recipient         Username of recipient
@@ -162,12 +171,12 @@ public class MessageOutboxController {
         HashMap<String, Long> info = new HashMap<>();
         if (reg.isOrganizer(username) || reg.isAdmin(username)) {
             for(Long id : em.getEventIDs()){
-                String temp = em.getName(id) + " (" + em.getType(id) +") [Room " + em.getRoom(id) + " at " + em.getTime(id) + "]";
+                String temp = em.getType(id) + ": " + em.getName(id)  + " [Room " + em.getRoom(id) + " at " + em.getTime(id) + "]";
                 info.put(temp, id);
             }
         } else if (reg.isSpeaker(username)) {
             for(Long id : reg.getSpeakerTalks(username)) {
-                String temp = em.getName(id) + " (" + em.getType(id) +") [Room " + em.getRoom(id) + " at " + em.getTime(id) + "]";
+                String temp = em.getType(id) + ": " + em.getName(id)  + " [Room " + em.getRoom(id) + " at " + em.getTime(id) + "]";
                 info.put(temp, id);
             }
         }

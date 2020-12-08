@@ -50,6 +50,27 @@ public class MessageOutboxPresenter {
         return oc.sendMessage(evt, message);
     }
 
+    /**
+     * Sends message to all speakers in the conference.
+     *
+     * @param message       String of message to be sent
+     * @return true if messages are sent
+     */
+    public boolean sendtoSpeakers(String message){
+        for(String recipient : oc.getMessageSpeakers()){
+            oc.sendMessage(recipient, message);
+        }
+        return true;
+    }
+
+    /**
+     * Checks if sender can send a message to all Speakers.
+     *
+     * @return                  True if sender has permission to message all speakers
+     */
+    public boolean canSendToSpeakers() {
+        return oc.canSendToSpeakers();
+    }
 
     /**
      * Gets the info of the events to which this user can send a message.
