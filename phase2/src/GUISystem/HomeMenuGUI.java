@@ -57,6 +57,7 @@ public class HomeMenuGUI extends Application implements UserMenuGetter {
 
         Button eventButton = new Button("Events");
         eventButton.setFont(Font.loadFont(getClass().getResourceAsStream("/open-sans/os-bold.ttf"), 12));
+        eventButton.setPrefSize(100, 25);
         eventButton.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent e) {
@@ -67,6 +68,7 @@ public class HomeMenuGUI extends Application implements UserMenuGetter {
 
         Button friendsButton = new Button("Friends");
         friendsButton.setFont(Font.loadFont(getClass().getResourceAsStream("/open-sans/os-bold.ttf"), 12));
+        friendsButton.setPrefSize(100, 25);
         friendsButton.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
@@ -75,8 +77,9 @@ public class HomeMenuGUI extends Application implements UserMenuGetter {
             }
         });
 
-        Button changePasswordButton = new Button("Change password");
+        Button changePasswordButton = new Button("Password");
         changePasswordButton.setFont(Font.loadFont(getClass().getResourceAsStream("/open-sans/os-bold.ttf"), 12));
+        changePasswordButton.setPrefSize(100, 25);
         changePasswordButton.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
@@ -86,6 +89,7 @@ public class HomeMenuGUI extends Application implements UserMenuGetter {
 
         Button messagingButton = new Button("Messages");
         messagingButton.setFont(Font.loadFont(getClass().getResourceAsStream("/open-sans/os-bold.ttf"), 12));
+        messagingButton.setPrefSize(100, 25);
         messagingButton.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
@@ -96,6 +100,8 @@ public class HomeMenuGUI extends Application implements UserMenuGetter {
 
         Button manageAccountButton = new Button("Manage Accounts");
         manageAccountButton.setFont(Font.loadFont(getClass().getResourceAsStream("/open-sans/os-bold.ttf"), 12));
+        manageAccountButton.setTextFill(Color.RED);
+        manageAccountButton.setPrefSize(130, 30);
         manageAccountButton.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
@@ -106,6 +112,8 @@ public class HomeMenuGUI extends Application implements UserMenuGetter {
 
         Button manageEventsButton = new Button("Manage Events");
         manageEventsButton.setFont(Font.loadFont(getClass().getResourceAsStream("/open-sans/os-bold.ttf"), 12));
+        manageEventsButton.setTextFill(Color.RED);
+        manageEventsButton.setPrefSize(130, 30);
         manageEventsButton.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
@@ -113,9 +121,10 @@ public class HomeMenuGUI extends Application implements UserMenuGetter {
                 manageEventMenu.start(primaryStage);
             }
         });
-
+        Text emptyText = new Text();
         Button logoutButton = new Button("Logout");
         logoutButton.setFont(Font.loadFont(getClass().getResourceAsStream("/open-sans/os-bold.ttf"), 12));
+        logoutButton.setPrefSize(100, 25);;
         logoutButton.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
@@ -129,8 +138,10 @@ public class HomeMenuGUI extends Application implements UserMenuGetter {
             }
         });
 
-        Button saveButton = new Button("Save changes");
+        Button saveButton = new Button("Save");
         saveButton.setFont(Font.loadFont(getClass().getResourceAsStream("/open-sans/os-bold.ttf"), 12));
+        saveButton.setPrefSize(100, 25);
+        saveButton.setTextFill(Color.GREEN);
         saveButton.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
@@ -149,7 +160,7 @@ public class HomeMenuGUI extends Application implements UserMenuGetter {
         else if (loginOptionsFacade.getUser().getUserType().equals("organizer")){
             vbox.getChildren().add(manageEventsButton);
         }
-        vbox.getChildren().addAll(logoutButton, saveButton);
+        vbox.getChildren().addAll(emptyText, logoutButton, saveButton);
 
         primaryStage.setTitle("Home Screen - Conference Simulator Phase 2");
         primaryStage.setMinHeight(600);

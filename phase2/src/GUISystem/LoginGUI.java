@@ -71,9 +71,10 @@ public class LoginGUI extends Application{
             }
         });
 
-        Button returnButton = new Button("Create Account");
-        returnButton.setFont(Font.loadFont(getClass().getResourceAsStream("/open-sans/os-bold.ttf"), 12));
-        returnButton.setOnAction(new EventHandler<ActionEvent>() {
+        Button accountCreationButton = new Button("Create Account");
+        accountCreationButton.setFont(Font.loadFont(getClass().getResourceAsStream("/open-sans/os-bold.ttf"), 12));
+        accountCreationButton.setPrefSize(130, 25);
+        accountCreationButton.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
                 // Stops playing song upon menu change
@@ -93,7 +94,7 @@ public class LoginGUI extends Application{
 
 
         // mediaView added to vbox
-        loginCanvas.getChildren().addAll(mediaView, loginTitle, username, usernameField, password, passwordField, loginButton, returnButton, failedLogin, quitButton);
+        loginCanvas.getChildren().addAll(mediaView, loginTitle, username, usernameField, password, passwordField, loginButton, accountCreationButton, failedLogin, quitButton);
 
         //Plays song
         mediaPlayer.play();

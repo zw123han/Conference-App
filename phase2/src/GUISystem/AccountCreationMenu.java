@@ -57,6 +57,7 @@ public class AccountCreationMenu extends Application{
 
         Button creationButton = new Button("Create Account");
         creationButton.setFont(Font.loadFont(getClass().getResourceAsStream("/open-sans/os-bold.ttf"), 12));
+        creationButton.setPrefSize(130, 25);
         creationButton.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent e) {
@@ -75,8 +76,9 @@ public class AccountCreationMenu extends Application{
             }
         });
 
-        Button loginButton = new Button("Login");
+        Button loginButton = new Button("Back to Login");
         loginButton.setFont(Font.loadFont(getClass().getResourceAsStream("/open-sans/os-bold.ttf"), 12));
+        loginButton.setPrefSize(130, 25);
         loginButton.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
