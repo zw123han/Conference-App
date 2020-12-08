@@ -32,6 +32,7 @@ public class ConferenceSimulator {
         // TODO: outbox menus - Elliot
         // TODO: implement updateUsername in ManageAccountMenu - William
         // TODO: let event ids be copiable in ManageEventMenu and EventMenu - William
+        // TODO: fix the event id/datetime bug - Anyone
 
         // For database saving
         // Connect to database
