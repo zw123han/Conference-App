@@ -29,7 +29,7 @@ public class ConferenceSimulator {
      * The static main method will run this method to start the application.
      */
     public void run() {
-        // TODO: Can we modify events after they are created?
+        // TODO: Add modify button to eventManager
         // TODO: implement updateUserType in ManageAccountMenu
         // TODO: implement updateUsername in ManageAccountMenu
         // TODO: let event ids be copiable in ManageEventMenu and EventMenu

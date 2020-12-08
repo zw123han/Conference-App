@@ -50,7 +50,7 @@ public class AccountCreationMenu extends Application{
         password.setFont(Font.loadFont(getClass().getResourceAsStream("/resources/os-regular.ttf"), 12));
 
         // Play a song
-        Media song = new Media(new File("phase2/src/GUISystem/O-Canada.mp3").toURI().toString());
+        Media song = new Media(new File("phase2/src/resources/O-Canada.mp3").toURI().toString());
         MediaPlayer mediaPlayer= new MediaPlayer(song);
         mediaPlayer.setCycleCount(MediaPlayer.INDEFINITE);
         MediaView mediaView = new MediaView(mediaPlayer);
