@@ -61,6 +61,7 @@ public class LoginOptionsFacade {
         }
         if(registrar.deleteUser(username)){
             eventManager.deleteUser(username);
+            chatroomManager.deleteChatrooms(username);
             return true;
         }
         return false;
