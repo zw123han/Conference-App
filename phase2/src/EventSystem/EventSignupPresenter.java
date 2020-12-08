@@ -168,9 +168,10 @@ public class EventSignupPresenter {
             String capacity = "Capacity: " + ev.getNumberOfSignedUpUsers() + "/" + ev.getCapacity();
             String speakers = "Speakers: " + ev.getSpeakerList();
 
-            doc.append("----------------------------\n");
-            doc.append(name + "\n" + id + "\n" + time + "\n" + duration + "\n" + room + "\n" + capacity + "\n" + speakers + "\n");
-            doc.append("----------------------------\n");
+            doc.append("----------------------------<br />");
+            doc.append(name + "<br />" + id + "<br />" + time + "<br />" + duration + "<br />" + room + "<br />" +
+                    capacity + "<br />" + speakers + "<br />");
+            doc.append("----------------------------<br />");
         }
 
         printer.print(doc);
