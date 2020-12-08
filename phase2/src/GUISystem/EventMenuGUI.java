@@ -57,7 +57,8 @@ public class EventMenuGUI extends Application implements EventSignupPresenter.Ev
         Button leaveEvent = new Button("Leave Event");
         Button eventInfo = new Button("Event Info");
         Button goBack = new Button("Back");
-        topView.getChildren().addAll(joinEvent, leaveEvent, eventInfo, goBack);
+        Button viewSchedule = new Button("Download Event Schedule");
+        topView.getChildren().addAll(joinEvent, leaveEvent, eventInfo, goBack, viewSchedule);
 
 //        Label label = new Label("hi");
 //        Label label2 = new Label("3");
@@ -71,6 +72,10 @@ public class EventMenuGUI extends Application implements EventSignupPresenter.Ev
         esp.viewEvents();
 
         // event handlers
+        viewSchedule.setOnAction(e -> {
+            this.esp.downloadUserEvents(this.user);
+        });
+
         joinEvent.setOnAction(e -> {
             //prompts window to join event
             Stage window = new Stage();
@@ -101,6 +106,7 @@ public class EventMenuGUI extends Application implements EventSignupPresenter.Ev
             window.setScene(scene);
             window.showAndWait();
         });
+
         leaveEvent.setOnAction(e -> {
             //prompts window to leave event
             Stage window = new Stage();
