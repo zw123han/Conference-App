@@ -49,7 +49,7 @@ public class HomeMenuGUI extends Application implements UserMenuGetter {
         vbox.setAlignment(Pos.CENTER);
         vbox.setPadding(new Insets(20, 20, 20, 20));
 
-        Scene scene = new Scene (vbox, 800, 800);
+        Scene scene = new Scene (vbox, 500, 600);
 
         Text title = new Text ("Hello "+loginOptionsFacade.getUser().getName());
         title.setFont(Font.loadFont(getClass().getResourceAsStream("/open-sans/os-bold.ttf"),30));
@@ -148,8 +148,13 @@ public class HomeMenuGUI extends Application implements UserMenuGetter {
         }
         vbox.getChildren().addAll(logoutButton, saveButton);
 
-
-        primaryStage.setTitle("Conference Simulator Phase 2");
+        primaryStage.setTitle("Home Screen - Conference Simulator Phase 2");
+        primaryStage.setMinHeight(600);
+        primaryStage.setMaxHeight(600);
+        primaryStage.setHeight(600);
+        primaryStage.setMinWidth(500);
+        primaryStage.setMaxWidth(500);
+        primaryStage.setWidth(500);
         primaryStage.setScene(scene);
         primaryStage.show();
     }

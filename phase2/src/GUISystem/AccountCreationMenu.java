@@ -28,7 +28,7 @@ public class AccountCreationMenu extends Application{
         loginCanvas.setAlignment(Pos.CENTER);
         loginCanvas.setPadding(new Insets(20, 20, 20, 20));
 
-        Scene scene = new Scene (loginCanvas, 500, 500);
+        Scene scene = new Scene (loginCanvas, 500, 600);
 
         Text loginTitle = new Text ("Welcome to the Conference!");
         loginTitle.setFont(Font.loadFont(getClass().getResourceAsStream("/open-sans/os-bold.ttf"), 30));
@@ -100,8 +100,13 @@ public class AccountCreationMenu extends Application{
 
         // Play the song
         mediaPlayer.play();
-
-        primaryStage.setTitle("Conference Simulator Phase 2");
+        primaryStage.setMinHeight(600);
+        primaryStage.setMaxHeight(600);
+        primaryStage.setHeight(600);
+        primaryStage.setMinWidth(500);
+        primaryStage.setMaxWidth(500);
+        primaryStage.setWidth(500);
+        primaryStage.setTitle("Account Creation - Conference Simulator Phase 2");
         primaryStage.setScene(scene);
         primaryStage.show();
 
