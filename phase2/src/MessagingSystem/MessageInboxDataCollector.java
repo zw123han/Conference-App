@@ -70,13 +70,33 @@ public class MessageInboxDataCollector extends CommandPresenter {
         return Integer.toString(counter);
     }
 
+    private ArrayList<String> getUsersTalkto() {
+        ArrayList<String> users = new ArrayList<>();
+        HashMap<ArrayList<String>, Chatroom> cms = cm.getAllChatrooms(username);
+        for (ArrayList<String> key : cms.keySet()) {
+            if (key.contains(username)) {
+                for (String person : key) {
+                    if (!person.equals(username)) {
+                        users.add(person);
+                    }
+                }
+            }
+        }
+        for (String user : reg.getUserFriends(username)) {
+            if (!users.contains(user)) {
+                users.add(user);
+            }
+        }
+        return users;
+    }
+
     /**
      * Formats a series of users with whom the logged in user has chatted, including the number of unread messages, name of the sender, and username.
      *
      * @return     text display for chat histories
      */
     public ArrayList<ArrayList<String>> getChatroomOptions() {
-        ArrayList<String> users = reg.getUserFriends(username);
+        ArrayList<String> users = getUsersTalkto();
         ArrayList<ArrayList<String>> result = new ArrayList<>();
         for (String user : users) {
             ArrayList<String> temp = new ArrayList<>();

@@ -143,15 +143,22 @@ public class MessageInboxGUI extends Application implements MessageInboxPresente
                 messageBox.setDisable(false);
             }
         });
-        pinnedMessages.setDisable(true);
-        // New Message Button
-        Button newMessage = squareButtonConstructor(Color.ROYALBLUE, "+");
-        newMessage.setOnAction(e -> {
-            Stage outboxWindow = new Stage();
-            mo.start(outboxWindow);
-        });
         // Putting everything into messageBar
-        messageBar.getChildren().addAll(messageCanvasTitle, pinnedMessages, newMessage);
+        messageBar.getChildren().addAll(messageCanvasTitle, pinnedMessages);
+        pinnedMessages.setDisable(true);
+        if (mi.canSendAll()) {
+            // New Message Button
+            Button newMessage = squareButtonConstructor(Color.ROYALBLUE, "+");
+            newMessage.setOnAction(e -> {
+                Stage outboxWindow = new Stage();
+                mo.start(outboxWindow);
+            });
+            messageBar.getChildren().add(newMessage);
+        } else {
+            StackPane block = new StackPane();
+            block.setPrefSize(40, 40);
+            messageBar.getChildren().add(1, block);
+        }
         // CHILD #2: SCROLLABLE MESSAGE HISTORY
         messagesScrollable = new ScrollPane();
         messageDisplay = new VBox();

@@ -121,6 +121,10 @@ public class MessageInboxPresenter {
         ic.pinUnpinMessage(recipient, id);
     }
 
+    public boolean canSendAll() {
+        return ic.canSendAll();
+    }
+
 //        /**
 //         * Prompts the user to choose a chatlog from a list of existing chatlogs by username.
 //         */

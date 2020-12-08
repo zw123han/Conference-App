@@ -28,6 +28,10 @@ public class MessageInboxController {
         this.cm = cm;
     }
 
+    public boolean canSendAll() {
+        return reg.isAdmin(username) || reg.isSpeaker(username) || reg.isOrganizer(username);
+    }
+
     public boolean canDelete(String person) {
         return username.equals(person) || reg.isAdmin(username);
     }
