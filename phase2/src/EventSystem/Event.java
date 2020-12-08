@@ -74,6 +74,9 @@ public class  Event implements Serializable {
      *
      * @return          The name of the event as a String
      */
+
+    public void setId(Long id) { this.id = id; }
+
     public String getName(){
         return name;
     }

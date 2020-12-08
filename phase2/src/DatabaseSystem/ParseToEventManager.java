@@ -7,24 +7,25 @@ import com.mongodb.DBCursor;
 import com.mongodb.DBObject;
 
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
-import java.util.Date;
 
 public class ParseToEventManager implements ParserStrategy {
 
     private Event createEvent(DBObject doc) {
-        Date date = (Date) doc.get("time");
-        LocalDateTime local = new java.sql.Timestamp(date.getTime()).toLocalDateTime();
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+        LocalDateTime local = LocalDateTime.parse((String) doc.get("time"), formatter);
 
         Event evt = new Event((String) doc.get("name"),
                 (String) doc.get("room"),
                 local,
-                (Long) doc.get("duration"),
+                Long.parseLong((String) doc.get("duration")),
                 (ArrayList<String>) doc.get("speaker"),
                 (Integer) doc.get("capacity"));
         for (String userName: (ArrayList<String>) doc.get("signedUp")) {
             evt.addUser(userName);
         }
+        evt.setId(Long.parseLong((String) doc.get("id")));
         return evt;
     }
 

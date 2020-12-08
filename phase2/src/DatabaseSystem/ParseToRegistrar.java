@@ -23,8 +23,8 @@ public class ParseToRegistrar implements ParserStrategy {
             return null;
         }
 
-        for (Long event : (ArrayList<Long>) doc.get("events")) {
-            user.addEvent(event);
+        for (String event : (ArrayList<String>) doc.get("events")) {
+            user.addEvent(Long.parseLong(event));
         }
         for (String friend : (ArrayList<String>) doc.get("friends")) {
             user.addFriend(friend);

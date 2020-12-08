@@ -14,7 +14,11 @@ public class RegistrarConverter implements ConversionStrategy {
         document.put("name", user.getName());
         document.put("userName", user.getUserName());
         document.put("password", user.getPassword());
-        document.put("events", user.getEvents());
+        ArrayList<String> eventsList = new ArrayList<>();
+        for (Long evtId : user.getEvents()) {
+            eventsList.add(String.valueOf(evtId));
+        }
+        document.put("events", eventsList);
         document.put("friends", user.getFriends());
         document.put("vip", user.getVipStatus());
 
