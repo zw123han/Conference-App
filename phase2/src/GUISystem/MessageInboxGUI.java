@@ -147,7 +147,7 @@ public class MessageInboxGUI extends Application implements MessageInboxPresente
         messageBar.getChildren().addAll(messageCanvasTitle, pinnedMessages);
         pinnedMessages.setDisable(true);
         if (mi.canSendAll()) {
-            // New Message Button
+            // New Message Button if user has permission
             Button newMessage = squareButtonConstructor(Color.ROYALBLUE, "+");
             newMessage.setOnAction(e -> {
                 Stage outboxWindow = new Stage();
@@ -155,6 +155,7 @@ public class MessageInboxGUI extends Application implements MessageInboxPresente
             });
             messageBar.getChildren().add(newMessage);
         } else {
+            // Builds a block the same size as the new message button otherwise
             StackPane block = new StackPane();
             block.setPrefSize(40, 40);
             messageBar.getChildren().add(1, block);
