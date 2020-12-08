@@ -121,7 +121,7 @@ public class FriendsMenuGUI extends Application implements FriendsController.Fri
         });
 
         Scene scene = new Scene (root, 1280, 720);
-        primaryStage.setTitle("Events");
+        primaryStage.setTitle("Friends");
         primaryStage.setScene(scene);
         primaryStage.show();
     }

@@ -96,7 +96,7 @@ public class PasswordMenu extends Application {
 
 
         vbox.getChildren().addAll(title,username, usernameField, passwordText, currentPassword, newPasswordText, newPassword, confirmPasswordText, passwordConfirmField, changePasswordButton,passwordChangeMessage,goBack);
-
+        primaryStage.setTitle("Change Password");
         primaryStage.setScene(scene);
         primaryStage.show();
     }

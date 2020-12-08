@@ -197,7 +197,7 @@ public class MessageInboxGUI extends Application implements MessageInboxPresente
         // SCENE AND STAGE
         inboxCanvas.getChildren().addAll(chatroomCanvas, messageCanvas);
         Scene scene = new Scene(inboxCanvas, 500, 600);
-        primaryStage.setTitle("Messages - Conference Simulator Phase 2");
+        primaryStage.setTitle("Messages");
         primaryStage.setScene(scene);
         primaryStage.setMinHeight(600);
         primaryStage.setMaxHeight(600);
