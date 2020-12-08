@@ -8,7 +8,6 @@ import EventSystem.EventSignup;
 import EventSystem.EventSignupPresenter;
 import GUISystem.*;
 import LoginSystem.LoginOptionsFacade;
-import MainProgram.AdminCreationScript;
 import MessagingSystem.*;
 import UserSystem.*;
 
@@ -90,9 +89,8 @@ public class ConferenceBuilder {
         MessageOutboxGUI outboxGUI = new MessageOutboxGUI();
         outboxPresenter.setView(outboxGUI);
         outboxGUI.setOutboxElements(outboxPresenter);
-        MessageInboxDataCollector inboxDataCollector = new MessageInboxDataCollector(registrar, "", chatroomManager, profanities);
-        MessageInboxController inboxController = new MessageInboxController(registrar, "", chatroomManager);
-        MessageInboxPresenter inboxPresenter = new MessageInboxPresenter(inboxDataCollector, inboxController);
+        MessageInboxController inboxDataCollector = new MessageInboxController(registrar, "", chatroomManager, profanities);
+        MessageInboxPresenter inboxPresenter = new MessageInboxPresenter(inboxDataCollector);
         MessageInboxGUI inboxGUI = new MessageInboxGUI();
         inboxPresenter.setView(inboxGUI);
         inboxGUI.setInboxElements(inboxPresenter, outboxGUI);
