@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.lang.*;
 
 import DatabaseSystem.*;
+import com.sun.org.apache.xpath.internal.operations.Or;
 
 /**
  * Registrar is the use case class for all interactions with User objects. It contains an array list of User objects
@@ -101,6 +102,47 @@ public class Registrar implements Savable {
         return false;
     }
 
+    /**
+     * Changes the type of a user with username to that of newType.
+     *
+     * @param username The username of the user to be promoted or demoted.
+     * @param newType The new type of the user.
+     * @return True if and only if the user's type is changed to a new type given by newType.
+     */
+    public boolean updateUserType(String username, String newType){
+        for(User user: this.users){
+            if(user.getUserName().equals(username)&&!user.getUserType().equals(newType)){
+                if(newType.equals("attendee")){
+                    Attendee newUser = (Attendee) user;
+                    users.remove(user);
+                    users.add(newUser);
+                    return true;
+                }
+                else if(newType.equals("speaker")){
+                    Speaker newUser = (Speaker) user;
+                    users.remove(user);
+                    users.add(newUser);
+                    return true;
+                }
+                else if(newType.equals("organizer")){
+                    Organizer newUser = (Organizer) user;
+                    users.remove(user);
+                    users.add(newUser);
+                    return true;
+                }
+                else if(newType.equals("administrator")){
+                    Administrator newUser = (Administrator) user;
+                    users.remove(user);
+                    users.add(newUser);
+                    return true;
+                }
+                else{
+                    return false;
+                }
+            }
+        }
+        return false;
+    }
     /**
      * Returns the User object attending the conference that has the given username. Returns null if there is no user
      * attending the conference with the given username

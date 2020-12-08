@@ -29,10 +29,11 @@ public class ConferenceSimulator {
      * The static main method will run this method to start the application.
      */
     public void run() {
-        // TODO: outbox menus - Elliot
-        // TODO: implement updateUsername in ManageAccountMenu - William
-        // TODO: let event ids be copiable in ManageEventMenu and EventMenu - William
-        // TODO: fix the event id/datetime bug - Anyone
+        // TODO: Can we modify events after they are created?
+        // TODO: implement updateUserType in ManageAccountMenu
+        // TODO: implement updateUsername in ManageAccountMenu
+        // TODO: let event ids be copiable in ManageEventMenu and EventMenu
+        // TODO: fix the event id/datetime bug
 
         // For database saving
         // Connect to database
