@@ -175,29 +175,31 @@ public class EventMenuGUI extends Application implements EventSignupPresenter.Ev
     }
 
     @Override
-    public void loadUserEvents(String name, String id, String time, String room, String capacity, String speakers) {
+    public void loadUserEvents(String name, String id, String time, String duration, String room, String capacity, String speakers) {
         VBox eventContainer = new VBox();
         Label name1 = new Label(name);
         Label id1 = new Label(id);
         Label time1 = new Label(time);
+        Label duration1 = new Label(duration);
         Label room1 = new Label(room);
         Label capacity1 = new Label(capacity);
         Label speakers1 = new Label(speakers);
-        eventContainer.getChildren().addAll(name1, id1, time1, room1, capacity1, speakers1);
+        eventContainer.getChildren().addAll(name1, id1, time1, duration1, room1, capacity1, speakers1);
         yourEvents.getItems().add(eventContainer);
 
     }
 
     @Override
-    public void loadAllEvents(String name, String id, String time, String room, String capacity, String speakers) {
+    public void loadAllEvents(String name, String id, String time, String duration, String room, String capacity, String speakers) {
         VBox eventContainer = new VBox();
         Label name1 = new Label(name);
         Label id1 = new Label(id);
         Label time1 = new Label(time);
+        Label duration1 = new Label(duration);
         Label room1 = new Label(room);
         Label capacity1 = new Label(capacity);
         Label speakers1 = new Label(speakers);
-        eventContainer.getChildren().addAll(name1, id1, time1, room1, capacity1, speakers1);
+        eventContainer.getChildren().addAll(name1, id1, time1, duration1, room1, capacity1, speakers1);
         allEvents.getItems().add(eventContainer);
 
     }

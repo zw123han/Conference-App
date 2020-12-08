@@ -107,15 +107,16 @@ public class EventCreatorPresenter {
                 String name = "Name: " + ev.getName();
                 String id = "id: " + ev.getId();
                 String time = "Time: " + DateTimeFormatter.ofLocalizedDateTime(FormatStyle.SHORT).format(ev.getTime());
+                String duration = "Duration: " + ev.getDuration() + " minutes";
                 String room = "Room: " + ev.getRoom();
                 String capacity = "Capacity: " + ev.getNumberOfSignedUpUsers() + "/" + ev.getCapacity();
                 String speakers = "Speakers: " + ev.getSpeakerList();
-                eci.loadAllEvents(name,id, time, room, capacity, speakers);
+                eci.loadAllEvents(name,id, time, duration, room, capacity, speakers);
             }
         }
     }
     public interface EventCreatorInterface {
-        public void loadAllEvents(String name,String id, String time, String room, String capacity, String speakers);
+        public void loadAllEvents(String name,String id, String time, String duration, String room, String capacity, String speakers);
         public void createPopUp(String message);
     }
 }
