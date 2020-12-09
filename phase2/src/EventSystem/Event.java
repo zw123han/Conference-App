@@ -268,6 +268,16 @@ public class  Event implements Serializable {
             this.type = "Panel";
         }
     }
+
+    /**
+     * Sets the time and duration of this event
+     *
+     * @param capacity  maximum capacity of the event
+     */
+    public void setCapacity(int capacity){
+        this.capacity = capacity;
+    }
+
     /**
      * returns whether the given speaker is at this event
      *
@@ -277,6 +287,5 @@ public class  Event implements Serializable {
     public boolean hasSpeaker(String speaker){
         return this.speaker_list.contains(speaker);
     }
-
 
 }

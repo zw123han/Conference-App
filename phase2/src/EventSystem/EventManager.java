@@ -247,4 +247,25 @@ public class EventManager implements Serializable, Savable {
     public void setName(Long eventId, String name){
         this.events.get(eventId).setName(name);
     }
+
+    public void setRoom(Long eventId, String room) {
+        this.events.get(eventId).setRoom(room);
+    }
+
+    public void setTime(Long eventId, LocalDateTime start_time, long duration){
+        this.events.get(eventId).setTime(start_time, duration);
+    }
+
+    public void addSpeaker(Long eventId, String speaker){
+        this.events.get(eventId).addSpeaker(speaker);
+    }
+
+    public void removeSpeaker(Long eventId, String speaker){
+        this.events.get(eventId).removeSpeaker(speaker);
+    }
+
+    public void setCapacity(Long eventId, int capacity){
+        this.events.get(eventId).setCapacity(capacity);
+    }
+
 }
