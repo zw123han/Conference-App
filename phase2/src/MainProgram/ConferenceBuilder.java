@@ -82,11 +82,9 @@ public class ConferenceBuilder {
 
     private void makeMenus(){
         // Create menus and dependency inject necessary classes
-        MessageOutboxDataCollector outboxDateCollector = new MessageOutboxDataCollector("", registrar, eventManager);
         MessageOutboxController outboxController = new MessageOutboxController("", registrar, eventManager, chatroomManager);
-        MessageOutboxPresenter outboxPresenter = new MessageOutboxPresenter(outboxController, outboxDateCollector);
+        MessageOutboxPresenter outboxPresenter = new MessageOutboxPresenter(outboxController);
         MessageOutboxGUI outboxGUI = new MessageOutboxGUI();
-        outboxPresenter.setView(outboxGUI);
         outboxGUI.setOutboxElements(outboxPresenter);
         MessageInboxController inboxDataCollector = new MessageInboxController(registrar, "", chatroomManager, profanities);
         MessageInboxPresenter inboxPresenter = new MessageInboxPresenter(inboxDataCollector);

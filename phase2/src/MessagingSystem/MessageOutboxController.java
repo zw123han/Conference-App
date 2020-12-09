@@ -73,39 +73,7 @@ public class MessageOutboxController {
     }
 
     /**
-     * Checks if sender can send a message to all Speakers.
-     *
-     * @param speakers          List of usernames of speakers that the sender wants to send to
-     * @return                  True if sender has permission to message all speakers
-     */
-    public boolean canSendSpeakers(ArrayList<String> speakers) {
-        boolean result = true;
-        for (String speaker : speakers) {
-            if (!canMessage(speaker)) {
-                result = false;
-            }
-        }
-        return result;
-    }
-
-    /**
-     * Checks if sender can send to all participants of all events in a list.
-     *
-     * @param event_ids         List of Event id
-     * @return                  True if sender has permission to message all participants of all events in the list
-     */
-    public boolean canSendEvents(ArrayList<Long> event_ids) {
-        boolean result = true;
-        for (Long event_id : event_ids) {
-            if (!canMessage(event_id)) {
-                result = false;
-            }
-        }
-        return result;
-    }
-
-    /**
-     * Checks if sender can send a message to all Speakers.
+     * Checks if sender can send a message to all Speakers speaking in at least one event in the conference.
      *
      * @return                  True if sender has permission to message all speakers
      */
@@ -149,7 +117,7 @@ public class MessageOutboxController {
     }
 
     /**
-     * Gets the IDs of the events to which this user can send a message.
+     * Gets the IDs of the events to which this user can send a message to.
      *
      * @return   A list of event IDs.
      */
@@ -163,7 +131,7 @@ public class MessageOutboxController {
     }
 
     /**
-     * Gets the info of the events to which this user can send a message.
+     * Gets the info of the events to which this user can send a message to.
      *
      * @return   A HashMap with event info as keys and ids as values.
      */
@@ -198,9 +166,5 @@ public class MessageOutboxController {
             }
         }
         return s;
-    }
-
-    public String getPermissionLevel() {
-        return reg.getUserType(username);
     }
 }

@@ -13,17 +13,37 @@ import MessagingSystem.*;
 
 import java.util.HashMap;
 
-public class MessageOutboxGUI extends Application implements MessageOutboxPresenter.OView {
+/**
+ * GUI for the Group Message part of the Messaging System.
+ *
+ * @author  Elliot
+ */
+public class MessageOutboxGUI extends Application{
     private MessageOutboxPresenter mo;
 
+    /**
+     * Sets the given MessageOutboxPresenter.
+     *
+     * @param mo           MessageOutboxPresenter
+     */
     public void setOutboxElements(MessageOutboxPresenter mo) {
         this.mo = mo;
     }
 
+    /**
+     * Sets username in MessageOutboxPresenter to that of the currently logged in user.
+     *
+     * @param username       username of the current user
+     */
     public void setLogin(String username) {
         mo.setLoggedInUser(username);
     }
 
+    /**
+     * Runs the GUI.
+     *
+     * @param primaryStage       Stage
+     */
     @Override
     public void start(Stage primaryStage) {
         //Outbox Container
@@ -85,15 +105,15 @@ public class MessageOutboxGUI extends Application implements MessageOutboxPresen
         sendMessage.setDisable(false);
 
         sendMessage.setOnAction(e -> {
-            String tempChoice = dropdownMenu.getValue().toString();
+            Object tempChoice = dropdownMenu.getValue();
             String tempMessage = messageBox.getText();
-            if(!tempMessage.equals("") && !tempChoice.equals("")){
+            if(mo.validateMessage(tempMessage) && tempChoice != null){
                 messageBox.setText("");
                 dropdownMenu.setValue(null);
                 if(tempChoice.equals("All speakers")){
-                    mo.sendtoSpeakers(tempMessage);
+                    mo.sendToSpeakers(tempMessage);
                 }else {
-                    mo.sendMessage(events.get(tempChoice), tempMessage);
+                    mo.sendMessage(events.get(tempChoice.toString()), tempMessage);
                 }
             }
         });
