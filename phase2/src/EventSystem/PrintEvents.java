@@ -36,7 +36,6 @@ public class PrintEvents {
                     "<table>\n" +
                     "  <tr style=\"background: black; color: white;\">\n" +
                     "    <th>Event Name</th>\n" +
-                    "    <th>Event id</th>\n" +
                     "    <th>Start time</th>\n" +
                     "    <th>Duration</th>\n" +
                     "    <th>Room</th>\n" +

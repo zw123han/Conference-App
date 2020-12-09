@@ -161,7 +161,6 @@ public class EventSignupPresenter {
         for (Long event_long: user.getEvents())  {
             Event ev = em.getEvent(event_long);
             String name = "" + ev.getName();
-            String id = ev.getId() + "";
             String time = DateTimeFormatter.ofLocalizedDateTime(FormatStyle.SHORT).format(ev.getTime());
             String duration = ev.getDuration() + "";
             String room = ev.getRoom();
@@ -171,7 +170,6 @@ public class EventSignupPresenter {
 
             doc.append("  <tr>\n" +
                     "    <th>" + name + "</th>\n" +
-                    "    <th>" + id + "</th>\n" +
                     "    <th>" + time + "</th>\n" +
                     "    <th>" + duration +"</th>\n" +
                     "    <th>" + room + "</th>\n" +
