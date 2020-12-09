@@ -20,7 +20,7 @@ public class LoginOptionsFacade {
     private ChatroomManager chatroomManager;
 
     /**
-     * Initializes a new LoginSystem.LoginOptionsFacade.
+     * Initializes a new LoginOptionsFacade.
      *
      * @param registrar     Registrar use case which stores users.
      * @param eventManager  EventManager which stores events.
@@ -36,6 +36,7 @@ public class LoginOptionsFacade {
 
     /**
      * Updates the type of user everywhere, and removes them as speakers if they were a speaker type.
+     * Users cannot update their own type.
      *
      * @param username The username of the user to be updated.
      * @param newType The newType to be assigned to that user.
@@ -52,13 +53,16 @@ public class LoginOptionsFacade {
         return false;
     }
     /**
-     * Updates the username of a user.
+     * Updates the username of a user. Users cannot update their own username.
      *
      * @param username The old username of the user.
      * @param newUsername The new username of the user.
      * @return True if and only if a user with the username was changed to have newUsername.
      */
     public boolean updateUsername(String username, String newUsername){
+        if(this.getUser().getUserName().equals(username)){
+            return false;
+        }
         if(credentialsUseCase.updateUsername(username, newUsername)){
             eventManager.updateUsername(username, newUsername);
             chatroomManager.updateChatroomUsername(username, newUsername);

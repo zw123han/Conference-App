@@ -118,7 +118,7 @@ public class ManageAccountMenu extends Application {
             VBox layout = new VBox(5);
 
             HBox titleBox = new HBox();
-            Label title = new Label("Please enter the user you would like the delete: ");
+            Label title = new Label("Please enter the user you would like the delete: \n(You cannot delete yourself) ");
             TextField input = new TextField();
             titleBox.getChildren().addAll(title, input);
 
@@ -127,7 +127,10 @@ public class ManageAccountMenu extends Application {
 
             submitButton.setOnAction(ae -> {
                 String username = input.getText();
-                if(registrar.userExisting(username)){
+                if(!registrar.userExisting(username)){
+                    createPopUp("No such user with username "   + username);
+                }
+                else{
                 String userType = registrar.getUserType(username);
                 String userTypeLower = userType.toLowerCase();
                 String userTypeLower1 = userTypeLower.substring(userTypeLower.indexOf(".")+1);
@@ -138,9 +141,7 @@ public class ManageAccountMenu extends Application {
                 } else {
                     createPopUp("Unable to delete user");
                 }}
-                else{
-                    createPopUp("No such user with username "   + username);
-                }
+
             });
 
             Button closeButton = new Button("Close");
@@ -174,9 +175,9 @@ public class ManageAccountMenu extends Application {
             Label instructions = new Label("Please enter any fields you want to update, and leave the rest blank\n");
             Label enterNewName = new Label("Please enter the new name for the user: ");
             TextField newName = new TextField();
-            Label enterNewUsername = new Label("Please enter the new username for the user: ");
+            Label enterNewUsername = new Label("Please enter the new username for the user: \n(You cannot modify your own username)");
             TextField newUsername = new TextField();
-            Label enterNewType = new Label("Please enter the new type for the user (\"attendee\", \"speaker\", \"organizer\", or \"administrator\"): ");
+            Label enterNewType = new Label("Please enter the new type for the user: \n(\"attendee\", \"speaker\", \"organizer\", or \"administrator\") \n(You cannot modify your own type)");
             TextField newType = new TextField();
             enterNewNameBox.getChildren().addAll(instructions, enterNewName, newName, enterNewUsername, newUsername, enterNewType, newType);
 
@@ -189,7 +190,10 @@ public class ManageAccountMenu extends Application {
             Button submitButton = new Button("Submit");
             submitButton.setOnAction(ae -> {
                 String username = input.getText();
-                if(registrar.userExisting(username)){
+                if(!registrar.userExisting(username)){
+                    createPopUp("No such user with username "+username);
+                }
+                else{
                 String newName1 = newName.getText();
                 String newUsername1 = newUsername.getText();
                 String newType1 = newType.getText();
@@ -221,9 +225,7 @@ public class ManageAccountMenu extends Application {
                 choiceBoxListener(registrar, userTypeLower1, list);
                 choiceBoxListener(registrar, userTypeLower1, row2);
                 choiceBox.setValue(userTypeLower1);}
-                else{
-                    createPopUp("No such user with username "+username);
-                }
+
 
 
             });
@@ -249,7 +251,7 @@ public class ManageAccountMenu extends Application {
     private void createPopUp(String message) {
         Stage window = new Stage();
         window.initModality(Modality.APPLICATION_MODAL);
-        window.setTitle("Pop up");
+        window.setTitle("");
 
         VBox layout = new VBox();
         layout.setAlignment(Pos.CENTER);
