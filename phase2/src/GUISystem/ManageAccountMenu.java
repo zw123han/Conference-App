@@ -15,6 +15,8 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
+import java.util.Base64;
+
 public class ManageAccountMenu extends Application {
     private User user;
     private UserMenuGetter mg;
@@ -135,7 +137,7 @@ public class ManageAccountMenu extends Application {
                 String userTypeLower = userType.toLowerCase();
                 String userTypeLower1 = userTypeLower.substring(userTypeLower.indexOf(".")+1);
                 if (facade.deleteUser(input.getText())) {
-                    createPopUp("Account deleted");
+                    createPopUp(username +" has been deleted");
                     choiceBoxListener(registrar, userTypeLower1, row2);
                     choiceBox.setValue(userTypeLower1);
                 } else {
@@ -172,12 +174,16 @@ public class ManageAccountMenu extends Application {
             selectBox.getChildren().addAll(select, choice);
 
             VBox  enterNewNameBox = new VBox();
-            Label instructions = new Label("Please enter any fields you want to update, and leave the rest blank\n(Usernames cannot be updated)\n");
+            Label instructions = new Label("Please enter any fields you want to update, and leave the rest blank\n");
             Label enterNewName = new Label("Please enter the new name for the user: ");
             TextField newName = new TextField();
             Label enterNewType = new Label("Please enter the new type for the user: \n(\"attendee\", \"speaker\", \"organizer\", or \"administrator\") \n(You cannot modify your own type)");
             TextField newType = new TextField();
-            enterNewNameBox.getChildren().addAll(instructions, enterNewName, newName, enterNewType, newType);
+            Label enterNewUsername = new Label("Please enter the new username for this user: ");
+            TextField newUsername = new TextField();
+            Label enterNewPassword = new Label("Please enter the new password for this user: ");
+            PasswordField newPassword = new PasswordField();
+            enterNewNameBox.getChildren().addAll(instructions, enterNewName, newName, enterNewType, newType, enterNewUsername, newUsername, enterNewPassword, newPassword);
 
             ListView<String> list = new ListView();
 
@@ -194,21 +200,33 @@ public class ManageAccountMenu extends Application {
                 else{
                 String newName1 = newName.getText();
                 String newType1 = newType.getText();
+                String newUsername1 = newUsername.getText();
+                String newPassword1 = newPassword.getText();
                 String message = "No changes made";
                 String userType = registrar.getUserType(username);
 
                 if(newName1.length()>=1&& facade.updateName(username, newName1)){
                     message = "";
-                    message += "The new name has been set to: "+newName1+"\n";
+                    message += "The new name for " + username +" has been set to: "+newName1+"\n";
                 }
                 if(newType1.length()>=1&& facade.updateUserType(username, newType1)){
-                    userType = registrar.getUserType(username);
+                    userType = newType1;
                     if(message.equals("No changes made")){
                         message = "";
                     }
-                    message += "The new user type has been set to: "+newType1+"\n";
+                    message += "The new user type for " + username + " has been set to: "+newType1+"\n";
                 }
-
+                if(newPassword1.length()>=1&&facade.resetPassword(username,Base64.getEncoder().encodeToString(Base64.getDecoder().decode(registrar.getUserByUserName(username).getPassword().getBytes())), newPassword1)){
+                    if(message.equals("No changes made")){
+                        message = "";
+                    }
+                    message += "The password for " + username + " has been reset";
+                }
+                if(newUsername1.length()>1&& facade.updateUsername(username, newUsername1))
+                    if(message.equals("No changes made")){
+                        message = "";
+                    }
+                    message += "The username for " + username + " has been updated to " + newUsername1;
                 createPopUp(message);
 
                 String userTypeLower = userType.toLowerCase();

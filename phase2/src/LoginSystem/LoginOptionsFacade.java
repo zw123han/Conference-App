@@ -20,7 +20,7 @@ public class LoginOptionsFacade {
     private ChatroomManager chatroomManager;
 
     /**
-     * Initializes a new LoginOptionsFacade.
+     * Initializes a new LoginSystem.LoginOptionsFacade.
      *
      * @param registrar     Registrar use case which stores users.
      * @param eventManager  EventManager which stores events.
@@ -48,6 +48,21 @@ public class LoginOptionsFacade {
         }
         if(registrar.updateUserType(username, newType)){
             eventManager.removeSpeaker(username);
+            return true;
+        }
+        return false;
+    }
+    /**
+     * Updates the username of a user.
+     *
+     * @param username The old username of the user.
+     * @param newUsername The new username of the user.
+     * @return True if and only if a user with the username was changed to have newUsername.
+     */
+    public boolean updateUsername(String username, String newUsername){
+        if(credentialsUseCase.updateUsername(username, newUsername)){
+            eventManager.updateUsername(username, newUsername);
+            chatroomManager.updateChatroomUsername(username, newUsername);
             return true;
         }
         return false;
