@@ -245,7 +245,8 @@ public class ManageEventMenu extends Application implements EventCreatorPresente
     public void loadAllEvents(String name,String id, String time, String duration, String room, String capacity, String speakers) {
         VBox eventContainer = new VBox();
         Label name1 = new Label(name);
-        Label id1 = new Label(id);
+        TextField id1 = new TextField(id);
+        id1.setEditable(false);
         Label time1 = new Label(time);
         Label duration1 = new Label(duration);
         Label room1 = new Label(room);

@@ -31,7 +31,7 @@ public class LoginGUI extends Application{
 
         Scene scene = new Scene (loginCanvas, 500, 600);
 
-        Text loginTitle = new Text ("Welcome to the Conference!");
+        Text loginTitle = new Text("Welcome to the Conference!");
         loginTitle.setFont(Font.loadFont(getClass().getResourceAsStream("/resources/os-bold.ttf"),30));
 
         Text failedLogin = new Text();
