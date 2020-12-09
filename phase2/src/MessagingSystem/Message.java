@@ -11,7 +11,7 @@ import java.io.Serializable;
  */
 public class Message implements Serializable {
     private String message, sender;
-    private ZonedDateTime time = ZonedDateTime.now();
+    private ZonedDateTime time = ZonedDateTime.now(ZoneId.systemDefault());
     private boolean read = false;
     private boolean pinned = false;
 
@@ -60,7 +60,8 @@ public class Message implements Serializable {
      */
     public String getDate() {
         DateTimeFormatter d = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
-        return time.toLocalDateTime().format(d);
+        ZonedDateTime currentTime = time.withZoneSameInstant(ZoneId.systemDefault());
+        return currentTime.toLocalDateTime().format(d);
     }
 
     public void setDate(ZonedDateTime time) {
