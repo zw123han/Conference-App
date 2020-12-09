@@ -7,6 +7,8 @@ import javafx.geometry.Pos;
 import javafx.scene.*;
 import javafx.application.*;
 import javafx.scene.control.*;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.VBox;
 import javafx.scene.media.MediaView;
 import javafx.scene.paint.Color;
@@ -53,19 +55,39 @@ public class LoginGUI extends Application{
 
         Button loginButton = new Button("Login");
         loginButton.setFont(Font.loadFont(getClass().getResourceAsStream("/resources/os-bold.ttf"), 12));
+
         loginButton.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent e) {
-                String username = usernameField.getText();
-                String password = passwordField.getText();
-                if(loginOptionsFacade.login(username, password)){
+                String userName = usernameField.getText();
+                String userPassword = passwordField.getText();
+
+                if (loginOptionsFacade.login(userName, userPassword)) {
                     // Stops playing song upon menu change
                     mediaPlayer.stop();
                     menuGetter.goHome(primaryStage);
-                }
-                else{
+                } else {
                     failedLogin.setFill(Color.RED);
                     failedLogin.setText("Login failed. Please check your credentials");
+                }
+            }
+        });
+
+        loginCanvas.setOnKeyPressed(new EventHandler<KeyEvent>() {
+            @Override
+            public void handle(KeyEvent k) {
+                if(k.getCode() == KeyCode.ENTER) {
+                    String userName = usernameField.getText();
+                    String userPassword = passwordField.getText();
+
+                    if (loginOptionsFacade.login(userName, userPassword)) {
+                        // Stops playing song upon menu change
+                        mediaPlayer.stop();
+                        menuGetter.goHome(primaryStage);
+                    } else {
+                        failedLogin.setFill(Color.RED);
+                        failedLogin.setText("Login failed. Please check your credentials");
+                    }
                 }
             }
         });
