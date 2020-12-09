@@ -109,6 +109,7 @@ public class MessageOutboxController {
     public boolean sendMessage(Long evt, String message) {
         try {
             ArrayList<String> recipients = eventManager.getSignedUpUsers(evt);
+            recipients.remove(username);
             chatroomManager.sendAll(recipients, formatSendAll(message.trim(), evt), username);
             return true;
         } catch (EventNotFoundException e) {
