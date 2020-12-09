@@ -18,8 +18,8 @@ public class ParseToChatroomManager implements ParserStrategy {
 
     private Message parseMessage(DBObject doc) {
         Message msg = new Message( (String) doc.get("message"), (String) doc.get("sender"));
-        DateTimeFormatter d = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
-        ZonedDateTime time = LocalDateTime.parse((String) doc.get("time"), d).atZone(ZoneId.of("Canada/Eastern"));
+
+        ZonedDateTime time = ZonedDateTime.parse((String) doc.get("time"));
         msg.setDate(time);
         if ((Boolean) doc.get("read") == true) {
             msg.read();
