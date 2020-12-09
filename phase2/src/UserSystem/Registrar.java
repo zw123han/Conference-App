@@ -112,35 +112,35 @@ public class Registrar implements Savable {
     public boolean updateUserType(String username, String newType){
         for(User user: this.users){
             if(user.getUserName().equals(username)&&!user.getUserType().equals(newType)){
-                if(newType.equals("attendee")){
-                    Attendee newUser = new Attendee(user.getName(), user.getUserName(), user.getPassword());
-                    users.remove(user);
-                    users.add(newUser);
-                    return true;
-                }
-                else if(newType.equals("speaker")){
-                    Speaker newUser = new Speaker(user.getName(), user.getUserName(), user.getPassword());
-                    users.remove(user);
-                    users.add(newUser);
-                    return true;
-                }
-                else if(newType.equals("organizer")){
-                    Organizer newUser = new Organizer(user.getName(), user.getUserName(), user.getPassword());
-                    users.remove(user);
-                    users.add(newUser);
-                    return true;
-                }
-                else if(newType.equals("administrator")){
-                    Administrator newUser = new Administrator(user.getName(), user.getUserName(), user.getPassword());
-                    users.remove(user);
-                    users.add(newUser);
-                    return true;
-                }
-                else{
-                    return false;
+                switch (newType) {
+                    case "attendee": {
+                        Attendee newUser = new Attendee(user.getName(), user.getUserName(), user.getPassword());
+                        users.remove(user);
+                        users.add(newUser);
+                        return true;
+                    }
+                    case "speaker": {
+                        Speaker newUser = new Speaker(user.getName(), user.getUserName(), user.getPassword());
+                        users.remove(user);
+                        users.add(newUser);
+                        return true;
+                    }
+                    case "organizer": {
+                        Organizer newUser = new Organizer(user.getName(), user.getUserName(), user.getPassword());
+                        users.remove(user);
+                        users.add(newUser);
+                        return true;
+                    }
+                    case "administrator": {
+                        Administrator newUser = new Administrator(user.getName(), user.getUserName(), user.getPassword());
+                        users.remove(user);
+                        users.add(newUser);
+                        return true;
+                    }
+                    default:
+                        return false;
                 }
             }
-            return false;
         }
         return false;
     }

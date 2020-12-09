@@ -19,6 +19,7 @@ public class AdminCreationScript {
     public void createAdmin(Registrar registrar) {
         CredentialsUseCase credentialsUseCase = new CredentialsUseCase(registrar);
         credentialsUseCase.createUser("James Gosling", "admin", "123", "Administrator");
+        credentialsUseCase.createUser("DO NOT MODIFY", "backup", "123", "Administrator");
 
     }
 }
