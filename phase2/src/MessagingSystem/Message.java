@@ -45,6 +45,15 @@ public class Message implements Serializable {
     }
 
     /**
+     * Updates the sender username of this message to newSender.
+     *
+     * @param newSender     the uew username
+     */
+    public void setSender(String newSender) {
+        this.sender = newSender;
+    }
+
+    /**
      * Gets the date and time this message was sent, converted to local time.
      *
      * @return      date sent (local)

@@ -165,4 +165,19 @@ public class Chatroom implements Serializable {
         boolean current = history.get(position).isPinned();
         history.get(position).setPinned(!current);
     }
+
+    /**
+     * Updates all sender usernames in this chatroom matching prevSender to newSender.
+     *
+     * @param prevSender    username current in use in this chatroom
+     * @param newSender     the uew username
+     */
+    public void updateSenders(String prevSender, String newSender) {
+        for (Message m : history) {
+            if (m.getSender().equals(prevSender)) {
+                m.setSender(newSender);
+            }
+        }
+    }
+
 }
