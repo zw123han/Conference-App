@@ -3,11 +3,24 @@ package EventSystem;
 import java.io.*;
 import java.awt.Desktop;
 
+/**
+ * This class prints a user's list of registered events.
+ *
+ * @author Fred, Nithilan
+ */
 public class PrintEvents {
     private String filepath;
 
+    /**
+     * Constructor that sets the user's filepath, which is saves a file temporarily before printing to a browser.
+     */
     public PrintEvents(){ this.filepath = System.getProperty("user.dir");}
 
+    /**
+     * This method prepares the html and converts the list of events to a table.
+     *
+     * @param doc   The list of events from a user.
+     */
     public void print(StringBuilder doc) {
 
         try {
@@ -74,6 +87,16 @@ public class PrintEvents {
 
         if (Desktop.isDesktopSupported() && Desktop.getDesktop().isSupported(Desktop.Action.BROWSE)) {
             Desktop.getDesktop().browse(file.toURI());
+        }
+
+        deleteFile(file);
+    }
+
+    private void deleteFile(File file){
+        try {
+            file.delete();
+        } catch (Exception e) {
+            e.printStackTrace();
         }
     }
 }
