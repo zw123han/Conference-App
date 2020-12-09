@@ -30,7 +30,6 @@ public class ConferenceSimulator {
      */
     public void run() {
         // TODO: Add modify button to eventManager
-        // TODO: Fix user deletion or swap it out for permaban
 
         // For database saving
         // Connect to database

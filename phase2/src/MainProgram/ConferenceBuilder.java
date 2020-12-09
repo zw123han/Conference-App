@@ -152,8 +152,8 @@ public class ConferenceBuilder {
     public void buildAConference(){
         getSavables();
         setSavables();
-        makeAdmins();
-        makeOrganizers();
+        //makeAdmins();
+        //makeOrganizers();
         makeControllersPresenters();
         makeMenus();
     }
