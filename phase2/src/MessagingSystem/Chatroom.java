@@ -131,6 +131,12 @@ public class Chatroom implements Serializable {
         return unread;
     }
 
+    /**
+     * Checks whether a message with id index is pinned.
+     *
+     * @param index     the index/id of the message in history
+     * @return          true if the message is pinned
+     */
     public boolean isPinned(int index){
         return history.get(index).isPinned();
     }
@@ -160,6 +166,12 @@ public class Chatroom implements Serializable {
         history.get(position).setPinned(!current);
     }
 
+    /**
+     * Updates all sender usernames in this chatroom matching prevSender to newSender.
+     *
+     * @param prevSender    username current in use in this chatroom
+     * @param newSender     the uew username
+     */
     public void updateSenders(String prevSender, String newSender) {
         for (Message m : history) {
             if (m.getSender().equals(prevSender)) {

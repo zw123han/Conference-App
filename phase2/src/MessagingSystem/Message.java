@@ -44,8 +44,13 @@ public class Message implements Serializable {
         return sender;
     }
 
-    public void setSender(String sender) {
-        this.sender = sender;
+    /**
+     * Updates the sender username of this message to newSender.
+     *
+     * @param newSender     the uew username
+     */
+    public void setSender(String newSender) {
+        this.sender = newSender;
     }
 
     /**
