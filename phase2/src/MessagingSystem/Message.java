@@ -96,4 +96,7 @@ public class Message implements Serializable {
     public void setPinned(boolean setter){
         pinned = setter;
     }
+
+    public void setDate(ZonedDateTime time) {
+    }
 }

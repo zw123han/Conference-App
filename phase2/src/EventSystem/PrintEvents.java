@@ -88,15 +88,7 @@ public class PrintEvents {
         if (Desktop.isDesktopSupported() && Desktop.getDesktop().isSupported(Desktop.Action.BROWSE)) {
             Desktop.getDesktop().browse(file.toURI());
         }
-
-        deleteFile(file);
     }
 
-    private void deleteFile(File file){
-        try {
-            file.delete();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
+
 }
