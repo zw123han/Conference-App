@@ -172,4 +172,25 @@ public class ChatroomManager implements Serializable, Savable {
             }
         }
     }
+
+    public void updateChatroomUsername(String prevUsername, String newUsername) {
+        Set<ArrayList<String>> keys = chatrooms.keySet();
+        for (ArrayList<String> key : keys) {
+            if (key.contains(prevUsername)) {
+                Chatroom chatroom = chatrooms.get(key);
+                chatroom.updateSenders(prevUsername, newUsername);
+                ArrayList<String> newKey = new ArrayList<>();
+                for (String name : key) {
+                    if (!name.equals(prevUsername)) {
+                        newKey.add(name);
+                    }
+                }
+                newKey.add(newUsername);
+                Collections.sort(newKey);
+                chatrooms.put(newKey, chatroom);
+            }
+        }
+        deleteChatrooms(prevUsername);
+    }
+
 }
