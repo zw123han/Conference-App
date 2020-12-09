@@ -42,6 +42,9 @@ public class LoginOptionsFacade {
      * @return True if and only if the type of the user is updated to a different type newType.
      */
     public boolean updateUserType(String username, String newType){
+        if(this.getUser().getUserName().equals(username)){
+            return false;
+        }
         if(registrar.updateUserType(username, newType)){
             eventManager.removeSpeaker(username);
             return true;
@@ -74,6 +77,8 @@ public class LoginOptionsFacade {
     public boolean updateName(String username, String name){
         return registrar.updateName(username, name);
     }
+
+
     /**
      * Deletes a user completely from the system. Users cannot delete themselves.
      *

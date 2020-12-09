@@ -25,6 +25,6 @@ public class Administrator extends User{
      */
     @Override
     public String getUserType(){
-        return "admin";
+        return "administrator";
     };
 }
