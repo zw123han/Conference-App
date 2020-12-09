@@ -29,7 +29,7 @@ public class LoginGUI extends Application{
         loginCanvas.setAlignment(Pos.CENTER);
         loginCanvas.setPadding(new Insets(20, 20, 20, 20));
 
-        Scene scene = new Scene (loginCanvas, 500, 600);
+        Scene scene = new Scene (loginCanvas);
 
         Text loginTitle = new Text("Welcome to the Conference!");
         loginTitle.setFont(Font.loadFont(getClass().getResourceAsStream("/resources/os-bold.ttf"),30));
@@ -119,12 +119,12 @@ public class LoginGUI extends Application{
 
         //Plays song
         mediaPlayer.play();
-        primaryStage.setMinHeight(600);
-        primaryStage.setMaxHeight(600);
-        primaryStage.setHeight(600);
-        primaryStage.setMinWidth(500);
-        primaryStage.setMaxWidth(500);
-        primaryStage.setWidth(500);
+        //primaryStage.setMinHeight(600);
+        //primaryStage.setMaxHeight(600);
+        //primaryStage.setHeight(600);
+        //primaryStage.setMinWidth(500);
+        //primaryStage.setMaxWidth(500);
+        //primaryStage.setWidth(500);
         primaryStage.setTitle("Login - Conference Simulator Phase 2");
         primaryStage.setScene(scene);
         primaryStage.show();

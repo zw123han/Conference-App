@@ -195,7 +195,8 @@ public class ManageEventMenu extends Application implements EventCreatorPresente
             mg.goBack(primaryStage);
         });
 
-        Scene scene = new Scene (root, 1280, 720);
+        //Scene scene = new Scene (root, 1280, 720);
+        Scene scene = new Scene (root);
         primaryStage.setTitle("Manage Events");
         primaryStage.setScene(scene);
         primaryStage.show();

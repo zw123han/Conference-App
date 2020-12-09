@@ -27,7 +27,7 @@ public class PasswordMenu extends Application {
         vbox.setAlignment(Pos.CENTER);
         vbox.setPadding(new Insets(20, 20, 20, 20));
 
-        Scene scene = new Scene (vbox, 500, 500);
+        Scene scene = new Scene (vbox);
 
         Text title = new Text ("Change password");
         title.setFont(Font.loadFont(getClass().getResourceAsStream("/resources/os-bold.ttf"),20));

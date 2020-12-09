@@ -66,6 +66,7 @@ public class ManageAccountMenu extends Application {
             window.setTitle("Create User");
 
             VBox layout = new VBox(5);
+            layout.setPadding(new Insets(20, 20, 20, 20));
 
             HBox titleBox = new HBox();
             Label title = new Label("Please specify the type of account");
@@ -118,6 +119,7 @@ public class ManageAccountMenu extends Application {
             window.setTitle("Create User");
 
             VBox layout = new VBox(5);
+            layout.setPadding(new Insets(20, 20, 20, 20));
 
             HBox titleBox = new HBox();
             Label title = new Label("Please enter the user you would like the delete: \n(You cannot delete yourself) ");
@@ -161,6 +163,7 @@ public class ManageAccountMenu extends Application {
             window.setTitle("Create User");
 
             VBox layout = new VBox(5);
+            layout.setPadding(new Insets(20, 20, 20, 20));
 
             HBox enterNameBox = new HBox();
             Label enterName = new Label("Please enter the username that you want to modify: ");
@@ -246,7 +249,8 @@ public class ManageAccountMenu extends Application {
             mg.goBack(primaryStage);
         });
         root.getChildren().addAll(row1, row2, row3);
-        Scene scene = new Scene (root, 800, 600);
+        //Scene scene = new Scene (root, 800, 600);
+        Scene scene = new Scene (root);
         primaryStage.setTitle("Manage Accounts");
         primaryStage.setScene(scene);
         primaryStage.show();
