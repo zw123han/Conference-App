@@ -108,7 +108,8 @@ public class ChatroomManager implements Serializable, Savable {
     }
 
     public void deleteChatrooms(String username) {
-        for (ArrayList<String> key : chatrooms.keySet()) {
+        Set<ArrayList<String>> keys = chatrooms.keySet();
+        for (ArrayList<String> key : keys) {
             if (key.contains(username)) {
                 chatrooms.remove(key);
             }
@@ -192,7 +193,8 @@ public class ChatroomManager implements Serializable, Savable {
      * @param newUsername     the uew username
      */
     public void updateChatroomUsername(String prevUsername, String newUsername) {
-        for (ArrayList<String> key : chatrooms.keySet()) {
+        Set<ArrayList<String>> keys = chatrooms.keySet();
+        for (ArrayList<String> key : keys) {
             if (key.contains(prevUsername)) {
                 Chatroom chatroom = chatrooms.get(key);
                 chatroom.updateSenders(prevUsername, newUsername);
