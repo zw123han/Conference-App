@@ -113,25 +113,25 @@ public class Registrar implements Savable {
         for(User user: this.users){
             if(user.getUserName().equals(username)&&!user.getUserType().equals(newType)){
                 if(newType.equals("attendee")){
-                    Attendee newUser = (Attendee) user;
+                    Attendee newUser = new Attendee(user.getName(), user.getUserName(), user.getPassword());
                     users.remove(user);
                     users.add(newUser);
                     return true;
                 }
                 else if(newType.equals("speaker")){
-                    Speaker newUser = (Speaker) user;
+                    Speaker newUser = new Speaker(user.getName(), user.getUserName(), user.getPassword());
                     users.remove(user);
                     users.add(newUser);
                     return true;
                 }
                 else if(newType.equals("organizer")){
-                    Organizer newUser = (Organizer) user;
+                    Organizer newUser = new Organizer(user.getName(), user.getUserName(), user.getPassword());
                     users.remove(user);
                     users.add(newUser);
                     return true;
                 }
                 else if(newType.equals("administrator")){
-                    Administrator newUser = (Administrator) user;
+                    Administrator newUser = new Administrator(user.getName(), user.getUserName(), user.getPassword());
                     users.remove(user);
                     users.add(newUser);
                     return true;
@@ -140,8 +140,33 @@ public class Registrar implements Savable {
                     return false;
                 }
             }
+            return false;
         }
         return false;
+    }
+
+    /**
+     * Sets the name of a user to a new name.
+     *
+     * @param username The username of the user.
+     * @param name The new name of the user.
+     * @return True if and only if the name was successfully changed.
+     */
+    public boolean updateName(String username, String name){
+        if(name.length()<1){
+            return false;
+        }
+        try {
+            User user = getUserByUserName(username);
+            if (!user.getName().equals(name)) {
+                user.setName(name);
+                return true;
+            }
+            return false;
+        }
+        catch(NullPointerException e){
+            return false;
+        }
     }
     /**
      * Returns the User object attending the conference that has the given username. Returns null if there is no user

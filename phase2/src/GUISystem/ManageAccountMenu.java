@@ -40,7 +40,7 @@ public class ManageAccountMenu extends Application {
         row2 = new ListView<>();
         HBox row3 = new HBox();
         // row 1
-        Label label = new Label("Please specify the type of accounts to view");
+        Label label = new Label("Please specify the type of accounts to view: ");
 
         ChoiceBox<String> choiceBox = new ChoiceBox<>();
         choiceBox.getItems().addAll("speaker", "organizer", "attendee", "administrator");
@@ -68,7 +68,7 @@ public class ManageAccountMenu extends Application {
             HBox titleBox = new HBox();
             Label title = new Label("Please specify the type of account");
             ChoiceBox<String> choice = new ChoiceBox<>();
-            choice.getItems().addAll("speaker", "organizer", "attendee");
+            choice.getItems().addAll("attendee", "speaker", "organizer", "administrator");
             titleBox.getChildren().addAll(title, choice);
             choice.setValue("attendee");
 
@@ -118,7 +118,7 @@ public class ManageAccountMenu extends Application {
             VBox layout = new VBox(5);
 
             HBox titleBox = new HBox();
-            Label title = new Label("Please enter the user you would like the delete");
+            Label title = new Label("Please enter the user you would like the delete: ");
             TextField input = new TextField();
             titleBox.getChildren().addAll(title, input);
 
@@ -126,16 +126,20 @@ public class ManageAccountMenu extends Application {
             Button submitButton = new Button("Submit");
 
             submitButton.setOnAction(ae -> {
-                String userType = registrar.getUserType(input.getText());
+                String username = input.getText();
+                if(registrar.userExisting(username)){
+                String userType = registrar.getUserType(username);
                 String userTypeLower = userType.toLowerCase();
                 String userTypeLower1 = userTypeLower.substring(userTypeLower.indexOf(".")+1);
-                System.out.println(userTypeLower1);
                 if (facade.deleteUser(input.getText())) {
                     createPopUp("Account deleted");
                     choiceBoxListener(registrar, userTypeLower1, row2);
                     choiceBox.setValue(userTypeLower1);
                 } else {
-                    createPopUp("User doesn't exist");
+                    createPopUp("Unable to delete user");
+                }}
+                else{
+                    createPopUp("No such user with username "   + username);
                 }
             });
 
@@ -156,20 +160,25 @@ public class ManageAccountMenu extends Application {
             VBox layout = new VBox(5);
 
             HBox enterNameBox = new HBox();
-            Label enterName = new Label("Please enter the username that you want to modify");
+            Label enterName = new Label("Please enter the username that you want to modify: ");
             TextField input = new TextField();
             enterNameBox.getChildren().addAll(enterName, input);
 
             HBox selectBox = new HBox();
             Label select = new Label("View accounts");
             ChoiceBox<String> choice = new ChoiceBox<>();
-            choice.getItems().addAll("speaker", "organizer", "attendee");
+            choice.getItems().addAll("attendee", "speaker", "organizer", "administrator");
             selectBox.getChildren().addAll(select, choice);
 
-            HBox  enterNewNameBox = new HBox();
-            Label enterNewName = new Label("Please enter the new name for the user");
+            VBox  enterNewNameBox = new VBox();
+            Label instructions = new Label("Please enter any fields you want to update, and leave the rest blank\n");
+            Label enterNewName = new Label("Please enter the new name for the user: ");
             TextField newName = new TextField();
-            enterNewNameBox.getChildren().addAll(enterNewName, newName);
+            Label enterNewUsername = new Label("Please enter the new username for the user: ");
+            TextField newUsername = new TextField();
+            Label enterNewType = new Label("Please enter the new type for the user (\"attendee\", \"speaker\", \"organizer\", or \"administrator\"): ");
+            TextField newType = new TextField();
+            enterNewNameBox.getChildren().addAll(instructions, enterNewName, newName, enterNewUsername, newUsername, enterNewType, newType);
 
             ListView<String> list = new ListView();
 
@@ -179,22 +188,44 @@ public class ManageAccountMenu extends Application {
 
             Button submitButton = new Button("Submit");
             submitButton.setOnAction(ae -> {
+                String username = input.getText();
+                if(registrar.userExisting(username)){
+                String newName1 = newName.getText();
+                String newUsername1 = newUsername.getText();
+                String newType1 = newType.getText();
+                String message = "No changes made";
+                String userType = registrar.getUserType(username);
 
-                try {
-                    String userType = registrar.getUserType(input.getText());
-                    String userTypeLower = userType.toLowerCase();
-                    String userTypeLower1 = userTypeLower.substring(userTypeLower.indexOf(".")+1);
-                    registrar.getUserByUserName(input.getText()).setName(newName.getText());
-                    String message = "The new name has been set:\n" + registrar.getUserByUserName(input.getText()).getName()+ "\n" +registrar.getUserByUserName(input.getText()).getUserName();
-                    createPopUp(message);
-                    choiceBoxListener(registrar, userTypeLower1, list);
-                    choiceBoxListener(registrar, userTypeLower1, row2);
-                    choiceBox.setValue(userTypeLower1);
-
-
-                } catch (NullPointerException nps) {
-                    createPopUp("Error: User does not exist");
+                if(newName1.length()>=1&& facade.updateName(username, newName1)){
+                    message = "";
+                    message += "The new name has been set to: "+newName1+"\n";
                 }
+                if(newType1.length()>=1&& facade.updateUserType(username, newType1)){
+                    userType = registrar.getUserType(username);
+                    if(message.equals("No changes made")){
+                        message = "";
+                    }
+                    message += "The new user type has been set to: "+newType1+"\n";
+                }
+                if(newUsername1.length()>=1&& facade.updateUsername(username, newUsername1)){
+                    if(message.equals("No changes made")){
+                        message = "";
+                    }
+                    message += "The new username has been set to: "+newUsername1+"\n";
+                }
+
+                createPopUp(message);
+
+                String userTypeLower = userType.toLowerCase();
+                String userTypeLower1 = userTypeLower.substring(userTypeLower.indexOf(".")+1);
+                choiceBoxListener(registrar, userTypeLower1, list);
+                choiceBoxListener(registrar, userTypeLower1, row2);
+                choiceBox.setValue(userTypeLower1);}
+                else{
+                    createPopUp("No such user with username "+username);
+                }
+
+
             });
 
             Button closeButton = new Button("Close");

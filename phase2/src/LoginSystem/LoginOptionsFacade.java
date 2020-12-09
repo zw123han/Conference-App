@@ -65,6 +65,16 @@ public class LoginOptionsFacade {
     }
 
     /**
+     * Sets the name of a user to a new name.
+     *
+     * @param username The username of the user.
+     * @param name The new name of the user.
+     * @return True if and only if the name was successfully changed.
+     */
+    public boolean updateName(String username, String name){
+        return registrar.updateName(username, name);
+    }
+    /**
      * Deletes a user completely from the system. Users cannot delete themselves.
      *
      * @param username The username of the user to be deleted.
