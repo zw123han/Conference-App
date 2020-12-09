@@ -141,8 +141,12 @@ public class ChatroomManager implements Serializable, Savable {
      * @param sender        Username of the sender
      */
     public void sendOne(ArrayList<String> users, String message, String sender) {
-        Message msg = new Message(message + " ", sender);
-        getChatroom(users).sendMessage(msg);
+        for (String user : users) {
+            if (!user.equals(sender)) {
+                Message msg = new Message(message + " ", sender);
+                getChatroom(users).sendMessage(msg);
+            }
+        }
     }
 
     /**
@@ -153,10 +157,12 @@ public class ChatroomManager implements Serializable, Savable {
      */
     public void sendAll(ArrayList<String> users, String message, String sender) {
         for (String user : users) {
-            ArrayList<String> recipients = new ArrayList<>();
-            recipients.add(user);
-            recipients.add(sender);
-            sendOne(recipients, message + " ", sender);
+            if (!user.equals(sender)) {
+                ArrayList<String> recipients = new ArrayList<>();
+                recipients.add(user);
+                recipients.add(sender);
+                sendOne(recipients, message + " ", sender);
+            }
         }
     }
 
@@ -189,13 +195,17 @@ public class ChatroomManager implements Serializable, Savable {
             if (key.contains(prevUsername)) {
                 Chatroom chatroom = chatrooms.get(key);
                 chatroom.updateSenders(prevUsername, newUsername);
-                ArrayList<String> newKey = (ArrayList<String>) key.clone();
-                newKey.remove(prevUsername);
+                ArrayList<String> newKey = new ArrayList<>();
+                for (String name : key) {
+                    if (!name.equals(prevUsername)) {
+                        newKey.add(name);
+                    }
+                }
                 newKey.add(newUsername);
                 Collections.sort(newKey);
                 chatrooms.put(newKey, chatroom);
-                chatrooms.remove(key);
             }
         }
+        deleteChatrooms(prevUsername);
     }
 }
