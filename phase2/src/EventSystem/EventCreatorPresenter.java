@@ -105,7 +105,7 @@ public class EventCreatorPresenter {
         for(Event ev: this.em.getEventsList()){
             if(!ev.isFull()) {
                 String name = "Name: " + ev.getName();
-                String id = "id: " + ev.getId();
+                String id = "" + ev.getId();
                 String time = "Time: " + DateTimeFormatter.ofLocalizedDateTime(FormatStyle.SHORT).format(ev.getTime());
                 String duration = "Duration: " + ev.getDuration() + " minutes";
                 String room = "Room: " + ev.getRoom();

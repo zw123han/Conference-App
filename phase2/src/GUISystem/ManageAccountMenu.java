@@ -181,9 +181,8 @@ public class ManageAccountMenu extends Application {
             TextField newType = new TextField();
             Label enterNewUsername = new Label("Please enter the new username for this user: ");
             TextField newUsername = new TextField();
-            Label enterNewPassword = new Label("Please enter the new password for this user: ");
-            PasswordField newPassword = new PasswordField();
-            enterNewNameBox.getChildren().addAll(instructions, enterNewName, newName, enterNewType, newType, enterNewUsername, newUsername, enterNewPassword, newPassword);
+
+            enterNewNameBox.getChildren().addAll(instructions, enterNewName, newName, enterNewType, newType, enterNewUsername, newUsername);
 
             ListView<String> list = new ListView();
 
@@ -201,7 +200,6 @@ public class ManageAccountMenu extends Application {
                 String newName1 = newName.getText();
                 String newType1 = newType.getText();
                 String newUsername1 = newUsername.getText();
-                String newPassword1 = newPassword.getText();
                 String message = "No changes made";
                 String userType = registrar.getUserType(username);
 
@@ -216,17 +214,13 @@ public class ManageAccountMenu extends Application {
                     }
                     message += "The new user type for " + username + " has been set to: "+newType1+"\n";
                 }
-                if(newPassword1.length()>=1&&facade.resetPassword(username,Base64.getEncoder().encodeToString(Base64.getDecoder().decode(registrar.getUserByUserName(username).getPassword().getBytes())), newPassword1)){
+
+                if(newUsername1.length()>1&& facade.updateUsername(username, newUsername1)){
                     if(message.equals("No changes made")){
                         message = "";
                     }
-                    message += "The password for " + username + " has been reset";
-                }
-                if(newUsername1.length()>1&& facade.updateUsername(username, newUsername1))
-                    if(message.equals("No changes made")){
-                        message = "";
-                    }
-                    message += "The username for " + username + " has been updated to " + newUsername1;
+                    message += "The username for " + username + " has been updated to " + newUsername1;}
+
                 createPopUp(message);
 
                 String userTypeLower = userType.toLowerCase();
