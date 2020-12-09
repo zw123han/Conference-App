@@ -101,12 +101,17 @@ public class ChatroomManager implements Serializable, Savable {
     /**
      * Deletes Chatroom with specific users.
      *
-     * @param usernames     list of usernames of users
+     * @param usernames     Arraylist of usernames of users
      */
     private void deleteChatroom(ArrayList<String> usernames){
         chatrooms.remove(usernames);
     }
 
+    /**
+     * Deletes all chatrooms associated with a user.
+     *
+     * @param username     username of the user
+     */
     public void deleteChatrooms(String username) {
         Set<ArrayList<String>> keys = chatrooms.keySet();
         for (ArrayList<String> key : keys) {
@@ -166,49 +171,5 @@ public class ChatroomManager implements Serializable, Savable {
                 sendOne(recipients, message + " ", sender);
             }
         }
-    }
-
-    /**
-     * Method for checking if a chatroom with specific users exists.
-     *
-     * @param user          Username of
-     * @param recipient     Username of the other user
-     * @return              True if chatroom exists, false otherwise
-     */
-    public boolean hasChatroom(String user, String recipient) {
-        ArrayList<String> recipients = new ArrayList<>();
-        recipients.add(user);
-        recipients.add(recipient);
-        Collections.sort(recipients);
-        return chatrooms.containsKey(recipients);
-    }
-
-    /**
-     * Updates all chatrooms containing prevUsername to contain newUsername instead.
-     * For example, if a user changes their username from "user1" to "user2," then this
-     * method can be used to update all instances of "user1" to "user2" so that the user
-     * still has access to their message history.
-     *
-     * @param prevUsername    username current in use in chatrooms
-     * @param newUsername     the uew username
-     */
-    public void updateChatroomUsername(String prevUsername, String newUsername) {
-        Set<ArrayList<String>> keys = chatrooms.keySet();
-        for (ArrayList<String> key : keys) {
-            if (key.contains(prevUsername)) {
-                Chatroom chatroom = chatrooms.get(key);
-                chatroom.updateSenders(prevUsername, newUsername);
-                ArrayList<String> newKey = new ArrayList<>();
-                for (String name : key) {
-                    if (!name.equals(prevUsername)) {
-                        newKey.add(name);
-                    }
-                }
-                newKey.add(newUsername);
-                Collections.sort(newKey);
-                chatrooms.put(newKey, chatroom);
-            }
-        }
-        deleteChatrooms(prevUsername);
     }
 }
