@@ -175,6 +175,15 @@ public class ChatroomManager implements Serializable, Savable {
         return chatrooms.containsKey(recipients);
     }
 
+    /**
+     * Updates all chatrooms containing prevUsername to contain newUsername instead.
+     * For example, if a user changes their username from "user1" to "user2," then this
+     * method can be used to update all instances of "user1" to "user2" so that the user
+     * still has access to their message history.
+     *
+     * @param prevUsername    username current in use in chatrooms
+     * @param newUsername     the uew username
+     */
     public void updateChatroomUsername(String prevUsername, String newUsername) {
         for (ArrayList<String> key : chatrooms.keySet()) {
             if (key.contains(prevUsername)) {
