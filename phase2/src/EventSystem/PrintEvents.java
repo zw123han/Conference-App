@@ -12,8 +12,42 @@ public class PrintEvents {
 
         try {
             StringBuilder html = new StringBuilder();
-            html.append("<html><head><title>Events List</title></head>");
-            html.append("<body>" + doc + "<body></html>");
+            html.append("<html><head>"+"<style>\n" +
+                    "table {\n" +
+                    "  font-family: arial, sans-serif;\n" +
+                    "  border-collapse: collapse;\n" +
+                    "  width: 100%;\n" +
+                    "}\n" +
+                    "\n" +
+                    "td, th {\n" +
+                    "  border: 1px solid #dddddd;\n" +
+                    "  text-align: left;\n" +
+                    "  padding: 8px;\n" +
+                    "}\n" +
+                    "\n" +
+                    "tr:nth-child(even) {\n" +
+                    "  background-color: #dddddd;\n" +
+                    "}\n" +
+                    "</style>\n" + "<title>Events List</title></head>");
+            html.append("<body>\n" +
+                    "\n" +
+                    "<h2 style=\"text-align: center;\">Conference Schedule</h2>\n" +
+                    "\n" +
+                    "<table>\n" +
+                    "  <tr style=\"background: black; color: white;\">\n" +
+                    "    <th>Event Name</th>\n" +
+                    "    <th>Event id</th>\n" +
+                    "    <th>Start time</th>\n" +
+                    "    <th>Duration</th>\n" +
+                    "    <th>Room</th>\n" +
+                    "    <th>Total Capacity</th>\n" +
+                    "    <th>Spots taken</th>\n" +
+                    "    <th>Speakers</th>\n" +
+                    "  </tr>\n" + doc +
+                    "</table>\n" +
+                    "\n" +
+                    "</body>\n" +
+                    "</html>");
             WriteToFile(html.toString(),"Events.html");
         } catch (IOException e) {
             e.printStackTrace();

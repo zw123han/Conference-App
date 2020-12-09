@@ -160,18 +160,25 @@ public class EventSignupPresenter {
 
         for (Long event_long: user.getEvents())  {
             Event ev = em.getEvent(event_long);
-            String name = "Name: " + ev.getName();
-            String id = "id: " + ev.getId();
-            String time = "Time: " + DateTimeFormatter.ofLocalizedDateTime(FormatStyle.SHORT).format(ev.getTime());
-            String duration = "Duration: " + ev.getDuration() + " minutes";
-            String room = "Room: " + ev.getRoom();
-            String capacity = "Capacity: " + ev.getNumberOfSignedUpUsers() + "/" + ev.getCapacity();
-            String speakers = "Speakers: " + ev.getSpeakerList();
+            String name = "" + ev.getName();
+            String id = ev.getId() + "";
+            String time = DateTimeFormatter.ofLocalizedDateTime(FormatStyle.SHORT).format(ev.getTime());
+            String duration = ev.getDuration() + "";
+            String room = ev.getRoom();
+            String capacity =  "" + ev.getCapacity();
+            String taken = "" + ev.getNumberOfSignedUpUsers();
+            String speakers = ev.getSpeakerList().toString();
 
-            doc.append("----------------------------<br />");
-            doc.append(name + "<br />" + id + "<br />" + time + "<br />" + duration + "<br />" + room + "<br />" +
-                    capacity + "<br />" + speakers + "<br />");
-            doc.append("----------------------------<br />");
+            doc.append("  <tr>\n" +
+                    "    <th>" + name + "</th>\n" +
+                    "    <th>" + id + "</th>\n" +
+                    "    <th>" + time + "</th>\n" +
+                    "    <th>" + duration +"</th>\n" +
+                    "    <th>" + room + "</th>\n" +
+                    "    <th>" + capacity + "</th>\n" +
+                    "    <th>" + taken + "</th>\n" +
+                    "    <th>" + speakers +"</th>\n" +
+                    "  </tr>\n");
         }
 
         printer.print(doc);
