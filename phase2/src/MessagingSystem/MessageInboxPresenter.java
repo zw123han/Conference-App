@@ -180,8 +180,8 @@ public class MessageInboxPresenter {
     // is displayed first in the view.
     private ArrayList<ArrayList<String>> sortChatrooms(ArrayList<ArrayList<String>> chatrooms) {
         ArrayList<ArrayList<String>> sortedChatrooms = new ArrayList<>();
-        int i = 0;
         for (ArrayList<String> chatroom : chatrooms) {
+            int i = 0;
             while (i < sortedChatrooms.size()) {
                 if (Integer.parseInt(sortedChatrooms.get(i).get(2)) < Integer.parseInt(chatroom.get(2))) {
                     sortedChatrooms.add(i, chatroom);
@@ -192,7 +192,6 @@ public class MessageInboxPresenter {
             if (i == sortedChatrooms.size()) {
                 sortedChatrooms.add(i, chatroom);
             }
-            i = 0;
         }
         return sortedChatrooms;
     }

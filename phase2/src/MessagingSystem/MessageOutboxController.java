@@ -12,22 +12,22 @@ import java.util.HashMap;
  */
 public class MessageOutboxController {
     private String username;
-    private Registrar reg;
-    private EventManager em;
-    private ChatroomManager cm;
+    private Registrar registrar;
+    private EventManager eventManager;
+    private ChatroomManager chatroomManager;
 
     /**
      * Initializes a new MessagingSystem.ChatController.
      *
      * @param username          Username of the sender
-     * @param reg               Registrar
-     * @param em                EventManager
+     * @param registrar               Registrar
+     * @param eventManager                EventManager
      */
-    public MessageOutboxController(String username, Registrar reg, EventManager em, ChatroomManager cm) {
+    public MessageOutboxController(String username, Registrar registrar, EventManager eventManager, ChatroomManager chatroomManager) {
         this.username = username;
-        this.reg = reg;
-        this.em = em;
-        this.cm = cm;
+        this.registrar = registrar;
+        this.eventManager = eventManager;
+        this.chatroomManager = chatroomManager;
     }
 
     /**
@@ -56,8 +56,8 @@ public class MessageOutboxController {
      * @return                  True if sender has permission to message recipient
      */
     public boolean canMessage(String recipient) {
-        return ((reg.isFriend(username, recipient) || reg.isOrganizer(username)) && reg.userExisting(recipient) ||
-                reg.isAdmin(username));
+        return ((registrar.isFriend(username, recipient) || registrar.isOrganizer(username)) && registrar.userExisting(recipient) ||
+                registrar.isAdmin(username));
     }
 
     /**
@@ -67,9 +67,9 @@ public class MessageOutboxController {
      * @return                  True if sender has permission to message, false otherwise
      */
     public boolean canMessage(Long evt) {
-        return em.hasEvent(evt) ||
-                (em.hasEvent(evt) && reg.isSpeaker(username) &&
-                        em.getEvent(evt).getSpeakerList().contains(username));
+        return eventManager.hasEvent(evt) ||
+                (eventManager.hasEvent(evt) && registrar.isSpeaker(username) &&
+                        eventManager.getEvent(evt).getSpeakerList().contains(username));
     }
 
     /**
@@ -78,7 +78,7 @@ public class MessageOutboxController {
      * @return                  True if sender has permission to message all speakers
      */
     public boolean canSendToSpeakers() {
-        return reg.isOrganizer(username) || reg.isAdmin(username);
+        return registrar.isOrganizer(username) || registrar.isAdmin(username);
     }
 
     /**
@@ -91,12 +91,12 @@ public class MessageOutboxController {
         ArrayList<String> recipients = new ArrayList<>();
         recipients.add(username);
         recipients.add(recipient);
-        cm.sendOne(recipients, message.trim(), username);
+        chatroomManager.sendOne(recipients, message.trim(), username);
     }
 
     private String formatSendAll(String message, Long evt) {
-        return "[Event: " + em.getName(evt) + " in room " + em.getRoom(evt) +
-                ", " + em.getTime(evt) + "]\n" + message;
+        return "[Event: " + eventManager.getName(evt) + " in room " + eventManager.getRoom(evt) +
+                ", " + eventManager.getTime(evt) + "]\n" + message;
     }
 
     /**
@@ -108,8 +108,8 @@ public class MessageOutboxController {
      */
     public boolean sendMessage(Long evt, String message) {
         try {
-            ArrayList<String> recipients = em.getSignedUpUsers(evt);
-            cm.sendAll(recipients, formatSendAll(message.trim(), evt), username);
+            ArrayList<String> recipients = eventManager.getSignedUpUsers(evt);
+            chatroomManager.sendAll(recipients, formatSendAll(message.trim(), evt), username);
             return true;
         } catch (EventNotFoundException e) {
             return false;
@@ -122,10 +122,10 @@ public class MessageOutboxController {
      * @return   A list of event IDs.
      */
     public ArrayList<Long> getAllEventIDs() {
-        if (reg.isOrganizer(username) || reg.isAdmin(username)) {
-            return em.getEventIDs();
-        } else if (reg.isSpeaker(username)) {
-            return reg.getSpeakerTalks(username);
+        if (registrar.isOrganizer(username) || registrar.isAdmin(username)) {
+            return eventManager.getEventIDs();
+        } else if (registrar.isSpeaker(username)) {
+            return registrar.getSpeakerTalks(username);
         }
         return new ArrayList<>();
     }
@@ -136,19 +136,19 @@ public class MessageOutboxController {
      * @return   A HashMap with event info as keys and ids as values.
      */
     public HashMap<String, Long> getAllEventInfo() {
-        HashMap<String, Long> info = new HashMap<>();
-        if (reg.isOrganizer(username) || reg.isAdmin(username)) {
-            for(Long id : em.getEventIDs()){
-                String temp = em.getType(id) + ": " + em.getName(id)  + " [Room " + em.getRoom(id) + " at " + em.getTime(id) + "]";
-                info.put(temp, id);
+        HashMap<String, Long> eventInfo = new HashMap<>();
+        if (registrar.isOrganizer(username) || registrar.isAdmin(username)) {
+            for(Long id : eventManager.getEventIDs()){
+                String temp = eventManager.getType(id) + ": " + eventManager.getName(id)  + " [Room " + eventManager.getRoom(id) + " at " + eventManager.getTime(id) + "]";
+                eventInfo.put(temp, id);
             }
-        } else if (reg.isSpeaker(username)) {
-            for(Long id : reg.getSpeakerTalks(username)) {
-                String temp = em.getType(id) + ": " + em.getName(id)  + " [Room " + em.getRoom(id) + " at " + em.getTime(id) + "]";
-                info.put(temp, id);
+        } else if (registrar.isSpeaker(username)) {
+            for(Long id : registrar.getSpeakerTalks(username)) {
+                String temp = eventManager.getType(id) + ": " + eventManager.getName(id)  + " [Room " + eventManager.getRoom(id) + " at " + eventManager.getTime(id) + "]";
+                eventInfo.put(temp, id);
             }
         }
-        return info;
+        return eventInfo;
     }
 
     /**
@@ -157,14 +157,14 @@ public class MessageOutboxController {
      * @return   A list of speaker usernames.
      */
     public ArrayList<String> getMessageSpeakers() {
-        ArrayList<String> s = new ArrayList<>();
-        for (Long event_id : em.getEventIDs()) {
-            for (String speaker : em.getSpeakerList(event_id)) {
-                if (!s.contains(speaker)) {
-                    s.add(speaker);
+        ArrayList<String> speakers = new ArrayList<>();
+        for (Long event_id : eventManager.getEventIDs()) {
+            for (String speaker : eventManager.getSpeakerList(event_id)) {
+                if (!speakers.contains(speaker)) {
+                    speakers.add(speaker);
                 }
             }
         }
-        return s;
+        return speakers;
     }
 }

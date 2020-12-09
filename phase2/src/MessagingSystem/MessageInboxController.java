@@ -49,11 +49,11 @@ public class MessageInboxController {
      * @return the total number of unread messages
      */
     public String getTotalUnread() {
-        int counter = 0;
+        int totalUnread = 0;
         for (String friend : registrar.getUserFriends(currentUser)) {
-            counter += getNumUnread(friend);
+            totalUnread += getNumUnread(friend);
         }
-        return Integer.toString(counter);
+        return Integer.toString(totalUnread);
     }
 
     /**
@@ -64,9 +64,9 @@ public class MessageInboxController {
      * @return An ArrayList of chatroom data.
      */
     public ArrayList<ArrayList<String>> getChatroomOptions() {
-        ArrayList<String> users = getChattableUsers();
+        ArrayList<String> chattableUsers = getChattableUsers();
         ArrayList<ArrayList<String>> result = new ArrayList<>();
-        for (String user : users) {
+        for (String user : chattableUsers) {
             ArrayList<String> chatroomData = new ArrayList<>();
             chatroomData.add(registrar.getNameByUsername(user));
             chatroomData.add(user);
@@ -135,8 +135,8 @@ public class MessageInboxController {
      * @return    True if the message is pinned.
      */
     public boolean isPinned(String id, String recipient) {
-        Chatroom c = chatroomManager.getChatroom(currentUser, recipient);
-        return c.isPinned(Integer.parseInt(id));
+        Chatroom chatroom = chatroomManager.getChatroom(currentUser, recipient);
+        return chatroom.isPinned(Integer.parseInt(id));
     }
 
     /**
@@ -146,8 +146,7 @@ public class MessageInboxController {
      * @param id            id of the message
      */
     public void deleteMessage(String recipient, String id) {
-        int index = Integer.parseInt(id);
-        chatroomManager.deleteMessage(currentUser, recipient, index);
+        chatroomManager.deleteMessage(currentUser, recipient, Integer.parseInt(id));
     }
 
     /**
@@ -158,9 +157,8 @@ public class MessageInboxController {
      * @param id            index of the message
      */
     public void pinUnpinMessage(String recipient, String id){
-        Integer key = Integer.parseInt(id);
         Chatroom chatroom = chatroomManager.getChatroom(currentUser, recipient);
-        chatroom.pinUnpin(key);
+        chatroom.pinUnpin(Integer.parseInt(id));
     }
 
     /**
@@ -171,10 +169,10 @@ public class MessageInboxController {
      * @param recipient     username of recipient
      */
     public void markAllRead(String recipient) {
-        Chatroom c = chatroomManager.getChatroom(currentUser, recipient);
-        for (Integer i : c.getMessagePositions()) {
-            if (c.isUnread(currentUser, i)) {
-                c.read(i);
+        Chatroom chatroom = chatroomManager.getChatroom(currentUser, recipient);
+        for (Integer id : chatroom.getMessagePositions()) {
+            if (chatroom.isUnread(currentUser, id)) {
+                chatroom.read(id);
             }
         }
     }
@@ -294,41 +292,41 @@ public class MessageInboxController {
     // This includes this user's friends and any existing chatrooms
     // they're a part of in chatroom manager.
     private ArrayList<String> getChattableUsers() {
-        ArrayList<String> users = new ArrayList<>();
+        ArrayList<String> chattableUsers = new ArrayList<>();
         HashMap<ArrayList<String>, Chatroom> cms = chatroomManager.getAllChatrooms(currentUser);
         for (ArrayList<String> key : cms.keySet()) {
             if (key.contains(currentUser)) {
                 for (String person : key) {
                     if (!person.equals(currentUser)) {
-                        users.add(person);
+                        chattableUsers.add(person);
                     }
                 }
             }
         }
         for (String user : registrar.getUserFriends(currentUser)) {
-            if (!users.contains(user)) {
-                users.add(user);
+            if (!chattableUsers.contains(user)) {
+                chattableUsers.add(user);
             }
         }
-        return users;
+        return chattableUsers;
     }
 
     // Get the total number of unread messages in
     // a chatroom with recipient.
     private Integer getNumUnread(String recipient) {
-        Chatroom c = chatroomManager.getChatroom(currentUser, recipient);
-        return c.getUnread(currentUser);
+        Chatroom chatroom = chatroomManager.getChatroom(currentUser, recipient);
+        return chatroom.getUnread(currentUser);
     }
 
     // Gets every message from a chatroom given their ids
     private ArrayList<ArrayList<String>> collectMessagesFromChatroom(ArrayList<Integer> ids, Chatroom chatroom) {
         ArrayList<ArrayList<String>> result = new ArrayList<>();
-        for (Integer i : ids) {
+        for (Integer id : ids) {
             ArrayList<String> messageData = new ArrayList<>();
-            messageData.add(chatroom.getSender(i));
-            messageData.add(chatroom.getDate(i));
-            messageData.add(filterProfanity(chatroom.getMessage(i)));
-            messageData.add(i.toString());
+            messageData.add(chatroom.getSender(id));
+            messageData.add(chatroom.getDate(id));
+            messageData.add(filterProfanity(chatroom.getMessage(id)));
+            messageData.add(id.toString());
             result.add(messageData);
         }
         return result;

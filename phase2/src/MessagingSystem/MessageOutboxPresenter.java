@@ -3,20 +3,20 @@ package MessagingSystem;
 import java.util.*;
 
 /**
- * OutboxController handles user requests for sending messages.
+ * Handles user requests for sending messages from the MessageOutboxGUI.
  *
  * @author  Chrisee Zhu, Elliot
  */
 public class MessageOutboxPresenter {
-    private MessageOutboxController oc;
+    private MessageOutboxController messageOutboxController;
 
     /**
      * initializes a new OutboxController.
      *
-     * @param oc        OutboxController
+     * @param messageOutboxController        OutboxController
      */
-    public MessageOutboxPresenter(MessageOutboxController oc) {
-        this.oc = oc;
+    public MessageOutboxPresenter(MessageOutboxController messageOutboxController) {
+        this.messageOutboxController = messageOutboxController;
     }
 
     /**
@@ -25,7 +25,7 @@ public class MessageOutboxPresenter {
      * @param currentUser       username of the current user
      */
     public void setLoggedInUser(String currentUser) {
-        oc.setLoggedInUser(currentUser);
+        messageOutboxController.setLoggedInUser(currentUser);
     }
 
     /**
@@ -35,7 +35,7 @@ public class MessageOutboxPresenter {
      * @return boolean      True if length is not 0, false otherwise
      */
     public boolean validateMessage(String message) {
-        return oc.validateMessage(message);
+        return messageOutboxController.validateMessage(message);
     }
 
     /**
@@ -46,7 +46,7 @@ public class MessageOutboxPresenter {
      * @return true if messages are sent
      */
     public boolean sendMessage(Long evt, String message) {
-        return oc.sendMessage(evt, message);
+        return messageOutboxController.sendMessage(evt, message);
     }
 
     /**
@@ -56,8 +56,8 @@ public class MessageOutboxPresenter {
      * @return true if messages are sent
      */
     public boolean sendToSpeakers(String message){
-        for(String recipient : oc.getMessageSpeakers()){
-            oc.sendMessage(recipient, message);
+        for(String recipient : messageOutboxController.getMessageSpeakers()){
+            messageOutboxController.sendMessage(recipient, message);
         }
         return true;
     }
@@ -68,7 +68,7 @@ public class MessageOutboxPresenter {
      * @return                  True if sender has permission to message all speakers
      */
     public boolean canSendToSpeakers() {
-        return oc.canSendToSpeakers();
+        return messageOutboxController.canSendToSpeakers();
     }
 
     /**
@@ -77,7 +77,7 @@ public class MessageOutboxPresenter {
      * @return   A HashMap with event info as keys and ids as values.
      */
     public HashMap<String, Long> getAllEventInfo() {
-        return oc.getAllEventInfo();
+        return messageOutboxController.getAllEventInfo();
     }
 
 }
