@@ -1,6 +1,5 @@
 package MessagingSystem;
 
-import java.lang.reflect.Array;
 import java.util.*;
 import java.io.Serializable;
 
@@ -71,7 +70,7 @@ public class Chatroom implements Serializable {
      * @return          Date the message corresponding with the key was sent
      */
     public String getDate(Integer position) {
-        return history.get(position).getDate();
+        return history.get(position).getLocalDate();
     }
 
     /**

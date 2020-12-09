@@ -54,15 +54,25 @@ public class Message implements Serializable {
     }
 
     /**
+     * Gets the date and time this message was sent.
+     *
+     * @return      date sent (zoned)
+     */
+    public String getDate() {
+        return time.toString();
+    }
+
+    /**
      * Gets the date and time this message was sent, converted to local time.
      *
      * @return      date sent (local)
      */
-    public String getDate() {
+    public String getLocalDate() {
         DateTimeFormatter d = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
         ZonedDateTime currentTime = time.withZoneSameInstant(ZoneId.systemDefault());
         return currentTime.toLocalDateTime().format(d);
     }
+
 
     public void setDate(ZonedDateTime time) {
         this.time = time;
