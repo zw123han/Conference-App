@@ -30,10 +30,7 @@ public class ConferenceSimulator {
      */
     public void run() {
         // TODO: Add modify button to eventManager
-        // TODO: implement updateUserType in ManageAccountMenu
-        // TODO: implement updateUsername in ManageAccountMenu
         // TODO: let event ids be copiable in ManageEventMenu and EventMenu
-        // TODO: fix the event id/datetime bug
 
         // For database saving
         // Connect to database

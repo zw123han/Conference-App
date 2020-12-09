@@ -76,7 +76,7 @@ public class CredentialsUseCase {
      * @return True if and only if the username is successfully changed to newUsername.
      */
     public boolean updateUsername(String username, String newUsername){
-        if(registrar.userExisting(newUsername)){
+        if(registrar.userExisting(newUsername)|newUsername.length()<1|newUsername.contains("@")){
             return false;
         }
         for(User user: registrar.getUsers()){
