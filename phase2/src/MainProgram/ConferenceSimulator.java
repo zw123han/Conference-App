@@ -13,7 +13,7 @@ import javafx.application.Application;
 import java.util.*;
 
 /**
- * This class represents the executable for the application.
+ * This class rep qresents the executable for the application.
  *
  * @author  Fred, Ziwen
  */

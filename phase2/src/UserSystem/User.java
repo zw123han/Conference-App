@@ -67,15 +67,6 @@ public abstract class User implements Serializable {
     public String getPassword(){ return hashPassword; }
 
     /**
-     * Sets a users username
-     *
-     * @param username A string representing the username to be set.
-     */
-    public void setUserName(String username){
-        this.userName = username;
-    }
-
-    /**
      * Sets a users password
      *
      * @param hashPassword      A string representing the user's password.

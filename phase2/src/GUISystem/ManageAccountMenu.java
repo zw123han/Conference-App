@@ -172,14 +172,12 @@ public class ManageAccountMenu extends Application {
             selectBox.getChildren().addAll(select, choice);
 
             VBox  enterNewNameBox = new VBox();
-            Label instructions = new Label("Please enter any fields you want to update, and leave the rest blank\n");
+            Label instructions = new Label("Please enter any fields you want to update, and leave the rest blank\n(Usernames cannot be updated)\n");
             Label enterNewName = new Label("Please enter the new name for the user: ");
             TextField newName = new TextField();
-            Label enterNewUsername = new Label("Please enter the new username for the user: \n(You cannot modify your own username)");
-            TextField newUsername = new TextField();
             Label enterNewType = new Label("Please enter the new type for the user: \n(\"attendee\", \"speaker\", \"organizer\", or \"administrator\") \n(You cannot modify your own type)");
             TextField newType = new TextField();
-            enterNewNameBox.getChildren().addAll(instructions, enterNewName, newName, enterNewUsername, newUsername, enterNewType, newType);
+            enterNewNameBox.getChildren().addAll(instructions, enterNewName, newName, enterNewType, newType);
 
             ListView<String> list = new ListView();
 
@@ -195,7 +193,6 @@ public class ManageAccountMenu extends Application {
                 }
                 else{
                 String newName1 = newName.getText();
-                String newUsername1 = newUsername.getText();
                 String newType1 = newType.getText();
                 String message = "No changes made";
                 String userType = registrar.getUserType(username);
@@ -210,12 +207,6 @@ public class ManageAccountMenu extends Application {
                         message = "";
                     }
                     message += "The new user type has been set to: "+newType1+"\n";
-                }
-                if(newUsername1.length()>=1&& facade.updateUsername(username, newUsername1)){
-                    if(message.equals("No changes made")){
-                        message = "";
-                    }
-                    message += "The new username has been set to: "+newUsername1+"\n";
                 }
 
                 createPopUp(message);

@@ -52,24 +52,6 @@ public class LoginOptionsFacade {
         }
         return false;
     }
-    /**
-     * Updates the username of a user. Users cannot update their own username.
-     *
-     * @param username The old username of the user.
-     * @param newUsername The new username of the user.
-     * @return True if and only if a user with the username was changed to have newUsername.
-     */
-    public boolean updateUsername(String username, String newUsername){
-        if(this.getUser().getUserName().equals(username)){
-            return false;
-        }
-        if(credentialsUseCase.updateUsername(username, newUsername)){
-            eventManager.updateUsername(username, newUsername);
-            chatroomManager.updateChatroomUsername(username, newUsername);
-            return true;
-        }
-        return false;
-    }
 
     /**
      * Sets the name of a user to a new name.
