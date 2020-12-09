@@ -80,7 +80,8 @@ public class ChatroomManager implements Serializable, Savable {
      */
     public HashMap<ArrayList<String>, Chatroom> getAllChatrooms(String username) {
         HashMap<ArrayList<String>, Chatroom> cms = new HashMap<>();
-        for (ArrayList<String> key : chatrooms.keySet()) {
+        Set<ArrayList<String>> keys = chatrooms.keySet();
+        for (ArrayList<String> key : keys) {
             if (key.contains(username)) {
                 cms.put(key, getChatroom(key));
             }
