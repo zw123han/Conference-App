@@ -64,6 +64,10 @@ public class Message implements Serializable {
         return currentTime.toLocalDateTime().format(d);
     }
 
+    public void setDate(ZonedDateTime time) {
+        this.time = time;
+    }
+
     /**
      * Method for checking if message is read by the recipient (not the sender)
      * @return           True if the message at index is read, false otherwise
@@ -95,8 +99,5 @@ public class Message implements Serializable {
      */
     public void setPinned(boolean setter){
         pinned = setter;
-    }
-
-    public void setDate(ZonedDateTime time) {
     }
 }
