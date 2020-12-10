@@ -192,7 +192,7 @@ public class MessageInboxGUI extends Application implements MessageInboxPresente
         // CHILD #2: SCROLLABLE MESSAGE HISTORY
         messagesScrollable = new ScrollPane();
         messageDisplay = new VBox();
-        messagesScrollable.setPrefSize(320, 382);
+        messagesScrollable.setPrefSize(320, 425);
         messagesScrollable.setContent(messageDisplay);
         messagesScrollable.setVvalue(1.0);
         messagesScrollable.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
@@ -200,14 +200,14 @@ public class MessageInboxGUI extends Application implements MessageInboxPresente
         messagesScrollable.setStyle("-fx-background-color:white;");
         // CHILD #3: MESSAGE TEXT AREA
         HBox textFieldBar = new HBox(5);
-        textFieldBar.setPrefSize(320, 160);
+        textFieldBar.setPrefSize(320, 120);
         textFieldBar.setAlignment(Pos.BOTTOM_LEFT);
         textFieldBar.setPadding(new Insets(5));
         // Message Box (Field)
         messageBox = new TextArea("Select a chat to send a message.");
         messageBox.setFont(Font.loadFont(getClass().getResourceAsStream("/resources/os-regular.ttf"), 12));
         messageBox.setPadding(new Insets(4));
-        messageBox.setPrefSize(260, 160);
+        messageBox.setPrefSize(260, 120);
         messageBox.setWrapText(true);
         messageBox.setDisable(true);
         // Send Message Button
