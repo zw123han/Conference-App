@@ -13,6 +13,7 @@ public class RoomPresenter  {
     private RoomInterface ri;
     public RoomPresenter(RoomManager roomManager, EventManager eventManager){
         this.roomManager = roomManager;
+        this.eventManager = eventManager;
     }
     public void setInterface(RoomInterface ri) {
         this.ri = ri;
