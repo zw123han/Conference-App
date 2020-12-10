@@ -71,7 +71,7 @@ public class ConferenceBuilder {
         this.eventCreatorPresenter = new EventCreatorPresenter(eventManager, registrar, roomManager);
         this.eventSignupPresenter = new EventSignupPresenter(eventSignup, eventManager);
         this.friendsController = new FriendsController(registrar, friendsPresenter);
-        this.roomPresenter = new RoomPresenter(roomManager);
+        this.roomPresenter = new RoomPresenter(roomManager, eventManager);
     }
 
     private void makeMenus(){
