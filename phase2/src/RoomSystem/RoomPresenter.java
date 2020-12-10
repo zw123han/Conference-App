@@ -1,6 +1,7 @@
 package RoomSystem;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 public class RoomPresenter {
     private RoomManager roomManager;
@@ -9,5 +10,11 @@ public class RoomPresenter {
         this.roomManager = roomManager;
     }
 
-    // display rooms method
+    public ArrayList<String> displayRooms(){
+        ArrayList<String> roomList = new ArrayList<String>();
+        for(Room room: roomManager.getRooms()){
+            roomList.add("ID: "+room.getRoomID() + "\n Capacity: " + String.valueOf(room.getCapacity()));
+        }
+        return roomList;
+    }
 }
