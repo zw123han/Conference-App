@@ -32,11 +32,11 @@ public class RoomManager {
         return true;
     }
 
-    public boolean changeCapacity(String roomID, int newCapacity){
+    public boolean deleteRoom(String roomID){
         if(!roomExists(roomID)){
             return false;
         }
-        getRoom(roomID).setCapacity(newCapacity);
+        rooms.remove(getRoom(roomID));
         return true;
     }
 

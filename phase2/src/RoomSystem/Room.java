@@ -14,7 +14,4 @@ public class Room {
     public String getRoomID(){
         return this.roomID;
     }
-    public void setCapacity(int newCapacity){
-        this.capacity = newCapacity;
-    }
 }

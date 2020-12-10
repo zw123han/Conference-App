@@ -10,7 +10,7 @@ public class RoomController {
     public boolean makeRoom(String roomID, int capacity){
         return roomManager.makeRoom(roomID, capacity);
     }
-    public boolean changeCapacity(String roomID, int capacity){
-        return roomManager.changeCapacity(roomID, capacity);
+    public boolean deleteRoom(String roomID){
+        return roomManager.deleteRoom(roomID);
     }
 }
