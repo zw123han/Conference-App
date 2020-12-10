@@ -17,6 +17,4 @@ public class Room {
     public void setCapacity(int newCapacity){
         this.capacity = newCapacity;
     }
-
-
 }

@@ -1,6 +1,5 @@
 package RoomSystem;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 public class RoomManager {
@@ -40,5 +39,6 @@ public class RoomManager {
         getRoom(roomID).setCapacity(newCapacity);
         return true;
     }
+
     }
 
