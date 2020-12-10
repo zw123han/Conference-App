@@ -4,6 +4,7 @@ import EventSystem.EventCreatorPresenter;
 import EventSystem.EventManager;
 import EventSystem.EventSignupPresenter;
 import LoginSystem.LoginOptionsFacade;
+import RoomSystem.RoomPresenter;
 import UserSystem.Registrar;
 import UserSystem.Speaker;
 import UserSystem.User;
@@ -33,12 +34,14 @@ public class ManageEventMenu extends Application implements EventCreatorPresente
 
     private EventCreatorPresenter ecp;
     private EventManager em;
+    private RoomPresenter rp;
     private UserMenuGetter mg;
     private ListView allEvents;
     private LoginOptionsFacade facade;
 
-    public void setEventCreatorElements(EventCreatorPresenter ecp) {
+    public void setEventCreatorElements(EventCreatorPresenter ecp, RoomPresenter rp) {
         this.ecp = ecp;
+        this.rp = rp;
     }
     public void setUserMenuGetter(UserMenuGetter userMenuGetter) {
         this.mg = userMenuGetter;
@@ -115,7 +118,15 @@ public class ManageEventMenu extends Application implements EventCreatorPresente
             for (String s: allSpeakers) {
                 speakers.getItems().add(s);
             }
-
+            //populate a list view with all rooms
+            VBox roomBox = new VBox();
+            Label roomListLabel = new Label("Available Rooms");
+            ListView<String> room_list = new ListView<>();
+            ArrayList<String> allRooms = getRooms();
+            for (String r: allRooms) {
+                room_list.getItems().add(r);
+            }
+            roomBox.getChildren().addAll(roomListLabel, room_list);
             speakers.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
             speaker_list.getChildren().addAll(speakerLabel, speakers);
 
@@ -163,7 +174,7 @@ public class ManageEventMenu extends Application implements EventCreatorPresente
             Button closeButton = new Button("Close");
             closeButton.setOnAction(ae -> window.close());
 
-            parent.getChildren().addAll(name, room, time, duration, speaker_list, capacity, submitButton, closeButton);
+            parent.getChildren().addAll(name, room, time, duration, speaker_list, roomBox, capacity, submitButton, closeButton);
             Scene scene = new Scene(parent);
             window.setScene(scene);
             window.showAndWait();
@@ -305,6 +316,9 @@ public class ManageEventMenu extends Application implements EventCreatorPresente
             list.add(s.getUserName());
         }
         return list;
+    }
+    private ArrayList<String> getRooms() {
+        return rp.displayRooms();
     }
 
     private boolean isValidTime(TextField time, DateTimeFormatter formatter) {

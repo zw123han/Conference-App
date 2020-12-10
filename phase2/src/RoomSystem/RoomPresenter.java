@@ -1,11 +1,12 @@
 package RoomSystem;
 
+import EventSystem.EventSignupPresenter;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 
-public class RoomPresenter {
+public class RoomPresenter  {
     private RoomManager roomManager;
-
     public RoomPresenter(RoomManager roomManager){
         this.roomManager = roomManager;
     }

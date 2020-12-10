@@ -11,6 +11,7 @@ import LoginSystem.LoginOptionsFacade;
 import MessagingSystem.*;
 import RoomSystem.Room;
 import RoomSystem.RoomManager;
+import RoomSystem.RoomPresenter;
 import UserSystem.*;
 
 import java.util.ArrayList;
@@ -36,6 +37,7 @@ public class ConferenceBuilder {
     private EventCreatorPresenter eventCreatorPresenter;
     private EventSignupPresenter eventSignupPresenter;
     private FriendsController friendsController;
+    private RoomPresenter roomPresenter;
 
     // For database saving
     public ConferenceBuilder(DatabaseInteractor databaseInteractor){
@@ -85,6 +87,7 @@ public class ConferenceBuilder {
         this.eventCreatorPresenter = new EventCreatorPresenter(eventManager, registrar, roomManager);
         this.eventSignupPresenter = new EventSignupPresenter(eventSignup, eventManager);
         this.friendsController = new FriendsController(registrar, friendsPresenter);
+        this.roomPresenter = new RoomPresenter(roomManager);
     }
 
     private void makeMenus(){
@@ -127,7 +130,7 @@ public class ConferenceBuilder {
         eventCreatorPresenter.setInterface(manageEventMenu);
         friendsController.setInterface(friendsMenuGUI);
         eventMenu.setEventElements(eventSignupPresenter);
-        manageEventMenu.setEventCreatorElements(eventCreatorPresenter);
+        manageEventMenu.setEventCreatorElements(eventCreatorPresenter , roomPresenter);
         manageEventMenu.setFacade(loginFacade);
         manageAccountMenu.setFacade(loginFacade);
         friendsMenuGUI.setFriendsElements(friendsController);
@@ -153,8 +156,6 @@ public class ConferenceBuilder {
         // Add menuFacade to the application
         LaunchMenu.setMenuFacade(menuFacade);
     }
-
-
 
     public void buildAConference(){
         getSavables();
