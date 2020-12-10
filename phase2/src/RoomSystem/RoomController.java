@@ -12,7 +12,5 @@ public class RoomController {
     }
     public boolean deleteRoom(String roomID){
         return roomManager.deleteRoom(roomID);
-    }
-
-
+    } // when deleting rooms in menu, check if any events have such a room. if yes, do not delete.
 }

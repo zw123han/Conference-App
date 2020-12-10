@@ -1,12 +1,33 @@
 package RoomSystem;
 
+import DatabaseSystem.*;
+
 import java.util.ArrayList;
 
-public class RoomManager {
+public class RoomManager implements Savable {
     private ArrayList<Room> rooms;
 
     public RoomManager(ArrayList<Room> rooms){
         this.rooms = rooms;
+    }
+
+    public RoomManager() {
+        this.rooms = new ArrayList<Room>();
+    }
+
+    @Override
+    public String getCollectionName() {
+        return "rooms";
+    }
+
+    @Override
+    public ConversionStrategy getConversionStrategy() {
+        return new RoomManagerConverter();
+    }
+
+    @Override
+    public ParserStrategy getDocumentParserStrategy() {
+        return new ParseToRoomManager();
     }
 
     public ArrayList<Room> getRooms(){
