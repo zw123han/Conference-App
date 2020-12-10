@@ -1,7 +1,5 @@
 package RoomSystem;
 
-import EventSystem.EventSignupPresenter;
-
 import java.util.ArrayList;
 import java.util.HashMap;
 
