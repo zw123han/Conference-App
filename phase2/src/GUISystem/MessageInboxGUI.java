@@ -192,7 +192,7 @@ public class MessageInboxGUI extends Application implements MessageInboxPresente
         // CHILD #2: SCROLLABLE MESSAGE HISTORY
         messagesScrollable = new ScrollPane();
         messageDisplay = new VBox();
-        messagesScrollable.setPrefSize(320, 500);
+        messagesScrollable.setPrefSize(320, 382);
         messagesScrollable.setContent(messageDisplay);
         messagesScrollable.setVvalue(1.0);
         messagesScrollable.setHbarPolicy(ScrollPane.ScrollBarPolicy.NEVER);
@@ -236,12 +236,12 @@ public class MessageInboxGUI extends Application implements MessageInboxPresente
         Scene scene = new Scene(inboxCanvas);
         primaryStage.setTitle("Messages");
         primaryStage.setScene(scene);
-        primaryStage.setMinHeight(600);
-        primaryStage.setMaxHeight(600);
-        primaryStage.setHeight(600);
-        primaryStage.setMinWidth(500);
-        primaryStage.setMaxWidth(500);
-        primaryStage.setWidth(500);
+//        primaryStage.setMinHeight(600);
+//        primaryStage.setMaxHeight(600);
+//        primaryStage.setHeight(600);
+//        primaryStage.setMinWidth(500);
+//        primaryStage.setMaxWidth(500);
+//        primaryStage.setWidth(500);
         primaryStage.show();
     }
 
@@ -275,12 +275,14 @@ public class MessageInboxGUI extends Application implements MessageInboxPresente
         chatroomOption.setId(chatroomData.get(1));
         chatroomOption.setBackground(new Background(new BackgroundFill(Color.WHITE, CornerRadii.EMPTY, Insets.EMPTY)));
         chatroomOption.setOnAction(e -> {
+            pinnedMessages.setSelected(false);
             sendMessage.setDisable(false);
             messageBox.setText("");
             messageBox.setDisable(false);
             this.recipient = chatroomOption.getId();
             chatroomOption.setBackground(new Background(new BackgroundFill(Color.LIGHTGREY, CornerRadii.EMPTY, Insets.EMPTY)));
             chatroomOption.setGraphic(chatroomOptionConstructor(chatroomData.get(0), chatroomData.get(1), "0"));
+            messageInboxPresenter.markAllUnread(recipient);
             messageInboxPresenter.loadMessageCanvasView(recipient);
             // Sets only the current button background to grey -- everything else is reset to white
             for (Object obj : chatroomOptions.getChildren().toArray()) {
@@ -445,6 +447,26 @@ public class MessageInboxGUI extends Application implements MessageInboxPresente
             messageInboxPresenter.pinUnpinMessage(pin.getId(), recipient);
         });
         messageOptions.getChildren().add(pin);
+
+        if (messageInboxPresenter.canMarkReadUnread(messageData.get(0))) {
+            Hyperlink readUnread = new Hyperlink("Mark Read");
+            readUnread.setId(messageData.get(3));
+            if (messageInboxPresenter.isRead(readUnread.getId(), recipient)) {
+                readUnread.setText("Mark Unread");
+            }
+            readUnread.setPadding(Insets.EMPTY);
+            readUnread.setFont(Font.loadFont(getClass().getResourceAsStream("/resources/os-bold.ttf"), 10));
+            readUnread.setTextFill(Color.BLACK);
+            readUnread.setOnAction(e -> {
+                if (readUnread.getText().equals("Mark Read")) {
+                    readUnread.setText("Mark Unread");
+                } else {
+                    readUnread.setText("Mark Read");
+                }
+                messageInboxPresenter.markReadUnread(readUnread.getId(), recipient);
+            });
+            messageOptions.getChildren().add(readUnread);
+        }
 
         messageContainer.getChildren().addAll(senderData, message, messageOptions);
         return messageContainer;

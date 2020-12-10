@@ -73,7 +73,11 @@ public class Message implements Serializable {
         return currentTime.toLocalDateTime().format(d);
     }
 
-
+    /**
+     * Sets the date and time of the message sent.
+     *
+     * @param time      date sent (zoned)
+     */
     public void setDate(ZonedDateTime time) {
         this.time = time;
     }
@@ -90,7 +94,16 @@ public class Message implements Serializable {
      * Method for setting the message as read.
      */
     public void read() {
-        read = true;
+        setRead(true);
+    }
+
+    /**
+     * Method for setting the message's read status.
+     *
+     * @param isRead   boolean of whether the message is read.
+     */
+    public void setRead(boolean isRead) {
+        read = isRead;
     }
 
     /**

@@ -162,6 +162,18 @@ public class MessageInboxController {
     }
 
     /**
+     * Pins a message with id in the logged in user's chatroom with recipient if the message is pinned.
+     * Otherwise, the message will be unpinned.
+     *
+     * @param id            the id of the message
+     * @param recipient     the recipient, i.e. other user in the chatroom who sent the message
+     */
+    public void markReadUnread(String recipient, String id) {
+        Chatroom chatroom = chatroomManager.getChatroom(currentUser, recipient);
+        chatroom.markReadUnread(Integer.parseInt(id));
+    }
+
+    /**
      * Marks all of the messages in the logged in user's chatroom with recipient
      * as read if they were previously unread. Messages can only be unread if they
      * were sent by a different user from the logged in user.
@@ -172,7 +184,7 @@ public class MessageInboxController {
         Chatroom chatroom = chatroomManager.getChatroom(currentUser, recipient);
         for (Integer id : chatroom.getMessagePositions()) {
             if (chatroom.isUnread(currentUser, id)) {
-                chatroom.read(id);
+                chatroom.markReadUnread(id);
             }
         }
     }
@@ -220,6 +232,30 @@ public class MessageInboxController {
      */
     public boolean canGroupMessage() {
         return registrar.isAdmin(currentUser) || registrar.isSpeaker(currentUser) || registrar.isOrganizer(currentUser);
+    }
+
+    /**
+     * Checks whether the logged in user can mark a message as read/unread.
+     * A user can mark a message as read/unread if they're not the sender of the message.
+     *
+     * @param sender        the username of the message's sender
+     * @return boolean      True if the message can be marked read/unread.
+     */
+    public boolean canMarkReadUnread(String sender) {
+        return !currentUser.equals(sender);
+    }
+
+    /**
+     * Checks whether the logged in user can mark a message as read/unread.
+     * A user can mark a message as read/unread if they're not the sender of the message.
+     *
+     * @param id            the id of the message
+     * @param recipient     the recipient, i.e. other user in the chatroom who sent the message
+     * @return boolean      True if the message is read.
+     */
+    public boolean isRead(String id, String recipient) {
+        Chatroom chatroom = chatroomManager.getChatroom(currentUser, recipient);
+        return !chatroom.isUnread(currentUser, Integer.parseInt(id));
     }
 
 

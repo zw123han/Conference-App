@@ -62,11 +62,19 @@ public class MessageInboxPresenter {
     }
 
     /**
+     * Marks all messages in the logged in user's chatroom with recipient as read.
+     *
+     * @param recipient   username of recipient
+     */
+    public void markAllUnread(String recipient) {
+        messageInboxController.markAllRead(recipient);
+    }
+
+    /**
      * Updates view with the messages in the logged in user's chatroom with recipient.
      */
     public void loadMessageCanvasView(String recipient) {
         if (!recipient.equals("")) {
-            messageInboxController.markAllRead(recipient);
             view.clearMessages();
             view.setMessageCanvasTitle(messageInboxController.getDisplayName(recipient));
             view.setChatroomCanvasTitle(messageInboxController.getTotalUnread());
@@ -134,6 +142,19 @@ public class MessageInboxPresenter {
     }
 
     /**
+     * Marks a message with id in the logged in user's chatroom with recipient as read if the message is unread.
+     * Otherwise, the message will be marked as unread.
+     * The request is passed directly onto the messageInboxController.
+     *
+     * @param recipient     username of the recipient
+     * @param id            index of the message
+     */
+    public void markReadUnread(String id, String recipient) {
+        messageInboxController.markReadUnread(recipient, id);
+        loadChatroomCanvasView();
+    }
+
+    /**
      * Checks whether the logged in user can delete a message. They can delete a message when:
      * - The logged in user is the sender;
      * - The logged in user is an admin.
@@ -160,6 +181,19 @@ public class MessageInboxPresenter {
     }
 
     /**
+     * Checks whether the message with id in the logged in user's chatroom with
+     * recipient is read already.
+     * The request is passed directly onto the messageInboxController.
+     *
+     * @param id         id of the message
+     * @param recipient  username of the recipient
+     * @return    True if the message is read.
+     */
+    public boolean isRead(String id, String recipient) {
+        return messageInboxController.isRead(id, recipient);
+    }
+
+    /**
      * Checks whether the logged in user can send a group message. They can send a group message
      * when the logged in user is an admin, an organizer, or a speaker.
      * The request is passed directly onto the messageInboxController.
@@ -170,6 +204,15 @@ public class MessageInboxPresenter {
         return messageInboxController.canGroupMessage();
     }
 
+    /**
+     * Checks whether the logged in user can mark a message sent by sender as read/unread.
+     *
+     * @param sender        username of the message's sender
+     * @return boolean      True if the logged in user can mark the sender's message as read/unread.
+     */
+    public boolean canMarkReadUnread(String sender) {
+        return messageInboxController.canMarkReadUnread(sender);
+    }
 
     // ===================
     //   PRIVATE HELPERS

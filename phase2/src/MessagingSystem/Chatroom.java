@@ -109,8 +109,9 @@ public class Chatroom implements Serializable {
      *
      * @param position   Index of the message
      */
-    public void read(Integer position) {
-        history.get(position).read();
+    public void markReadUnread(Integer position) {
+        boolean read = history.get(position).isRead();
+        history.get(position).setRead(!read);
     }
 
     /**
