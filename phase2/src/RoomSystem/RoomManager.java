@@ -11,6 +11,10 @@ public class RoomManager implements Savable {
         this.rooms = rooms;
     }
 
+    public RoomManager() {
+        this.rooms = new ArrayList<Room>();
+    }
+
     @Override
     public String getCollectionName() {
         return "rooms";
@@ -23,7 +27,7 @@ public class RoomManager implements Savable {
 
     @Override
     public ParserStrategy getDocumentParserStrategy() {
-        return new ParseToChatroomManager();
+        return new ParseToRoomManager();
     }
 
     public ArrayList<Room> getRooms(){
@@ -52,12 +56,9 @@ public class RoomManager implements Savable {
         return true;
     }
 
-    public boolean deleteRoom(String roomID){
-        if(!roomExists(roomID)){
-            return false;
-        }
+    public void deleteRoom(String roomID){
         rooms.remove(getRoom(roomID));
-        return true;
+
     }
 
     }

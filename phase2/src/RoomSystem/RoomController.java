@@ -10,7 +10,7 @@ public class RoomController {
     public boolean makeRoom(String roomID, int capacity){
         return roomManager.makeRoom(roomID, capacity);
     }
-    public boolean deleteRoom(String roomID){
-        return roomManager.deleteRoom(roomID);
-    }
+    public void deleteRoom(String roomID){
+        roomManager.deleteRoom(roomID);
+    } // when deleting rooms in menu, check if any events have such a room. if yes, do not delete.
 }
