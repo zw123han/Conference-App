@@ -56,12 +56,9 @@ public class RoomManager implements Savable {
         return true;
     }
 
-    public boolean deleteRoom(String roomID){
-        if(!roomExists(roomID)){
-            return false;
-        }
+    public void deleteRoom(String roomID){
         rooms.remove(getRoom(roomID));
-        return true;
+
     }
 
     }
