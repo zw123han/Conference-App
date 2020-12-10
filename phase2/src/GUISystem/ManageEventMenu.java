@@ -1,8 +1,8 @@
 package GUISystem;
 
 import EventSystem.EventCreatorPresenter;
+import EventSystem.EventCreator;
 import EventSystem.EventManager;
-import EventSystem.EventSignupPresenter;
 import LoginSystem.LoginOptionsFacade;
 import RoomSystem.RoomPresenter;
 import UserSystem.Registrar;
@@ -33,6 +33,7 @@ import java.util.ArrayList;
 public class ManageEventMenu extends Application implements EventCreatorPresenter.EventCreatorInterface {
 
     private EventCreatorPresenter ecp;
+    private EventCreator ec;
     private EventManager em;
     private RoomPresenter rp;
     private UserMenuGetter mg;
@@ -182,74 +183,105 @@ public class ManageEventMenu extends Application implements EventCreatorPresente
 
         modifyButton.setOnAction(e -> {
             Stage window = new Stage();
-            window.initModality(Modality.APPLICATION_MODAL);
+            window.initModality(Modality.WINDOW_MODAL);
             window.setTitle("Modify Event");
 
             VBox parent = new VBox();
-            TextField input = new TextField();
-            Button submitButton = new Button("Modify");
+
+            HBox input = new HBox();
+            TextField inputText = new TextField();
+            Label inputLabel = new Label("Enter the event ID to modify: ");
+            input.getChildren().addAll(inputLabel, inputText);
+
+            Button submitButton = new Button("Submit");
             Button closeButton = new Button("Close");
 
-            HBox name = new HBox();
-            Label nameLabel = new Label("Name: ");
-            HBox room = new HBox();
-            Label roomLabel = new Label("Room: ");
-            HBox time = new HBox();
-            Label timeLabel = new Label("Date format(yyyy-MM-dd HH:mm): ");
-            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
-            HBox duration = new HBox();
-            Label durationLabel = new Label("Duration: ");
+            submitButton.setOnAction(sb -> {
+                try {
+                    long id = Long.parseLong(inputText.getText());
 
-            VBox speaker_list = new VBox();
-            Label speakerLabel = new Label("Select Speakers (hold ctrl to multi select)");
-            ListView<String> speakers = new ListView<>();
-            ArrayList<String> allSpeakers = getSpeakers();
+                    Stage secondWindow = new Stage();
+                    secondWindow.initModality(Modality.APPLICATION_MODAL);
+                    secondWindow.setTitle("Modify Event");
 
-            HBox capacity = new HBox();
-            Label capacityLabel = new Label("Capacity: ");
+                    VBox child = new VBox();
 
-            for (String s: allSpeakers) {
-                speakers.getItems().add(s);
-            }
-
-            speakers.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
-            speaker_list.getChildren().addAll(speakerLabel, speakers);
-
-            submitButton.setOnAction(ae -> {
-                try{
-                    long id = Long.parseLong(input.getText());
-
+                    HBox name = new HBox();
                     TextField nameInput = new TextField(em.getEvent(id).getName());
+                    Label nameLabel = new Label("Name: ");
                     name.getChildren().addAll(nameLabel, nameInput);
 
+                    HBox room = new HBox();
                     TextField roomInput = new TextField(em.getEvent(id).getRoom());
-                    room.getChildren().addAll(roomLabel, roomInput);
+                    Label roomLabel = new Label("Room: ");
+                    room.getChildren().addAll(nameLabel, nameInput);
 
-
+                    HBox time = new HBox();
+                    Label timeLabel = new Label("Date format(yyyy-MM-dd HH:mm): ");
                     TextField timeInput = new TextField(em.getEvent(id).getTime().toString());
+                    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
                     time.getChildren().addAll(timeLabel, timeInput);
 
+                    HBox duration = new HBox();
                     TextField durationInput = new TextField(String.valueOf(em.getEvent(id).getDuration()));
+                    Label durationLabel = new Label("Duration: ");
                     duration.getChildren().addAll(durationLabel, durationInput);
 
+                    VBox speaker_list = new VBox();
+                    Label speakerLabel = new Label("Select Speakers (hold ctrl to multi select)");
+                    ListView<String> speakers = new ListView<>();
+                    ArrayList<String> allSpeakers = getSpeakers();
+
+                    for (String s : allSpeakers) { speakers.getItems().add(s); }
+
+                    speakers.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
+                    speaker_list.getChildren().addAll(speakerLabel, speakers);
+
+                    HBox capacity = new HBox();
                     TextField capacityInput = new TextField(String.valueOf(em.getEvent(id).getCapacity()));
+                    Label capacityLabel = new Label("Capacity: ");
                     capacity.getChildren().addAll(capacityLabel, capacityInput);
 
-                } catch(NumberFormatException n) {
-                    createPopUp("Invalid Event ID.");
+                    Button changeButton = new Button("Modify");
+                    Button exitButton = new Button("Close");
+
+                    modifyButton.setOnAction(mb -> {
+                        try {
+                            if (isValidTime(timeInput, formatter)) {
+                                ec.setName(id, nameInput.getText());
+                                ec.setRoom(id, roomInput.getText());
+                                ec.setTime(id, LocalDateTime.parse(timeInput.getText()), Long.parseLong(durationInput.getText()));
+                                ec.setCapacity(id, Integer.parseInt(capacityInput.getText()));
+                            }
+                        } catch (Exception ex){
+                            createPopUp("Error, please check arguments");
+                        }
+                    });
+
+                    exitButton.setOnAction(c -> secondWindow.close());
+
+                    child.getChildren().addAll(name, room, time, duration, speaker_list, capacity, changeButton,
+                            exitButton);
+                    Scene newScene = new Scene(child);
+                    secondWindow.setScene(newScene);
+                    secondWindow.showAndWait();
+
+                } catch (NumberFormatException n) {
+                    createPopUp("Invalid Event ID");
                 }
-            //    allEvents.getItems().clear();
-              //  ecp.viewEvents();
+
+                //allEvents.getItems().clear();
+                //ecp.viewEvents();
+
             });
 
-            closeButton.setOnAction(ae -> window.close());
+            closeButton.setOnAction(cb -> window.close());
 
-           parent.getChildren().addAll(name, room, time, duration, speaker_list, capacity, submitButton, closeButton);
+            parent.getChildren().addAll(input, submitButton, closeButton);
             Scene scene = new Scene(parent);
             window.setScene(scene);
             window.showAndWait();
         });
-
 
 
         removeButton.setOnAction(e -> {
