@@ -164,6 +164,7 @@ public class ManageEventMenu extends Application implements EventCreatorPresente
             window.setScene(scene);
             window.showAndWait();
         });
+
         removeButton.setOnAction(e -> {
             Stage window = new Stage();
             window.initModality(Modality.APPLICATION_MODAL);
@@ -175,7 +176,10 @@ public class ManageEventMenu extends Application implements EventCreatorPresente
             Button closeButton = new Button("Close");
 
             submitButton.setOnAction(ae -> {
+                //Event selectedEvents = allEvents.getItems();
+
                 try{
+                 //   selectedEvents.get
                     long id = Long.parseLong(input.getText());
                     ecp.promptEventDeletion(id);
                 } catch(NumberFormatException n) {

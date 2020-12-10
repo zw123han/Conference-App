@@ -236,12 +236,12 @@ public class MessageInboxGUI extends Application implements MessageInboxPresente
         Scene scene = new Scene(inboxCanvas);
         primaryStage.setTitle("Messages");
         primaryStage.setScene(scene);
-        //primaryStage.setMinHeight(600);
-        //primaryStage.setMaxHeight(600);
-        //primaryStage.setHeight(600);
-        //primaryStage.setMinWidth(500);
-        //primaryStage.setMaxWidth(500);
-        //primaryStage.setWidth(500);
+        primaryStage.setMinHeight(600);
+        primaryStage.setMaxHeight(600);
+        primaryStage.setHeight(600);
+        primaryStage.setMinWidth(500);
+        primaryStage.setMaxWidth(500);
+        primaryStage.setWidth(500);
         primaryStage.show();
     }
 
