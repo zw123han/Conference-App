@@ -142,15 +142,16 @@ public class ManageEventMenu extends Application implements EventCreatorPresente
 
             Button submitButton = new Button("Submit");
             submitButton.setOnAction(ae -> {
+                String selectedRoom = room_list.getSelectionModel().getSelectedItem();
+                String[] list = selectedRoom.split("\n");
+                String roomName = list[0];
+                String roomName1 = roomName.substring(roomName.indexOf(":")+1).trim();
+                String capacityInput = list[1];
+                int capacityInput1 = Integer.parseInt(capacityInput.substring(capacityInput.indexOf(":")+1).trim());
+                System.out.println(capacityInput1);
+                System.out.println(roomName1);
                 if (isValidTime(timeInput, formatter)  && isInt(durationInput)) {
                     ObservableList<String> selectedItems = speakers.getSelectionModel().getSelectedItems();
-                    String selectedRoom = room_list.getSelectionModel().getSelectedItem();
-                    String[] list = selectedRoom.split("\n");
-                    String roomName = list[0];
-                    String roomName1 = roomName.substring(roomName.indexOf(":")+1).trim();
-                    String capacityInput = list[1];
-                    int capacityInput1 = Integer.parseInt(capacityInput.substring(capacityInput.indexOf(":")+1).trim());
-
                     Registrar registrar = facade.getRegistrar();
                     boolean allSpeakersValid = true;
                     ArrayList<String> speakersNameList = new ArrayList<>();
