@@ -53,7 +53,10 @@ public class ConferenceBuilder {
         this.eventManager = (EventManager) databaseInteractor.readFromDatabase(new EventManager());
         this.chatroomManager = (ChatroomManager) databaseInteractor.readFromDatabase(new ChatroomManager());
         this.profanities = databaseInteractor.getProfanityList();
-        this.roomManager = new RoomManager(new ArrayList<Room>());
+        Room randRoom = new Room("1", 90 );
+        ArrayList<Room> rl = new ArrayList<>();
+        rl.add(randRoom);
+        this.roomManager = new RoomManager(rl);
 
         // For local saving
         // Registrar registrar = localSave.getRegistrar();
