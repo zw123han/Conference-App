@@ -10,6 +10,7 @@ import GUISystem.*;
 import LoginSystem.LoginOptionsFacade;
 import MessagingSystem.*;
 import RoomSystem.Room;
+import RoomSystem.RoomController;
 import RoomSystem.RoomManager;
 import RoomSystem.RoomPresenter;
 import UserSystem.*;
@@ -19,11 +20,8 @@ import java.util.Arrays;
 import java.util.HashMap;
 
 public class ConferenceBuilder {
-    // For database saving
-    private DatabaseInteractor databaseInteractor;
-    // For local saving
-    // private MainProgram.LocalSave localSave;
 
+    private DatabaseInteractor databaseInteractor;
     private Registrar registrar;
     private EventManager eventManager;
     private RoomManager roomManager;
@@ -39,15 +37,9 @@ public class ConferenceBuilder {
     private FriendsController friendsController;
     private RoomPresenter roomPresenter;
 
-    // For database saving
     public ConferenceBuilder(DatabaseInteractor databaseInteractor){
         this.databaseInteractor = databaseInteractor;
     }
-
-    // For local saving
-    // public MainProgram.ConferenceBuilder(MainProgram.LocalSave localSave){
-        // this.localSave = localSave;
-    // }
 
     private void getSavables(){
         // For database saving
@@ -55,20 +47,12 @@ public class ConferenceBuilder {
         this.eventManager = (EventManager) databaseInteractor.readFromDatabase(new EventManager());
         this.chatroomManager = (ChatroomManager) databaseInteractor.readFromDatabase(new ChatroomManager());
         this.profanities = databaseInteractor.getProfanityList();
-        Room randRoom = new Room("1", 90 );
-        ArrayList<Room> rl = new ArrayList<>();
-        rl.add(randRoom);
-        this.roomManager = new RoomManager(rl);
+        this.roomManager = (RoomManager) databaseInteractor.readFromDatabase(new RoomManager());
 
-        // For local saving
-        // Registrar registrar = localSave.getRegistrar();
-        // EventManager eventManager = localSave.getEventManager();
-        // ChatroomManager chatroomManager = localSave.getChatroomManager();
-        // HashMap<String, String> profanities = localSave.getProfanities();
     }
 
     private void setSavables(){
-        ArrayList<Savable> savables = new ArrayList<>(Arrays.asList(registrar, eventManager, chatroomManager));
+        ArrayList<Savable> savables = new ArrayList<>(Arrays.asList(registrar, eventManager, chatroomManager, roomManager));
         databaseInteractor.setSavables(savables);
     }
 
@@ -121,10 +105,7 @@ public class ConferenceBuilder {
         homeMenuGUI.setManageAccountMenu(manageAccountMenu);
         homeMenuGUI.setPasswordMenu(passwordMenu);
 
-        // For database saving
         homeMenuGUI.setSave(databaseInteractor);
-        // For local saving
-        // homeMenuGUI.setSave(MainProgram.LocalSave localSave);
 
         eventSignupPresenter.setInterface(eventMenu);
         eventCreatorPresenter.setInterface(manageEventMenu);
