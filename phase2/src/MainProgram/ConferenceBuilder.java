@@ -134,6 +134,7 @@ public class ConferenceBuilder {
         roomMenu.setUserMenuGetter(homeMenuGUI);
         manageAccountMenu.setUserMenuGetter(homeMenuGUI);
 
+
         // Dependency inject MenuGetter into menus
         loginGUI.setMenuGetter(menuFacade);
         accountCreationMenu.setMenuGetter(menuFacade);
