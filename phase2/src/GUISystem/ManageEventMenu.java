@@ -121,19 +121,16 @@ public class ManageEventMenu extends Application implements EventCreatorPresente
             VBox roomBox = new VBox();
             Label roomListLabel = new Label("Rooms");
             ListView<String> room_list = new ListView<>();
-            ArrayList<String> allRooms = getRooms();
-            for (String r: allRooms) {
-                room_list.getItems().add(r);
-            }
+            listRooms(room_list);
             roomBox.getChildren().addAll(roomListLabel, room_list);
-            room_list.getSelectionModel().selectedIndexProperty().addListener((v, oldValue, newValue) -> {
-                String selectedRoom = room_list.getSelectionModel().getSelectedItem();
-                String[] list = selectedRoom.split("\n");
-                String eventName = list[1];
-                String eventName1 = eventName.substring(eventName.indexOf(":")+1).trim();
-                System.out.println(eventName);
-                System.out.println(eventName1);
-            });
+//            room_list.getSelectionModel().selectedIndexProperty().addListener((v, oldValue, newValue) -> {
+//                String selectedRoom = room_list.getSelectionModel().getSelectedItem();
+//                String[] list = selectedRoom.split("\n");
+//                String eventName = list[1];
+//                String eventName1 = eventName.substring(eventName.indexOf(":")+1).trim();
+//                System.out.println(eventName);
+//                System.out.println(eventName1);
+//            });
 
 //            HBox capacity = new HBox();
 //            Label capacityLabel = new Label("Capacity");
@@ -320,7 +317,12 @@ public class ManageEventMenu extends Application implements EventCreatorPresente
 //            }
 //        }
 //    }
-
+    private void listRooms(ListView<String> roomList) {
+        ArrayList<String> rooms = rp.displayRooms();
+        for (String r: rooms) {
+            roomList.getItems().add(r);
+        }
+    }
     private ArrayList<String> getSpeakers() {
         Registrar registrar = facade.getRegistrar();
         ArrayList<String> list = new ArrayList<>();

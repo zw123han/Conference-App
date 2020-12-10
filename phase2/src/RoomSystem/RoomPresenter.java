@@ -33,11 +33,10 @@ public class RoomPresenter  {
     public void deleteRoom(String roomID) {
         RoomController rc = new RoomController(roomManager);
         String message;
-        if (rc.deleteRoom(roomID) && eventManager.roomNotUsed(roomID)) {
+        if (eventManager.roomNotUsed(roomID)) {
+            rc.deleteRoom(roomID);
             message = "Room deleted";
-        } else if (!(rc.deleteRoom(roomID))) {
-            message = "Room does not exists";
-        } else {
+        } else  {
             message = "There is an event taking place, cannot delete";
         }
         ri.createPopUp(message);

@@ -57,7 +57,7 @@ public class RoomMenu extends Application implements RoomPresenter.RoomInterface
 
         //preliminary loading
 
-        listRooms();
+        listRooms(allRooms);
 
         addButton.setOnAction(e-> {
             Stage window = new Stage();
@@ -87,7 +87,7 @@ public class RoomMenu extends Application implements RoomPresenter.RoomInterface
                     rp.createRoom(input1.getText(), validInput);
                     start(primaryStage);
                     allRooms.getItems().clear();
-                    listRooms();
+                    listRooms(allRooms);
                 }
             });
             closeButton.setOnAction(ae -> window.close());
@@ -104,21 +104,26 @@ public class RoomMenu extends Application implements RoomPresenter.RoomInterface
             VBox layout = new VBox();
             layout.setAlignment(Pos.CENTER);
 
-            HBox hbox = new HBox();
-            Label label = new Label("Enter Room");
-            TextField input = new TextField();
-            hbox.getChildren().addAll(label, input);
+            ListView<String> room_list = new ListView<>();
+            listRooms(room_list);
+
 
             Button submitButton = new Button("Submit");
             Button closeButton = new Button("Close");
 
-            layout.getChildren().addAll(hbox, submitButton, closeButton);
+            layout.getChildren().addAll(room_list, submitButton, closeButton);
 
             submitButton.setOnAction(ae -> {
-                rp.deleteRoom(input.getText());
+                String selectedRoom = room_list.getSelectionModel().getSelectedItem();
+                String[] list = selectedRoom.split("\n");
+                String roomName = list[0];
+                String roomName1 = roomName.substring(roomName.indexOf(":")+1).trim();
+                rp.deleteRoom(roomName1);
                 start(primaryStage);
+                room_list.getItems().clear();
+                listRooms(room_list);
                 allRooms.getItems().clear();
-                listRooms();
+                listRooms(allRooms);
             });
             closeButton.setOnAction(ae -> window.close());
 
@@ -136,10 +141,10 @@ public class RoomMenu extends Application implements RoomPresenter.RoomInterface
         primaryStage.setScene(scene);
         primaryStage.show();
     }
-    private void listRooms() {
+    private void listRooms(ListView<String> roomList) {
         ArrayList<String> rooms = rp.displayRooms();
         for (String r: rooms) {
-            allRooms.getItems().add(r);
+            roomList.getItems().add(r);
         }
     }
     private boolean isInt(TextField input) {
