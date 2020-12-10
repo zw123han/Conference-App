@@ -165,7 +165,11 @@ public class EventCreator {
         return true;
     }
 
-    public boolean setCapacity(Long eventId, int capacity) {
+    public boolean setCapacity(Long eventId, int capacity) throws EventNotFoundException, EventModificationFailureException {
+        int numAttendees = this.em.getSignedUpUsers(eventId).size();
+        if (numAttendees > capacity){
+            throw new EventModificationFailureException("The new capacity can not hold all the currently signed up users");
+        }
         this.em.setCapacity(eventId, capacity);
         return true;
     }
