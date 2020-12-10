@@ -13,7 +13,7 @@ public class RoomManager {
         return this.rooms;
     }
 
-    private Room getRoom(String roomID){
+    public Room getRoom(String roomID){
         for(Room room: this.rooms){
             if(room.getRoomID().equals(roomID)){
                 return room;
@@ -21,7 +21,10 @@ public class RoomManager {
         }
         return null;
     }
-    private boolean roomExists(String roomID){
+    public int getRoomCapacity(String roomId){
+        return this.getRoom(roomId).getCapacity();
+    }
+    public boolean roomExists(String roomID){
         return getRoom(roomID) != null;}
 
     public boolean makeRoom(String roomID, int capacity){

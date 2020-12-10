@@ -9,6 +9,8 @@ import EventSystem.EventSignupPresenter;
 import GUISystem.*;
 import LoginSystem.LoginOptionsFacade;
 import MessagingSystem.*;
+import RoomSystem.Room;
+import RoomSystem.RoomManager;
 import UserSystem.*;
 
 import java.util.ArrayList;
@@ -23,6 +25,7 @@ public class ConferenceBuilder {
 
     private Registrar registrar;
     private EventManager eventManager;
+    private RoomManager roomManager;
     private ChatroomManager chatroomManager;
     private HashMap<String, String> profanities;
 
@@ -50,6 +53,7 @@ public class ConferenceBuilder {
         this.eventManager = (EventManager) databaseInteractor.readFromDatabase(new EventManager());
         this.chatroomManager = (ChatroomManager) databaseInteractor.readFromDatabase(new ChatroomManager());
         this.profanities = databaseInteractor.getProfanityList();
+        this.roomManager = new RoomManager(new ArrayList<Room>());
 
         // For local saving
         // Registrar registrar = localSave.getRegistrar();
@@ -75,7 +79,7 @@ public class ConferenceBuilder {
 
     private void makeControllersPresenters(){
         this.loginFacade = new LoginOptionsFacade(registrar, eventManager, chatroomManager);
-        this.eventCreatorPresenter = new EventCreatorPresenter(eventManager, registrar);
+        this.eventCreatorPresenter = new EventCreatorPresenter(eventManager, registrar, roomManager);
         this.eventSignupPresenter = new EventSignupPresenter(eventSignup, eventManager);
         this.friendsController = new FriendsController(registrar, friendsPresenter);
     }

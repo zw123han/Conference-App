@@ -1,5 +1,6 @@
 package EventSystem;
 
+import RoomSystem.RoomManager;
 import UserSystem.Registrar;
 import UserSystem.Speaker;
 
@@ -15,6 +16,7 @@ import java.util.ArrayList;
 public class EventCreator {
     private EventManager em;
     private Registrar reg;
+    private RoomManager rm;
 
     /**
      * The constructor for EventCreator
@@ -22,9 +24,10 @@ public class EventCreator {
      * @param em  The EventManager for the EventCreator
      * @param reg The Registrar for the EventCreator
      */
-    public EventCreator(EventManager em, Registrar reg) {
+    public EventCreator(EventManager em, Registrar reg, RoomManager rm) {
         this.em = em;
         this.reg = reg;
+        this.rm = rm;
     }
 
     /**
@@ -41,6 +44,11 @@ public class EventCreator {
      */
     public boolean createEvent(String name, String room, LocalDateTime start_time, long duration, ArrayList<String> speaker_list, int capacity)
             throws EventCreationFailureException {
+        if (!this.rm.roomExists(room)){
+            throw new EventCreationFailureException("the given room does not exist");
+        } else if (this.rm.getRoomCapacity(room) < capacity){
+            throw new EventCreationFailureException("the given room does not have the required capacity");
+        }
         ArrayList<Event> events = this.em.getEventsList();
         for (Event event : events) {
             LocalDateTime lower = event.getTime();
@@ -169,6 +177,8 @@ public class EventCreator {
         int numAttendees = this.em.getSignedUpUsers(eventId).size();
         if (numAttendees > capacity){
             throw new EventModificationFailureException("The new capacity can not hold all the currently signed up users");
+        } else if (this.rm.getRoomCapacity(this.em.getRoom(eventId)) < capacity){
+            throw new EventModificationFailureException("The room for this event cannot hold the new given capacity");
         }
         this.em.setCapacity(eventId, capacity);
         return true;
