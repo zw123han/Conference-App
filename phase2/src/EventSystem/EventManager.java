@@ -244,6 +244,20 @@ public class EventManager implements Serializable, Savable {
         return getEvent(id).getSignedUpUsers();
     }
 
+    /**
+     * Checks if a room is being occupied by an event.
+     *
+     * @param roomID The name of the room to check.
+     * @return True if and only if no events are occupying the room given by roomID.
+     */
+    public boolean roomNotUsed(String roomID){
+        for(Event event: getEventsList()){
+            if(event.getRoom().equals(roomID)){
+                return false;
+            }
+        }
+        return true;
+    }
     public void setName(Long eventId, String name){
         this.events.get(eventId).setName(name);
     }
