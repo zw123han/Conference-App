@@ -13,7 +13,7 @@ public class RoomPresenter {
     public ArrayList<String> displayRooms(){
         ArrayList<String> roomList = new ArrayList<String>();
         for(Room room: roomManager.getRooms()){
-            roomList.add("ID: "+room.getRoomID() + "\n Capacity: " + String.valueOf(room.getCapacity()));
+            roomList.add("ID: "+room.getRoomID() + "\n Capacity: " + room.getCapacity());
         }
         return roomList;
     }
