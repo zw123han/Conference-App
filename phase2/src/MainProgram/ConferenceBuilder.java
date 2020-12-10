@@ -106,6 +106,7 @@ public class ConferenceBuilder {
         ManageEventMenu manageEventMenu = new ManageEventMenu();
         FriendsMenuGUI friendsMenuGUI = new FriendsMenuGUI();
         ManageAccountMenu manageAccountMenu = new ManageAccountMenu();
+        RoomMenu roomMenu = new RoomMenu();
         LoginGUI loginGUI = new LoginGUI();
         loginGUI.setLogin(loginFacade);
         AccountCreationMenu accountCreationMenu = new AccountCreationMenu();
@@ -120,6 +121,7 @@ public class ConferenceBuilder {
         homeMenuGUI.setFriendsMenu(friendsMenuGUI);
         homeMenuGUI.setManageAccountMenu(manageAccountMenu);
         homeMenuGUI.setPasswordMenu(passwordMenu);
+        homeMenuGUI.setRoomMenu(roomMenu);
 
         // For database saving
         homeMenuGUI.setSave(databaseInteractor);
@@ -129,12 +131,14 @@ public class ConferenceBuilder {
         eventSignupPresenter.setInterface(eventMenu);
         eventCreatorPresenter.setInterface(manageEventMenu);
         friendsController.setInterface(friendsMenuGUI);
+        roomPresenter.setInterface(roomMenu);
         eventMenu.setEventElements(eventSignupPresenter);
-        manageEventMenu.setEventCreatorElements(eventCreatorPresenter , roomPresenter);
+        manageEventMenu.setEventCreatorElements(eventCreatorPresenter, roomPresenter);
         manageEventMenu.setFacade(loginFacade);
         manageAccountMenu.setFacade(loginFacade);
         friendsMenuGUI.setFriendsElements(friendsController);
         friendsMenuGUI.setFacade(loginFacade);
+        roomMenu.setRoomElements(roomPresenter);
 
         // Create menu facade and DI menus
         MenuFacade menuFacade = new MenuFacade();
@@ -146,6 +150,7 @@ public class ConferenceBuilder {
         eventMenu.setUserMenuGetter(homeMenuGUI);
         manageEventMenu.setUserMenuGetter(homeMenuGUI);
         friendsMenuGUI.setUserMenuGetter(homeMenuGUI);
+        roomMenu.setUserMenuGetter(homeMenuGUI);
         manageAccountMenu.setUserMenuGetter(homeMenuGUI);
 
         // Dependency inject MenuGetter into menus

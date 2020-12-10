@@ -30,7 +30,7 @@ import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 
-public class ManageEventMenu extends Application implements EventCreatorPresenter.EventCreatorInterface {
+public class ManageEventMenu extends Application implements EventCreatorPresenter.EventCreatorInterface{
 
     private EventCreatorPresenter ecp;
     private EventManager em;
@@ -350,7 +350,6 @@ public class ManageEventMenu extends Application implements EventCreatorPresente
         } catch (NumberFormatException e) {
             return false;
         }
-
     }
     @Override
     public void loadAllEvents(String name,String id, String time, String duration, String room, String capacity, String speakers) {
