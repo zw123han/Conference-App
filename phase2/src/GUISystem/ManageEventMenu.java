@@ -218,7 +218,6 @@ public class ManageEventMenu extends Application implements EventCreatorPresente
                     TextField timeInput = new TextField(em.getEvent(id).getTime().toString());
                     time.getChildren().addAll(timeLabel, timeInput);
 
-
                     TextField durationInput = new TextField(String.valueOf(em.getEvent(id).getDuration()));
                     duration.getChildren().addAll(durationLabel, durationInput);
 
