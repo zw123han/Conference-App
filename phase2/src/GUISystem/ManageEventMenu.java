@@ -146,8 +146,8 @@ public class ManageEventMenu extends Application implements EventCreatorPresente
                 String roomName1 = roomName.substring(roomName.indexOf(":")+1).trim();
                 String capacityInput = list[1];
                 int capacityInput1 = Integer.parseInt(capacityInput.substring(capacityInput.indexOf(":")+1).trim());
-                System.out.println(capacityInput1);
-                System.out.println(roomName1);
+//                System.out.println(capacityInput1);
+//                System.out.println(roomName1);
                 if (isValidTime(timeInput, formatter)  && isInt(durationInput)) {
                     ObservableList<String> selectedItems = speakers.getSelectionModel().getSelectedItems();
                     Registrar registrar = facade.getRegistrar();
@@ -217,22 +217,26 @@ public class ManageEventMenu extends Application implements EventCreatorPresente
 
                     HBox name = new HBox();
                     TextField nameInput = new TextField();//em.getEvent(id).getName());
+                    TextField nameInput = new TextField();
                     Label nameLabel = new Label("Name: ");
                     name.getChildren().addAll(nameLabel, nameInput);
 
                     HBox room = new HBox();
                     TextField roomInput = new TextField();//em.getEvent(id).getRoom());
+                    TextField roomInput = new TextField();
                     Label roomLabel = new Label("Room: ");
                     room.getChildren().addAll(nameLabel, nameInput);
 
                     HBox time = new HBox();
                     Label timeLabel = new Label("Date format(yyyy-MM-dd HH:mm): ");
                     TextField timeInput = new TextField();//em.getEvent(id).getTime().toString());
+                    TextField timeInput = new TextField();
                     DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
                     time.getChildren().addAll(timeLabel, timeInput);
 
                     HBox duration = new HBox();
                     TextField durationInput = new TextField();//String.valueOf(em.getEvent(id).getDuration()));
+                    TextField durationInput = new TextField();
                     Label durationLabel = new Label("Duration: ");
                     duration.getChildren().addAll(durationLabel, durationInput);
 
@@ -248,6 +252,7 @@ public class ManageEventMenu extends Application implements EventCreatorPresente
 
                     HBox capacity = new HBox();
                     TextField capacityInput = new TextField();//String.valueOf(em.getEvent(id).getCapacity()));
+                    TextField capacityInput = new TextField();
                     Label capacityLabel = new Label("Capacity: ");
                     capacity.getChildren().addAll(capacityLabel, capacityInput);
 
