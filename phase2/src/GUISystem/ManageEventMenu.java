@@ -216,23 +216,23 @@ public class ManageEventMenu extends Application implements EventCreatorPresente
                     VBox child = new VBox();
 
                     HBox name = new HBox();
-                    TextField nameInput = new TextField(em.getEvent(id).getName());
+                    TextField nameInput = new TextField();//em.getEvent(id).getName());
                     Label nameLabel = new Label("Name: ");
                     name.getChildren().addAll(nameLabel, nameInput);
 
                     HBox room = new HBox();
-                    TextField roomInput = new TextField(em.getEvent(id).getRoom());
+                    TextField roomInput = new TextField();//em.getEvent(id).getRoom());
                     Label roomLabel = new Label("Room: ");
                     room.getChildren().addAll(nameLabel, nameInput);
 
                     HBox time = new HBox();
                     Label timeLabel = new Label("Date format(yyyy-MM-dd HH:mm): ");
-                    TextField timeInput = new TextField(em.getEvent(id).getTime().toString());
+                    TextField timeInput = new TextField();//em.getEvent(id).getTime().toString());
                     DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
                     time.getChildren().addAll(timeLabel, timeInput);
 
                     HBox duration = new HBox();
-                    TextField durationInput = new TextField(String.valueOf(em.getEvent(id).getDuration()));
+                    TextField durationInput = new TextField();//String.valueOf(em.getEvent(id).getDuration()));
                     Label durationLabel = new Label("Duration: ");
                     duration.getChildren().addAll(durationLabel, durationInput);
 
@@ -247,7 +247,7 @@ public class ManageEventMenu extends Application implements EventCreatorPresente
                     speaker_list.getChildren().addAll(speakerLabel, speakers);
 
                     HBox capacity = new HBox();
-                    TextField capacityInput = new TextField(String.valueOf(em.getEvent(id).getCapacity()));
+                    TextField capacityInput = new TextField();//String.valueOf(em.getEvent(id).getCapacity()));
                     Label capacityLabel = new Label("Capacity: ");
                     capacity.getChildren().addAll(capacityLabel, capacityInput);
 
