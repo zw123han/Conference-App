@@ -88,6 +88,91 @@ public class EventCreatorPresenter {
         }
     }
 
+    public void  promptSetName(Long eventId, String name) {
+        EventCreator ec = new EventCreator(this.em, reg, rm);
+            ec.setName(eventId, name);
+            String message = "Event name has been successfully updated";
+            eci.createPopUp(message);
+//            return "Event has been successfully cancelled";
+    }
+
+    public void  promptSetCapacity(Long eventId, int capacity) {
+        EventCreator ec = new EventCreator(this.em, reg, rm);
+        try {
+            ec.setCapacity(eventId, capacity);
+            String message = "Event capacity has been updated";
+            eci.createPopUp(message);
+//            return "Event has been successfully cancelled";
+        } catch (EventModificationFailureException | EventNotFoundException e) {
+//            e.printStackTrace();
+//            return ("");
+//            return e.getMessage();
+            eci.createPopUp(e.getMessage());
+        }
+    }
+
+    public void  promptSetRoom(Long eventId, String room) {
+        EventCreator ec = new EventCreator(this.em, reg, rm);
+        try {
+            ec.setRoom(eventId, room);
+            String message = "Event room has been updated";
+            eci.createPopUp(message);
+//            return "Event has been successfully cancelled";
+        } catch (EventModificationFailureException e) {
+//            e.printStackTrace();
+//            return ("");
+//            return e.getMessage();
+            eci.createPopUp(e.getMessage());
+        }
+    }
+
+    public void  promptSetTime(Long eventId, LocalDateTime start_time, long duration) {
+        EventCreator ec = new EventCreator(this.em, reg, rm);
+        try {
+            ec.setTime(eventId, start_time, duration);
+            String message = "Event time has been updated";
+            eci.createPopUp(message);
+//            return "Event has been successfully cancelled";
+        } catch (EventModificationFailureException e) {
+//            e.printStackTrace();
+//            return ("");
+//            return e.getMessage();
+            eci.createPopUp(e.getMessage());
+        }
+    }
+
+    public void  promptAddSpeaker(Long eventId, String speakerId) {
+        EventCreator ec = new EventCreator(this.em, reg, rm);
+        try {
+            ec.addSpeaker(eventId, speakerId);
+            String message = "the speaker has been added to the event";
+            eci.createPopUp(message);
+//            return "Event has been successfully cancelled";
+        } catch (EventModificationFailureException e) {
+//            e.printStackTrace();
+//            return ("");
+//            return e.getMessage();
+            eci.createPopUp(e.getMessage());
+        }
+    }
+
+    public void  promptRemoveSpeaker(Long eventId, String speakerId) {
+        EventCreator ec = new EventCreator(this.em, reg, rm);
+        try {
+            ec.removeSpeaker(eventId, speakerId);
+            String message = "the speaker has been removed from the event";
+            eci.createPopUp(message);
+//            return "Event has been successfully cancelled";
+        } catch (EventModificationFailureException e) {
+//            e.printStackTrace();
+//            return ("");
+//            return e.getMessage();
+            eci.createPopUp(e.getMessage());
+        }
+    }
+
+
+
     public void viewEvents() {
 //        System.out.println("\nEXISTING EVENTS:");
 //        System.out.println("------------------------");

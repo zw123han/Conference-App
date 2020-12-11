@@ -102,6 +102,9 @@ public class EventCreator {
     }
 
     public boolean setRoom(Long eventId, String room) throws EventModificationFailureException {
+        if(!this.rm.roomExists(room)){
+            throw new EventModificationFailureException("The given room does not exist");
+        }
         ArrayList<Event> events = this.em.getEventsList();
         for (Event event : events) {
             LocalDateTime start_time = this.em.getTime(eventId);
