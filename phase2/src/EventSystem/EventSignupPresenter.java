@@ -26,8 +26,9 @@ public class EventSignupPresenter {
     }
 
     /**
+     * Used by UI to interface with events
      *
-     * @param eventInterface
+     * @param eventInterface    The interface with events
      */
     public void setInterface(EventInterface eventInterface) {
         this.eventInterface = eventInterface;
@@ -206,7 +207,7 @@ public class EventSignupPresenter {
     }
 
     /**
-     *
+     ** Used by UI to interface with events
      */
     public interface EventInterface {
         void loadUserEvents(String name, String id, String time, String duration, String room, String capacity, String speakers);
