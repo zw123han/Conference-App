@@ -9,6 +9,7 @@ import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
@@ -143,19 +144,18 @@ public class HomeMenuGUI extends Application implements UserMenuGetter {
                 System.out.println("Save successful");
             }
         });
-
+        Label organizerControlLabel = new Label("Organizer Controls");
+        Label adminControlLabel = new Label("Admin Controls");
         vbox.getChildren().addAll(title,eventButton, friendsButton, changePasswordButton, messagingButton);
         if (loginOptionsFacade.getUser().getUserType().equals("administrator")){
-            vbox.getChildren().addAll(manageAccountButton, manageEventsButton, roomMenuButton );
+            vbox.getChildren().addAll(adminControlLabel, manageAccountButton, roomMenuButton, manageEventsButton);
         }
         else if (loginOptionsFacade.getUser().getUserType().equals("organizer")){
-            vbox.getChildren().add(manageEventsButton);
+            vbox.getChildren().addAll(organizerControlLabel, manageEventsButton);
         }
         vbox.getChildren().addAll(emptyText, logoutButton, saveButton);
 
         primaryStage.setTitle("Home Screen - Conference Simulator Phase 2");
-        primaryStage.setWidth(Screen.getPrimary().getBounds().getWidth()/4);
-        primaryStage.setHeight(Screen.getPrimary().getBounds().getHeight()/1.75);
         //primaryStage.setMinHeight(600);
         //primaryStage.setMaxHeight(600);
         //primaryStage.setMinWidth(500);

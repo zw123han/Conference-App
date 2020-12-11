@@ -171,10 +171,8 @@ public class EventMenuGUI extends Application implements EventSignupPresenter.Ev
         Scene scene = new Scene (root);
         //primaryStage.setMinHeight(600);
         //primaryStage.setMaxHeight(800);
-        primaryStage.setHeight(600);
         //primaryStage.setMinWidth(800);
         //primaryStage.setMaxWidth(600);
-        primaryStage.setWidth(800);
         primaryStage.setTitle("Events");
         primaryStage.setScene(scene);
         primaryStage.show();
