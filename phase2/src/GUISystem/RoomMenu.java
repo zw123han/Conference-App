@@ -26,7 +26,7 @@ public class RoomMenu extends Application implements RoomPresenter.RoomInterface
 
     private RoomPresenter rp;
     private UserMenuGetter mg;
-    private ListView allRooms;
+    private ListView<String> allRooms;
 
     /**
      * Sets the presenter class layer for this menu.
@@ -59,7 +59,7 @@ public class RoomMenu extends Application implements RoomPresenter.RoomInterface
         root.setPrefSize(500, 600);
         HBox topView = new HBox(5);
         VBox botView = new VBox();
-        allRooms = new ListView();
+        allRooms = new ListView<>();
         Label roomLabel = new Label("Rooms");
         botView.getChildren().addAll(roomLabel, allRooms);
 

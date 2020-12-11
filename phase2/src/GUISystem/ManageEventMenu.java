@@ -33,7 +33,7 @@ public class ManageEventMenu extends Application implements EventCreatorPresente
     private EventCreatorPresenter ecp;
     private RoomPresenter rp;
     private UserMenuGetter mg;
-    private ListView allEvents;
+    private ListView<VBox> allEvents;
     private LoginOptionsFacade facade;
 
     /**
@@ -76,7 +76,7 @@ public class ManageEventMenu extends Application implements EventCreatorPresente
         root.setPrefSize(500, 600);
         HBox topView = new HBox(5);
         VBox botView = new VBox();
-        allEvents = new ListView();
+        allEvents = new ListView<>();
         Label title = new Label("Events");
         botView.getChildren().addAll(title, allEvents);
 
@@ -88,13 +88,6 @@ public class ManageEventMenu extends Application implements EventCreatorPresente
         Button removeButton = new Button("Remove");
         Button goBack = new Button("Back");
         topView.getChildren().addAll(createButton, modifyButton, removeButton, goBack);
-
-//        Label label = new Label("hi");
-//        Label label2 = new Label("3");
-//        VBox box = new VBox();
-//        box.getChildren().addAll(label, label2);
-//        allEvents.getItems().addAll(box);
-//        yourEvents.getItems().addAll(label2);
 
         //preliminary loading
         ecp.viewEvents();
@@ -142,19 +135,6 @@ public class ManageEventMenu extends Application implements EventCreatorPresente
             ListView<String> room_list = new ListView<>();
             listRooms(room_list);
             roomBox.getChildren().addAll(roomListLabel, room_list);
-//            room_list.getSelectionModel().selectedIndexProperty().addListener((v, oldValue, newValue) -> {
-//                String selectedRoom = room_list.getSelectionModel().getSelectedItem();
-//                String[] list = selectedRoom.split("\n");
-//                String eventName = list[1];
-//                String eventName1 = eventName.substring(eventName.indexOf(":")+1).trim();
-//                System.out.println(eventName);
-//                System.out.println(eventName1);
-//            });
-
-//            HBox capacity = new HBox();
-//            Label capacityLabel = new Label("Capacity");
-//            TextField capacityInput = new TextField();
-//            capacity.getChildren().addAll(capacityLabel, capacityInput);
 
             Button submitButton = new Button("Submit");
             submitButton.setOnAction(ae -> {
@@ -164,8 +144,6 @@ public class ManageEventMenu extends Application implements EventCreatorPresente
                 String roomName1 = roomName.substring(roomName.indexOf(":")+1).trim();
                 String capacityInput = list[1];
                 int capacityInput1 = Integer.parseInt(capacityInput.substring(capacityInput.indexOf(":")+1).trim());
-//                System.out.println(capacityInput1);
-//                System.out.println(roomName1);
                 if (isValidTime(timeInput, formatter)  && isInt(durationInput)) {
                     ObservableList<String> selectedItems = speakers.getSelectionModel().getSelectedItems();
                     Registrar registrar = facade.getRegistrar();
@@ -341,21 +319,7 @@ public class ManageEventMenu extends Application implements EventCreatorPresente
         primaryStage.show();
     }
 
-//    private boolean validateSpeakers(ObservableList<String> selectedItems) {
-//        Registrar registrar = facade.getRegistrar();
-//        boolean allSpeakersValid = true;
-//        ArrayList<String> speakersNameList = new ArrayList<>();
-//        for(String s: selectedItems) {
-//            if (registrar.userExisting(s)) {
-//                User user = registrar.getUserByUserName(s);
-//                if (user instanceof Speaker) {
-//                    speakersNameList.add(s);
-//                } else {
-//                    allSpeakersValid = false;
-//                }
-//            }
-//        }
-//    }
+
     private void listRooms(ListView<String> roomList) {
         ArrayList<String> rooms = rp.displayRooms();
         for (String r: rooms) {
@@ -369,10 +333,6 @@ public class ManageEventMenu extends Application implements EventCreatorPresente
             list.add(s.getUserName());
         }
         return list;
-    }
-
-    private ArrayList<String> getRooms() {
-        return rp.displayRooms();
     }
 
     private boolean isValidTime(TextField time, DateTimeFormatter formatter) {

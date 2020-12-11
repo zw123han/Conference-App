@@ -51,19 +51,15 @@ public class EventCreatorPresenter {
         EventCreator ec = new EventCreator(this.em, reg, rm);
         try {
             if (!(ec.createEvent(name, room, time, duration, speaker_list, capacity))) {
-//                return ("Unable to create event");
                 String message = "Unable to create event";
                 eci.createPopUp(message);
 
             } else {
-//                return ("Event created");
                 String message = "Event created";
                 eci.createPopUp(message);
             }
         } catch (EventCreationFailureException e) {
-//            e.printStackTrace();
-//            return ("");
-//            return e.getMessage();
+
             eci.createPopUp(e.getMessage());
         }
     }
@@ -79,11 +75,8 @@ public class EventCreatorPresenter {
             ec.deleteEvent(eventId);
             String message = "Event has been successfully cancelled";
             eci.createPopUp(message);
-//            return "Event has been successfully cancelled";
         } catch (EventNotFoundException e) {
-//            e.printStackTrace();
-//            return ("");
-//            return e.getMessage();
+
             eci.createPopUp(e.getMessage());
         }
     }
@@ -98,7 +91,6 @@ public class EventCreatorPresenter {
             ec.setName(eventId, name);
             String message = "Event name has been successfully updated";
             eci.createPopUp(message);
-//            return "Event has been successfully cancelled";
     }
 
     /**
@@ -112,11 +104,8 @@ public class EventCreatorPresenter {
             ec.setCapacity(eventId, capacity);
             String message = "Event capacity has been updated";
             eci.createPopUp(message);
-//            return "Event has been successfully cancelled";
         } catch (EventModificationFailureException | EventNotFoundException e) {
-//            e.printStackTrace();
-//            return ("");
-//            return e.getMessage();
+
             eci.createPopUp(e.getMessage());
         }
     }
@@ -132,11 +121,8 @@ public class EventCreatorPresenter {
             ec.setRoom(eventId, room);
             String message = "Event room has been updated";
             eci.createPopUp(message);
-//            return "Event has been successfully cancelled";
         } catch (EventModificationFailureException e) {
-//            e.printStackTrace();
-//            return ("");
-//            return e.getMessage();
+
             eci.createPopUp(e.getMessage());
         }
     }
@@ -152,11 +138,8 @@ public class EventCreatorPresenter {
             ec.setTime(eventId, start_time, duration);
             String message = "Event time has been updated";
             eci.createPopUp(message);
-//            return "Event has been successfully cancelled";
         } catch (EventModificationFailureException e) {
-//            e.printStackTrace();
-//            return ("");
-//            return e.getMessage();
+
             eci.createPopUp(e.getMessage());
         }
     }
@@ -172,11 +155,8 @@ public class EventCreatorPresenter {
             ec.addSpeaker(eventId, speakerId);
             String message = "the speaker has been added to the event";
             eci.createPopUp(message);
-//            return "Event has been successfully cancelled";
         } catch (EventModificationFailureException e) {
-//            e.printStackTrace();
-//            return ("");
-//            return e.getMessage();
+
             eci.createPopUp(e.getMessage());
         }
     }
@@ -192,11 +172,8 @@ public class EventCreatorPresenter {
             ec.removeSpeaker(eventId, speakerId);
             String message = "the speaker has been removed from the event";
             eci.createPopUp(message);
-//            return "Event has been successfully cancelled";
         } catch (EventModificationFailureException e) {
-//            e.printStackTrace();
-//            return ("");
-//            return e.getMessage();
+
             eci.createPopUp(e.getMessage());
         }
     }
@@ -206,22 +183,7 @@ public class EventCreatorPresenter {
      * views all the events available in this conference
      */
     public void viewEvents() {
-//        System.out.println("\nEXISTING EVENTS:");
-//        System.out.println("------------------------");
-//        for(Event ev: this.em.getEventsList()){
-//            if(!ev.isFull()) {
-//                System.out.println("Name: " + ev.getName());
-//                System.out.println("id: " + ev.getId());
-//                System.out.println("Time: " + DateTimeFormatter.ofLocalizedDateTime(
-//                        FormatStyle.SHORT)
-//                        .format(ev.getTime()));
-//                System.out.println("Type: " + ev.getType());
-//                System.out.println("Room: " + ev.getRoom());
-//                System.out.println("Capacity: " + ev.getNumberOfSignedUpUsers() + "/" + ev.getCapacity());
-//                System.out.println("Speakers: " + ev.getSpeakerList());
-//                System.out.println("------------------------");
-//            }
-//        }
+
         for(Event ev: this.em.getEventsList()){
             if(!ev.isFull()) {
                 String name = "Name: " + ev.getName();

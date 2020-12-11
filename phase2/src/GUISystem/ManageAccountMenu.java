@@ -20,7 +20,6 @@ import javafx.stage.Stage;
  */
 public class ManageAccountMenu extends Application {
 
-    private User user;
     private UserMenuGetter mg;
     private LoginOptionsFacade facade;
     private ListView<String> row2;
@@ -41,15 +40,6 @@ public class ManageAccountMenu extends Application {
      * @param facade An instance of LoginOptionsFacade.
      */
     public void setFacade(LoginOptionsFacade facade) {this.facade = facade;}
-
-    /**
-     * Sets the user for this class.
-     *
-     * @param user An instance of User, the current user logged in.
-     */
-    public void setUser(User user) {
-        this.user = user;
-    }
 
     /**
      * Starts this menu.
@@ -214,7 +204,7 @@ public class ManageAccountMenu extends Application {
 
             enterNewNameBox.getChildren().addAll(instructions, enterNewName, newName, enterNewType, newType, enterNewUsername, newUsername);
 
-            ListView<String> list = new ListView();
+            ListView<String> list = new ListView<>();
 
             choice.getSelectionModel().selectedItemProperty().addListener( (observable, oldValue, newValue) ->
                     choiceBoxListener(registrar, newValue, list));

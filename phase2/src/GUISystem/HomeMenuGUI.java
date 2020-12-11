@@ -83,7 +83,6 @@ public class HomeMenuGUI extends Application implements UserMenuGetter {
         manageAccountButton.setTextFill(Color.RED);
         manageAccountButton.setPrefSize(130, 30);
         manageAccountButton.setOnAction(event -> {
-            manageAccountMenu.setUser(loginOptionsFacade.getUser());
             manageAccountMenu.start(primaryStage);
         });
 

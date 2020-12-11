@@ -22,8 +22,8 @@ public class EventMenuGUI extends Application implements EventSignupPresenter.Ev
 
     private EventSignupPresenter esp;
     private User user;
-    private ListView yourEvents ;
-    private ListView allEvents;
+    private ListView<VBox> yourEvents ;
+    private ListView<VBox> allEvents;
     private UserMenuGetter mg;
 
     /**
@@ -67,8 +67,8 @@ public class EventMenuGUI extends Application implements EventSignupPresenter.Ev
         HBox topView = new HBox(5);
         VBox leftView = new VBox();
         VBox rightView = new VBox();
-        yourEvents = new ListView();
-        allEvents = new ListView();
+        yourEvents = new ListView<>();
+        allEvents = new ListView<>();
         SplitPane splitPane = new SplitPane();
 
         Label leftViewTitle = new Label("Your Events");

@@ -1,6 +1,5 @@
 package GUISystem;
 
-import LoginSystem.LoginOptionsFacade;
 import UserSystem.FriendsController;
 import UserSystem.User;
 import javafx.application.Application;
@@ -46,14 +45,6 @@ public class FriendsMenuGUI extends Application implements FriendsController.Fri
     }
 
     /**
-     * Sets the loginOptionsFacade of the menu.
-     *
-     * @param facade An instance of LoginOptionsFacade.
-     */
-    public void setFacade(LoginOptionsFacade facade) {
-    }
-
-    /**
      * Sets the current user of the menu.
      *
      * @param user The current user logged in, an instance of User.
@@ -76,7 +67,7 @@ public class FriendsMenuGUI extends Application implements FriendsController.Fri
 
         HBox topView = new HBox(5);
         VBox botView = new VBox();
-        allFriends = new ListView();
+        allFriends = new ListView<>();
         Label friendLabel = new Label("Friends");
         botView.getChildren().addAll(friendLabel, allFriends);
 
