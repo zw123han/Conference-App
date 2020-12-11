@@ -63,12 +63,6 @@ public class AccountCreationMenu extends Application{
         Text password = new Text("Password");
         password.setFont(Font.loadFont(getClass().getResourceAsStream("/resources/os-regular.ttf"), 12));
 
-        // Play a song
-        Media song = new Media(new File("phase2/src/resources/O-Canada.mp3").toURI().toString());
-        MediaPlayer mediaPlayer= new MediaPlayer(song);
-        mediaPlayer.setCycleCount(MediaPlayer.INDEFINITE);
-        MediaView mediaView = new MediaView(mediaPlayer);
-
         Button creationButton = new Button("Create Account");
         creationButton.setFont(Font.loadFont(getClass().getResourceAsStream("/resources/os-bold.ttf"), 12));
         creationButton.setPrefSize(130, 25);
@@ -180,7 +174,7 @@ public class AccountCreationMenu extends Application{
         quitButton.setOnAction(event -> primaryStage.close());
 
         // mediaView added to vbox
-        loginCanvas.getChildren().addAll(mediaView, loginTitle, name, nameField, username, usernameField, password, passwordField, creationButton, loginButton, accountMessage, quitButton);
+        loginCanvas.getChildren().addAll(loginTitle, name, nameField, username, usernameField, password, passwordField, creationButton, loginButton, accountMessage, quitButton);
 
         primaryStage.setTitle("Account Creation - Conference Simulator Phase 2");
         primaryStage.setScene(scene);
