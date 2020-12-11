@@ -18,7 +18,6 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
-import javafx.scene.paint.Color;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import java.time.LocalDateTime;
@@ -27,23 +26,49 @@ import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 
 public class ManageEventMenu extends Application implements EventCreatorPresenter.EventCreatorInterface{
-
+    /**
+     * A menu for creating, modifying, deleting events.
+     *
+     * @author Fred, Tao
+     */
     private EventCreatorPresenter ecp;
     private RoomPresenter rp;
     private UserMenuGetter mg;
     private ListView allEvents;
     private LoginOptionsFacade facade;
 
+    /**
+     * Sets the presenters for this class.
+     *
+     * @param ecp An instance of EventCreatorPresenter.
+     * @param rp An instance of RoomPresenter.
+     */
     public void setEventCreatorElements(EventCreatorPresenter ecp, RoomPresenter rp) {
         this.ecp = ecp;
         this.rp = rp;
     }
+
+    /**
+     * Sets the userMenuGetter interface of this class.
+     *
+     * @param userMenuGetter An instance of the UserMenuGetter Interface.
+     */
     public void setUserMenuGetter(UserMenuGetter userMenuGetter) {
         this.mg = userMenuGetter;
     }
+
+    /**
+     * Sets the loginOptionsFacade for this class.
+     *
+     * @param facade An instance of LoginOptionsFacade.
+     */
     public void setFacade(LoginOptionsFacade facade) {this.facade = facade;}
 
-
+    /**
+     * Starts the manageEvents menu.
+     *
+     * @param primaryStage The primaryStage of the application.
+     */
     @Override
     public void start(Stage primaryStage) {
         GridPane root = new GridPane();
@@ -375,6 +400,17 @@ public class ManageEventMenu extends Application implements EventCreatorPresente
         }
     }
 
+    /**
+     * Creates a visual representation of an event and adds it to a list of all events.
+     *
+     * @param name The name of the event.
+     * @param id The id of the event.
+     * @param time The time the event starts.
+     * @param duration The duration of the event.
+     * @param room The room of the event.
+     * @param capacity The capacity of the event.
+     * @param speakers The list of speakers at this event.
+     */
     @Override
     public void loadAllEvents(String name,String id, String time, String duration, String room, String capacity, String speakers) {
         VBox eventContainer = new VBox();
@@ -390,6 +426,11 @@ public class ManageEventMenu extends Application implements EventCreatorPresente
         allEvents.getItems().add(eventContainer);
     }
 
+    /**
+     * Creates a popup window that can be closed.
+     *
+     * @param message The message to display.
+     */
     @Override
     public void createPopUp(String message) {
         Stage window = new Stage();

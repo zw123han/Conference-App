@@ -10,7 +10,7 @@ public class ParseToRegistrar implements ParserStrategy {
 
     private User createUser(DBObject doc) {
         User user;
-        Class partypes[] = new Class[3];
+        Class[] partypes = new Class[3];
         partypes[0] = String.class;
         partypes[1] = String.class;
         partypes[2] = String.class;
@@ -37,6 +37,7 @@ public class ParseToRegistrar implements ParserStrategy {
     private Speaker createSpeaker(DBObject doc) {
         Speaker user = (Speaker) createUser(doc);
         for (Long talk: (ArrayList<Long>) doc.get("talks")) {
+            assert user != null;
             user.addTalk(talk);
         }
         return user;

@@ -1,8 +1,5 @@
 package GUISystem;
 
-import EventSystem.EventCreatorPresenter;
-import EventSystem.EventManager;
-import LoginSystem.LoginOptionsFacade;
 import RoomSystem.RoomPresenter;
 import javafx.application.Application;
 import javafx.geometry.Insets;
@@ -21,19 +18,38 @@ import javafx.stage.Stage;
 import java.util.ArrayList;
 
 public class RoomMenu extends Application implements RoomPresenter.RoomInterface {
-
-    private EventManager em;
+    /**
+     * A menu for managing rooms at this conference.
+     *
+     * @author Tao
+     */
     private RoomPresenter rp;
     private UserMenuGetter mg;
     private ListView allRooms;
 
+    /**
+     * Sets the presenter class layer for this menu.
+     *
+     * @param rp An instance of RoomPresenter.
+     */
     public void setRoomElements(RoomPresenter rp) {
         this.rp = rp;
     }
+
+    /**
+     * Sets the userMenuGetter interface for this class.
+     *
+     * @param userMenuGetter An instance of the UserMenuGetter interface.
+     */
     public void setUserMenuGetter(UserMenuGetter userMenuGetter) {
         this.mg = userMenuGetter;
     }
 
+    /**
+     * Starts this menu.
+     *
+     * @param primaryStage The primaryStage of the application.
+     */
     @Override
     public void start(Stage primaryStage) {
         GridPane root = new GridPane();
@@ -149,12 +165,18 @@ public class RoomMenu extends Application implements RoomPresenter.RoomInterface
     }
     private boolean isInt(TextField input) {
         try {
-            long number = Long.parseLong(input.getText());
+            Long.parseLong(input.getText());
             return true;
         } catch (NumberFormatException e) {
             return false;
         }
     }
+
+    /**
+     * Creates a popup window that can be closed.
+     *
+     * @param message The message to display.
+     */
     @Override
     public void createPopUp(String message) {
         Stage window = new Stage();

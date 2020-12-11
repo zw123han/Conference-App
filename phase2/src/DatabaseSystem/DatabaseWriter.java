@@ -7,10 +7,9 @@ import java.util.ArrayList;
 public class DatabaseWriter {
 
     public void save(ArrayList<Savable> savables, DB db) {
-        DB database = db;
 
         for (Savable sv : savables) {
-            CollectionManager collectionManager = new CollectionManager(database, sv);
+            CollectionManager collectionManager = new CollectionManager(db, sv);
             collectionManager.insertToCollection(sv);
         }
 

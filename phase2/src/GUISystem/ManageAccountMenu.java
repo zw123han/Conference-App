@@ -15,19 +15,47 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 public class ManageAccountMenu extends Application {
+    /**
+     * A menu which allows for accounts and account information to be managed.
+     *
+     * @author Tao, Ziwen
+     */
     private User user;
     private UserMenuGetter mg;
     private LoginOptionsFacade facade;
     private ListView<String> row2;
     private Registrar registrar;
+
+    /**
+     * Sets the userMenuGetter interface for this class.
+     *
+     * @param userMenuGetter An instance of the UserMenuGetter interface.
+     */
     public void setUserMenuGetter(UserMenuGetter userMenuGetter) {
         this.mg = userMenuGetter;
     }
+
+    /**
+     * Sets the loginOptionsFacade for this class.
+     *
+     * @param facade An instance of LoginOptionsFacade.
+     */
     public void setFacade(LoginOptionsFacade facade) {this.facade = facade;}
+
+    /**
+     * Sets the user for this class.
+     *
+     * @param user An instance of User, the current user logged in.
+     */
     public void setUser(User user) {
         this.user = user;
     }
 
+    /**
+     * Starts this menu.
+     *
+     * @param primaryStage The primaryStage of the application.
+     */
     @Override
     public void start(Stage primaryStage) {
         registrar = facade.getRegistrar();

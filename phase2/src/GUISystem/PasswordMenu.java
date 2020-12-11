@@ -18,9 +18,19 @@ import javafx.stage.Stage;
 
 
 public class PasswordMenu extends Application {
+    /**
+     * A GUI menu class which allows users to reset passwords.
+     *
+     * @author Ziwen
+     */
     private LoginOptionsFacade loginOptionsFacade;
     private UserMenuGetter userMenuGetter;
 
+    /**
+     * Starts this menu.
+     *
+     * @param primaryStage The primaryStage of the application.
+     */
     @Override
     public void start(Stage primaryStage){
         VBox vbox = new VBox(5);
@@ -101,10 +111,20 @@ public class PasswordMenu extends Application {
         primaryStage.show();
     }
 
+    /**
+     * Sets the loginOptionsFacade of this class.
+     *
+     * @param loginOptionsFacade An instance of LoginOptionsFacade.
+     */
     public void setLogin(LoginOptionsFacade loginOptionsFacade){
         this.loginOptionsFacade = loginOptionsFacade;
     }
 
+    /**
+     * Sets the userMenuGetter interface of this class.
+     *
+     * @param userMenuGetter An instance of the UserMenuGetter interface.
+     */
     public void setUserMenuGetter(UserMenuGetter userMenuGetter){
         this.userMenuGetter = userMenuGetter;
     }
