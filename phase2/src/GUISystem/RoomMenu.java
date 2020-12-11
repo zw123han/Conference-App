@@ -1,6 +1,5 @@
 package GUISystem;
 
-import EventSystem.EventManager;
 import RoomSystem.RoomPresenter;
 import javafx.application.Application;
 import javafx.geometry.Insets;
