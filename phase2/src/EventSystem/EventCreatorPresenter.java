@@ -77,7 +77,6 @@ public class EventCreatorPresenter {
         EventCreator ec = new EventCreator(this.em, reg, rm);
         try {
             ec.deleteEvent(eventId);
-            reg.deleteEventFromSpeakers(eventId);
             String message = "Event has been successfully cancelled";
             eci.createPopUp(message);
 //            return "Event has been successfully cancelled";
@@ -237,6 +236,10 @@ public class EventCreatorPresenter {
         }
     }
 
+    /**
+     * Used by the UI to interface interface with events.
+     *
+     */
     public interface EventCreatorInterface {
         void loadAllEvents(String name, String id, String time, String duration, String room, String capacity, String speakers);
         void createPopUp(String message);

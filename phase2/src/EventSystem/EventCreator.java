@@ -95,14 +95,31 @@ public class EventCreator {
             speaker.removeEvent(eventId);
         }
         this.em.deleteEvent(eventId);
+        reg.deleteEventFromSpeakers(eventId);
         return true;
     }
 
+    /**
+     * Attempts to change the name of an event.
+     *
+     * @param eventId The event id of the event.
+     * @param name The new name of the event.
+     * @return True if and only if the event name is changed to name.
+     */
     public boolean setName(Long eventId, String name) {
         this.em.setName(eventId, name);
         return true;
     }
 
+    /**
+     * Attempts to change the room of the event.
+     *
+     * @param eventId The event if of the event.
+     * @param room The new room of the event.
+     * @return True if and only if the event's room is set to room.
+     *
+     * @throws EventModificationFailureException If the room is unable to be used for event.
+     */
     public boolean setRoom(Long eventId, String room) throws EventModificationFailureException {
         if(!this.rm.roomExists(room)){
             throw new EventModificationFailureException("The given room does not exist");
@@ -126,6 +143,15 @@ public class EventCreator {
         return true;
     }
 
+    /**
+     * Attempts to change the start time and duration of the event.
+     *
+     * @param eventId The event id of the event.
+     * @param start_time The new start time of the event.
+     * @param duration The new duration of the event.
+     * @return True if and only if the event's start time and duration has been changed to given parameters.
+     * @throws EventModificationFailureException If the room cannot handle the new start time or duration.
+     */
     public boolean setTime(Long eventId, LocalDateTime start_time, long duration) throws EventModificationFailureException {
         ArrayList<Event> events = this.em.getEventsList();
         for (Event event : events) {
@@ -144,6 +170,14 @@ public class EventCreator {
         return true;
     }
 
+    /**
+     * Attempts to add a new speaker to the event.
+     *
+     * @param eventId The event id of the event.
+     * @param speaker The username of the speaker to be added.
+     * @return True if and only if speaker is added to this event.
+     * @throws EventModificationFailureException If the speaker cannot be added for this event.
+     */
     public boolean addSpeaker(Long eventId, String speaker) throws EventModificationFailureException {
         ArrayList<String> speaker_list = this.em.getSpeakerList(eventId);
         boolean flag = this.reg.userExisting(speaker);
@@ -164,9 +198,18 @@ public class EventCreator {
             }
         }
         this.em.addSpeaker(eventId, speaker);
+        reg.getUserByUserName(speaker).addEvent(eventId);
         return true;
     }
 
+    /**
+     * Attempts to remove a speaker from this event.
+     *
+     * @param eventId The event id of this event.
+     * @param speaker The username of the speaker.
+     * @return True if and only if the speaker is removed from this event.
+     * @throws EventModificationFailureException If the speaker cannot be removed from this event.
+     */
     public boolean removeSpeaker(Long eventId, String speaker) throws EventModificationFailureException {
         boolean flag = this.reg.userExisting(speaker);
         if (!flag) {
@@ -177,9 +220,19 @@ public class EventCreator {
             throw new EventModificationFailureException("This speaker is not booked for your event");
         }
         this.em.removeSpeaker(eventId, speaker);
+        reg.getUserByUserName(speaker).removeEvent(eventId);
         return true;
     }
 
+    /**
+     * Attempts to set the new event capacity of an event.
+     *
+     * @param eventId The event id of this event.
+     * @param capacity The new capacity of the event.
+     * @return True if and only if the event capacity is set to the given parameter.
+     * @throws EventNotFoundException If no such event exists.
+     * @throws EventModificationFailureException If the capacity cannot be changed.
+     */
     public boolean setCapacity(Long eventId, int capacity) throws EventNotFoundException, EventModificationFailureException {
         int numAttendees = this.em.getSignedUpUsers(eventId).size();
         if (numAttendees > capacity){
