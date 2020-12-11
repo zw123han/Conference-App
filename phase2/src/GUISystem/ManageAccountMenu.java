@@ -1,7 +1,6 @@
 package GUISystem;
 
 import LoginSystem.LoginOptionsFacade;
-import UserSystem.FriendsController;
 import UserSystem.Registrar;
 import UserSystem.User;
 import javafx.application.Application;
@@ -14,12 +13,13 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
+/**
+ * A menu which allows for accounts and account information to be managed.
+ *
+ * @author Tao, Ziwen
+ */
 public class ManageAccountMenu extends Application {
-    /**
-     * A menu which allows for accounts and account information to be managed.
-     *
-     * @author Tao, Ziwen
-     */
+
     private User user;
     private UserMenuGetter mg;
     private LoginOptionsFacade facade;
@@ -67,14 +67,13 @@ public class ManageAccountMenu extends Application {
         HBox row1 = new HBox();
         row2 = new ListView<>();
         HBox row3 = new HBox();
-        // row 1
+
         Label label = new Label("Please specify the type of accounts to view: ");
 
         ChoiceBox<String> choiceBox = new ChoiceBox<>();
         choiceBox.getItems().addAll("speaker", "organizer", "attendee", "administrator");
         row1.getChildren().addAll(label, choiceBox);
-        // row 2
-        // row 3
+
         Button createButton = new Button("Create");
         Button deleteButton = new Button("Delete");
         Button modifyButton = new Button("Modify");
@@ -82,9 +81,9 @@ public class ManageAccountMenu extends Application {
         row3.getChildren().addAll(createButton, deleteButton, modifyButton, goBack);
 
         // view users
-        choiceBox.getSelectionModel().selectedItemProperty().addListener( (observable, oldValue, newValue) -> {
-            choiceBoxListener(registrar, newValue, row2);
-        });
+        choiceBox.getSelectionModel().selectedItemProperty().addListener( (observable, oldValue, newValue) ->
+                choiceBoxListener(registrar, newValue, row2));
+
         // create users
         createButton.setOnAction(e -> {
             Stage window = new Stage();
@@ -138,6 +137,7 @@ public class ManageAccountMenu extends Application {
             window.setScene(scene);
             window.showAndWait();
         });
+
         // delete user
         deleteButton.setOnAction(e -> {
             Stage window = new Stage();
@@ -182,6 +182,7 @@ public class ManageAccountMenu extends Application {
             window.setScene(scene);
             window.showAndWait();
         });
+
         // modify users
         modifyButton.setOnAction(event -> {
             Stage window = new Stage();
@@ -215,9 +216,8 @@ public class ManageAccountMenu extends Application {
 
             ListView<String> list = new ListView();
 
-            choice.getSelectionModel().selectedItemProperty().addListener( (observable, oldValue, newValue) -> {
-                choiceBoxListener(registrar, newValue, list);
-            });
+            choice.getSelectionModel().selectedItemProperty().addListener( (observable, oldValue, newValue) ->
+                    choiceBoxListener(registrar, newValue, list));
 
             Button submitButton = new Button("Submit");
             submitButton.setOnAction(ae -> {
@@ -258,8 +258,6 @@ public class ManageAccountMenu extends Application {
                 choiceBoxListener(registrar, userTypeLower1, row2);
                 choiceBox.setValue(userTypeLower1);}
 
-
-
             });
 
             Button closeButton = new Button("Close");
@@ -270,17 +268,16 @@ public class ManageAccountMenu extends Application {
             window.setScene(scene);
             window.showAndWait();
         });
+
         // go back
-        goBack.setOnAction(e -> {
-            mg.goBack(primaryStage);
-        });
+        goBack.setOnAction(e -> mg.goBack(primaryStage));
         root.getChildren().addAll(row1, row2, row3);
-        //Scene scene = new Scene (root, 800, 600);
         Scene scene = new Scene (root);
         primaryStage.setTitle("Manage Accounts");
         primaryStage.setScene(scene);
         primaryStage.show();
     }
+
     private void createPopUp(String message) {
         Stage window = new Stage();
         window.initModality(Modality.APPLICATION_MODAL);
@@ -298,6 +295,7 @@ public class ManageAccountMenu extends Application {
         window.setScene(scene);
         window.showAndWait();
     }
+
     private void choiceBoxListener(Registrar registrar, String newValue, ListView<String> list) {
 
         if (newValue.equals("speaker")) {

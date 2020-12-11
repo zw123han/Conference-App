@@ -8,13 +8,11 @@ import UserSystem.Speaker;
 import UserSystem.User;
 import javafx.application.Application;
 import javafx.collections.ObservableList;
-import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.input.KeyCode;
-import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
@@ -25,12 +23,13 @@ import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 
+/**
+ * A menu for creating, modifying, deleting events.
+ *
+ * @author Fred, Tao
+ */
 public class ManageEventMenu extends Application implements EventCreatorPresenter.EventCreatorInterface{
-    /**
-     * A menu for creating, modifying, deleting events.
-     *
-     * @author Fred, Tao
-     */
+
     private EventCreatorPresenter ecp;
     private RoomPresenter rp;
     private UserMenuGetter mg;
@@ -261,22 +260,19 @@ public class ManageEventMenu extends Application implements EventCreatorPresente
                         }
                     });
 
-                    child.setOnKeyPressed(new EventHandler<KeyEvent>() {
-                        @Override
-                        public void handle(KeyEvent k) {
-                            if(k.getCode() == KeyCode.ENTER) {
-                                try {
-                                    if(!nameInput.getText().equals("") || !nameInput.getText().trim().isEmpty()) {
-                                        ecp.promptSetName(id, nameInput.getText());
-                                    }
-
-                                    if(!capacityInput.getText().equals("") || !capacityInput.getText().trim().isEmpty()) {
-                                        ecp.promptSetCapacity(id, Integer.parseInt(capacityInput.getText()));
-                                    }
-                                    secondWindow.close();
-                                } catch(Exception ex){
-                                    createPopUp("Error, please check arguments");
+                    child.setOnKeyPressed(k -> {
+                        if(k.getCode() == KeyCode.ENTER) {
+                            try {
+                                if(!nameInput.getText().equals("") || !nameInput.getText().trim().isEmpty()) {
+                                    ecp.promptSetName(id, nameInput.getText());
                                 }
+
+                                if(!capacityInput.getText().equals("") || !capacityInput.getText().trim().isEmpty()) {
+                                    ecp.promptSetCapacity(id, Integer.parseInt(capacityInput.getText()));
+                                }
+                                secondWindow.close();
+                            } catch(Exception ex){
+                                createPopUp("Error, please check arguments");
                             }
                         }
                     });
@@ -336,9 +332,7 @@ public class ManageEventMenu extends Application implements EventCreatorPresente
             window.showAndWait();
         });
 
-        goBack.setOnAction(e -> {
-            mg.goBack(primaryStage);
-        });
+        goBack.setOnAction(e -> mg.goBack(primaryStage));
 
         //Scene scene = new Scene (root, 1280, 720);
         Scene scene = new Scene (root);
@@ -444,12 +438,9 @@ public class ManageEventMenu extends Application implements EventCreatorPresente
         Button closeButton = new Button("Close");
         closeButton.setOnAction(ae -> window.close());
 
-        layout.setOnKeyPressed(new EventHandler<KeyEvent>(){
-            @Override
-            public void handle(KeyEvent k) {
-                if (k.getCode() == KeyCode.ENTER) {
-                    window.close();
-                }
+        layout.setOnKeyPressed(k -> {
+            if (k.getCode() == KeyCode.ENTER) {
+                window.close();
             }
         });
 

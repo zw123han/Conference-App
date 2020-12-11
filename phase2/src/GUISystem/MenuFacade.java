@@ -2,14 +2,13 @@ package GUISystem;
 import javafx.application.Application;
 import javafx.stage.Stage;
 
-
-
+/**
+ * An encapsulation menu which allows swapping between home, login, and account creation menus. Implements MenuGetter.
+ *
+ * @author Ziwen
+ */
 public class MenuFacade extends Application implements MenuGetter{
-    /**
-     * An encapsulation menu which allows swapping between home, login, and account creation menus. Implements MenuGetter.
-     *
-     * @author Ziwen
-     */
+
     private HomeMenuGUI homeMenuGUI;
     private LoginGUI loginGUI;
     private AccountCreationMenu accountCreationMenu;
@@ -20,13 +19,9 @@ public class MenuFacade extends Application implements MenuGetter{
      * @param primaryStage The primaryStage of this application.
      */
     @Override
-    public void start(Stage primaryStage){
-        login(primaryStage);
+    public void start(Stage primaryStage){ login(primaryStage);}
 
-}
-
-    private void login(Stage primaryStage){
-        loginGUI.start(primaryStage);}
+    private void login(Stage primaryStage){ loginGUI.start(primaryStage);}
 
     /**
      * Sets the other menus in this menu.

@@ -2,8 +2,6 @@ package GUISystem;
 
 import LoginSystem.LoginOptionsFacade;
 import javafx.application.Application;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
@@ -16,13 +14,13 @@ import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
-
+/**
+ * A GUI menu class which allows users to reset passwords.
+ *
+ * @author Ziwen
+ */
 public class PasswordMenu extends Application {
-    /**
-     * A GUI menu class which allows users to reset passwords.
-     *
-     * @author Ziwen
-     */
+
     private LoginOptionsFacade loginOptionsFacade;
     private UserMenuGetter userMenuGetter;
 
@@ -68,42 +66,32 @@ public class PasswordMenu extends Application {
 
         Button changePasswordButton = new Button("Change password");
         changePasswordButton.setFont(Font.loadFont(getClass().getResourceAsStream("/resources/os-bold.ttf"), 12));
-        changePasswordButton.setOnAction(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent event) {
-                if(newPassword.getText().length()<1|passwordConfirmField.getText().length()<1){
-                    passwordChangeMessage.setFill(Color.RED);
-                    passwordChangeMessage.setText("Please ensure you are entering a valid password");
-                }
-                else if(!newPassword.getText().equals(passwordConfirmField.getText())){
-                    passwordChangeMessage.setFill(Color.RED);
-                    passwordChangeMessage.setText("New password does not match password confirmation");
-                }
-                else if(!loginOptionsFacade.getUser().getUserName().equals(usernameField.getText())){
-                    passwordChangeMessage.setFill(Color.RED);
-                    passwordChangeMessage.setText("Invalid username");
-                }
-                else if(loginOptionsFacade.resetPassword(usernameField.getText(), currentPassword.getText(), newPassword.getText())){
-                    passwordChangeMessage.setFill(Color.GREEN);
-                    passwordChangeMessage.setText("Password change successful");
-                }
-                else{
-                    passwordChangeMessage.setFill(Color.RED);
-                    passwordChangeMessage.setText("Invalid password");
-                }
+        changePasswordButton.setOnAction(event -> {
+            if(newPassword.getText().length()<1|passwordConfirmField.getText().length()<1){
+                passwordChangeMessage.setFill(Color.RED);
+                passwordChangeMessage.setText("Please ensure you are entering a valid password");
+            }
+            else if(!newPassword.getText().equals(passwordConfirmField.getText())){
+                passwordChangeMessage.setFill(Color.RED);
+                passwordChangeMessage.setText("New password does not match password confirmation");
+            }
+            else if(!loginOptionsFacade.getUser().getUserName().equals(usernameField.getText())){
+                passwordChangeMessage.setFill(Color.RED);
+                passwordChangeMessage.setText("Invalid username");
+            }
+            else if(loginOptionsFacade.resetPassword(usernameField.getText(), currentPassword.getText(), newPassword.getText())){
+                passwordChangeMessage.setFill(Color.GREEN);
+                passwordChangeMessage.setText("Password change successful");
+            }
+            else{
+                passwordChangeMessage.setFill(Color.RED);
+                passwordChangeMessage.setText("Invalid password");
             }
         });
 
         Button goBack = new Button("Go back");
         goBack.setFont(Font.loadFont(getClass().getResourceAsStream("/resources/os-bold.ttf"), 12));
-        goBack.setOnAction(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent event) {
-                userMenuGetter.goBack(primaryStage);
-            }
-        });
-
-
+        goBack.setOnAction(event -> userMenuGetter.goBack(primaryStage));
 
         vbox.getChildren().addAll(title,username, usernameField, passwordText, currentPassword, newPasswordText, newPassword, confirmPasswordText, passwordConfirmField, changePasswordButton,passwordChangeMessage,goBack);
         primaryStage.setTitle("Change Password");

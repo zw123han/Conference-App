@@ -127,10 +127,6 @@ public class MessageOutboxGUI extends Application{
         Scene scene = new Scene(outboxCanvas);
         primaryStage.setTitle("Messages - Conference Simulator Phase 2");
         primaryStage.setScene(scene);
-        //primaryStage.setMinHeight(420);
-        //primaryStage.setMaxHeight(420);
-        //primaryStage.setMinWidth(500);
-        //primaryStage.setMaxWidth(500);
         primaryStage.initModality(Modality.APPLICATION_MODAL);
         primaryStage.showAndWait();
     }
