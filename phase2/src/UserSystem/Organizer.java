@@ -24,7 +24,5 @@ public class Organizer extends User {
      * @return "organizer"
      */
     @Override
-    public String getUserType(){
-        return "organizer";
-    };
+    public String getUserType(){ return "organizer"; }
 }

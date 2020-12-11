@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.lang.*;
 
 import DatabaseSystem.*;
-import com.sun.org.apache.xpath.internal.operations.Or;
 
 /**
  * Registrar is the use case class for all interactions with User objects. It contains an array list of User objects
@@ -168,6 +167,7 @@ public class Registrar implements Savable {
             return false;
         }
     }
+
     /**
      * Returns the User object attending the conference that has the given username. Returns null if there is no user
      * attending the conference with the given username

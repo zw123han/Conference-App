@@ -1,9 +1,6 @@
 package UserSystem;
 
-import EventSystem.EventSignupPresenter;
-
 import java.util.ArrayList;
-import java.util.Scanner;
 
 /**
  * Controller that manages a user's friends list.
@@ -13,7 +10,6 @@ import java.util.Scanner;
 public class FriendsController {
     private FriendsManager friendsManager;
     private FriendsPresenter friendsPresenter;
-    private Scanner sc = new Scanner(System.in);
     private FriendInterface friendInterface;
 
     public void setInterface(FriendsController.FriendInterface friendInterface) {
@@ -36,21 +32,15 @@ public class FriendsController {
      * @param user      represents a user to be added to list of friends
      */
    public void addFriends(User user, String other_user) {
-//        System.out.println(friendsPresenter.enterUser());
-//        String other_user = sc.nextLine();
         if (friendsManager.addFriend(user, other_user)) {
-//            System.out.println(friendsPresenter.userAdded(other_user));
             friendInterface.createPopUp(friendsPresenter.userAdded(other_user));
         }
         else {
             if (user.hasFriend(other_user)) {
-//                System.out.println(friendsPresenter.alreadyFriends());
                 friendInterface.createPopUp(friendsPresenter.alreadyFriends());
             } else if (other_user.equals(user.getUserName())) {
-//                System.out.println(friendsPresenter.noAddYourself());
                 friendInterface.createPopUp(friendsPresenter.noAddYourself());
             } else {
-//                System.out.println(friendsPresenter.userNotFound());
                 friendInterface.createPopUp(friendsPresenter.userNotFound());
             }
         }
@@ -62,13 +52,9 @@ public class FriendsController {
      * @param user      represents a user to be removed from a list of friends
      */
     public void removeFriends(User user, String other_user) {
-//        System.out.println(friendsPresenter.enterUser());
-//        String other_user = sc.nextLine();
         if (friendsManager.removeFriend(user, other_user)) {
-//            System.out.println(friendsPresenter.userRemoved(other_user));
             friendInterface.createPopUp(friendsPresenter.userRemoved(other_user));
         } else {
-//            System.out.println(friendsPresenter.notYourFriend());
             friendInterface.createPopUp(friendsPresenter.notYourFriend());
         }
     }
@@ -79,24 +65,21 @@ public class FriendsController {
      */
     public void viewFriends(User user) {
         ArrayList<String> friends = user.getFriends();
-//        System.out.println("\nFriends");
-//        System.out.println("__________\n");
         if (friends.isEmpty()) {
-//            System.out.println("You got no friends hehe");
             friendInterface.loadFriends("");
         }
         else {
             for (String friend : friends) {
-//                System.out.println(friend);
                 friendInterface.loadFriends(friend);
             }
-
         }
-//        System.out.println("\n");
     }
 
+    /**
+     * Creates interface for UI
+     */
     public interface FriendInterface {
-        public void loadFriends(String friend);
-        public void createPopUp(String message);
+        void loadFriends(String friend);
+        void createPopUp(String message);
     }
 }
