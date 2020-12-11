@@ -127,7 +127,6 @@ public class ConferenceBuilder {
         manageEventMenu.setFacade(loginFacade);
         manageAccountMenu.setFacade(loginFacade);
         friendsMenuGUI.setFriendsElements(friendsController);
-        friendsMenuGUI.setFacade(loginFacade);
         roomMenu.setRoomElements(roomPresenter);
 
         // Create menu facade and DI menus
