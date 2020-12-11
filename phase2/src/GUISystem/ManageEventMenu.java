@@ -33,8 +33,6 @@ import java.util.ArrayList;
 public class ManageEventMenu extends Application implements EventCreatorPresenter.EventCreatorInterface{
 
     private EventCreatorPresenter ecp;
-    private EventCreator ec;
-    private EventManager em;
     private RoomPresenter rp;
     private UserMenuGetter mg;
     private ListView allEvents;
@@ -216,55 +214,45 @@ public class ManageEventMenu extends Application implements EventCreatorPresente
                     VBox child = new VBox();
 
                     HBox name = new HBox();
-                    TextField nameInput = new TextField();//em.getEvent(id).getName());
-                    Label nameLabel = new Label("Name: ");
+                    TextField nameInput = new TextField();
+                    Label nameLabel = new Label("Enter new event name: ");
                     name.getChildren().addAll(nameLabel, nameInput);
 
-                    HBox room = new HBox();
-                    TextField roomInput = new TextField();//em.getEvent(id).getRoom());
-                    Label roomLabel = new Label("Room: ");
-                    room.getChildren().addAll(nameLabel, nameInput);
-
                     HBox time = new HBox();
-                    Label timeLabel = new Label("Date format(yyyy-MM-dd HH:mm): ");
-                    TextField timeInput = new TextField();//em.getEvent(id).getTime().toString());
+                    Label timeLabel = new Label("Enter new event date(yyyy-MM-dd HH:mm): ");
+                    TextField timeInput = new TextField();
                     DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
                     time.getChildren().addAll(timeLabel, timeInput);
 
                     HBox duration = new HBox();
-                    TextField durationInput = new TextField();//String.valueOf(em.getEvent(id).getDuration()));
-                    Label durationLabel = new Label("Duration: ");
+                    TextField durationInput = new TextField();
+                    Label durationLabel = new Label("Enter new duration: ");
                     duration.getChildren().addAll(durationLabel, durationInput);
 
-                    VBox speaker_list = new VBox();
-                    Label speakerLabel = new Label("Select Speakers (hold ctrl to multi select)");
-                    ListView<String> speakers = new ListView<>();
-                    ArrayList<String> allSpeakers = getSpeakers();
-
-                    for (String s : allSpeakers) { speakers.getItems().add(s); }
-
-                    speakers.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
-                    speaker_list.getChildren().addAll(speakerLabel, speakers);
-
                     HBox capacity = new HBox();
-                    TextField capacityInput = new TextField();//String.valueOf(em.getEvent(id).getCapacity()));
-                    Label capacityLabel = new Label("Capacity: ");
+                    TextField capacityInput = new TextField();
+                    Label capacityLabel = new Label("Enter new capacity: ");
                     capacity.getChildren().addAll(capacityLabel, capacityInput);
 
                     Button changeButton = new Button("Modify");
                     Button exitButton = new Button("Close");
 
-                    modifyButton.setOnAction(mb -> {
+                    changeButton.setOnAction(mb -> {
                         try {
-                            if(nameInput.getText() != null) {
-                                ec.setName(id, nameInput.getText());
-                            } else if(roomInput.getText() != null){
-                                ec.setRoom(id, roomInput.getText());
-                            } else if(capacityInput.getText() != null){
-                                ec.setCapacity(id, Integer.parseInt(capacityInput.getText()));
-                            } else if (timeInput.getText() != null && isValidTime(timeInput, formatter)) {
-                                ec.setTime(id, LocalDateTime.parse(timeInput.getText()), Long.parseLong(durationInput.getText()));
+                            if(nameInput.getText() != null || !nameInput.getText().trim().isEmpty()) {
+                                ecp.promptSetName(id, nameInput.getText());
+                            } else if(capacityInput.getText() != null || !capacityInput.getText().trim().isEmpty()){
+                                ecp.promptSetCapacity(id, Integer.parseInt(capacityInput.getText()));
+                            } else if(timeInput.getText() != null || !timeInput.getText().trim().isEmpty() &&
+                                    durationInput.getText() != null || !durationInput.getText().trim().isEmpty() &&
+                                    isValidTime(timeInput, formatter)) {
+                                ecp.promptSetTime(id, LocalDateTime.parse(timeInput.getText()),
+                                        Long.parseLong(durationInput.getText()));
+                            } else {
+                                createPopUp("Error, please check arguments");
                             }
+
+                            secondWindow.close();
                         } catch (Exception ex){
                             createPopUp("Error, please check arguments");
                         }
@@ -272,7 +260,7 @@ public class ManageEventMenu extends Application implements EventCreatorPresente
 
                     exitButton.setOnAction(c -> secondWindow.close());
 
-                    child.getChildren().addAll(name, room, time, duration, speaker_list, capacity, changeButton,
+                    child.getChildren().addAll(name, time, duration, capacity, changeButton,
                             exitButton);
                     Scene newScene = new Scene(child);
                     secondWindow.setScene(newScene);
@@ -282,8 +270,8 @@ public class ManageEventMenu extends Application implements EventCreatorPresente
                     createPopUp("Invalid Event ID");
                 }
 
-                //allEvents.getItems().clear();
-                //ecp.viewEvents();
+                allEvents.getItems().clear();
+                ecp.viewEvents();
 
             });
 

@@ -30,6 +30,7 @@ public class RoomPresenter  {
         ri.createPopUp(message);
 
     }
+
     public void deleteRoom(String roomID) {
         RoomController rc = new RoomController(roomManager);
         String message;
@@ -41,6 +42,7 @@ public class RoomPresenter  {
         }
         ri.createPopUp(message);
     }
+
     public ArrayList<String> displayRooms(){
         ArrayList<String> roomList = new ArrayList<String>();
         for(Room room: roomManager.getRooms()){

@@ -74,12 +74,14 @@ public class  Event implements Serializable {
      *
      * @return          The name of the event as a String
      */
+    public String getName(){ return name; }
 
+    /**
+     * Sets the id of the event
+     *
+     * @param id        The id of the event
+     */
     public void setId(Long id) { this.id = id; }
-
-    public String getName(){
-        return name;
-    }
 
     /**
      * Returns the room of the event
@@ -233,6 +235,7 @@ public class  Event implements Serializable {
         this.time = time;
         this.duration = duration;
     }
+
     /**
      * Adds given speaker to this event
      *

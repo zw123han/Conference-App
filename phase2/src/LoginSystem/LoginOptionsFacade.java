@@ -52,6 +52,7 @@ public class LoginOptionsFacade {
         }
         return false;
     }
+
     /**
      * Updates the username of a user.
      *
@@ -78,7 +79,6 @@ public class LoginOptionsFacade {
     public boolean updateName(String username, String name){
         return registrar.updateName(username, name);
     }
-
 
     /**
      * Deletes a user completely from the system. Users cannot delete themselves.
