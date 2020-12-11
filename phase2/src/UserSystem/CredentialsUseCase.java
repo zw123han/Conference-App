@@ -32,10 +32,10 @@ public class CredentialsUseCase {
      * @return                  True or false. Returns true if and only if a new user is created with valid credentials.
      */
     public boolean createUser(String name, String username, String password, String type){
-        if (name.length()<1|username.length()<1|username.contains("@")|username.contains(" ")){
+        if (name.length()<1|username.length()<1|username.contains("@")|username.contains(" ")|username.contains("'")|username.contains("\"")){
             return false;
         }
-        if (password.length()<1|password.contains(" ")){
+        if (password.length()<1|password.contains(" ")|password.contains("'")|password.contains("\"")){
             return false;
         }
         if(registrar.userExisting(username)){
