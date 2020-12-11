@@ -1,3 +1,5 @@
+SETUP: Follow the instructions in SETUP INSTRUCTIONS.mp4 to setup mongodb. Watch our video demo instead if you cannot set this up.
+
 1. Run main
 2. Follow prompts to login as existing user: "Admin" (password == "123"), alternatively create your own standard user account.
 3. As Admin:
@@ -33,6 +35,3 @@ NOTE: Please add a friend to chat with that user.
     b) Select "All speakers" to send a message to every speaker who is hosting an event. (This does not include
        speakers whose accounts exist, but are not giving talks.
     c) Select an event to send a message to all attendees of that event.
-
-Questions for TA:
-Are static gateways allowed?
