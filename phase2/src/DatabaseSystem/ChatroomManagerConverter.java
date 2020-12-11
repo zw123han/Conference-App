@@ -8,6 +8,12 @@ import com.mongodb.BasicDBObject;
 import java.util.ArrayList;
 import java.util.Map;
 
+/**
+ * This class is responsible for converting a ChatroomManager object into a list of MongoDB documents to be added to a
+ * collection in the database.
+ *
+ * @author Jesse
+ */
 public class ChatroomManagerConverter implements ConversionStrategy {
 
     private BasicDBObject convertMessage(Message msg) {
@@ -34,6 +40,12 @@ public class ChatroomManagerConverter implements ConversionStrategy {
         return doc;
     }
 
+    /**
+     * Returns an array list of documents to be added to a collection based on the given ChatroomManager object.
+     *
+     * @param sv    A ChatroomManager object.
+     * @return      A list of MongoDB documents.
+     */
     @Override
     public ArrayList<BasicDBObject> convertAll(Savable sv) {
         ChatroomManager chatroomManager = (ChatroomManager) sv;

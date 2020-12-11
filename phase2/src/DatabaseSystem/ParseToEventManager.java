@@ -10,6 +10,12 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
+/**
+ * This class is responsible for parsing through a database collection that stores event information and converting
+ * that information back into a EventManager instance.
+ *
+ * @author Jesse
+ */
 public class ParseToEventManager implements ParserStrategy {
 
     private Event createEvent(DBObject doc) {
@@ -29,6 +35,12 @@ public class ParseToEventManager implements ParserStrategy {
         return evt;
     }
 
+    /**
+     * Returns a new EventManager instance based on the given collection.
+     *
+     * @param collection    The collection that stores event information.
+     * @return              A new EventManager instance.
+     */
     @Override
     public Savable parseCollection(DBCollection collection) {
         ArrayList<Event> events = new ArrayList<>();
