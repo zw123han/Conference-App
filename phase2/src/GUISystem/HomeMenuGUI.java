@@ -35,7 +35,7 @@ public class HomeMenuGUI extends Application implements UserMenuGetter {
         VBox vbox = new VBox(5);
         vbox.setAlignment(Pos.CENTER);
         vbox.setPadding(new Insets(20, 20, 20, 20));
-
+        vbox.setPrefSize(500, 600);
         Scene scene = new Scene (vbox);
 
         Text title = new Text ("Hello "+loginOptionsFacade.getUser().getName());
@@ -145,7 +145,9 @@ public class HomeMenuGUI extends Application implements UserMenuGetter {
             }
         });
         Label organizerControlLabel = new Label("Organizer Controls");
+        organizerControlLabel.setFont(Font.loadFont(getClass().getResourceAsStream("/resources/os-extrabold.ttf"), 12));
         Label adminControlLabel = new Label("Admin Controls");
+        adminControlLabel.setFont(Font.loadFont(getClass().getResourceAsStream("/resources/os-extrabold.ttf"), 12));
         vbox.getChildren().addAll(title,eventButton, friendsButton, changePasswordButton, messagingButton);
         if (loginOptionsFacade.getUser().getUserType().equals("administrator")){
             vbox.getChildren().addAll(adminControlLabel, manageAccountButton, roomMenuButton, manageEventsButton);
