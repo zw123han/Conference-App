@@ -1,5 +1,6 @@
-SETUP: Follow the instructions in SETUP INSTRUCTIONS.mp4 to setup mongodb. *MaKe sure to hit apply after you installed*.
-Watch our video demo instead if you cannot set this up.
+SETUP: Follow the instructions in SETUP INSTRUCTIONS.mp4 to setup mongodb. Make sure to hit apply.
+You can find the driver pre downloaded in our phase 2 folder (mongo-java-driver-3.12.7.jar).
+Alternatively, if you cannot setup mongodb, watch the video demo of our program instead.
 
 1. Run main
 2. Follow prompts to login as existing user: "Admin" (password == "123"), alternatively create your own standard user account.
@@ -12,8 +13,8 @@ Watch our video demo instead if you cannot set this up.
 	f) choose "Change password". Follow prompts to change password. Please remember to change it back to "123"
 	g) choose "Logout". Follow prompts to logout. Follow prompts to close login and then program. Goodbye, friend. 
 4. If you choose to create your own account, you may do so. Please note, the options are limited for standard users for security purposes. 
-5. UML can be found in root "group_0051\phase1"
-6. Javadoc can be found in "group_0051\phase1\src\javadoc"
+5. UML can be found in root "group_0051\phase2"
+6. Javadoc can be found in "group_0051\phase2\src\javadoc"
 
 NOTE: Please do not resize the window to be bigger/smaller if possible. A maximum/minimum window size is not set
 because JavaFX is known to have display issues on devices with high DPI if a maximum/minimum window size is set.
