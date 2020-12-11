@@ -1,5 +1,6 @@
-package GUISystem;
+package MainProgram;
 
+import GUISystem.MenuFacade;
 import javafx.application.Application;
 import javafx.stage.Stage;
 
@@ -28,5 +29,13 @@ public class LaunchMenu extends Application {
      */
     public static void setMenuFacade(MenuFacade menuFacade){
         LaunchMenu.menuFacade = menuFacade;
+    }
+
+    public static void main(String[] arg){
+
+        ConferenceSimulator conference = new ConferenceSimulator();
+
+        conference.run();
+
     }
 }
