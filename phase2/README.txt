@@ -1,6 +1,4 @@
-SETUP: Follow the instructions in SETUP INSTRUCTIONS.mp4 to setup mongodb.\
-You can find the driver already included in our phase 2 folder (mongo-java-driver-3.12.7.jar).
-
+SETUP: Follow the instructions in SETUP INSTRUCTIONS.mp4 to setup mongodb. *MaKe sure to hit apply after you installed*.
 Watch our video demo instead if you cannot set this up.
 
 1. Run main
