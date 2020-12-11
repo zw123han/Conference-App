@@ -4,7 +4,6 @@ import GUISystem.*;
 import DatabaseSystem.*;
 import javafx.application.Application;
 
-
 /**
  * This class represents the executable for the application.
  *
@@ -22,7 +21,6 @@ public class ConferenceSimulator {
 
         // Build the conference application
         ConferenceBuilder conferenceBuilder = new ConferenceBuilder(databaseInteractor);
-
 
         conferenceBuilder.buildAConference();
 

@@ -63,11 +63,13 @@ public class ConferenceBuilder {
         databaseInteractor.setSavables(savables);
     }
 
+    //deprecated
     private void makeAdmins(){
         AdminCreationScript adminCreationScript = new AdminCreationScript();
         adminCreationScript.createAdmin(registrar);
     }
 
+    //deprecated
     private void makeOrganizers(){
         OrganizerCreationScript organizerCreationScript = new OrganizerCreationScript();
         organizerCreationScript.createOrganizers(registrar);
@@ -140,7 +142,6 @@ public class ConferenceBuilder {
         friendsMenuGUI.setUserMenuGetter(homeMenuGUI);
         roomMenu.setUserMenuGetter(homeMenuGUI);
         manageAccountMenu.setUserMenuGetter(homeMenuGUI);
-
 
         // Dependency inject MenuGetter into menus
         loginGUI.setMenuGetter(menuFacade);
