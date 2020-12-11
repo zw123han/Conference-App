@@ -168,15 +168,11 @@ public class EventSignupPresenter {
             String taken = "" + ev.getNumberOfSignedUpUsers();
             String speakers = ev.getSpeakerList().toString();
 
-            doc.append("  <tr>\n" +
-                    "    <th>" + name + "</th>\n" +
-                    "    <th>" + time + "</th>\n" +
-                    "    <th>" + duration +"</th>\n" +
-                    "    <th>" + room + "</th>\n" +
-                    "    <th>" + capacity + "</th>\n" +
-                    "    <th>" + taken + "</th>\n" +
-                    "    <th>" + speakers +"</th>\n" +
-                    "  </tr>\n");
+            doc.append("  <tr>\n" + "    <th>").append(name).append("</th>\n").append("    <th>").append(time).
+                    append("</th>\n").append("    <th>").append(duration).append("</th>\n").append("    <th>").
+                    append(room).append("</th>\n").append("    <th>").append(capacity).append("</th>\n").
+                    append("    <th>").append(taken).append("</th>\n").append("    <th>").append(speakers).
+                    append("</th>\n").append("  </tr>\n");
         }
 
         printer.print(doc);

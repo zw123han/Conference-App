@@ -20,6 +20,7 @@ public class EventCreatorPresenter {
     private Registrar reg;
     private RoomManager rm;
     private EventCreatorInterface eci;
+
     /**
      * The constructor for EventCreatorPresenter
      *
@@ -34,6 +35,7 @@ public class EventCreatorPresenter {
     public void setInterface(EventCreatorInterface eci) {
         this.eci = eci;
     }
+
     /**
      * Prompts the creation of the specified event and returns whether the event was successfully created
      *
@@ -43,7 +45,6 @@ public class EventCreatorPresenter {
      * @param duration       The duration of the event in minutes
      * @param speaker_list   The list of speakers for the event
      * @param capacity       The capacity of the event
-     * @return               A string detailing whether the event was successfully created
      */
     public void promptEventCreation(String name, String room, LocalDateTime time, long duration, ArrayList<String> speaker_list, int capacity) {
 
@@ -237,7 +238,7 @@ public class EventCreatorPresenter {
     }
 
     public interface EventCreatorInterface {
-        public void loadAllEvents(String name,String id, String time, String duration, String room, String capacity, String speakers);
-        public void createPopUp(String message);
+        void loadAllEvents(String name, String id, String time, String duration, String room, String capacity, String speakers);
+        void createPopUp(String message);
     }
 }
