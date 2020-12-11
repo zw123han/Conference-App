@@ -12,6 +12,9 @@
 5. UML can be found in root "group_0051\phase1"
 6. Javadoc can be found in "group_0051\phase1\src\javadoc"
 
+NOTE: Please do not resize the window to be bigger/smaller if possible. A maximum/minimum window size is not set
+because JavaFX is known to have display issues on devices with high DPI if a maximum/minimum window size is set.
+
 ===============================
  ON USING MESSAGE INBOX/OUTBOX
 ===============================
