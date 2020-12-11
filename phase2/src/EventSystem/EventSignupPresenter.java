@@ -26,8 +26,9 @@ public class EventSignupPresenter {
     }
 
     /**
+     * Used by UI to interface with events
      *
-     * @param eventInterface
+     * @param eventInterface    The interface with events
      */
     public void setInterface(EventInterface eventInterface) {
         this.eventInterface = eventInterface;
@@ -168,15 +169,11 @@ public class EventSignupPresenter {
             String taken = "" + ev.getNumberOfSignedUpUsers();
             String speakers = ev.getSpeakerList().toString();
 
-            doc.append("  <tr>\n" +
-                    "    <th>" + name + "</th>\n" +
-                    "    <th>" + time + "</th>\n" +
-                    "    <th>" + duration +"</th>\n" +
-                    "    <th>" + room + "</th>\n" +
-                    "    <th>" + capacity + "</th>\n" +
-                    "    <th>" + taken + "</th>\n" +
-                    "    <th>" + speakers +"</th>\n" +
-                    "  </tr>\n");
+            doc.append("  <tr>\n" + "    <th>").append(name).append("</th>\n").append("    <th>").append(time).
+                    append("</th>\n").append("    <th>").append(duration).append("</th>\n").append("    <th>").
+                    append(room).append("</th>\n").append("    <th>").append(capacity).append("</th>\n").
+                    append("    <th>").append(taken).append("</th>\n").append("    <th>").append(speakers).
+                    append("</th>\n").append("  </tr>\n");
         }
 
         printer.print(doc);
@@ -210,7 +207,7 @@ public class EventSignupPresenter {
     }
 
     /**
-     *
+     ** Used by UI to interface with events
      */
     public interface EventInterface {
         void loadUserEvents(String name, String id, String time, String duration, String room, String capacity, String speakers);

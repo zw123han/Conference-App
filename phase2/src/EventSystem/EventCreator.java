@@ -75,11 +75,11 @@ public class EventCreator {
     }
 
     /**
-     * attampts to delete the event with the given id
+     * Attempts to delete the event with the given id
      *
-     * @param eventId
-     * @return true iff the event was deleted
-     * @throws EventNotFoundException
+     * @param eventId                   The identifier of the event
+     * @return                          true iff the event was deleted
+     * @throws EventNotFoundException   The exception thrown if the event is not found
      */
     public boolean deleteEvent(Long eventId)
             throws EventNotFoundException {

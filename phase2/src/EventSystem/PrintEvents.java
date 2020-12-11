@@ -24,8 +24,7 @@ public class PrintEvents {
     public void print(StringBuilder doc) {
 
         try {
-            StringBuilder html = new StringBuilder();
-            html.append("<html><head>"+"<style>\n" +
+            String html = "<html><head>" + "<style>\n" +
                     "table {\n" +
                     "  font-family: arial, sans-serif;\n" +
                     "  border-collapse: collapse;\n" +
@@ -41,8 +40,8 @@ public class PrintEvents {
                     "tr:nth-child(even) {\n" +
                     "  background-color: #dddddd;\n" +
                     "}\n" +
-                    "</style>\n" + "<title>Events List</title></head>");
-            html.append("<body>\n" +
+                    "</style>\n" + "<title>Events List</title></head>" +
+                    "<body>\n" +
                     "\n" +
                     "<h2 style=\"text-align: center;\">Conference Schedule</h2>\n" +
                     "\n" +
@@ -59,20 +58,20 @@ public class PrintEvents {
                     "</table>\n" +
                     "\n" +
                     "</body>\n" +
-                    "</html>");
-            WriteToFile(html.toString(),"Events.html");
+                    "</html>";
+            WriteToFile(html);
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
-    private void WriteToFile(String fileContents, String fileName) throws IOException {
-        String tempFile = filepath + File.separator + fileName;
+    private void WriteToFile(String fileContents) throws IOException {
+        String tempFile = filepath + File.separator + "Events.html";
         File file = new File(tempFile);
 
         if (file.exists()) {
             try {
-                File newFileName = new File(filepath + File.separator + "backup_" + fileName);
+                File newFileName = new File(filepath + File.separator + "backup_" + "Events.html");
                 file.renameTo(newFileName);
                 file.createNewFile();
             } catch (IOException e) {
