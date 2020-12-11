@@ -127,7 +127,7 @@ public class ChatroomManager implements Serializable, Savable {
         Chatroom chatroom = getChatroom(username, recipient);
         chatroom.deleteMessage(index);
         if(chatroom.getSize() == 0){
-            ArrayList usernames = new ArrayList<>();
+            ArrayList<String> usernames = new ArrayList<>();
             usernames.add(username);
             usernames.add(recipient);
             Collections.sort(usernames);
@@ -146,7 +146,9 @@ public class ChatroomManager implements Serializable, Savable {
         for (String user : users) {
             if (!user.equals(sender)) {
                 Message msg = new Message(message + " ", sender);
-                getChatroom(users).sendMessage(msg);
+                ArrayList<String> usersDuplicate = new ArrayList<>(users);
+                Collections.sort(usersDuplicate);
+                getChatroom(usersDuplicate).sendMessage(msg);
             }
         }
     }
@@ -160,10 +162,9 @@ public class ChatroomManager implements Serializable, Savable {
     public void sendAll(ArrayList<String> users, String message, String sender) {
         for (String user : users) {
             if (!user.equals(sender)) {
-                ArrayList<String> recipients = new ArrayList<>();
-                recipients.add(user);
-                recipients.add(sender);
-                sendOne(recipients, message + " ", sender);
+                ArrayList<String> usersDuplicate = new ArrayList<>(users);
+                Collections.sort(usersDuplicate);
+                sendOne(usersDuplicate, message + " ", sender);
             }
         }
     }
