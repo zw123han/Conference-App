@@ -153,12 +153,12 @@ public class HomeMenuGUI extends Application implements UserMenuGetter {
         vbox.getChildren().addAll(emptyText, logoutButton, saveButton);
 
         primaryStage.setTitle("Home Screen - Conference Simulator Phase 2");
+        primaryStage.setHeight(600);
+        primaryStage.setWidth(500);
         //primaryStage.setMinHeight(600);
         //primaryStage.setMaxHeight(600);
-        //primaryStage.setHeight(600);
         //primaryStage.setMinWidth(500);
         //primaryStage.setMaxWidth(500);
-        //primaryStage.setWidth(500);
         primaryStage.setScene(scene);
         primaryStage.show();
     }

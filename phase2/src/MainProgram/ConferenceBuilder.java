@@ -9,8 +9,6 @@ import EventSystem.EventSignupPresenter;
 import GUISystem.*;
 import LoginSystem.LoginOptionsFacade;
 import MessagingSystem.*;
-import RoomSystem.Room;
-import RoomSystem.RoomController;
 import RoomSystem.RoomManager;
 import RoomSystem.RoomPresenter;
 import UserSystem.*;

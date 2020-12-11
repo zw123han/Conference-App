@@ -1,16 +1,9 @@
 package MainProgram;
 
-import EventSystem.*;
 import GUISystem.*;
-import LoginSystem.*;
-import MessagingSystem.*;
-import UserSystem.*;
 import DatabaseSystem.*;
-import com.mongodb.BasicDBObject;
-import com.sun.xml.internal.bind.v2.TODO;
 import javafx.application.Application;
 
-import java.util.*;
 
 /**
  * This class rep qresents the executable for the application.
@@ -24,8 +17,6 @@ public class ConferenceSimulator {
      * The static main method will run this method to start the application.
      */
     public void run() {
-        // TODO: Add modify button to eventManager
-
         // Connect to database
         databaseInteractor.connect();
 
