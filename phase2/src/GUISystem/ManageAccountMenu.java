@@ -38,6 +38,7 @@ public class ManageAccountMenu extends Application {
         VBox root = new VBox();
         root.setAlignment(Pos.CENTER);
         root.setPadding(new Insets(20, 20, 20, 20));
+        root.setPrefSize(500, 600);
         HBox row1 = new HBox();
         row2 = new ListView<>();
         HBox row3 = new HBox();
@@ -122,7 +123,7 @@ public class ManageAccountMenu extends Application {
             layout.setPadding(new Insets(20, 20, 20, 20));
 
             HBox titleBox = new HBox();
-            Label title = new Label("Please enter the user you would like the delete: \n(You cannot delete yourself) ");
+            Label title = new Label("Enter the user you would like the delete: \n(You cannot delete yourself) ");
             TextField input = new TextField();
             titleBox.getChildren().addAll(title, input);
 
@@ -160,13 +161,13 @@ public class ManageAccountMenu extends Application {
         modifyButton.setOnAction(event -> {
             Stage window = new Stage();
             window.initModality(Modality.APPLICATION_MODAL);
-            window.setTitle("Create User");
+            window.setTitle("Modify User");
 
             VBox layout = new VBox(5);
             layout.setPadding(new Insets(20, 20, 20, 20));
-
+            layout.setPrefSize(500, 600);
             HBox enterNameBox = new HBox();
-            Label enterName = new Label("Please enter the username that you want to modify: ");
+            Label enterName = new Label("Enter the username to modify: ");
             TextField input = new TextField();
             enterNameBox.getChildren().addAll(enterName, input);
 
@@ -177,12 +178,12 @@ public class ManageAccountMenu extends Application {
             selectBox.getChildren().addAll(select, choice);
 
             VBox  enterNewNameBox = new VBox();
-            Label instructions = new Label("Please enter any fields you want to update, and leave the rest blank\n");
-            Label enterNewName = new Label("Please enter the new name for the user: ");
+            Label instructions = new Label("Enter any fields you want to update, and leave the rest blank\n");
+            Label enterNewName = new Label("Enter the new name for the user: ");
             TextField newName = new TextField();
-            Label enterNewType = new Label("Please enter the new type for the user: \n(\"attendee\", \"speaker\", \"organizer\", or \"administrator\") \n(You cannot modify your own type)");
+            Label enterNewType = new Label("Enter the new type for the user: \n(\"attendee\", \"speaker\", \"organizer\", or \"administrator\") \n(You cannot modify your own type)");
             TextField newType = new TextField();
-            Label enterNewUsername = new Label("Please enter the new username for this user: ");
+            Label enterNewUsername = new Label("Enter the new username for this user: ");
             TextField newUsername = new TextField();
 
             enterNewNameBox.getChildren().addAll(instructions, enterNewName, newName, enterNewType, newType, enterNewUsername, newUsername);

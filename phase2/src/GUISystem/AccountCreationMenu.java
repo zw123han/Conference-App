@@ -31,7 +31,7 @@ public class AccountCreationMenu extends Application{
         VBox loginCanvas = new VBox(5);
         loginCanvas.setAlignment(Pos.CENTER);
         loginCanvas.setPadding(new Insets(20, 20, 20, 20));
-
+        loginCanvas.setPrefSize(500, 400);
         Scene scene = new Scene (loginCanvas);
 
         Text loginTitle = new Text ("Welcome to the Conference!");

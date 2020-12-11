@@ -37,6 +37,7 @@ public class EventMenuGUI extends Application implements EventSignupPresenter.Ev
         GridPane root = new GridPane();
         root.setAlignment(Pos.CENTER);
         root.setPadding(new Insets(20, 20, 20, 20));
+        root.setPrefSize(800, 600);
 
         HBox topView = new HBox(5);
         VBox leftView = new VBox();

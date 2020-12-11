@@ -49,7 +49,7 @@ public class ManageEventMenu extends Application implements EventCreatorPresente
         GridPane root = new GridPane();
         root.setAlignment(Pos.CENTER);
         root.setPadding(new Insets(20, 20, 20, 20));
-
+        root.setPrefSize(500, 600);
         HBox topView = new HBox(5);
         VBox botView = new VBox();
         allEvents = new ListView();
@@ -82,7 +82,7 @@ public class ManageEventMenu extends Application implements EventCreatorPresente
             window.setTitle("Create Event");
 
             VBox parent = new VBox();
-
+            parent.setPrefSize(500, 600);
             HBox name = new HBox();
             Label nameLabel = new Label("Name");
             TextField nameInput = new TextField();

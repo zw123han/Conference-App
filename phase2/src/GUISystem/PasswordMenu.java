@@ -26,7 +26,7 @@ public class PasswordMenu extends Application {
         VBox vbox = new VBox(5);
         vbox.setAlignment(Pos.CENTER);
         vbox.setPadding(new Insets(20, 20, 20, 20));
-
+        vbox.setPrefSize(500, 600);
         Scene scene = new Scene (vbox);
 
         Text title = new Text ("Change password");

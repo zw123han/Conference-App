@@ -33,8 +33,8 @@ public class HomeMenuGUI extends Application implements UserMenuGetter {
     @Override
     public void start(Stage primaryStage) {
         VBox vbox = new VBox(5);
-        vbox.setAlignment(Pos.CENTER);
         vbox.setPadding(new Insets(20, 20, 20, 20));
+        vbox.setAlignment(Pos.CENTER);
         vbox.setPrefSize(500, 600);
         Scene scene = new Scene (vbox);
 
@@ -150,7 +150,7 @@ public class HomeMenuGUI extends Application implements UserMenuGetter {
         adminControlLabel.setFont(Font.loadFont(getClass().getResourceAsStream("/resources/os-extrabold.ttf"), 12));
         vbox.getChildren().addAll(title,eventButton, friendsButton, changePasswordButton, messagingButton);
         if (loginOptionsFacade.getUser().getUserType().equals("administrator")){
-            vbox.getChildren().addAll(adminControlLabel, manageAccountButton, roomMenuButton, manageEventsButton);
+            vbox.getChildren().addAll(adminControlLabel, manageEventsButton,  roomMenuButton, manageAccountButton);
         }
         else if (loginOptionsFacade.getUser().getUserType().equals("organizer")){
             vbox.getChildren().addAll(organizerControlLabel, manageEventsButton);

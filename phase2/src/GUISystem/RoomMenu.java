@@ -39,7 +39,7 @@ public class RoomMenu extends Application implements RoomPresenter.RoomInterface
         GridPane root = new GridPane();
         root.setAlignment(Pos.CENTER);
         root.setPadding(new Insets(20, 20, 20, 20));
-
+        root.setPrefSize(500, 600);
         HBox topView = new HBox(5);
         VBox botView = new VBox();
         allRooms = new ListView();
