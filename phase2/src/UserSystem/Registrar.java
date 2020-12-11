@@ -321,6 +321,31 @@ public class Registrar implements Savable {
     }
 
     /**
+     * Gets a list of speakers at the conference.
+     *
+     * @return An arraylist of speakers stored in the register.
+     */
+    public ArrayList<Speaker> getSpeakers(){
+        ArrayList<Speaker> speakerList = new ArrayList<Speaker>();
+        for(User user: this.getUsers()){
+            if(user.getUserType().equals("speaker")){
+                speakerList.add((Speaker) user);
+            }
+        }
+        return speakerList;
+    }
+
+    /**
+     * Deletes an event ID from all speakers at the conference, if applicable.
+     *
+     * @param eventID The ID of the event to delete.
+     */
+    public void deleteEventFromSpeakers(long eventID){
+        for(Speaker speaker: getSpeakers()){
+            speaker.removeTalk(eventID);
+        }
+    }
+    /**
      * Returns the name of the user associated with the given username. Returns an empty string if there is no
      * associated user.
      *
