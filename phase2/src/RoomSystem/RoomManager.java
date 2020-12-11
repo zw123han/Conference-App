@@ -128,6 +128,5 @@ public class RoomManager implements Savable {
         rooms.remove(getRoom(roomID));
 
     }
-
-    }
+}
 
