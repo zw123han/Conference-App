@@ -162,9 +162,10 @@ public class ChatroomManager implements Serializable, Savable {
     public void sendAll(ArrayList<String> users, String message, String sender) {
         for (String user : users) {
             if (!user.equals(sender)) {
-                ArrayList<String> usersDuplicate = new ArrayList<>(users);
-                Collections.sort(usersDuplicate);
-                sendOne(usersDuplicate, message + " ", sender);
+                ArrayList<String> recipients = new ArrayList<>();
+                recipients.add(user);
+                recipients.add(sender);
+                sendOne(recipients, message + " ", sender);
             }
         }
     }
