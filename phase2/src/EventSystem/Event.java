@@ -217,26 +217,6 @@ public class  Event implements Serializable {
     }
 
     /**
-     * Sets the room of this event
-     *
-     * @param room      room to be set
-     */
-    public void setRoom(String room){
-        this.room = room;
-    }
-
-    /**
-     * Sets the time and duration of this event
-     *
-     * @param time      start time of the event
-     * @param duration  duration of the event
-     */
-    public void setTime(LocalDateTime time, long duration){
-        this.time = time;
-        this.duration = duration;
-    }
-
-    /**
      * Adds given speaker to this event
      *
      * @param speaker      username of the speaker
