@@ -1,8 +1,10 @@
 package GUISystem;
 
 import EventSystem.EventCreatorPresenter;
-import EventSystem.EventSignupPresenter;
+import EventSystem.EventCreator;
+import EventSystem.EventManager;
 import LoginSystem.LoginOptionsFacade;
+import RoomSystem.RoomPresenter;
 import UserSystem.Registrar;
 import UserSystem.Speaker;
 import UserSystem.User;
@@ -28,15 +30,19 @@ import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 
-public class ManageEventMenu extends Application implements EventCreatorPresenter.EventCreatorInterface {
+public class ManageEventMenu extends Application implements EventCreatorPresenter.EventCreatorInterface{
 
     private EventCreatorPresenter ecp;
+    private EventCreator ec;
+    private EventManager em;
+    private RoomPresenter rp;
     private UserMenuGetter mg;
     private ListView allEvents;
     private LoginOptionsFacade facade;
 
-    public void setEventCreatorElements(EventCreatorPresenter ecp) {
+    public void setEventCreatorElements(EventCreatorPresenter ecp, RoomPresenter rp) {
         this.ecp = ecp;
+        this.rp = rp;
     }
     public void setUserMenuGetter(UserMenuGetter userMenuGetter) {
         this.mg = userMenuGetter;
@@ -56,15 +62,14 @@ public class ManageEventMenu extends Application implements EventCreatorPresente
         Label title = new Label("Events");
         botView.getChildren().addAll(title, allEvents);
 
-
-
         root.add(topView, 0,0);
         root.add(botView, 0, 1);
 
         Button createButton = new Button("Create");
+        Button modifyButton = new Button("Modify");
         Button removeButton = new Button("Remove");
         Button goBack = new Button("Back");
-        topView.getChildren().addAll(createButton, removeButton, goBack);
+        topView.getChildren().addAll(createButton, modifyButton, removeButton, goBack);
 
 //        Label label = new Label("hi");
 //        Label label2 = new Label("3");
@@ -89,10 +94,6 @@ public class ManageEventMenu extends Application implements EventCreatorPresente
             TextField nameInput = new TextField();
             name.getChildren().addAll(nameLabel, nameInput);
 
-            HBox room = new HBox();
-            Label roomLabel = new Label("Room");
-            TextField roomInput = new TextField();
-            room.getChildren().addAll(roomLabel, roomInput);
 
             HBox time = new HBox();
             Label timeLabel = new Label("Date format(yyyy-MM-dd HH:mm):");
@@ -110,20 +111,44 @@ public class ManageEventMenu extends Application implements EventCreatorPresente
             Label speakerLabel = new Label("Select Speakers (hold ctrl to multi select)");
             ListView<String> speakers = new ListView<>();
             ArrayList<String> allSpeakers = getSpeakers();
+
             for (String s: allSpeakers) {
                 speakers.getItems().add(s);
             }
             speakers.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
             speaker_list.getChildren().addAll(speakerLabel, speakers);
 
-            HBox capacity = new HBox();
-            Label capacityLabel = new Label("Capacity");
-            TextField capacityInput = new TextField();
-            capacity.getChildren().addAll(capacityLabel, capacityInput);
+            //populate a list view with all rooms
+            VBox roomBox = new VBox();
+            Label roomListLabel = new Label("Rooms");
+            ListView<String> room_list = new ListView<>();
+            listRooms(room_list);
+            roomBox.getChildren().addAll(roomListLabel, room_list);
+//            room_list.getSelectionModel().selectedIndexProperty().addListener((v, oldValue, newValue) -> {
+//                String selectedRoom = room_list.getSelectionModel().getSelectedItem();
+//                String[] list = selectedRoom.split("\n");
+//                String eventName = list[1];
+//                String eventName1 = eventName.substring(eventName.indexOf(":")+1).trim();
+//                System.out.println(eventName);
+//                System.out.println(eventName1);
+//            });
+
+//            HBox capacity = new HBox();
+//            Label capacityLabel = new Label("Capacity");
+//            TextField capacityInput = new TextField();
+//            capacity.getChildren().addAll(capacityLabel, capacityInput);
 
             Button submitButton = new Button("Submit");
             submitButton.setOnAction(ae -> {
-                if (isValidTime(timeInput, formatter) && isInt(capacityInput) && isInt(durationInput)) {
+                String selectedRoom = room_list.getSelectionModel().getSelectedItem();
+                String[] list = selectedRoom.split("\n");
+                String roomName = list[0];
+                String roomName1 = roomName.substring(roomName.indexOf(":")+1).trim();
+                String capacityInput = list[1];
+                int capacityInput1 = Integer.parseInt(capacityInput.substring(capacityInput.indexOf(":")+1).trim());
+//                System.out.println(capacityInput1);
+//                System.out.println(roomName1);
+                if (isValidTime(timeInput, formatter)  && isInt(durationInput)) {
                     ObservableList<String> selectedItems = speakers.getSelectionModel().getSelectedItems();
                     Registrar registrar = facade.getRegistrar();
                     boolean allSpeakersValid = true;
@@ -139,10 +164,10 @@ public class ManageEventMenu extends Application implements EventCreatorPresente
                         }
                     }
                     long duration1 = Integer.parseInt(durationInput.getText());
-                    int capacity1 = Integer.parseInt(capacityInput.getText());
+//                    int capacity1 = Integer.parseInt(capacityInput.getText());
                     if(allSpeakersValid){
-                        ecp.promptEventCreation(nameInput.getText(), roomInput.getText(),
-                                LocalDateTime.parse(timeInput.getText(), formatter), duration1, speakersNameList, capacity1);
+                        ecp.promptEventCreation(nameInput.getText(), roomName1,
+                                LocalDateTime.parse(timeInput.getText(), formatter), duration1, speakersNameList, capacityInput1);
                     }
                     else {
                         createPopUp("Please input a valid Speaker. If you don't have any, please create a speaker account.");
@@ -159,11 +184,117 @@ public class ManageEventMenu extends Application implements EventCreatorPresente
             Button closeButton = new Button("Close");
             closeButton.setOnAction(ae -> window.close());
 
-            parent.getChildren().addAll(name, room, time, duration, speaker_list, capacity, submitButton, closeButton);
+            parent.getChildren().addAll(name, time, duration, speaker_list, roomBox, submitButton, closeButton);
             Scene scene = new Scene(parent);
             window.setScene(scene);
             window.showAndWait();
         });
+
+        modifyButton.setOnAction(e -> {
+            Stage window = new Stage();
+            window.initModality(Modality.WINDOW_MODAL);
+            window.setTitle("Modify Event");
+
+            VBox parent = new VBox();
+
+            HBox input = new HBox();
+            TextField inputText = new TextField();
+            Label inputLabel = new Label("Enter the event ID to modify: ");
+            input.getChildren().addAll(inputLabel, inputText);
+
+            Button submitButton = new Button("Submit");
+            Button closeButton = new Button("Close");
+
+            submitButton.setOnAction(sb -> {
+                try {
+                    long id = Long.parseLong(inputText.getText());
+
+                    Stage secondWindow = new Stage();
+                    secondWindow.initModality(Modality.APPLICATION_MODAL);
+                    secondWindow.setTitle("Modify Event");
+
+                    VBox child = new VBox();
+
+                    HBox name = new HBox();
+                    TextField nameInput = new TextField();//em.getEvent(id).getName());
+                    Label nameLabel = new Label("Name: ");
+                    name.getChildren().addAll(nameLabel, nameInput);
+
+                    HBox room = new HBox();
+                    TextField roomInput = new TextField();//em.getEvent(id).getRoom());
+                    Label roomLabel = new Label("Room: ");
+                    room.getChildren().addAll(nameLabel, nameInput);
+
+                    HBox time = new HBox();
+                    Label timeLabel = new Label("Date format(yyyy-MM-dd HH:mm): ");
+                    TextField timeInput = new TextField();//em.getEvent(id).getTime().toString());
+                    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+                    time.getChildren().addAll(timeLabel, timeInput);
+
+                    HBox duration = new HBox();
+                    TextField durationInput = new TextField();//String.valueOf(em.getEvent(id).getDuration()));
+                    Label durationLabel = new Label("Duration: ");
+                    duration.getChildren().addAll(durationLabel, durationInput);
+
+                    VBox speaker_list = new VBox();
+                    Label speakerLabel = new Label("Select Speakers (hold ctrl to multi select)");
+                    ListView<String> speakers = new ListView<>();
+                    ArrayList<String> allSpeakers = getSpeakers();
+
+                    for (String s : allSpeakers) { speakers.getItems().add(s); }
+
+                    speakers.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
+                    speaker_list.getChildren().addAll(speakerLabel, speakers);
+
+                    HBox capacity = new HBox();
+                    TextField capacityInput = new TextField();//String.valueOf(em.getEvent(id).getCapacity()));
+                    Label capacityLabel = new Label("Capacity: ");
+                    capacity.getChildren().addAll(capacityLabel, capacityInput);
+
+                    Button changeButton = new Button("Modify");
+                    Button exitButton = new Button("Close");
+
+                    modifyButton.setOnAction(mb -> {
+                        try {
+                            if(nameInput.getText() != null) {
+                                ec.setName(id, nameInput.getText());
+                            } else if(roomInput.getText() != null){
+                                ec.setRoom(id, roomInput.getText());
+                            } else if(capacityInput.getText() != null){
+                                ec.setCapacity(id, Integer.parseInt(capacityInput.getText()));
+                            } else if (timeInput.getText() != null && isValidTime(timeInput, formatter)) {
+                                ec.setTime(id, LocalDateTime.parse(timeInput.getText()), Long.parseLong(durationInput.getText()));
+                            }
+                        } catch (Exception ex){
+                            createPopUp("Error, please check arguments");
+                        }
+                    });
+
+                    exitButton.setOnAction(c -> secondWindow.close());
+
+                    child.getChildren().addAll(name, room, time, duration, speaker_list, capacity, changeButton,
+                            exitButton);
+                    Scene newScene = new Scene(child);
+                    secondWindow.setScene(newScene);
+                    secondWindow.showAndWait();
+
+                } catch (NumberFormatException n) {
+                    createPopUp("Invalid Event ID");
+                }
+
+                //allEvents.getItems().clear();
+                //ecp.viewEvents();
+
+            });
+
+            closeButton.setOnAction(cb -> window.close());
+
+            parent.getChildren().addAll(input, submitButton, closeButton);
+            Scene scene = new Scene(parent);
+            window.setScene(scene);
+            window.showAndWait();
+        });
+
 
         removeButton.setOnAction(e -> {
             Stage window = new Stage();
@@ -176,10 +307,8 @@ public class ManageEventMenu extends Application implements EventCreatorPresente
             Button closeButton = new Button("Close");
 
             submitButton.setOnAction(ae -> {
-                //Event selectedEvents = allEvents.getItems();
 
                 try{
-                 //   selectedEvents.get
                     long id = Long.parseLong(input.getText());
                     ecp.promptEventDeletion(id);
                 } catch(NumberFormatException n) {
@@ -188,6 +317,7 @@ public class ManageEventMenu extends Application implements EventCreatorPresente
                 allEvents.getItems().clear();
                 ecp.viewEvents();
             });
+
             closeButton.setOnAction(ae -> window.close());
 
             parent.getChildren().addAll(input, submitButton, closeButton);
@@ -195,6 +325,7 @@ public class ManageEventMenu extends Application implements EventCreatorPresente
             window.setScene(scene);
             window.showAndWait();
         });
+
         goBack.setOnAction(e -> {
             mg.goBack(primaryStage);
         });
@@ -205,6 +336,7 @@ public class ManageEventMenu extends Application implements EventCreatorPresente
         primaryStage.setScene(scene);
         primaryStage.show();
     }
+
 //    private boolean validateSpeakers(ObservableList<String> selectedItems) {
 //        Registrar registrar = facade.getRegistrar();
 //        boolean allSpeakersValid = true;
@@ -220,6 +352,12 @@ public class ManageEventMenu extends Application implements EventCreatorPresente
 //            }
 //        }
 //    }
+    private void listRooms(ListView<String> roomList) {
+        ArrayList<String> rooms = rp.displayRooms();
+        for (String r: rooms) {
+            roomList.getItems().add(r);
+        }
+    }
     private ArrayList<String> getSpeakers() {
         Registrar registrar = facade.getRegistrar();
         ArrayList<String> list = new ArrayList<>();
@@ -228,6 +366,10 @@ public class ManageEventMenu extends Application implements EventCreatorPresente
         }
         return list;
     }
+    private ArrayList<String> getRooms() {
+        return rp.displayRooms();
+    }
+
     private boolean isValidTime(TextField time, DateTimeFormatter formatter) {
         try {
             LocalDateTime time1 = LocalDateTime.parse(time.getText(), formatter);
@@ -237,6 +379,7 @@ public class ManageEventMenu extends Application implements EventCreatorPresente
             return false;
         }
     }
+
     private boolean isInt(TextField input) {
         try {
             long number = Long.parseLong(input.getText());
@@ -244,7 +387,6 @@ public class ManageEventMenu extends Application implements EventCreatorPresente
         } catch (NumberFormatException e) {
             return false;
         }
-
     }
     @Override
     public void loadAllEvents(String name,String id, String time, String duration, String room, String capacity, String speakers) {

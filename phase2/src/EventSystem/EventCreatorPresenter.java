@@ -1,5 +1,6 @@
 package EventSystem;
 
+import RoomSystem.RoomManager;
 import UserSystem.Registrar;
 
 import java.time.LocalDateTime;
@@ -17,6 +18,7 @@ import java.util.ArrayList;
 public class EventCreatorPresenter {
     private EventManager em;
     private Registrar reg;
+    private RoomManager rm;
     private EventCreatorInterface eci;
     /**
      * The constructor for EventCreatorPresenter
@@ -24,9 +26,10 @@ public class EventCreatorPresenter {
      * @param em        The EventManager for EventCreatorPresenter
      * @param reg       The Registrar for EventCreatorPresenter
      */
-    public EventCreatorPresenter(EventManager em, Registrar reg) {
+    public EventCreatorPresenter(EventManager em, Registrar reg, RoomManager rm) {
         this.em = em;
         this.reg = reg;
+        this.rm = rm;
     }
     public void setInterface(EventCreatorInterface eci) {
         this.eci = eci;
@@ -44,7 +47,7 @@ public class EventCreatorPresenter {
      */
     public void promptEventCreation(String name, String room, LocalDateTime time, long duration, ArrayList<String> speaker_list, int capacity) {
 
-        EventCreator ec = new EventCreator(this.em, reg);
+        EventCreator ec = new EventCreator(this.em, reg, rm);
         try {
             if (!(ec.createEvent(name, room, time, duration, speaker_list, capacity))) {
 //                return ("Unable to create event");
@@ -71,7 +74,7 @@ public class EventCreatorPresenter {
      * @return               A string detailing whether the event was successfully deleted
      */
     public void  promptEventDeletion(Long eventId) {
-        EventCreator ec = new EventCreator(this.em, reg);
+        EventCreator ec = new EventCreator(this.em, reg, rm);
         try {
             ec.deleteEvent(eventId);
             String message = "Event has been successfully cancelled";

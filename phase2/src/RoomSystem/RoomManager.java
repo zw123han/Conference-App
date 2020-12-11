@@ -1,19 +1,40 @@
 package RoomSystem;
 
+import DatabaseSystem.*;
+
 import java.util.ArrayList;
 
-public class RoomManager {
+public class RoomManager implements Savable {
     private ArrayList<Room> rooms;
 
     public RoomManager(ArrayList<Room> rooms){
         this.rooms = rooms;
     }
 
+    public RoomManager() {
+        this.rooms = new ArrayList<Room>();
+    }
+
+    @Override
+    public String getCollectionName() {
+        return "rooms";
+    }
+
+    @Override
+    public ConversionStrategy getConversionStrategy() {
+        return new RoomManagerConverter();
+    }
+
+    @Override
+    public ParserStrategy getDocumentParserStrategy() {
+        return new ParseToRoomManager();
+    }
+
     public ArrayList<Room> getRooms(){
         return this.rooms;
     }
 
-    private Room getRoom(String roomID){
+    public Room getRoom(String roomID){
         for(Room room: this.rooms){
             if(room.getRoomID().equals(roomID)){
                 return room;
@@ -21,7 +42,10 @@ public class RoomManager {
         }
         return null;
     }
-    private boolean roomExists(String roomID){
+    public int getRoomCapacity(String roomId){
+        return this.getRoom(roomId).getCapacity();
+    }
+    public boolean roomExists(String roomID){
         return getRoom(roomID) != null;}
 
     public boolean makeRoom(String roomID, int capacity){
@@ -32,12 +56,9 @@ public class RoomManager {
         return true;
     }
 
-    public boolean changeCapacity(String roomID, int newCapacity){
-        if(!roomExists(roomID)){
-            return false;
-        }
-        getRoom(roomID).setCapacity(newCapacity);
-        return true;
+    public void deleteRoom(String roomID){
+        rooms.remove(getRoom(roomID));
+
     }
 
     }

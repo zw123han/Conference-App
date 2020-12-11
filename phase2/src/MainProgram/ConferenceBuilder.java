@@ -9,6 +9,10 @@ import EventSystem.EventSignupPresenter;
 import GUISystem.*;
 import LoginSystem.LoginOptionsFacade;
 import MessagingSystem.*;
+import RoomSystem.Room;
+import RoomSystem.RoomController;
+import RoomSystem.RoomManager;
+import RoomSystem.RoomPresenter;
 import UserSystem.*;
 
 import java.util.ArrayList;
@@ -16,13 +20,11 @@ import java.util.Arrays;
 import java.util.HashMap;
 
 public class ConferenceBuilder {
-    // For database saving
-    private DatabaseInteractor databaseInteractor;
-    // For local saving
-    // private MainProgram.LocalSave localSave;
 
+    private DatabaseInteractor databaseInteractor;
     private Registrar registrar;
     private EventManager eventManager;
+    private RoomManager roomManager;
     private ChatroomManager chatroomManager;
     private HashMap<String, String> profanities;
 
@@ -33,16 +35,11 @@ public class ConferenceBuilder {
     private EventCreatorPresenter eventCreatorPresenter;
     private EventSignupPresenter eventSignupPresenter;
     private FriendsController friendsController;
+    private RoomPresenter roomPresenter;
 
-    // For database saving
     public ConferenceBuilder(DatabaseInteractor databaseInteractor){
         this.databaseInteractor = databaseInteractor;
     }
-
-    // For local saving
-    // public MainProgram.ConferenceBuilder(MainProgram.LocalSave localSave){
-        // this.localSave = localSave;
-    // }
 
     private void getSavables(){
         // For database saving
@@ -50,16 +47,12 @@ public class ConferenceBuilder {
         this.eventManager = (EventManager) databaseInteractor.readFromDatabase(new EventManager());
         this.chatroomManager = (ChatroomManager) databaseInteractor.readFromDatabase(new ChatroomManager());
         this.profanities = databaseInteractor.getProfanityList();
+        this.roomManager = (RoomManager) databaseInteractor.readFromDatabase(new RoomManager());
 
-        // For local saving
-        // Registrar registrar = localSave.getRegistrar();
-        // EventManager eventManager = localSave.getEventManager();
-        // ChatroomManager chatroomManager = localSave.getChatroomManager();
-        // HashMap<String, String> profanities = localSave.getProfanities();
     }
 
     private void setSavables(){
-        ArrayList<Savable> savables = new ArrayList<>(Arrays.asList(registrar, eventManager, chatroomManager));
+        ArrayList<Savable> savables = new ArrayList<>(Arrays.asList(registrar, eventManager, chatroomManager, roomManager));
         databaseInteractor.setSavables(savables);
     }
 
@@ -75,9 +68,10 @@ public class ConferenceBuilder {
 
     private void makeControllersPresenters(){
         this.loginFacade = new LoginOptionsFacade(registrar, eventManager, chatroomManager);
-        this.eventCreatorPresenter = new EventCreatorPresenter(eventManager, registrar);
+        this.eventCreatorPresenter = new EventCreatorPresenter(eventManager, registrar, roomManager);
         this.eventSignupPresenter = new EventSignupPresenter(eventSignup, eventManager);
         this.friendsController = new FriendsController(registrar, friendsPresenter);
+        this.roomPresenter = new RoomPresenter(roomManager, eventManager);
     }
 
     private void makeMenus(){
@@ -96,6 +90,7 @@ public class ConferenceBuilder {
         ManageEventMenu manageEventMenu = new ManageEventMenu();
         FriendsMenuGUI friendsMenuGUI = new FriendsMenuGUI();
         ManageAccountMenu manageAccountMenu = new ManageAccountMenu();
+        RoomMenu roomMenu = new RoomMenu();
         LoginGUI loginGUI = new LoginGUI();
         loginGUI.setLogin(loginFacade);
         AccountCreationMenu accountCreationMenu = new AccountCreationMenu();
@@ -110,21 +105,21 @@ public class ConferenceBuilder {
         homeMenuGUI.setFriendsMenu(friendsMenuGUI);
         homeMenuGUI.setManageAccountMenu(manageAccountMenu);
         homeMenuGUI.setPasswordMenu(passwordMenu);
+        homeMenuGUI.setRoomMenu(roomMenu);
 
-        // For database saving
         homeMenuGUI.setSave(databaseInteractor);
-        // For local saving
-        // homeMenuGUI.setSave(MainProgram.LocalSave localSave);
 
         eventSignupPresenter.setInterface(eventMenu);
         eventCreatorPresenter.setInterface(manageEventMenu);
         friendsController.setInterface(friendsMenuGUI);
+        roomPresenter.setInterface(roomMenu);
         eventMenu.setEventElements(eventSignupPresenter);
-        manageEventMenu.setEventCreatorElements(eventCreatorPresenter);
+        manageEventMenu.setEventCreatorElements(eventCreatorPresenter, roomPresenter);
         manageEventMenu.setFacade(loginFacade);
         manageAccountMenu.setFacade(loginFacade);
         friendsMenuGUI.setFriendsElements(friendsController);
         friendsMenuGUI.setFacade(loginFacade);
+        roomMenu.setRoomElements(roomPresenter);
 
         // Create menu facade and DI menus
         MenuFacade menuFacade = new MenuFacade();
@@ -136,7 +131,9 @@ public class ConferenceBuilder {
         eventMenu.setUserMenuGetter(homeMenuGUI);
         manageEventMenu.setUserMenuGetter(homeMenuGUI);
         friendsMenuGUI.setUserMenuGetter(homeMenuGUI);
+        roomMenu.setUserMenuGetter(homeMenuGUI);
         manageAccountMenu.setUserMenuGetter(homeMenuGUI);
+
 
         // Dependency inject MenuGetter into menus
         loginGUI.setMenuGetter(menuFacade);
@@ -146,8 +143,6 @@ public class ConferenceBuilder {
         // Add menuFacade to the application
         LaunchMenu.setMenuFacade(menuFacade);
     }
-
-
 
     public void buildAConference(){
         getSavables();

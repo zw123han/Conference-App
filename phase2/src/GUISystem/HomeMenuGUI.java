@@ -22,10 +22,8 @@ public class HomeMenuGUI extends Application implements UserMenuGetter {
     private MessageInboxGUI messageMenu;
     private FriendsMenuGUI friendsMenu;
     private PasswordMenu passwordMenu;
-    // For database saving
+    private RoomMenu roomMenu;
     private DatabaseInteractor databaseInteractor;
-    // For local saving
-    // private MainProgram.LocalSave localSave;
     private EventMenuGUI eventMenu;
     private ManageEventMenu manageEventMenu;
     private ManageAccountMenu manageAccountMenu;
@@ -108,6 +106,17 @@ public class HomeMenuGUI extends Application implements UserMenuGetter {
                 manageEventMenu.start(primaryStage);
             }
         });
+        Button roomMenuButton = new Button("Manage Rooms");
+        roomMenuButton.setFont(Font.loadFont(getClass().getResourceAsStream("/resources/os-bold.ttf"), 12));
+        roomMenuButton.setTextFill(Color.RED);
+        roomMenuButton.setPrefSize(130, 30);
+        roomMenuButton.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                // Go to manage events menu
+                roomMenu.start(primaryStage);
+            }
+        });
         Text emptyText = new Text();
         Button logoutButton = new Button("Logout");
         logoutButton.setFont(Font.loadFont(getClass().getResourceAsStream("/resources/os-bold.ttf"), 12));
@@ -116,10 +125,7 @@ public class HomeMenuGUI extends Application implements UserMenuGetter {
             @Override
             public void handle(ActionEvent event) {
                 loginOptionsFacade.logout();
-                // For database saving
                 databaseInteractor.saveToDatabase();
-                // For local saving
-                // localSave.save();
                 System.out.println("Save successful");
                 menuGetter.goLogin(primaryStage);
             }
@@ -132,17 +138,14 @@ public class HomeMenuGUI extends Application implements UserMenuGetter {
         saveButton.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
-                // For database saving
                 databaseInteractor.saveToDatabase();
-                // For local saving
-                // localSave.save();
                 System.out.println("Save successful");
             }
         });
 
         vbox.getChildren().addAll(title,eventButton, friendsButton, changePasswordButton, messagingButton);
         if (loginOptionsFacade.getUser().getUserType().equals("administrator")){
-            vbox.getChildren().addAll(manageAccountButton, manageEventsButton);
+            vbox.getChildren().addAll(manageAccountButton, manageEventsButton, roomMenuButton );
         }
         else if (loginOptionsFacade.getUser().getUserType().equals("organizer")){
             vbox.getChildren().add(manageEventsButton);
@@ -180,14 +183,12 @@ public class HomeMenuGUI extends Application implements UserMenuGetter {
     public void setPasswordMenu(PasswordMenu passwordMenu){
         this.passwordMenu = passwordMenu;
     }
-    // For database saving
+    public void setRoomMenu(RoomMenu roomMenu) {this.roomMenu = roomMenu;}
+
     public void setSave(DatabaseInteractor databaseInteractor){
         this.databaseInteractor = databaseInteractor;
     }
-    // For local saving
-    // public void steSave(MainProgram.LocalSave localSave){
-        // this.localSave = localSave;
-    // }
+
     @Override
     public void goBack(Stage primaryStage) {
         start(primaryStage);
