@@ -132,7 +132,7 @@ public class HomeMenuGUI extends Application implements UserMenuGetter {
             vbox.getChildren().addAll(adminControlLabel, manageEventsButton,  roomMenuButton, manageAccountButton);
         }
         else if (loginOptionsFacade.getUser().getUserType().equals("organizer")){
-            vbox.getChildren().addAll(organizerControlLabel, manageEventsButton);
+            vbox.getChildren().addAll(organizerControlLabel, manageEventsButton, manageAccountButton);
         }
         vbox.getChildren().addAll(emptyText, logoutButton, saveButton);
 

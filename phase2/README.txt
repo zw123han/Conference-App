@@ -10,7 +10,7 @@ Alternatively, if you cannot setup mongodb, watch the video demo of our program 
    NOTE: If you create your own attendee account, you will not have access to all of the options listed below.
 
 We have created an administrator account with access to all features for you:
-username: Admin
+username: admin
 password: 123
 
 3. As Admin:
@@ -44,7 +44,7 @@ password: 123
 	   You can Remove a room by selecting it from the list that appears.
 	   Click the Back button to return to the options home screen.
 
-	g) Choose Manage Accounts. NOTE: This option is only available to administrator user types.
+	g) Choose Manage Accounts. NOTE: This option is only available to organizer and administrator user types.
        You can view a list of users by type by selection an option from the drop-downmenu.
        You can Create a user by following the prompts.
        You can Delete a user by inputting their username.
