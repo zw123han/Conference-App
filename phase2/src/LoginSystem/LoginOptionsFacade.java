@@ -1,6 +1,5 @@
 package LoginSystem;
 
-import EventSystem.Event;
 import EventSystem.EventManager;
 import MessagingSystem.ChatroomManager;
 import UserSystem.CredentialsUseCase;
@@ -133,7 +132,6 @@ public class LoginOptionsFacade {
     public boolean login(String username, String password){
         return login.attemptLogin(username, password);
     }
-
 
     /**
      * Attempts to log a user out of the registrar.
