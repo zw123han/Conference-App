@@ -17,12 +17,13 @@ import javafx.stage.Stage;
 
 import java.util.ArrayList;
 
+/**
+ * A menu for managing rooms at this conference.
+ *
+ * @author Tao
+ */
 public class RoomMenu extends Application implements RoomPresenter.RoomInterface {
-    /**
-     * A menu for managing rooms at this conference.
-     *
-     * @author Tao
-     */
+
     private RoomPresenter rp;
     private UserMenuGetter mg;
     private ListView allRooms;
@@ -70,7 +71,6 @@ public class RoomMenu extends Application implements RoomPresenter.RoomInterface
         Button goBack = new Button("Back");
         topView.getChildren().addAll(addButton, removeButton, goBack);
 
-
         //preliminary loading
 
         listRooms(allRooms);
@@ -112,6 +112,7 @@ public class RoomMenu extends Application implements RoomPresenter.RoomInterface
             window.setScene(scene);
             window.showAndWait();
         });
+
         removeButton.setOnAction(e -> {
             Stage window = new Stage();
             window.initModality(Modality.APPLICATION_MODAL);
@@ -122,7 +123,6 @@ public class RoomMenu extends Application implements RoomPresenter.RoomInterface
 
             ListView<String> room_list = new ListView<>();
             listRooms(room_list);
-
 
             Button submitButton = new Button("Submit");
             Button closeButton = new Button("Close");
@@ -147,22 +147,22 @@ public class RoomMenu extends Application implements RoomPresenter.RoomInterface
             window.setScene(scene);
             window.showAndWait();
         });
-        goBack.setOnAction(e -> {
-            mg.goBack(primaryStage);
-        });
 
-        //Scene scene = new Scene (root, 1280, 720);
+        goBack.setOnAction(e -> mg.goBack(primaryStage));
+
         Scene scene = new Scene (root);
         primaryStage.setTitle("Manage Rooms");
         primaryStage.setScene(scene);
         primaryStage.show();
     }
+
     private void listRooms(ListView<String> roomList) {
         ArrayList<String> rooms = rp.displayRooms();
         for (String r: rooms) {
             roomList.getItems().add(r);
         }
     }
+
     private boolean isInt(TextField input) {
         try {
             Long.parseLong(input.getText());
