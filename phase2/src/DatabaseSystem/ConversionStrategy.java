@@ -5,6 +5,6 @@ import java.util.ArrayList;
 
 public interface ConversionStrategy {
 
-    public ArrayList<BasicDBObject> convertAll(Savable sv);
+    ArrayList<BasicDBObject> convertAll(Savable sv);
 
 }

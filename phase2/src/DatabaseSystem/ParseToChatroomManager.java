@@ -18,7 +18,7 @@ public class ParseToChatroomManager implements ParserStrategy {
 
         ZonedDateTime time = ZonedDateTime.parse((String) doc.get("time"));
         msg.setDate(time);
-        if ((Boolean) doc.get("read") == true) {
+        if ((Boolean) doc.get("read")) {
             msg.read();
         }
         msg.setPinned((Boolean) doc.get("pinned"));
