@@ -13,12 +13,13 @@ import javafx.stage.Stage;
 
 import java.util.ArrayList;
 
+/**
+ * The GUI menu to access events.
+ *
+ * @author Tao
+ */
 public class EventMenuGUI extends Application implements EventSignupPresenter.EventInterface {
-    /**
-     * The GUI menu to access events.
-     *
-     * @author Tao
-     */
+
     private EventSignupPresenter esp;
     private User user;
     private ListView yourEvents ;
@@ -38,6 +39,7 @@ public class EventMenuGUI extends Application implements EventSignupPresenter.Ev
      *
      * @param user An instance of user, representing the currently logged in user.
      */
+
     public void setUser(User user) {
         this.user = user;
     }
@@ -84,21 +86,12 @@ public class EventMenuGUI extends Application implements EventSignupPresenter.Ev
         Button viewSchedule = new Button("Download Event Schedule");
         topView.getChildren().addAll(joinEvent, leaveEvent, eventInfo, goBack, viewSchedule);
 
-//        Label label = new Label("hi");
-//        Label label2 = new Label("3");
-//        VBox box = new VBox();
-//        box.getChildren().addAll(label, label2);
-//        allEvents.getItems().addAll(box);
-//        yourEvents.getItems().addAll(label2);
-
         //preliminary loading
         esp.usersEvents(user);
         esp.viewEvents();
 
         // event handlers
-        viewSchedule.setOnAction(e -> {
-            this.esp.downloadUserEvents(this.user);
-        });
+        viewSchedule.setOnAction(e -> this.esp.downloadUserEvents(this.user));
 
         joinEvent.setOnAction(e -> {
             //prompts window to join event
@@ -179,24 +172,16 @@ public class EventMenuGUI extends Application implements EventSignupPresenter.Ev
 
             closeButton.setOnAction(ae -> window.close());
             // clear the listview and then repopulate left-view.
-            searchButton.setOnAction(ae -> {
-                esp.getEventInfo(input.getText());
-            });
+            searchButton.setOnAction(ae -> esp.getEventInfo(input.getText()));
             layout.getChildren().addAll(hBox, searchButton, closeButton);
 
             Scene scene = new Scene(layout);
             window.setScene(scene);
             window.showAndWait();
         });
-        goBack.setOnAction(e -> {
-            mg.goBack(primaryStage);
-        });
+        goBack.setOnAction(e -> mg.goBack(primaryStage));
 
         Scene scene = new Scene (root);
-        //primaryStage.setMinHeight(600);
-        //primaryStage.setMaxHeight(800);
-        //primaryStage.setMinWidth(800);
-        //primaryStage.setMaxWidth(600);
         primaryStage.setTitle("Events");
         primaryStage.setScene(scene);
         primaryStage.show();
@@ -228,6 +213,7 @@ public class EventMenuGUI extends Application implements EventSignupPresenter.Ev
         yourEvents.getItems().add(eventContainer);
 
     }
+
     /**
      * Creates a visual representation of an event and adds it to a list of all events.
      *

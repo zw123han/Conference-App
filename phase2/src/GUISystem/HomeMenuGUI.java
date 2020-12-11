@@ -3,8 +3,6 @@ package GUISystem;
 import DatabaseSystem.DatabaseInteractor;
 import LoginSystem.LoginOptionsFacade;
 import javafx.application.Application;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
@@ -16,13 +14,13 @@ import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
-
+/**
+ * The GUI home menu of the application. Implements a UserMenuGetter interface.
+ *
+ * @author Ziwen
+ */
 public class HomeMenuGUI extends Application implements UserMenuGetter {
-    /**
-     * The GUI home menu of the application. Implements a UserMenuGetter interface.
-     *
-     * @author Ziwen
-     */
+
     private LoginOptionsFacade loginOptionsFacade;
     private MenuGetter menuGetter;
     private MessageInboxGUI messageMenu;
@@ -54,104 +52,77 @@ public class HomeMenuGUI extends Application implements UserMenuGetter {
         Button eventButton = new Button("Events");
         eventButton.setFont(Font.loadFont(getClass().getResourceAsStream("/resources/os-bold.ttf"), 12));
         eventButton.setPrefSize(100, 25);
-        eventButton.setOnAction(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent e) {
-                eventMenu.setUser(loginOptionsFacade.getUser());
-                eventMenu.start(primaryStage);
-            }
+        eventButton.setOnAction(e -> {
+            eventMenu.setUser(loginOptionsFacade.getUser());
+            eventMenu.start(primaryStage);
         });
 
         Button friendsButton = new Button("Friends");
         friendsButton.setFont(Font.loadFont(getClass().getResourceAsStream("/resources/os-bold.ttf"), 12));
         friendsButton.setPrefSize(100, 25);
-        friendsButton.setOnAction(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent event) {
-                friendsMenu.setUser(loginOptionsFacade.getUser());
-                friendsMenu.start(primaryStage);
-            }
+        friendsButton.setOnAction(event -> {
+            friendsMenu.setUser(loginOptionsFacade.getUser());
+            friendsMenu.start(primaryStage);
         });
 
         Button changePasswordButton = new Button("Password");
         changePasswordButton.setFont(Font.loadFont(getClass().getResourceAsStream("/resources/os-bold.ttf"), 12));
         changePasswordButton.setPrefSize(100, 25);
-        changePasswordButton.setOnAction(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent event) {
-                passwordMenu.start(primaryStage);
-            }
-        });
+        changePasswordButton.setOnAction(event -> passwordMenu.start(primaryStage));
 
         Button messagingButton = new Button("Messages");
         messagingButton.setFont(Font.loadFont(getClass().getResourceAsStream("/resources/os-bold.ttf"), 12));
         messagingButton.setPrefSize(100, 25);
-        messagingButton.setOnAction(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent event) {
-                messageMenu.setLogin(loginOptionsFacade.getUser().getUserName());
-                messageMenu.display(primaryStage);
-            }
+        messagingButton.setOnAction(event -> {
+            messageMenu.setLogin(loginOptionsFacade.getUser().getUserName());
+            messageMenu.display(primaryStage);
         });
 
         Button manageAccountButton = new Button("Manage Accounts");
         manageAccountButton.setFont(Font.loadFont(getClass().getResourceAsStream("/resources/os-bold.ttf"), 12));
         manageAccountButton.setTextFill(Color.RED);
         manageAccountButton.setPrefSize(130, 30);
-        manageAccountButton.setOnAction(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent event) {
-                manageAccountMenu.setUser(loginOptionsFacade.getUser());
-                manageAccountMenu.start(primaryStage);
-            }
+        manageAccountButton.setOnAction(event -> {
+            manageAccountMenu.setUser(loginOptionsFacade.getUser());
+            manageAccountMenu.start(primaryStage);
         });
 
         Button manageEventsButton = new Button("Manage Events");
         manageEventsButton.setFont(Font.loadFont(getClass().getResourceAsStream("/resources/os-bold.ttf"), 12));
         manageEventsButton.setTextFill(Color.RED);
         manageEventsButton.setPrefSize(130, 30);
-        manageEventsButton.setOnAction(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent event) {
-                // Go to manage events menu
-                manageEventMenu.start(primaryStage);
-            }
+        manageEventsButton.setOnAction(event -> {
+            // Go to manage events menu
+            manageEventMenu.start(primaryStage);
         });
+
         Button roomMenuButton = new Button("Manage Rooms");
         roomMenuButton.setFont(Font.loadFont(getClass().getResourceAsStream("/resources/os-bold.ttf"), 12));
         roomMenuButton.setTextFill(Color.RED);
         roomMenuButton.setPrefSize(130, 30);
-        roomMenuButton.setOnAction(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent event) {
-                // Go to manage events menu
-                roomMenu.start(primaryStage);
-            }
+        roomMenuButton.setOnAction(event -> {
+            // Go to manage events menu
+            roomMenu.start(primaryStage);
         });
+
         Text emptyText = new Text();
         Button logoutButton = new Button("Logout");
         logoutButton.setFont(Font.loadFont(getClass().getResourceAsStream("/resources/os-bold.ttf"), 12));
-        logoutButton.setPrefSize(100, 25);;
-        logoutButton.setOnAction(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent event) {
-                loginOptionsFacade.logout();
-                databaseInteractor.saveToDatabase();
-                System.out.println("Save successful");
-                menuGetter.goLogin(primaryStage);
-            }
+        logoutButton.setPrefSize(100, 25);
+        logoutButton.setOnAction(event -> {
+            loginOptionsFacade.logout();
+            databaseInteractor.saveToDatabase();
+            System.out.println("Save successful");
+            menuGetter.goLogin(primaryStage);
         });
 
         Button saveButton = new Button("Save");
         saveButton.setFont(Font.loadFont(getClass().getResourceAsStream("/resources/os-bold.ttf"), 12));
         saveButton.setPrefSize(100, 25);
         saveButton.setTextFill(Color.GREEN);
-        saveButton.setOnAction(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent event) {
-                databaseInteractor.saveToDatabase();
-                System.out.println("Save successful");
-            }
+        saveButton.setOnAction(event -> {
+            databaseInteractor.saveToDatabase();
+            System.out.println("Save successful");
         });
         Label organizerControlLabel = new Label("Organizer Controls");
         organizerControlLabel.setFont(Font.loadFont(getClass().getResourceAsStream("/resources/os-extrabold.ttf"), 12));

@@ -3,12 +3,13 @@ package GUISystem;
 import javafx.application.Application;
 import javafx.stage.Stage;
 
+/**
+ * A class which encapsulates the javafx application to be launched.
+ *
+ * @author Ziwen
+ */
 public class LaunchMenu extends Application {
-    /**
-     * A class which encapsulates the javafx application to be launched.
-     *
-     * @author Ziwen
-     */
+
     private static MenuFacade menuFacade;
 
     /**
