@@ -21,13 +21,13 @@ import javafx.util.Duration;
 
 import java.io.File;
 
-
+/**
+ * The GUI Menu to create an account.
+ *
+ * @author Ziwen
+ */
 public class AccountCreationMenu extends Application{
-    /**
-     * The GUI Menu to create an account.
-     *
-     * @author Ziwen
-     */
+
     private LoginOptionsFacade loginOptionsFacade;
     private MenuGetter menuGetter;
 
@@ -80,30 +80,38 @@ public class AccountCreationMenu extends Application{
                 String username = usernameField.getText();
                 String password = passwordField.getText();
                 if(loginOptionsFacade.createUser(name, username, password, "attendee")){
-                    // Stops playing song upon menu change
-                    //accountMessage.setFill(Color.GREEN);
-                    //accountMessage.setText("Account creation successful. Please login.");
-
                     loginOptionsFacade.login(username, password);
-
                     Stage dialog = new Stage();
+
                     dialog.initModality(Modality.APPLICATION_MODAL);
                     dialog.initOwner(primaryStage);
                     VBox dialogVbox = new VBox(20);
+                    dialogVbox.setAlignment(Pos.CENTER);
 
-                    Text text = new Text("Welcome " + name);
-                    text.setFont(Font.loadFont(getClass().getResourceAsStream("/resources/os-bold.ttf"), 20));
+                    Text text = new Text("Account created successfully.");
+                    text.setFont(Font.loadFont(getClass().getResourceAsStream(
+                            "/resources/os-bold.ttf"), 20));
 
-                    dialogVbox.getChildren().add(text);
+                    Button loginButton = new Button("Login");
+                    loginButton.setOnAction(lb -> {
+                            dialog.close();
+                            menuGetter.goHome(primaryStage);});
+
+                    dialogVbox.setOnKeyPressed(new EventHandler<KeyEvent>() {
+                        public void handle(KeyEvent k) {
+                            if (k.getCode() == KeyCode.ENTER) {
+                                dialog.close();
+                                menuGetter.goHome(primaryStage);
+                            }
+                        }
+                    });
+
+                    dialogVbox.getChildren().addAll(text, loginButton);
+
                     Scene dialogScene = new Scene(dialogVbox);
-
+                    dialog.setTitle("Success");
                     dialog.setScene(dialogScene);
-                    dialog.show();
-                    PauseTransition delay = new PauseTransition(Duration.seconds(1));
-                    delay.setOnFinished( event -> dialog.close() );
-                    delay.play();
-                    //mediaPlayer.stop();
-                    menuGetter.goHome(primaryStage);
+                    dialog.showAndWait();
                 }
                 else{
                     accountMessage.setFill(Color.RED);
@@ -121,28 +129,38 @@ public class AccountCreationMenu extends Application{
                     String password = passwordField.getText();
 
                     if(loginOptionsFacade.createUser(name, username, password, "attendee")) {
-                        // Stops playing song upon menu change
                         loginOptionsFacade.login(username, password);
                         Stage dialog = new Stage();
 
                         dialog.initModality(Modality.APPLICATION_MODAL);
                         dialog.initOwner(primaryStage);
                         VBox dialogVbox = new VBox(20);
+                        dialogVbox.setAlignment(Pos.CENTER);
 
+                        Text text = new Text("Account created successfully.");
+                        text.setFont(Font.loadFont(getClass().getResourceAsStream(
+                                "/resources/os-bold.ttf"), 20));
 
-                        Text text = new Text("Welcome " + name);
-                        text.setFont(Font.loadFont(getClass().getResourceAsStream("/resources/os-bold.ttf"), 20));
+                        Button loginButton = new Button("Login");
+                        loginButton.setOnAction(lb -> {
+                            dialog.close();
+                            menuGetter.goHome(primaryStage);});
 
-                        dialogVbox.getChildren().add(text);
+                        dialogVbox.setOnKeyPressed(new EventHandler<KeyEvent>() {
+                            public void handle(KeyEvent k) {
+                                if (k.getCode() == KeyCode.ENTER) {
+                                    dialog.close();
+                                    menuGetter.goHome(primaryStage);
+                                }
+                            }
+                        });
+
+                        dialogVbox.getChildren().addAll(text, loginButton);
+
                         Scene dialogScene = new Scene(dialogVbox);
-
+                        dialog.setTitle("Success");
                         dialog.setScene(dialogScene);
-                        dialog.show();
-                        PauseTransition delay = new PauseTransition(Duration.seconds(1));
-                        delay.setOnFinished( event -> dialog.close() );
-                        delay.play();
-                        //mediaPlayer.stop();
-                        menuGetter.goHome(primaryStage);
+                        dialog.showAndWait();
                     } else {
                         accountMessage.setFill(Color.RED);
                         accountMessage.setText("Credentials are invalid for use. Please try again.");
@@ -155,35 +173,15 @@ public class AccountCreationMenu extends Application{
         loginButton.setFont(Font.loadFont(getClass().getResourceAsStream("/resources/os-bold.ttf"), 12));
         loginButton.setPrefSize(130, 25);
 
-        loginButton.setOnAction(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent event) {
-                //mediaPlayer.stop();
-                menuGetter.goLogin(primaryStage);
-            }
-        });
-
+        loginButton.setOnAction(event -> menuGetter.goLogin(primaryStage));
 
         Button quitButton = new Button("Quit");
         quitButton.setFont(Font.loadFont(getClass().getResourceAsStream("/resources/os-bold.ttf"), 12));
-        quitButton.setOnAction(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent event) {
-                primaryStage.close();
-            }
-        });
+        quitButton.setOnAction(event -> primaryStage.close());
 
         // mediaView added to vbox
         loginCanvas.getChildren().addAll(mediaView, loginTitle, name, nameField, username, usernameField, password, passwordField, creationButton, loginButton, accountMessage, quitButton);
 
-        // Play the song
-        //mediaPlayer.play();
-        //primaryStage.setMinHeight(600);
-        //primaryStage.setMaxHeight(600);
-        //primaryStage.setHeight(600);
-        //primaryStage.setMinWidth(500);
-        //primaryStage.setMaxWidth(500);
-        //primaryStage.setWidth(500);
         primaryStage.setTitle("Account Creation - Conference Simulator Phase 2");
         primaryStage.setScene(scene);
         primaryStage.show();
