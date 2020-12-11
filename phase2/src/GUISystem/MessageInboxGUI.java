@@ -392,7 +392,7 @@ public class MessageInboxGUI extends Application implements MessageInboxPresente
     // standard dummy text ever since the 1500s, when an unknown
     // printer took a galley of type and scrambled it to make a
     // type specimen book.
-    // delete  pin message
+    // delete  pin message  mark as read
     private VBox constructMessageBox(ArrayList<String> messageData) {
         VBox messageContainer = new VBox();
         messageContainer.setPadding(new Insets(10, 10, 10, 10));
