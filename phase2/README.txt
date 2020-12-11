@@ -1,4 +1,5 @@
-SETUP: Follow the instructions in SETUP INSTRUCTIONS.mp4 to setup mongodb. Watch our video demo instead if you cannot set this up.
+SETUP: Follow the instructions in SETUP INSTRUCTIONS.mp4 to setup mongodb. *MaKe sure to hit apply after you installed*.
+Watch our video demo instead if you cannot set this up.
 
 1. Run main
 2. Follow prompts to login as existing user: "Admin" (password == "123"), alternatively create your own standard user account.
