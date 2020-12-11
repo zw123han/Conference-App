@@ -1,11 +1,11 @@
 package RoomSystem;
 
+/**
+ * A controller which gives options to modify the list of rooms.
+ *
+ * @author Ziwen
+ */
 public class RoomController {
-    /**
-     * A controller which gives options to modify the list of rooms.
-     *
-     * @author Ziwen
-     */
     private RoomManager roomManager;
 
     /**

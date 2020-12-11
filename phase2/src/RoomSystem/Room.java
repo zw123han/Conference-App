@@ -1,11 +1,10 @@
 package RoomSystem;
-
+/**
+ * Room is an entity which represents a room at this conference.
+ *
+ * @author Ziwen
+ */
 public class Room {
-    /**
-     * Room is an entity which represents a room at this conference.
-     *
-     * @author Ziwen
-     */
     public int capacity;
     public String roomID;
 

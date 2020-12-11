@@ -17,12 +17,12 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 
+/**
+ * Builder class for Conference Simulator, which is the main executable for this program.
+ *
+ * @author Ziwen
+ */
 public class ConferenceBuilder {
-    /**
-     * Builder class for Conference Simulator, which is the main executable for this program.
-     *
-     * @author Ziwen
-     */
     private DatabaseInteractor databaseInteractor;
     private Registrar registrar;
     private EventManager eventManager;

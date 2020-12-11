@@ -4,12 +4,12 @@ import DatabaseSystem.*;
 
 import java.util.ArrayList;
 
+/**
+ * A use case which stores a list of rooms at this conference.
+ *
+ * @author Jesse, Ziwen
+ */
 public class RoomManager implements Savable {
-    /**
-     * A use case which stores a list of rooms at this conference.
-     *
-     * @author Jesse, Ziwen
-     */
     private ArrayList<Room> rooms;
 
     /**
