@@ -20,9 +20,19 @@ import javafx.scene.media.MediaPlayer;
 import java.io.File;
 
 public class LoginGUI extends Application{
+    /**
+     * A GUI class for the login menu.
+     *
+     * @author Ziwen
+     */
     private LoginOptionsFacade loginOptionsFacade;
     private MenuGetter menuGetter;
 
+    /**
+     * Will start the loginMenu.
+     *
+     * @param primaryStage The primaryStage of the application.
+     */
     @Override
     public void start(Stage primaryStage){
         VBox loginCanvas = new VBox(5);
@@ -131,11 +141,20 @@ public class LoginGUI extends Application{
 
     }
 
-
+    /**
+     * Sets the loginOptionsFacade for this class.
+     *
+     * @param loginOptionsFacade An instance of LoginOptionsFacade.
+     */
     public void setLogin(LoginOptionsFacade loginOptionsFacade){
         this.loginOptionsFacade = loginOptionsFacade;
     }
 
+    /**
+     * Sets the menuGetter interface for this class.
+     *
+     * @param menuGetter An instance of MenuGetter interface.
+     */
     public void setMenuGetter(MenuGetter menuGetter){
         this.menuGetter = menuGetter;
     }

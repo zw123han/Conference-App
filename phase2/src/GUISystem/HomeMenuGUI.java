@@ -14,11 +14,15 @@ import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
-import javafx.stage.Screen;
 import javafx.stage.Stage;
 
 
 public class HomeMenuGUI extends Application implements UserMenuGetter {
+    /**
+     * The GUI home menu of the application. Implements a UserMenuGetter interface.
+     *
+     * @author Ziwen
+     */
     private LoginOptionsFacade loginOptionsFacade;
     private MenuGetter menuGetter;
     private MessageInboxGUI messageMenu;
@@ -30,6 +34,11 @@ public class HomeMenuGUI extends Application implements UserMenuGetter {
     private ManageEventMenu manageEventMenu;
     private ManageAccountMenu manageAccountMenu;
 
+    /**
+     * Displays the home menu.
+     *
+     * @param primaryStage The primaryStage of the application.
+     */
     @Override
     public void start(Stage primaryStage) {
         VBox vbox = new VBox(5);
@@ -167,31 +176,93 @@ public class HomeMenuGUI extends Application implements UserMenuGetter {
     }
 
 
-
+    /**
+     * Sets the loginOptionsFacade of this menu.
+     *
+     * @param loginOptionsFacade An instance of LoginOptionsFacade.
+     */
     public void setLogin(LoginOptionsFacade loginOptionsFacade) {
         this.loginOptionsFacade = loginOptionsFacade;
     }
+
+    /**
+     * Sets the menuGetter for this class, which is an interface.
+     *
+     * @param menuGetter An instance of MenuGetter.
+     */
     public void setMenuGetter(MenuGetter menuGetter) {
         this.menuGetter = menuGetter;
     }
+
+    /**
+     * Sets the eventMenu.
+     *
+     * @param eventMenu Instance of EventMenu.
+     */
     public void setEventMenu(EventMenuGUI eventMenu) {this.eventMenu = eventMenu;}
+
+    /**
+     * Sets the manageEventMenu.
+     *
+     * @param manageEventMenu Instance of ManageEventMenu.
+     */
     public void setManageEventMenu(ManageEventMenu manageEventMenu) {this.manageEventMenu = manageEventMenu;}
+
+    /**
+     * Sets the manageAccountMenu.
+     *
+     * @param manageAccountMenu Instance of ManageAccountMenu.
+     */
     public void setManageAccountMenu(ManageAccountMenu manageAccountMenu) {this.manageAccountMenu = manageAccountMenu;}
+
+    /**
+     * Sets the messageMenu.
+     *
+     * @param messageMenu An instance of MessageMenu.
+     */
     public void setMessageMenu(MessageInboxGUI messageMenu) {
         this.messageMenu = messageMenu;
     }
+
+    /**
+     * Sets the friendsMenu.
+     *
+     * @param friendsMenu An instance of FriendsMenu.
+     */
     public void setFriendsMenu(FriendsMenuGUI friendsMenu) {
         this.friendsMenu = friendsMenu;
     }
+
+    /**
+     * Sets the passwordMenu.
+     *
+     * @param passwordMenu An instance of PasswordMenu.
+     */
     public void setPasswordMenu(PasswordMenu passwordMenu){
         this.passwordMenu = passwordMenu;
     }
+
+    /**
+     * Sets the roomMenu.
+     *
+     * @param roomMenu An instance of RoomMenu.
+     */
     public void setRoomMenu(RoomMenu roomMenu) {this.roomMenu = roomMenu;}
 
+    /**
+     * Sets the class which saves information.
+     *
+     * @param databaseInteractor An instance of DatabaseInteractor.
+     */
     public void setSave(DatabaseInteractor databaseInteractor){
         this.databaseInteractor = databaseInteractor;
     }
 
+    /**
+     * An interface method which will run this homeMenu.
+     *
+     * @param primaryStage The primaryStage of the application.
+     */
     @Override
     public void goBack(Stage primaryStage) {
         start(primaryStage);

@@ -18,7 +18,11 @@ import java.util.Arrays;
 import java.util.HashMap;
 
 public class ConferenceBuilder {
-
+    /**
+     * Builder class for Conference Simulator, which is the main executable for this program.
+     *
+     * @author Ziwen
+     */
     private DatabaseInteractor databaseInteractor;
     private Registrar registrar;
     private EventManager eventManager;
@@ -35,6 +39,11 @@ public class ConferenceBuilder {
     private FriendsController friendsController;
     private RoomPresenter roomPresenter;
 
+    /**
+     * Constructor for ConferenceBuilder.
+     *
+     * @param databaseInteractor The database interactor that will pull and push data from and to the database.
+     */
     public ConferenceBuilder(DatabaseInteractor databaseInteractor){
         this.databaseInteractor = databaseInteractor;
     }
@@ -142,6 +151,9 @@ public class ConferenceBuilder {
         LaunchMenu.setMenuFacade(menuFacade);
     }
 
+    /**
+     * Builds all the necessities to use ConferenceSimulator.
+     */
     public void buildAConference(){
         getSavables();
         setSavables();

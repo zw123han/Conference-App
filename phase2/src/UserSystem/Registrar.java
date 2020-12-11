@@ -12,7 +12,7 @@ import com.sun.org.apache.xpath.internal.operations.Or;
  * of User which represents the current user that is using the conference app. Each user has a unique username which
  * this class uses to implement various methods.
  *
- * @author Jesse
+ * @author Jesse, Ziwen
  */
 public class Registrar implements Savable {
 

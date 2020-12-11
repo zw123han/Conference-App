@@ -1,6 +1,5 @@
 package GUISystem;
 
-import EventSystem.EventCreatorPresenter;
 import LoginSystem.LoginOptionsFacade;
 import UserSystem.FriendsController;
 import UserSystem.User;
@@ -12,30 +11,61 @@ import javafx.scene.control.*;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
-import javafx.scene.text.Font;
-import javafx.scene.text.Text;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 public class FriendsMenuGUI extends Application implements FriendsController.FriendInterface {
+    /**
+     * A GUI menu which displays friends of a user and allows modification.
+     *
+     * @author Tao
+     */
     private User user;
     private FriendsController fc;
     private UserMenuGetter mg;
     private LoginOptionsFacade facade;
     private ListView<String> allFriends;
 
+    /**
+     * A setter for a controller of a user's friendlist.
+     *
+     * @param fc An instance of FriendsController
+     */
     public void setFriendsElements(FriendsController fc) {
         this.fc = fc;
     }
+
+    /**
+     * Sets the userMenuGetter interface of this class.
+     *
+     * @param userMenuGetter An instance of the UserMenuGetter interface.
+     */
     public void setUserMenuGetter(UserMenuGetter userMenuGetter) {
         this.mg = userMenuGetter;
     }
+
+    /**
+     * Sets the loginOptionsFacade of the menu.
+     *
+     * @param facade An instance of LoginOptionsFacade.
+     */
     public void setFacade(LoginOptionsFacade facade) {this.facade = facade;}
+
+    /**
+     * Sets the current user of the menu.
+     *
+     * @param user The current user logged in, an instance of User.
+     */
     public void setUser(User user) {
         this.user = user;
     }
 
 
+    /**
+     * The main executable of this class. Will open the menu.
+     *
+     * @param primaryStage The primaryStage of the application.
+     */
     @Override
     public void start(Stage primaryStage) {
         GridPane root = new GridPane();
@@ -128,6 +158,11 @@ public class FriendsMenuGUI extends Application implements FriendsController.Fri
         primaryStage.show();
     }
 
+    /**
+     * Loads a list of friends to display.
+     *
+     * @param friend The username of a friend.
+     */
     @Override
     public void loadFriends(String friend) {
         if (!(friend.equals(""))) {
@@ -135,6 +170,11 @@ public class FriendsMenuGUI extends Application implements FriendsController.Fri
         }
     }
 
+    /**
+     * Creates a popup window to display.
+     *
+     * @param message The message to display.
+     */
     @Override
     public void createPopUp(String message) {
         Stage window = new Stage();

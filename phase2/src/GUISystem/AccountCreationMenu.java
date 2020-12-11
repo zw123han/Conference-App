@@ -23,9 +23,19 @@ import java.io.File;
 
 
 public class AccountCreationMenu extends Application{
+    /**
+     * The GUI Menu to create an account.
+     *
+     * @author Ziwen
+     */
     private LoginOptionsFacade loginOptionsFacade;
     private MenuGetter menuGetter;
 
+    /**
+     * The main executable method of this class. Will start the menu.
+     *
+     * @param primaryStage The primaryStage of the application.
+     */
     @Override
     public void start(Stage primaryStage){
         VBox loginCanvas = new VBox(5);
@@ -179,12 +189,20 @@ public class AccountCreationMenu extends Application{
         primaryStage.show();
     }
 
-
+    /**
+     * Sets the loginOptionsFacade instance variable of this class.
+     *
+     * @param loginOptionsFacade An instance of LoginOptionsFacade.
+     */
     public void setLogin(LoginOptionsFacade loginOptionsFacade){
         this.loginOptionsFacade = loginOptionsFacade;
     }
 
-
+    /**
+     * Sets the menuGetter interface of this class.
+     *
+     * @param menuGetter An instance of the MenuGetter of this class.
+     */
     public void setMenuGetter(MenuGetter menuGetter) {
         this.menuGetter = menuGetter;
     }

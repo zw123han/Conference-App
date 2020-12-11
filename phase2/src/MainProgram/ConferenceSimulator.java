@@ -6,7 +6,7 @@ import javafx.application.Application;
 
 
 /**
- * This class rep qresents the executable for the application.
+ * This class represents the executable for the application.
  *
  * @author  Fred, Ziwen
  */
