@@ -62,7 +62,7 @@ public class RoomMenu extends Application implements RoomPresenter.RoomInterface
         addButton.setOnAction(e-> {
             Stage window = new Stage();
             window.initModality(Modality.APPLICATION_MODAL);
-            window.setTitle("Add Friend");
+            window.setTitle("Add Room");
 
             VBox layout = new VBox();
             layout.setAlignment(Pos.CENTER);
