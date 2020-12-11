@@ -13,6 +13,11 @@ import java.util.*;
 public class ChatroomManager implements Serializable, Savable {
     private HashMap<ArrayList<String>, Chatroom> chatrooms;
 
+    /**
+     * Constructor for the chatroom manager
+     *
+     * @param chatrooms Initializes chatroom
+     */
     public ChatroomManager(HashMap<ArrayList<String>, Chatroom> chatrooms) { this.chatrooms = chatrooms; }
 
     /**
