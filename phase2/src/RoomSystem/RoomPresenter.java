@@ -2,13 +2,12 @@ package RoomSystem;
 import EventSystem.EventManager;
 import java.util.ArrayList;
 
-
+/**
+ * A presenter class for the room system.
+ *
+ * @author Tao, Ziwen
+ */
 public class RoomPresenter  {
-    /**
-     * A presenter class for the room system.
-     *
-     * @author Tao, Ziwen
-     */
     private RoomManager roomManager;
     private EventManager eventManager;
     private RoomInterface ri;
