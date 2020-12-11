@@ -215,23 +215,12 @@ public class ManageEventMenu extends Application implements EventCreatorPresente
 
                     HBox name = new HBox();
                     TextField nameInput = new TextField();
-                    Label nameLabel = new Label("Enter new event name: ");
+                    Label nameLabel = new Label("Adjust event name: ");
                     name.getChildren().addAll(nameLabel, nameInput);
-
-                    HBox time = new HBox();
-                    Label timeLabel = new Label("Enter new event date(yyyy-MM-dd HH:mm): ");
-                    TextField timeInput = new TextField();
-                    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
-                    time.getChildren().addAll(timeLabel, timeInput);
-
-                    HBox duration = new HBox();
-                    TextField durationInput = new TextField();
-                    Label durationLabel = new Label("Enter new duration: ");
-                    duration.getChildren().addAll(durationLabel, durationInput);
 
                     HBox capacity = new HBox();
                     TextField capacityInput = new TextField();
-                    Label capacityLabel = new Label("Enter new capacity: ");
+                    Label capacityLabel = new Label("Adjust capacity: ");
                     capacity.getChildren().addAll(capacityLabel, capacityInput);
 
                     Button changeButton = new Button("Modify");
@@ -239,29 +228,20 @@ public class ManageEventMenu extends Application implements EventCreatorPresente
 
                     changeButton.setOnAction(mb -> {
                         try {
-                            if(nameInput.getText() != null || !nameInput.getText().trim().isEmpty()) {
+                            if(!nameInput.getText().equals("") || !nameInput.getText().trim().isEmpty()) {
                                 ecp.promptSetName(id, nameInput.getText());
-                            } else if(capacityInput.getText() != null || !capacityInput.getText().trim().isEmpty()){
+                            } else if(!capacityInput.getText().equals("") || !capacityInput.getText().trim().isEmpty()) {
                                 ecp.promptSetCapacity(id, Integer.parseInt(capacityInput.getText()));
-                            } else if(timeInput.getText() != null || !timeInput.getText().trim().isEmpty() &&
-                                    durationInput.getText() != null || !durationInput.getText().trim().isEmpty() &&
-                                    isValidTime(timeInput, formatter)) {
-                                ecp.promptSetTime(id, LocalDateTime.parse(timeInput.getText()),
-                                        Long.parseLong(durationInput.getText()));
-                            } else {
-                                createPopUp("Error, please check arguments");
                             }
-
                             secondWindow.close();
-                        } catch (Exception ex){
+                        } catch(Exception ex){
                             createPopUp("Error, please check arguments");
                         }
                     });
 
                     exitButton.setOnAction(c -> secondWindow.close());
 
-                    child.getChildren().addAll(name, time, duration, capacity, changeButton,
-                            exitButton);
+                    child.getChildren().addAll(name, capacity, changeButton, exitButton);
                     Scene newScene = new Scene(child);
                     secondWindow.setScene(newScene);
                     secondWindow.showAndWait();
