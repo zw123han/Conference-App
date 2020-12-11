@@ -75,8 +75,10 @@ public class EventCreator {
     }
 
     /**
+     * attampts to delete the event with the given id
+     *
      * @param eventId
-     * @return
+     * @return true iff the event was deleted
      * @throws EventNotFoundException
      */
     public boolean deleteEvent(Long eventId)
@@ -104,6 +106,8 @@ public class EventCreator {
     public boolean setRoom(Long eventId, String room) throws EventModificationFailureException {
         if(!this.rm.roomExists(room)){
             throw new EventModificationFailureException("The given room does not exist");
+        } else if(this.rm.getRoomCapacity(room) < this.em.getCapacity(eventId)){
+            throw new EventModificationFailureException("The given room does not have the required capacity");
         }
         ArrayList<Event> events = this.em.getEventsList();
         for (Event event : events) {

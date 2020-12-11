@@ -68,10 +68,9 @@ public class EventCreatorPresenter {
     }
 
     /**
-     * Prompts the creation of the specified event and returns whether the event was successfully created
+     * Prompts the deletion of the specified event and creates popup of whether the event was successfully deleted
      *
      * @param eventId           The id of the event
-     * @return               A string detailing whether the event was successfully deleted
      */
     public void  promptEventDeletion(Long eventId) {
         EventCreator ec = new EventCreator(this.em, reg, rm);
@@ -89,6 +88,11 @@ public class EventCreatorPresenter {
         }
     }
 
+    /**
+     * Prompts the change of name of the specified event and creates popup of whether the modification was successful
+     *
+     * @param eventId           The id of the event
+     */
     public void  promptSetName(Long eventId, String name) {
         EventCreator ec = new EventCreator(this.em, reg, rm);
             ec.setName(eventId, name);
@@ -97,6 +101,11 @@ public class EventCreatorPresenter {
 //            return "Event has been successfully cancelled";
     }
 
+    /**
+     * Prompts the change of capacity of the specified event and creates popup of whether the modification was successful
+     *
+     * @param eventId           The id of the event
+     */
     public void  promptSetCapacity(Long eventId, int capacity) {
         EventCreator ec = new EventCreator(this.em, reg, rm);
         try {
@@ -112,6 +121,11 @@ public class EventCreatorPresenter {
         }
     }
 
+    /**
+     * Prompts the change of room of the specified event and creates popup of whether the modification was successful
+     *
+     * @param eventId           The id of the event
+     */
     public void  promptSetRoom(Long eventId, String room) {
         EventCreator ec = new EventCreator(this.em, reg, rm);
         try {
@@ -127,6 +141,11 @@ public class EventCreatorPresenter {
         }
     }
 
+    /**
+     * Prompts the change of time and duration of the specified event and creates popup of whether the modification was successful
+     *
+     * @param eventId           The id of the event
+     */
     public void  promptSetTime(Long eventId, LocalDateTime start_time, long duration) {
         EventCreator ec = new EventCreator(this.em, reg, rm);
         try {
@@ -142,6 +161,11 @@ public class EventCreatorPresenter {
         }
     }
 
+    /**
+     * Prompts the adding of a speaker to the specified event and creates popup of whether the modification was successful
+     *
+     * @param eventId           The id of the event
+     */
     public void  promptAddSpeaker(Long eventId, String speakerId) {
         EventCreator ec = new EventCreator(this.em, reg, rm);
         try {
@@ -157,6 +181,11 @@ public class EventCreatorPresenter {
         }
     }
 
+    /**
+     * Prompts the removing of a speaker to the specified event and creates popup of whether the modification was successful
+     *
+     * @param eventId           The id of the event
+     */
     public void  promptRemoveSpeaker(Long eventId, String speakerId) {
         EventCreator ec = new EventCreator(this.em, reg, rm);
         try {
@@ -173,7 +202,9 @@ public class EventCreatorPresenter {
     }
 
 
-
+    /**
+     * views all the events available in this conference
+     */
     public void viewEvents() {
 //        System.out.println("\nEXISTING EVENTS:");
 //        System.out.println("------------------------");
