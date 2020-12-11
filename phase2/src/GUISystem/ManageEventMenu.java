@@ -1,8 +1,6 @@
 package GUISystem;
 
 import EventSystem.EventCreatorPresenter;
-import EventSystem.EventCreator;
-import EventSystem.EventManager;
 import LoginSystem.LoginOptionsFacade;
 import RoomSystem.RoomPresenter;
 import UserSystem.Registrar;
@@ -14,17 +12,11 @@ import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
-
-import java.awt.*;
-import java.lang.reflect.Array;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
@@ -230,7 +222,9 @@ public class ManageEventMenu extends Application implements EventCreatorPresente
                         try {
                             if(!nameInput.getText().equals("") || !nameInput.getText().trim().isEmpty()) {
                                 ecp.promptSetName(id, nameInput.getText());
-                            } else if(!capacityInput.getText().equals("") || !capacityInput.getText().trim().isEmpty()) {
+                            }
+
+                            if(!capacityInput.getText().equals("") || !capacityInput.getText().trim().isEmpty()) {
                                 ecp.promptSetCapacity(id, Integer.parseInt(capacityInput.getText()));
                             }
                             secondWindow.close();
