@@ -8,22 +8,23 @@ import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.input.KeyCode;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
+/**
+ * A GUI menu which displays friends of a user and allows modification.
+ *
+ * @author Tao
+ */
 public class FriendsMenuGUI extends Application implements FriendsController.FriendInterface {
-    /**
-     * A GUI menu which displays friends of a user and allows modification.
-     *
-     * @author Tao
-     */
+
     private User user;
     private FriendsController fc;
     private UserMenuGetter mg;
-    private LoginOptionsFacade facade;
     private ListView<String> allFriends;
 
     /**
@@ -49,7 +50,8 @@ public class FriendsMenuGUI extends Application implements FriendsController.Fri
      *
      * @param facade An instance of LoginOptionsFacade.
      */
-    public void setFacade(LoginOptionsFacade facade) {this.facade = facade;}
+    public void setFacade(LoginOptionsFacade facade) {
+    }
 
     /**
      * Sets the current user of the menu.
@@ -59,7 +61,6 @@ public class FriendsMenuGUI extends Application implements FriendsController.Fri
     public void setUser(User user) {
         this.user = user;
     }
-
 
     /**
      * The main executable of this class. Will open the menu.
@@ -87,7 +88,6 @@ public class FriendsMenuGUI extends Application implements FriendsController.Fri
         Button goBack = new Button("Back");
         topView.getChildren().addAll(addButton, removeButton, goBack);
 
-
         //preliminary loading
         fc.viewFriends(user);
 
@@ -113,12 +113,21 @@ public class FriendsMenuGUI extends Application implements FriendsController.Fri
                 fc.addFriends(user, input.getText());
                 start(primaryStage);
             });
+
             closeButton.setOnAction(ae -> window.close());
+
+            layout.setOnKeyPressed(k -> {
+                if(k.getCode() == KeyCode.ENTER) {
+                    fc.addFriends(user, input.getText());
+                    start(primaryStage);
+                }
+            });
 
             Scene scene = new Scene(layout);
             window.setScene(scene);
             window.showAndWait();
         });
+
         removeButton.setOnAction(e -> {
             Stage window = new Stage();
             window.initModality(Modality.APPLICATION_MODAL);
@@ -141,17 +150,24 @@ public class FriendsMenuGUI extends Application implements FriendsController.Fri
                 fc.removeFriends(user, input.getText());
                 start(primaryStage);
             });
+
+            layout.setOnKeyPressed(k -> {
+                if(k.getCode() == KeyCode.ENTER) {
+                    fc.removeFriends(user, input.getText());
+                    start(primaryStage);
+                }
+            });
+
             closeButton.setOnAction(ae -> window.close());
 
             Scene scene = new Scene(layout);
             window.setScene(scene);
             window.showAndWait();
         });
-        goBack.setOnAction(e -> {
-            mg.goBack(primaryStage);
-        });
 
-        //Scene scene = new Scene (root, 1280, 720);
+        goBack.setOnAction(e -> mg.goBack(primaryStage));
+
+
         Scene scene = new Scene (root);
         primaryStage.setTitle("Friends");
         primaryStage.setScene(scene);
@@ -187,6 +203,12 @@ public class FriendsMenuGUI extends Application implements FriendsController.Fri
         Label label = new Label(message);
         Button closeButton = new Button("Close");
         closeButton.setOnAction(ae -> window.close());
+
+        layout.setOnKeyPressed(k -> {
+            if(k.getCode() == KeyCode.ENTER) {
+                window.close();
+            }
+        });
 
         layout.getChildren().addAll(label, closeButton);
         Scene scene = new Scene(layout);
