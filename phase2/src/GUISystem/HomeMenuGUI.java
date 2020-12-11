@@ -13,6 +13,7 @@ import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
+import javafx.stage.Screen;
 import javafx.stage.Stage;
 
 
@@ -153,8 +154,8 @@ public class HomeMenuGUI extends Application implements UserMenuGetter {
         vbox.getChildren().addAll(emptyText, logoutButton, saveButton);
 
         primaryStage.setTitle("Home Screen - Conference Simulator Phase 2");
-        primaryStage.setHeight(600);
-        primaryStage.setWidth(500);
+        primaryStage.setWidth(Screen.getPrimary().getBounds().getWidth()/4);
+        primaryStage.setHeight(Screen.getPrimary().getBounds().getHeight()/1.75);
         //primaryStage.setMinHeight(600);
         //primaryStage.setMaxHeight(600);
         //primaryStage.setMinWidth(500);
