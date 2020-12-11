@@ -1,6 +1,5 @@
 package GUISystem;
 import LoginSystem.LoginOptionsFacade;
-import javafx.animation.PauseTransition;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
@@ -11,15 +10,10 @@ import javafx.scene.control.*;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.VBox;
-import javafx.scene.media.Media;
-import javafx.scene.media.MediaPlayer;
-import javafx.scene.media.MediaView;
 import javafx.scene.paint.Color;
 import javafx.stage.*;
 import javafx.scene.text.*;
-import javafx.util.Duration;
 
-import java.io.File;
 
 /**
  * The GUI Menu to create an account.
@@ -91,12 +85,10 @@ public class AccountCreationMenu extends Application{
                             dialog.close();
                             menuGetter.goHome(primaryStage);});
 
-                    dialogVbox.setOnKeyPressed(new EventHandler<KeyEvent>() {
-                        public void handle(KeyEvent k) {
-                            if (k.getCode() == KeyCode.ENTER) {
-                                dialog.close();
-                                menuGetter.goHome(primaryStage);
-                            }
+                    dialogVbox.setOnKeyPressed(k -> {
+                        if (k.getCode() == KeyCode.ENTER) {
+                            dialog.close();
+                            menuGetter.goHome(primaryStage);
                         }
                     });
 
@@ -140,12 +132,10 @@ public class AccountCreationMenu extends Application{
                             dialog.close();
                             menuGetter.goHome(primaryStage);});
 
-                        dialogVbox.setOnKeyPressed(new EventHandler<KeyEvent>() {
-                            public void handle(KeyEvent k) {
-                                if (k.getCode() == KeyCode.ENTER) {
-                                    dialog.close();
-                                    menuGetter.goHome(primaryStage);
-                                }
+                        dialogVbox.setOnKeyPressed(k1 -> {
+                            if (k1.getCode() == KeyCode.ENTER) {
+                                dialog.close();
+                                menuGetter.goHome(primaryStage);
                             }
                         });
 
