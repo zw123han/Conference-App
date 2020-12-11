@@ -1,4 +1,7 @@
-SETUP: Follow the instructions in SETUP INSTRUCTIONS.mp4 to setup mongodb. Watch our video demo instead if you cannot set this up.
+SETUP: Follow the instructions in SETUP INSTRUCTIONS.mp4 to setup mongodb.\
+You can find the driver already included in our phase 2 folder (mongo-java-driver-3.12.7.jar).
+
+Watch our video demo instead if you cannot set this up.
 
 1. Run main
 2. Follow prompts to login as existing user: "Admin" (password == "123"), alternatively create your own standard user account.
