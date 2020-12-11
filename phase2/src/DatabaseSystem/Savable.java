@@ -2,10 +2,10 @@ package DatabaseSystem;
 
 public interface Savable {
 
-    String getCollectionName();
+    public String getCollectionName();
 
-    ConversionStrategy getConversionStrategy();
+    public ConversionStrategy getConversionStrategy();
 
-    ParserStrategy getDocumentParserStrategy();
+    public ParserStrategy getDocumentParserStrategy();
 
 }

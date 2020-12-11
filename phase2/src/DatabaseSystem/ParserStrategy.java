@@ -4,6 +4,6 @@ import com.mongodb.DBCollection;
 
 public interface ParserStrategy {
 
-    Savable parseCollection(DBCollection collection);
+    public Savable parseCollection(DBCollection collection);
 
 }
