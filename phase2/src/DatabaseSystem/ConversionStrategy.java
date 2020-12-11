@@ -18,4 +18,5 @@ public interface ConversionStrategy {
      */
     ArrayList<BasicDBObject> convertAll(Savable sv);
 
+
 }
