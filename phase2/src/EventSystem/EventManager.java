@@ -200,6 +200,17 @@ public class EventManager implements Serializable, Savable {
 
     /**
      *
+     * gets the capacity that event with given id takes place in
+     *
+     * @param id id of event
+     * @return capacity of the event with given id
+     */
+    public long getCapacity(Long id) {
+        return getEvent(id).getCapacity();
+    }
+
+    /**
+     *
      * gets the list of names of speaker for event with given id
      *
      * @param id id of event
@@ -258,26 +269,22 @@ public class EventManager implements Serializable, Savable {
         }
         return true;
     }
+
+    /**
+     * sets the given name to the event with given eventid
+     *
+     * @param eventId id of the event
+     * @param name name to be set
+     */
     public void setName(Long eventId, String name){
         this.events.get(eventId).setName(name);
     }
 
-    public void setRoom(Long eventId, String room) {
-        this.events.get(eventId).setRoom(room);
-    }
-
-    public void setTime(Long eventId, LocalDateTime start_time, long duration){
-        this.events.get(eventId).setTime(start_time, duration);
-    }
-
-    public void addSpeaker(Long eventId, String speaker){
-        this.events.get(eventId).addSpeaker(speaker);
-    }
-
-    public void removeSpeaker(Long eventId, String speaker){
-        this.events.get(eventId).removeSpeaker(speaker);
-    }
-
+    /**
+     * sets the given capacity to the event with the given eventid
+     * @param eventId id of the event
+     * @param capacity capacity to be set
+     */
     public void setCapacity(Long eventId, int capacity){
         this.events.get(eventId).setCapacity(capacity);
     }

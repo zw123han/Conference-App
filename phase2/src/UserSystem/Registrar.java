@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.lang.*;
 
 import DatabaseSystem.*;
-import com.sun.org.apache.xpath.internal.operations.Or;
 
 /**
  * Registrar is the use case class for all interactions with User objects. It contains an array list of User objects
@@ -12,7 +11,7 @@ import com.sun.org.apache.xpath.internal.operations.Or;
  * of User which represents the current user that is using the conference app. Each user has a unique username which
  * this class uses to implement various methods.
  *
- * @author Jesse
+ * @author Jesse, Ziwen
  */
 public class Registrar implements Savable {
 
@@ -168,6 +167,7 @@ public class Registrar implements Savable {
             return false;
         }
     }
+
     /**
      * Returns the User object attending the conference that has the given username. Returns null if there is no user
      * attending the conference with the given username
@@ -320,6 +320,31 @@ public class Registrar implements Savable {
         return new ArrayList<>();
     }
 
+    /**
+     * Gets a list of speakers at the conference.
+     *
+     * @return An arraylist of speakers stored in the register.
+     */
+    public ArrayList<Speaker> getSpeakers(){
+        ArrayList<Speaker> speakerList = new ArrayList<Speaker>();
+        for(User user: this.getUsers()){
+            if(user.getUserType().equals("speaker")){
+                speakerList.add((Speaker) user);
+            }
+        }
+        return speakerList;
+    }
+
+    /**
+     * Deletes an event ID from all speakers at the conference, if applicable.
+     *
+     * @param eventID The ID of the event to delete.
+     */
+    public void deleteEventFromSpeakers(long eventID){
+        for(Speaker speaker: getSpeakers()){
+            speaker.removeTalk(eventID);
+        }
+    }
     /**
      * Returns the name of the user associated with the given username. Returns an empty string if there is no
      * associated user.

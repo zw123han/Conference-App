@@ -87,9 +87,7 @@ public class MessageInboxGUI extends Application implements MessageInboxPresente
         chatroomBar.setPrefSize(180, 40);
         // Go back button
         Button goBack = squareButtonConstructor(Color.CRIMSON, "×");
-        goBack.setOnAction(e -> {
-            userMenuGetter.goBack(primaryStage);
-        });
+        goBack.setOnAction(e -> userMenuGetter.goBack(primaryStage));
         // Chatroom Title
         chatroomCanvasTitle = new Label("Inbox");
         chatroomCanvasTitle.setFont(Font.loadFont(getClass().getResourceAsStream("/resources/os-bold.ttf"), 16));
@@ -236,12 +234,6 @@ public class MessageInboxGUI extends Application implements MessageInboxPresente
         Scene scene = new Scene(inboxCanvas);
         primaryStage.setTitle("Messages");
         primaryStage.setScene(scene);
-//        primaryStage.setMinHeight(600);
-//        primaryStage.setMaxHeight(600);
-//        primaryStage.setHeight(600);
-//        primaryStage.setMinWidth(500);
-//        primaryStage.setMaxWidth(500);
-//        primaryStage.setWidth(500);
         primaryStage.show();
     }
 
@@ -338,11 +330,9 @@ public class MessageInboxGUI extends Application implements MessageInboxPresente
         start(primaryStage);
     }
 
-
     // ===================
     //   PRIVATE HELPERS
     // ===================
-
 
     // Makes a single-character square button with buttonColor and symbol.
     private Button squareButtonConstructor(Color buttonColor, String symbol) {

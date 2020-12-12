@@ -42,6 +42,11 @@ public class Speaker extends User {
         talks.add(talkId);
     }
 
+    /**
+     * Removes an event from this speaker's talk list.
+     *
+     * @param talkId The id of the talk/event to be removed.
+     */
     public void removeTalk(Long talkId) {
         talks.remove(talkId);
     }

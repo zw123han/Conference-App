@@ -8,17 +8,14 @@ import UserSystem.Speaker;
 import UserSystem.User;
 import javafx.application.Application;
 import javafx.collections.ObservableList;
-import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.input.KeyCode;
-import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
-import javafx.scene.paint.Color;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import java.time.LocalDateTime;
@@ -26,24 +23,51 @@ import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 
+/**
+ * A menu for creating, modifying, deleting events.
+ *
+ * @author Fred, Tao
+ */
 public class ManageEventMenu extends Application implements EventCreatorPresenter.EventCreatorInterface{
 
     private EventCreatorPresenter ecp;
     private RoomPresenter rp;
     private UserMenuGetter mg;
-    private ListView allEvents;
+    private ListView<VBox> allEvents;
     private LoginOptionsFacade facade;
 
+    /**
+     * Sets the presenters for this class.
+     *
+     * @param ecp An instance of EventCreatorPresenter.
+     * @param rp An instance of RoomPresenter.
+     */
     public void setEventCreatorElements(EventCreatorPresenter ecp, RoomPresenter rp) {
         this.ecp = ecp;
         this.rp = rp;
     }
+
+    /**
+     * Sets the userMenuGetter interface of this class.
+     *
+     * @param userMenuGetter An instance of the UserMenuGetter Interface.
+     */
     public void setUserMenuGetter(UserMenuGetter userMenuGetter) {
         this.mg = userMenuGetter;
     }
+
+    /**
+     * Sets the loginOptionsFacade for this class.
+     *
+     * @param facade An instance of LoginOptionsFacade.
+     */
     public void setFacade(LoginOptionsFacade facade) {this.facade = facade;}
 
-
+    /**
+     * Starts the manageEvents menu.
+     *
+     * @param primaryStage The primaryStage of the application.
+     */
     @Override
     public void start(Stage primaryStage) {
         GridPane root = new GridPane();
@@ -52,7 +76,7 @@ public class ManageEventMenu extends Application implements EventCreatorPresente
         root.setPrefSize(500, 600);
         HBox topView = new HBox(5);
         VBox botView = new VBox();
-        allEvents = new ListView();
+        allEvents = new ListView<>();
         Label title = new Label("Events");
         botView.getChildren().addAll(title, allEvents);
 
@@ -64,13 +88,6 @@ public class ManageEventMenu extends Application implements EventCreatorPresente
         Button removeButton = new Button("Remove");
         Button goBack = new Button("Back");
         topView.getChildren().addAll(createButton, modifyButton, removeButton, goBack);
-
-//        Label label = new Label("hi");
-//        Label label2 = new Label("3");
-//        VBox box = new VBox();
-//        box.getChildren().addAll(label, label2);
-//        allEvents.getItems().addAll(box);
-//        yourEvents.getItems().addAll(label2);
 
         //preliminary loading
         ecp.viewEvents();
@@ -118,19 +135,6 @@ public class ManageEventMenu extends Application implements EventCreatorPresente
             ListView<String> room_list = new ListView<>();
             listRooms(room_list);
             roomBox.getChildren().addAll(roomListLabel, room_list);
-//            room_list.getSelectionModel().selectedIndexProperty().addListener((v, oldValue, newValue) -> {
-//                String selectedRoom = room_list.getSelectionModel().getSelectedItem();
-//                String[] list = selectedRoom.split("\n");
-//                String eventName = list[1];
-//                String eventName1 = eventName.substring(eventName.indexOf(":")+1).trim();
-//                System.out.println(eventName);
-//                System.out.println(eventName1);
-//            });
-
-//            HBox capacity = new HBox();
-//            Label capacityLabel = new Label("Capacity");
-//            TextField capacityInput = new TextField();
-//            capacity.getChildren().addAll(capacityLabel, capacityInput);
 
             Button submitButton = new Button("Submit");
             submitButton.setOnAction(ae -> {
@@ -140,8 +144,6 @@ public class ManageEventMenu extends Application implements EventCreatorPresente
                 String roomName1 = roomName.substring(roomName.indexOf(":")+1).trim();
                 String capacityInput = list[1];
                 int capacityInput1 = Integer.parseInt(capacityInput.substring(capacityInput.indexOf(":")+1).trim());
-//                System.out.println(capacityInput1);
-//                System.out.println(roomName1);
                 if (isValidTime(timeInput, formatter)  && isInt(durationInput)) {
                     ObservableList<String> selectedItems = speakers.getSelectionModel().getSelectedItems();
                     Registrar registrar = facade.getRegistrar();
@@ -236,22 +238,19 @@ public class ManageEventMenu extends Application implements EventCreatorPresente
                         }
                     });
 
-                    child.setOnKeyPressed(new EventHandler<KeyEvent>() {
-                        @Override
-                        public void handle(KeyEvent k) {
-                            if(k.getCode() == KeyCode.ENTER) {
-                                try {
-                                    if(!nameInput.getText().equals("") || !nameInput.getText().trim().isEmpty()) {
-                                        ecp.promptSetName(id, nameInput.getText());
-                                    }
-
-                                    if(!capacityInput.getText().equals("") || !capacityInput.getText().trim().isEmpty()) {
-                                        ecp.promptSetCapacity(id, Integer.parseInt(capacityInput.getText()));
-                                    }
-                                    secondWindow.close();
-                                } catch(Exception ex){
-                                    createPopUp("Error, please check arguments");
+                    child.setOnKeyPressed(k -> {
+                        if(k.getCode() == KeyCode.ENTER) {
+                            try {
+                                if(!nameInput.getText().equals("") || !nameInput.getText().trim().isEmpty()) {
+                                    ecp.promptSetName(id, nameInput.getText());
                                 }
+
+                                if(!capacityInput.getText().equals("") || !capacityInput.getText().trim().isEmpty()) {
+                                    ecp.promptSetCapacity(id, Integer.parseInt(capacityInput.getText()));
+                                }
+                                secondWindow.close();
+                            } catch(Exception ex){
+                                createPopUp("Error, please check arguments");
                             }
                         }
                     });
@@ -311,9 +310,7 @@ public class ManageEventMenu extends Application implements EventCreatorPresente
             window.showAndWait();
         });
 
-        goBack.setOnAction(e -> {
-            mg.goBack(primaryStage);
-        });
+        goBack.setOnAction(e -> mg.goBack(primaryStage));
 
         //Scene scene = new Scene (root, 1280, 720);
         Scene scene = new Scene (root);
@@ -322,21 +319,7 @@ public class ManageEventMenu extends Application implements EventCreatorPresente
         primaryStage.show();
     }
 
-//    private boolean validateSpeakers(ObservableList<String> selectedItems) {
-//        Registrar registrar = facade.getRegistrar();
-//        boolean allSpeakersValid = true;
-//        ArrayList<String> speakersNameList = new ArrayList<>();
-//        for(String s: selectedItems) {
-//            if (registrar.userExisting(s)) {
-//                User user = registrar.getUserByUserName(s);
-//                if (user instanceof Speaker) {
-//                    speakersNameList.add(s);
-//                } else {
-//                    allSpeakersValid = false;
-//                }
-//            }
-//        }
-//    }
+
     private void listRooms(ListView<String> roomList) {
         ArrayList<String> rooms = rp.displayRooms();
         for (String r: rooms) {
@@ -350,10 +333,6 @@ public class ManageEventMenu extends Application implements EventCreatorPresente
             list.add(s.getUserName());
         }
         return list;
-    }
-
-    private ArrayList<String> getRooms() {
-        return rp.displayRooms();
     }
 
     private boolean isValidTime(TextField time, DateTimeFormatter formatter) {
@@ -375,6 +354,17 @@ public class ManageEventMenu extends Application implements EventCreatorPresente
         }
     }
 
+    /**
+     * Creates a visual representation of an event and adds it to a list of all events.
+     *
+     * @param name The name of the event.
+     * @param id The id of the event.
+     * @param time The time the event starts.
+     * @param duration The duration of the event.
+     * @param room The room of the event.
+     * @param capacity The capacity of the event.
+     * @param speakers The list of speakers at this event.
+     */
     @Override
     public void loadAllEvents(String name,String id, String time, String duration, String room, String capacity, String speakers) {
         VBox eventContainer = new VBox();
@@ -390,6 +380,11 @@ public class ManageEventMenu extends Application implements EventCreatorPresente
         allEvents.getItems().add(eventContainer);
     }
 
+    /**
+     * Creates a popup window that can be closed.
+     *
+     * @param message The message to display.
+     */
     @Override
     public void createPopUp(String message) {
         Stage window = new Stage();
@@ -403,12 +398,9 @@ public class ManageEventMenu extends Application implements EventCreatorPresente
         Button closeButton = new Button("Close");
         closeButton.setOnAction(ae -> window.close());
 
-        layout.setOnKeyPressed(new EventHandler<KeyEvent>(){
-            @Override
-            public void handle(KeyEvent k) {
-                if (k.getCode() == KeyCode.ENTER) {
-                    window.close();
-                }
+        layout.setOnKeyPressed(k -> {
+            if (k.getCode() == KeyCode.ENTER) {
+                window.close();
             }
         });
 

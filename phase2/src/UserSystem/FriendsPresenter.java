@@ -1,7 +1,5 @@
 package UserSystem;
 
-import java.util.ArrayList;
-
 /**
  * Contains the text display for interacting with the user for managing a users friend's list.
  *
@@ -57,24 +55,4 @@ public class FriendsPresenter {
      * @return              a string message
      */
     public String notYourFriend() {return "Can't remove non friends from friends list";}
-
-    /**
-     * Displays the string that asks the user the enter the username of the other user
-     *
-     * @return              a string message
-     */
-    public String enterUser() {
-        return "Please enter the username";
-    }
-
-    /**
-     * Displays the string that asks the user for if they want to add or remove a friend
-     *
-     * @return      a string message
-     */
-    public String addOrRemove() {
-        return "Would you like to add or remove a friend? Enter 1 to add, 2 to remove. Enter $q to exit";
-    }
-
-
 }

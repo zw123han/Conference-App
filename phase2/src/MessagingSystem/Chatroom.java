@@ -59,9 +59,12 @@ public class Chatroom implements Serializable {
         return history.get(position).getMessage();
     }
 
-    public ArrayList<Message> getAllMessages() {
-        return history;
-    }
+    /**
+     * Returns all messages
+     *
+     * @return          Returns the history of messages
+     */
+    public ArrayList<Message> getAllMessages() { return history; }
 
     /**
      * Returns the date the message at the index.

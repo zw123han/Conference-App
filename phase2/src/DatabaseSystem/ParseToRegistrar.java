@@ -6,6 +6,12 @@ import com.mongodb.*;
 import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 
+/**
+ * This class is responsible for parsing through a database collection that stores user information and converting
+ * that information back into a Registrar instance.
+ *
+ * @author Jesse
+ */
 public class ParseToRegistrar implements ParserStrategy {
 
     private User createUser(DBObject doc) {
@@ -42,6 +48,12 @@ public class ParseToRegistrar implements ParserStrategy {
         return user;
     }
 
+    /**
+     * Returns a new Registrar instance based on the given collection.
+     *
+     * @param collection    The collection that stores user information.
+     * @return              A new Registrar instance.
+     */
     @Override
     public Savable parseCollection(DBCollection collection) {
         ArrayList<User> users = new ArrayList<>();

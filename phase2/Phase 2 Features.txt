@@ -1,0 +1,22 @@
+Mandatory Extensions:
+0. All mandatory features implemented. Added an admin type user which can manage other accounts and rooms.
+
+Optional Extensions:
+1. Enhanced the user's messaging experience by allowing for message deletion, mark as read/unread (including counters
+   for unread messages in a chatroom and total unread messages), pin/unpin message, unread message notifications, real-time
+   chatroom options search/filter by username or display name.
+
+2. Program will produce a neatly formatted html schedule for a user's registered events, which can be downloaded through
+   Events -> Download Event Schedule
+
+3. Connected to a database (mongodb), all relevant data is now stored on, saved to, and pulled from the database
+
+4. Created a GUI for the entire program. Refer to README for instructions on usage.
+
+5. Allows users the ability to log in and select which conference they want to participate in. i.e. Viewing and signing up for events.
+
+Our own features:
+6. Added login music. We're using O Canada because it's legal to download.
+7. Extensive administrator options to viuew, modify and delete users, in addition to mandatory extension to create users.
+   Refer to README for details.
+8. A profanity filter that will censore profanity from our family-friendly event and replace known bad words with math terms such as "integral" or "derivative". Example: The man's a wasteyouth -> The man's a integral.

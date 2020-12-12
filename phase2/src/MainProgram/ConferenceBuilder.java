@@ -17,8 +17,12 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 
+/**
+ * Builder class for Conference Simulator, which is the main executable for this program.
+ *
+ * @author Ziwen
+ */
 public class ConferenceBuilder {
-
     private DatabaseInteractor databaseInteractor;
     private Registrar registrar;
     private EventManager eventManager;
@@ -35,6 +39,11 @@ public class ConferenceBuilder {
     private FriendsController friendsController;
     private RoomPresenter roomPresenter;
 
+    /**
+     * Constructor for ConferenceBuilder.
+     *
+     * @param databaseInteractor The database interactor that will pull and push data from and to the database.
+     */
     public ConferenceBuilder(DatabaseInteractor databaseInteractor){
         this.databaseInteractor = databaseInteractor;
     }
@@ -54,11 +63,13 @@ public class ConferenceBuilder {
         databaseInteractor.setSavables(savables);
     }
 
+    //deprecated
     private void makeAdmins(){
         AdminCreationScript adminCreationScript = new AdminCreationScript();
         adminCreationScript.createAdmin(registrar);
     }
 
+    //deprecated
     private void makeOrganizers(){
         OrganizerCreationScript organizerCreationScript = new OrganizerCreationScript();
         organizerCreationScript.createOrganizers(registrar);
@@ -116,7 +127,6 @@ public class ConferenceBuilder {
         manageEventMenu.setFacade(loginFacade);
         manageAccountMenu.setFacade(loginFacade);
         friendsMenuGUI.setFriendsElements(friendsController);
-        friendsMenuGUI.setFacade(loginFacade);
         roomMenu.setRoomElements(roomPresenter);
 
         // Create menu facade and DI menus
@@ -132,7 +142,6 @@ public class ConferenceBuilder {
         roomMenu.setUserMenuGetter(homeMenuGUI);
         manageAccountMenu.setUserMenuGetter(homeMenuGUI);
 
-
         // Dependency inject MenuGetter into menus
         loginGUI.setMenuGetter(menuFacade);
         accountCreationMenu.setMenuGetter(menuFacade);
@@ -142,6 +151,9 @@ public class ConferenceBuilder {
         LaunchMenu.setMenuFacade(menuFacade);
     }
 
+    /**
+     * Builds all the necessities to use ConferenceSimulator.
+     */
     public void buildAConference(){
         getSavables();
         setSavables();

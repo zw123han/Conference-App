@@ -1,8 +1,5 @@
 package GUISystem;
 
-import EventSystem.EventCreatorPresenter;
-import EventSystem.EventManager;
-import LoginSystem.LoginOptionsFacade;
 import RoomSystem.RoomPresenter;
 import javafx.application.Application;
 import javafx.geometry.Insets;
@@ -20,20 +17,40 @@ import javafx.stage.Stage;
 
 import java.util.ArrayList;
 
+/**
+ * A menu for managing rooms at this conference.
+ *
+ * @author Tao
+ */
 public class RoomMenu extends Application implements RoomPresenter.RoomInterface {
 
-    private EventManager em;
     private RoomPresenter rp;
     private UserMenuGetter mg;
-    private ListView allRooms;
+    private ListView<String> allRooms;
 
+    /**
+     * Sets the presenter class layer for this menu.
+     *
+     * @param rp An instance of RoomPresenter.
+     */
     public void setRoomElements(RoomPresenter rp) {
         this.rp = rp;
     }
+
+    /**
+     * Sets the userMenuGetter interface for this class.
+     *
+     * @param userMenuGetter An instance of the UserMenuGetter interface.
+     */
     public void setUserMenuGetter(UserMenuGetter userMenuGetter) {
         this.mg = userMenuGetter;
     }
 
+    /**
+     * Starts this menu.
+     *
+     * @param primaryStage The primaryStage of the application.
+     */
     @Override
     public void start(Stage primaryStage) {
         GridPane root = new GridPane();
@@ -42,7 +59,7 @@ public class RoomMenu extends Application implements RoomPresenter.RoomInterface
         root.setPrefSize(500, 600);
         HBox topView = new HBox(5);
         VBox botView = new VBox();
-        allRooms = new ListView();
+        allRooms = new ListView<>();
         Label roomLabel = new Label("Rooms");
         botView.getChildren().addAll(roomLabel, allRooms);
 
@@ -53,7 +70,6 @@ public class RoomMenu extends Application implements RoomPresenter.RoomInterface
         Button removeButton = new Button("Remove Room");
         Button goBack = new Button("Back");
         topView.getChildren().addAll(addButton, removeButton, goBack);
-
 
         //preliminary loading
 
@@ -96,6 +112,7 @@ public class RoomMenu extends Application implements RoomPresenter.RoomInterface
             window.setScene(scene);
             window.showAndWait();
         });
+
         removeButton.setOnAction(e -> {
             Stage window = new Stage();
             window.initModality(Modality.APPLICATION_MODAL);
@@ -106,7 +123,6 @@ public class RoomMenu extends Application implements RoomPresenter.RoomInterface
 
             ListView<String> room_list = new ListView<>();
             listRooms(room_list);
-
 
             Button submitButton = new Button("Submit");
             Button closeButton = new Button("Close");
@@ -131,30 +147,36 @@ public class RoomMenu extends Application implements RoomPresenter.RoomInterface
             window.setScene(scene);
             window.showAndWait();
         });
-        goBack.setOnAction(e -> {
-            mg.goBack(primaryStage);
-        });
 
-        //Scene scene = new Scene (root, 1280, 720);
+        goBack.setOnAction(e -> mg.goBack(primaryStage));
+
         Scene scene = new Scene (root);
         primaryStage.setTitle("Manage Rooms");
         primaryStage.setScene(scene);
         primaryStage.show();
     }
+
     private void listRooms(ListView<String> roomList) {
         ArrayList<String> rooms = rp.displayRooms();
         for (String r: rooms) {
             roomList.getItems().add(r);
         }
     }
+
     private boolean isInt(TextField input) {
         try {
-            long number = Long.parseLong(input.getText());
+            Long.parseLong(input.getText());
             return true;
         } catch (NumberFormatException e) {
             return false;
         }
     }
+
+    /**
+     * Creates a popup window that can be closed.
+     *
+     * @param message The message to display.
+     */
     @Override
     public void createPopUp(String message) {
         Stage window = new Stage();

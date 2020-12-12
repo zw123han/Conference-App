@@ -258,11 +258,9 @@ public class MessageInboxController {
         return !chatroom.isUnread(currentUser, Integer.parseInt(id));
     }
 
-
     // ===================
     //   PRIVATE HELPERS
     // ===================
-
 
     // Main method for filtering profanities
     private String filterProfanity(String message) {

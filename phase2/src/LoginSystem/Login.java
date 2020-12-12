@@ -23,14 +23,12 @@ public class Login {
         this.registrar = registrar;
     }
 
-
     private boolean loginAble(String username, String password){
         if (!(userExists(username))) {
             return false;
         }
         return Arrays.equals(Base64.getEncoder().encode(password.getBytes()), registrar.getUserByUserName(username).getPassword().getBytes());
     }
-
 
     private boolean userExists(String username) {
         return registrar.userExisting(username);
@@ -63,6 +61,7 @@ public class Login {
         registrar.emptyCurrentUser();
         return true;
     }
+
     /**
      * Returns the current user logged in.
      *

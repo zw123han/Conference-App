@@ -218,7 +218,6 @@ public class MessageInboxPresenter {
     //   PRIVATE HELPERS
     // ===================
 
-
     // Sorts the chatrooms such that the chatroom with the most # of unread messages
     // is displayed first in the view.
     private ArrayList<ArrayList<String>> sortChatrooms(ArrayList<ArrayList<String>> chatrooms) {
@@ -239,7 +238,9 @@ public class MessageInboxPresenter {
         return sortedChatrooms;
     }
 
-    // Interface for the view.
+    /**
+     * Interface for the view.
+     */
     public interface MessageInboxView {
         void setChatroomOption(ArrayList<String> option);
         void setMessageCanvasTitle(String newTitle);

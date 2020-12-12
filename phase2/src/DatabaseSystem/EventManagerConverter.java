@@ -7,6 +7,12 @@ import com.mongodb.BasicDBObject;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
+/**
+ * This class is responsible for converting a EventManager object into a list of MongoDB documents to be added to a
+ * collection in the database.
+ *
+ * @author Jesse
+ */
 public class EventManagerConverter implements ConversionStrategy {
 
     private BasicDBObject convertEvent(Event evt) {
@@ -24,6 +30,12 @@ public class EventManagerConverter implements ConversionStrategy {
         return document;
     }
 
+    /**
+     * Returns an array list of documents to be added to a collection based on the given EventManager object.
+     *
+     * @param sv    A EventManager object.
+     * @return      A list of MongoDB documents.
+     */
     @Override
     public ArrayList<BasicDBObject> convertAll(Savable sv) {
         EventManager eventManager = (EventManager) sv;

@@ -6,6 +6,12 @@ import java.util.ArrayList;
 import UserSystem.User;
 import UserSystem.Speaker;
 
+/**
+ * This class is responsible for converting a Registrar object into a list of MongoDB documents to be added to a
+ * collection in the database.
+ *
+ * @author Jesse
+ */
 public class RegistrarConverter implements ConversionStrategy {
 
     private BasicDBObject convertUser(User user) {
@@ -31,6 +37,12 @@ public class RegistrarConverter implements ConversionStrategy {
         return document;
     }
 
+    /**
+     * Returns an array list of documents to be added to a collection based on the given Registrar object.
+     *
+     * @param sv    A Registrar object.
+     * @return      A list of MongoDB documents.
+     */
     @Override
     public ArrayList<BasicDBObject> convertAll(Savable sv) {
         Registrar registrar = (Registrar) sv;

@@ -1,19 +1,63 @@
-1. Run main
-2. Follow prompts to login as existing user: "Admin" (password == "123"), alternatively create your own standard user account.
-3. As Admin:
-	a) choose "Add Speaker" and follow prompts to create a speaker
-	b) choose "Add Event" and follow prompts to create an event
-	c) choose "Friends" and follow prompts to add/remove friends. Available friends are: andy, william, fred, elliot, chris, ziwen, jesse, nithilan
-	d) choose "Message". Follow prompts to send message to single user, event participants to to message a speaker.
-	e) choose "Events'. Follow prompts to 'add' an event to your list or 'leave' an event that you are signed up for. 
-	f) choose "Change password". Follow prompts to change password. Please remember to change it back to "123"
-	g) choose "Logout". Follow prompts to logout. Follow prompts to close login and then program. Goodbye, friend. 
-4. If you choose to create your own account, you may do so. Please note, the options are limited for standard users for security purposes. 
-5. UML can be found in root "group_0051\phase1"
-6. Javadoc can be found in "group_0051\phase1\src\javadoc"
+SETUP: Follow the instructions in SETUP INSTRUCTIONS.mp4 to setup mongodb. Make sure to hit apply.
+You can find the driver pre downloaded in our phase 2 folder (mongo-java-driver-3.12.7.jar).
+Alternatively, if you cannot setup mongodb, watch the video demo of our program instead.
 
-NOTE: Please do not resize the window to be bigger/smaller if possible. A maximum/minimum window size is not set
-because JavaFX is known to have display issues on devices with high DPI if a maximum/minimum window size is set.
+1. Run main. This will create an application window. Login music will play, turn your volume down!
+   NOTE: Please do not resize the window to be bigger/smaller if possible. A maximum/minimum window size is not set
+   because JavaFX is known to have display issues on devices with high DPI if a maximum/minimum window size is set.
+
+2. Follow prompts to Login as existing user. Alternatively, you can Create Account to make your own attendee account.
+   NOTE: If you create your own attendee account, you will not have access to all of the options listed below.
+
+We have created an administrator account with access to all features for you:
+username: admin
+password: 123
+
+3. As Admin:
+    a) Choose Events. On the left side is the list of events you are signed up for. On the right side is the list of all events.
+       You can Join, Leave, or get Info on an event by inputting its id (in the form 1607644938098, for example).
+       You can also Download Event Schedule to produce an html schedule of the events you are signed up for.
+       Click the Back button to return to the options home screen.
+
+	b) Choose Friends. This will display a list of your friends.
+	   You can Add Friend by inputting their username, if known.
+	   You can also Remove Friend by inputting their username from your displayed friends list.
+	   Click the Back button to return to the options home screen.
+
+	c) Choose Password. This will allow you to change your password.
+	   You must correctly enter your Username, Current Password, New Password, and Confirm New Password to change your password.
+	   Click the Go Back button to return to the options home screen.
+
+	d) Choose Messages. See the note below "ON USING MESSAGE INBOX/OUTBOX".
+	   Click the red "X" at the top left corner to return to the options home screen.
+
+	e) Choose Manage Events. NOTE: This option is only available to organizers and administrator user types.
+	   There will be a list of events displayed.
+	   You can Create an event. Follow the prompts given.
+	   You can Modify the name and capacity of an existing event by inputting its id.
+	   You can Remove an event by inputting its id.
+       Click the Back button to return to the options home screen.
+
+	f) Choose Manage Rooms. NOTE: This option is only available to administrator user types.
+	   There will be a list of rooms.
+	   You can Create a room by inputting any room name (ID) and a capacity.
+	   You can Remove a room by selecting it from the list that appears.
+	   Click the Back button to return to the options home screen.
+
+	g) Choose Manage Accounts. NOTE: This option is only available to organizer and administrator user types.
+       You can view a list of users by type by selection an option from the drop-downmenu.
+       You can Create a user by following the prompts.
+       You can Delete a user by inputting their username.
+       You can Modify a user by following the prompts.
+       Click the Back button to return to the options home screen.
+
+	h) Choose Save. This will save any changes you have made to the database.
+	i) Alternatively, choose Logout. This will return you to the login screen, and also save any changes made simultaneously.
+
+    j) At the login or account creation screen, you may Quit to exit the program.
+
+4. You can find UML, Javadoc, Phase 2 Features, List of Design Patterns in our phase 2 folder.
+
 
 ===============================
  ON USING MESSAGE INBOX/OUTBOX
@@ -33,6 +77,3 @@ NOTE: Please add a friend to chat with that user.
     b) Select "All speakers" to send a message to every speaker who is hosting an event. (This does not include
        speakers whose accounts exist, but are not giving talks.
     c) Select an event to send a message to all attendees of that event.
-
-Questions for TA:
-Are static gateways allowed?

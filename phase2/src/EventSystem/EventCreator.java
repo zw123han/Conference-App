@@ -75,9 +75,11 @@ public class EventCreator {
     }
 
     /**
-     * @param eventId
-     * @return
-     * @throws EventNotFoundException
+     * Attempts to delete the event with the given id
+     *
+     * @param eventId                   The identifier of the event
+     * @return                          true iff the event was deleted
+     * @throws EventNotFoundException   The exception thrown if the event is not found
      */
     public boolean deleteEvent(Long eventId)
             throws EventNotFoundException {
@@ -93,89 +95,31 @@ public class EventCreator {
             speaker.removeEvent(eventId);
         }
         this.em.deleteEvent(eventId);
+        reg.deleteEventFromSpeakers(eventId);
         return true;
     }
 
+    /**
+     * Attempts to change the name of an event.
+     *
+     * @param eventId The event id of the event.
+     * @param name The new name of the event.
+     * @return True if and only if the event name is changed to name.
+     */
     public boolean setName(Long eventId, String name) {
         this.em.setName(eventId, name);
         return true;
     }
 
-    public boolean setRoom(Long eventId, String room) throws EventModificationFailureException {
-        if(!this.rm.roomExists(room)){
-            throw new EventModificationFailureException("The given room does not exist");
-        }
-        ArrayList<Event> events = this.em.getEventsList();
-        for (Event event : events) {
-            LocalDateTime start_time = this.em.getTime(eventId);
-            LocalDateTime lower = event.getTime();
-            LocalDateTime upper = lower.plusMinutes(event.getDuration());
-            LocalDateTime end_time = start_time.plusMinutes(this.em.getEvent(eventId).getDuration());
-            if ((start_time.isAfter(lower) && start_time.isBefore(upper)) ||
-                    (end_time.isAfter(lower) && end_time.isBefore(upper)) || (start_time.isEqual(lower))) {
-                if ((event.getRoom().equals(room))) {
-                    throw new EventModificationFailureException("The room you are attempting to change to is already booked for this time");
-                }
-            }
-        }
-        this.em.setRoom(eventId, room);
-        return true;
-    }
-
-    public boolean setTime(Long eventId, LocalDateTime start_time, long duration) throws EventModificationFailureException {
-        ArrayList<Event> events = this.em.getEventsList();
-        for (Event event : events) {
-            String room = this.em.getRoom(eventId);
-            LocalDateTime lower = event.getTime();
-            LocalDateTime upper = lower.plusMinutes(event.getDuration());
-            LocalDateTime end_time = start_time.plusMinutes(this.em.getEvent(eventId).getDuration());
-            if ((start_time.isAfter(lower) && start_time.isBefore(upper)) ||
-                    (end_time.isAfter(lower) && end_time.isBefore(upper)) || (start_time.isEqual(lower))) {
-                if ((event.getRoom().equals(room))) {
-                    throw new EventModificationFailureException("The room you are using is booked for the time you are trying to change to");
-                }
-            }
-        }
-        this.em.setTime(eventId, start_time, duration);
-        return true;
-    }
-
-    public boolean addSpeaker(Long eventId, String speaker) throws EventModificationFailureException {
-        ArrayList<String> speaker_list = this.em.getSpeakerList(eventId);
-        boolean flag = this.reg.userExisting(speaker);
-        if (!flag) {
-            throw new EventModificationFailureException("This speaker does not exist");
-        }
-        ArrayList<Event> events = this.em.getEventsList();
-        for (Event event : events) {
-            LocalDateTime start_time = this.em.getTime(eventId);
-            LocalDateTime lower = event.getTime();
-            LocalDateTime upper = lower.plusMinutes(event.getDuration());
-            LocalDateTime end_time = start_time.plusMinutes(this.em.getEvent(eventId).getDuration());
-            if ((start_time.isAfter(lower) && start_time.isBefore(upper)) ||
-                    (end_time.isAfter(lower) && end_time.isBefore(upper)) || (start_time.isEqual(lower))) {
-                if (event.getSpeakerList().contains(speaker)) {
-                    throw new EventModificationFailureException("The speaker you are trying to add is already booked for this time");
-                }
-            }
-        }
-        this.em.addSpeaker(eventId, speaker);
-        return true;
-    }
-
-    public boolean removeSpeaker(Long eventId, String speaker) throws EventModificationFailureException {
-        boolean flag = this.reg.userExisting(speaker);
-        if (!flag) {
-            throw new EventModificationFailureException("This speaker does not exist");
-        }
-        ArrayList<String> speaker_list = this.em.getSpeakerList(eventId);
-        if (!speaker_list.contains(speaker)) {
-            throw new EventModificationFailureException("This speaker is not booked for your event");
-        }
-        this.em.removeSpeaker(eventId, speaker);
-        return true;
-    }
-
+    /**
+     * Attempts to set the new event capacity of an event.
+     *
+     * @param eventId The event id of this event.
+     * @param capacity The new capacity of the event.
+     * @return True if and only if the event capacity is set to the given parameter.
+     * @throws EventNotFoundException If no such event exists.
+     * @throws EventModificationFailureException If the capacity cannot be changed.
+     */
     public boolean setCapacity(Long eventId, int capacity) throws EventNotFoundException, EventModificationFailureException {
         int numAttendees = this.em.getSignedUpUsers(eventId).size();
         if (numAttendees > capacity){

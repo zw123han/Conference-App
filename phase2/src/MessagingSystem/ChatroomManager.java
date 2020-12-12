@@ -13,30 +13,55 @@ import java.util.*;
 public class ChatroomManager implements Serializable, Savable {
     private HashMap<ArrayList<String>, Chatroom> chatrooms;
 
+    /**
+     * Constructor for the chatroom manager
+     *
+     * @param chatrooms Initializes chatroom
+     */
     public ChatroomManager(HashMap<ArrayList<String>, Chatroom> chatrooms) { this.chatrooms = chatrooms; }
 
     /**
-     * Constructor for Chatroom, creates new empty HashMap.
+     * No-args constructor for Chatroom for database use, creates new empty HashMap.
      */
     public ChatroomManager(){
         this.chatrooms = new HashMap<>();
     }
 
+    /**
+     * Gets the collection name for this object.
+     *
+     * @return "chatrooms"
+     */
     @Override
     public String getCollectionName() {
         return "chatrooms";
     }
 
+    /**
+     * Gets the conversion strategy for this object.
+     *
+     * @return An instance of ChatroomManagerConverter.
+     */
     @Override
     public ConversionStrategy getConversionStrategy() {
         return new ChatroomManagerConverter();
     }
 
+    /**
+     * Gets the ParserStrategy for this object/
+     *
+     * @return An instance of ParseToChatroomManager.
+     */
     @Override
     public ParserStrategy getDocumentParserStrategy() {
         return new ParseToChatroomManager();
     }
 
+    /**
+     * Gets the list of chatrooms in this object.
+     *
+     * @return An arraylist of chatrooms.
+     */
     public HashMap<ArrayList<String>, Chatroom> getChatrooms() { return chatrooms; }
 
     /**
@@ -170,6 +195,11 @@ public class ChatroomManager implements Serializable, Savable {
         }
     }
 
+    /**
+     * Updates the ChatroomUsername of a user.
+     * @param prevUsername The previous username of the user.
+     * @param newUsername The new username of the user.
+     */
     public void updateChatroomUsername(String prevUsername, String newUsername) {
         HashMap<ArrayList<String>, Chatroom> tempChatrooms = new HashMap<>();
         Set<ArrayList<String>> keys = chatrooms.keySet();

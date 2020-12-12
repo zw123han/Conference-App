@@ -11,26 +11,51 @@ import javafx.scene.layout.*;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
-import javax.xml.soap.Text;
 import java.util.ArrayList;
 
+/**
+ * The GUI menu to access events.
+ *
+ * @author Tao
+ */
 public class EventMenuGUI extends Application implements EventSignupPresenter.EventInterface {
 
     private EventSignupPresenter esp;
     private User user;
-    private ListView yourEvents ;
-    private ListView allEvents;
+    private ListView<VBox> yourEvents ;
+    private ListView<VBox> allEvents;
     private UserMenuGetter mg;
 
+    /**
+     * Sets the eventSignupPresenter of this class.
+     * @param esp An instance of EventSignupPresenter.
+     */
     public void setEventElements(EventSignupPresenter esp) {
         this.esp = esp;
     }
+
+    /**
+     * Sets the user of this class.
+     *
+     * @param user An instance of user, representing the currently logged in user.
+     */
+
     public void setUser(User user) {
         this.user = user;
     }
+    /**
+     * Sets the userMenuGetter interface of this class.
+     *
+     * @param userMenuGetter An instance of the userMenuGetter interface.
+     */
     public void setUserMenuGetter(UserMenuGetter userMenuGetter) {
         this.mg = userMenuGetter;
     }
+
+    /**
+     * The main executable of this class. Will start the menu.
+     * @param primaryStage The primaryStage of the application.
+     */
     @Override
     public void start(Stage primaryStage) {
         // #setting up grid and layout
@@ -42,8 +67,8 @@ public class EventMenuGUI extends Application implements EventSignupPresenter.Ev
         HBox topView = new HBox(5);
         VBox leftView = new VBox();
         VBox rightView = new VBox();
-        yourEvents = new ListView();
-        allEvents = new ListView();
+        yourEvents = new ListView<>();
+        allEvents = new ListView<>();
         SplitPane splitPane = new SplitPane();
 
         Label leftViewTitle = new Label("Your Events");
@@ -61,21 +86,12 @@ public class EventMenuGUI extends Application implements EventSignupPresenter.Ev
         Button viewSchedule = new Button("Download Event Schedule");
         topView.getChildren().addAll(joinEvent, leaveEvent, eventInfo, goBack, viewSchedule);
 
-//        Label label = new Label("hi");
-//        Label label2 = new Label("3");
-//        VBox box = new VBox();
-//        box.getChildren().addAll(label, label2);
-//        allEvents.getItems().addAll(box);
-//        yourEvents.getItems().addAll(label2);
-
         //preliminary loading
         esp.usersEvents(user);
         esp.viewEvents();
 
         // event handlers
-        viewSchedule.setOnAction(e -> {
-            this.esp.downloadUserEvents(this.user);
-        });
+        viewSchedule.setOnAction(e -> this.esp.downloadUserEvents(this.user));
 
         joinEvent.setOnAction(e -> {
             //prompts window to join event
@@ -156,29 +172,32 @@ public class EventMenuGUI extends Application implements EventSignupPresenter.Ev
 
             closeButton.setOnAction(ae -> window.close());
             // clear the listview and then repopulate left-view.
-            searchButton.setOnAction(ae -> {
-                esp.getEventInfo(input.getText());
-            });
+            searchButton.setOnAction(ae -> esp.getEventInfo(input.getText()));
             layout.getChildren().addAll(hBox, searchButton, closeButton);
 
             Scene scene = new Scene(layout);
             window.setScene(scene);
             window.showAndWait();
         });
-        goBack.setOnAction(e -> {
-            mg.goBack(primaryStage);
-        });
+        goBack.setOnAction(e -> mg.goBack(primaryStage));
 
         Scene scene = new Scene (root);
-        //primaryStage.setMinHeight(600);
-        //primaryStage.setMaxHeight(800);
-        //primaryStage.setMinWidth(800);
-        //primaryStage.setMaxWidth(600);
         primaryStage.setTitle("Events");
         primaryStage.setScene(scene);
         primaryStage.show();
     }
 
+    /**
+     * Creates a visual representation of an event the user has signed up for and adds it to a list of signed up events.
+     *
+     * @param name The name of the event.
+     * @param id The id of the event.
+     * @param time The time the event starts.
+     * @param duration The duration of the event.
+     * @param room The room of the event.
+     * @param capacity The capacity of the event.
+     * @param speakers The list of speakers at this event.
+     */
     @Override
     public void loadUserEvents(String name, String id, String time, String duration, String room, String capacity, String speakers) {
         VBox eventContainer = new VBox();
@@ -195,6 +214,17 @@ public class EventMenuGUI extends Application implements EventSignupPresenter.Ev
 
     }
 
+    /**
+     * Creates a visual representation of an event and adds it to a list of all events.
+     *
+     * @param name The name of the event.
+     * @param id The id of the event.
+     * @param time The time the event starts.
+     * @param duration The duration of the event.
+     * @param room The room of the event.
+     * @param capacity The capacity of the event.
+     * @param speakers The list of speakers at this event.
+     */
     @Override
     public void loadAllEvents(String name, String id, String time, String duration, String room, String capacity, String speakers) {
         VBox eventContainer = new VBox();
@@ -211,6 +241,11 @@ public class EventMenuGUI extends Application implements EventSignupPresenter.Ev
 
     }
 
+    /**
+     * Creates a popup window for event joining.
+     *
+     * @param message A message for the popup window to display.
+     */
     @Override
     public void joinEvent(String message) {
         //going to pop up a window that affirms event joining thing
@@ -231,6 +266,11 @@ public class EventMenuGUI extends Application implements EventSignupPresenter.Ev
         window.showAndWait();
     }
 
+    /**
+     * Creates a popup window to leave an event.
+     *
+     * @param message The message to display.
+     */
     @Override
     public void leaveEvent(String message) {
         Stage window = new Stage();
@@ -250,7 +290,11 @@ public class EventMenuGUI extends Application implements EventSignupPresenter.Ev
         window.showAndWait();
     }
 
-
+    /**
+     * Creates a popup window to give information on attendees of an event.
+     *
+     * @param usernames A list of attendees' usernames at the event to display.
+     */
     @Override
     public void eventInfo(ArrayList<String> usernames) {
         Stage window = new Stage();
@@ -275,6 +319,12 @@ public class EventMenuGUI extends Application implements EventSignupPresenter.Ev
         window.setScene(scene);
         window.showAndWait();
     }
+
+    /**
+     * A popup for an error in the eventMenu.
+     *
+     * @param message A message to display.
+     */
     @Override
     public void eventInfoError(String message) {
         Stage window = new Stage();

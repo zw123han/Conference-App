@@ -1,8 +1,0 @@
-- All mandatory features implemented. Added an admin type user which can manage other accounts and rooms.
-- Enhanced the user's messaging experience by allowing for message deletion, mark as read/unread (including counters
-  for unread messages in a chatroom and total unread messages), pin/unpin message, unread message notifications, real-time
-  chatroom options search/filter by username or display name, and profanity filtering
-- Program will produce a neatly formatted html schedule for a user's registered events, which can be downloaded through
-  Events -> Download Event Schedule
-- Connected to a database (mongodb), all relevant data is now stored on and pulled from the database
-- Created a GUI for the entire program (refer to README for instructions)
