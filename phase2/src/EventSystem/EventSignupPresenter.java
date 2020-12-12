@@ -68,7 +68,7 @@ public class EventSignupPresenter {
         EventSignupController esc = new EventSignupController(this.es, this.em);
         try {
             if (!(esc.removeUser(user, Long.parseLong(event_id)))) {
-                String message = "Unable to leave event. You are already in this event.";
+                String message = "Unable to leave event. You are not in the event.";
                 eventInterface.leaveEvent(message);
             } else {
                 String message = "Left event";
