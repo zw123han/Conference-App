@@ -1,6 +1,7 @@
 SETUP: Follow the instructions in SETUP INSTRUCTIONS.mp4 to setup mongodb. Make sure to hit apply.
 You can find the driver pre downloaded in our phase 2 folder (mongo-java-driver-3.12.7.jar).
 Alternatively, if you cannot setup mongodb, watch the video demo of our program instead.
+[LINK COMING SOON]
 
 1. Run main. This will create an application window. Login music will play, turn your volume down!
    NOTE: Please do not resize the window to be bigger/smaller if possible. A maximum/minimum window size is not set
@@ -8,8 +9,6 @@ Alternatively, if you cannot setup mongodb, watch the video demo of our program 
 
 2. Follow prompts to Login as existing user. Alternatively, you can Create Account to make your own attendee account.
    NOTE: If you create your own attendee account, you will not have access to all of the options listed below.
-
-3. Please log out before terminating the program.
 
 We have created an administrator account with access to all features for you:
 username: admin
@@ -58,7 +57,17 @@ password: 123
 
     j) At the login or account creation screen, you may Quit to exit the program.
 
-4. You can find UML, Javadoc, Phase 2 Features, List of Design Patterns in our phase 2 folder.
+4. We've included javadoc for each public class and method.
+
+5. You can find UML diagrams in the folder "design". There is a diagram for package interactions (design.pdf).
+   There are also diagrams for interactions within each package (eg. DatabaseSystemDesign.pdf).
+
+6. There is Phase 2 Features.txt, which is a list of features we implemented for phase 2.
+
+7. There is List of Design Patterns.txt, which are the design patterns we implemented.
+
+8. Again, here is a video of us demoing our program [LINK COMING SOON].
+
 
 
 ===============================
