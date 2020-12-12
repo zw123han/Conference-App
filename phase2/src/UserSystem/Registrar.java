@@ -336,13 +336,16 @@ public class Registrar implements Savable {
     }
 
     /**
-     * Deletes an event ID from all speakers at the conference, if applicable.
+     * Deletes an event ID from all users at the conference, if applicable.
      *
      * @param eventID The ID of the event to delete.
      */
-    public void deleteEventFromSpeakers(long eventID){
+    public void deleteEventFromUsers(long eventID){
         for(Speaker speaker: getSpeakers()){
             speaker.removeTalk(eventID);
+        }
+        for(User user: getUsers()){
+            user.removeEvent(eventID);
         }
     }
     /**

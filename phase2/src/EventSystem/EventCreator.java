@@ -95,7 +95,7 @@ public class EventCreator {
             speaker.removeEvent(eventId);
         }
         this.em.deleteEvent(eventId);
-        reg.deleteEventFromSpeakers(eventId);
+        reg.deleteEventFromUsers(eventId);
         return true;
     }
 
