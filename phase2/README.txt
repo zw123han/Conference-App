@@ -9,6 +9,8 @@ Alternatively, if you cannot setup mongodb, watch the video demo of our program 
 2. Follow prompts to Login as existing user. Alternatively, you can Create Account to make your own attendee account.
    NOTE: If you create your own attendee account, you will not have access to all of the options listed below.
 
+3. Please log out before terminating the program.
+
 We have created an administrator account with access to all features for you:
 username: admin
 password: 123
@@ -71,7 +73,7 @@ NOTE: Please add a friend to chat with that user.
     a) Message deletion is available to every user, but only admins can delete other users' messages.
     b) Pinned messages in a specific chatroom can be accessed by clicking the "Pins" button while in that chatroom.
     c) Only other users' messages can be marked as read/unread.
-4. Click the "search for user" to look up a chatroom.
+4. Click the "Search user..." to look up a chatroom.
 5. Click the blue "+" button to open a message outbox that can send messages to multiple people at once.
     a) This feature is NOT AVAILABLE TO ATTENDEES.
     b) Select "All speakers" to send a message to every speaker who is hosting an event. (This does not include
