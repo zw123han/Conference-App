@@ -1,9 +1,20 @@
 Dependency Injection:
+-ConferenceBuilder: Mainly in the private methods called by buildAConference(), there is a substantial amount of dependency injection. This is because
+                    we need our use cases to be pulled from/stored to the database, and also be passed into controllers and presenters.
+                    We also needed to inject interfaces into menus and presenters to follow the MVP structure. Basically every presenter, controller, and menu class
+                    uses dependency injection as shown in these methods.
 
 Facade:
+-LoginOptionsFacade: This controller class gives a variety of options to modify user information for logged in and stored users.
+                     It mainly calls upon methods in private classes such as use cases and other controllers since there are multiple responsibilities.
+                     It also ensure consistency between use cases, i.e. if we delete a speaker we also call a method to delete it from eventManager.
+                     Each one of its private classes has a single responsibility (eg. credentialsUseCase enforces user credential rules, login allows for logging in, etc.)
 
 Observer:
 
 Strategy:
 
 Builder:
+-ConferenceBuilder: The application has many complex classes which need to be constructed, set, injected, etc.,
+                    so we used a builder to encapsulate all of this. There are many private methods in this class which will build the use cases,
+                    controllers, presenters, and GUI menus required to run the program, and puts it all into LaunchMenu to be launched.
