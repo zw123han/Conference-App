@@ -4,15 +4,31 @@ Dependency Injection:
                     We also needed to inject interfaces into menus and presenters to follow the MVP structure. Basically every presenter, controller, and menu class
                     uses dependency injection as shown in these methods.
 
+-Database: The database connector/reader/writer classes all needed to depend on a MongoDB database object, but these
+           classes shouldn't necessarily depend on another class (in our cases, DatabaseInteractor) because of this
+           (what if we wanted the same methods but for different databases?) As such, dependency injection was used to
+           remove this dependency.
+
 Facade:
 -LoginOptionsFacade: This controller class gives a variety of options to modify user information for logged in and stored users.
                      It mainly calls upon methods in private classes such as use cases and other controllers since there are multiple responsibilities.
                      It also ensure consistency between use cases, i.e. if we delete a speaker we also call a method to delete it from eventManager.
                      Each one of its private classes has a single responsibility (eg. credentialsUseCase enforces user credential rules, login allows for logging in, etc.)
+-DatabaseInteractor: There are ultimately four different operations you can do with a database (CRUD), we've simplified
+                     it to two options (read/write), but even then, implementing all the methods necessary for the
+                     database inside one class would violate the SRP. As such, we let this class be a facade that calls
+                     on the appropriate methods from other classes. If we needed to change how we read from a database,
+                     we could just go to the DatabaseReader class, rather than the DatabaseInteractor class.
 
 Observer:
 
 Strategy:
+-ConversionStrategy/ParserStrategy: Because each Savable (an object in the program we want to save) is different and has
+                                    different requirements when it comes to saving, we need different strategies to
+                                    convert those Savables into MongoDB documents and vice versa. However, we don't
+                                    want to be creating individual methods that call on these strategies because they
+                                    all need to provide the same service (converting/parsing). As such, we implement the
+                                    Strategy Design Pattern.
 
 Builder:
 -ConferenceBuilder: The application has many complex classes which need to be constructed, set, injected, etc.,
