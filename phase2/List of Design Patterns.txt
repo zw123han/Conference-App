@@ -15,6 +15,25 @@ Dependency Injection:
                         usecase classes in order to perform joining and leaving of events.
                         Specifically, the class has an instance of EventManager and EventSignup injected into
                         its constructor.
+- MessageInbox/OutboxController: Dependency injection allows these controllers to access use cases that were stored in
+                                 the database. For instance, they both require an instance of ChatroomManager and
+                                 Registrar to perform user look ups and to add new messages in the chatrooms. In addition,
+                                 MessageOutboxController is injected the EventManager.
+- MessageInbox/OutboxGUI: The MessageInboxPresenter is dependency injected into the MessageInboxGUI and the MessageOutboxPresenter
+                          is dependency injected into the MessageOutboxGUI. We chose to do this to reduce coupling between
+                          objects in different layers of clean architecture. Also, since both the GUIs extend application,
+                          their constructors must be empty in the first place. This is necessary for the view to interact
+                          with the model with the presenters as their mediator.
+- MessageInbox/OutboxPresenter: The MessageOutboxGUI and the MessageInboxGUI is dependency injected into MessageOutboxPresenter
+                                and MessageInboxPresenter respectively through two interfaces, MessageInboxView and
+                                MessageOutboxView. As stated previously, the two GUIs are able to interact directly with
+                                their presenters. After passing user requests to the presenters, the presenters would be
+                                able to update the GUIs through the view interfaces they implemented. In addition, the
+                                MessageInboxController and MessageOutboxController are dependency injected into
+                                MessageInboxPresenter and MessageOutboxPresenter respectively. This is because, to not
+                                violate the single responsibility principle and to reduce unnecessary coupling, the
+                                presenters only update the view and the controllers only makes decisions on whether an
+                                operation is allowed on the part of the client.
 
 Facade:
 -LoginOptionsFacade: This controller class gives a variety of options to modify user information for logged in and stored users.
@@ -28,6 +47,15 @@ Facade:
                      we could just go to the DatabaseReader class, rather than the DatabaseInteractor class.
 
 Observer:
+- MessageOutboxUI: Though the observer pattern wasn't implemented directly by us, we made use of the pattern that was
+                   already worked into JavaFX's properties event options, namely addListener(). A ChangeListener (observer)
+                   is added to certain buttons and text areas (observables), such as the user search field. This listener
+                   is then passed three things (assuming a change has occurred): the property of the object that has changed,
+                   the old value of the property before the change, and the new property. By using lambda expressions,
+                   we are able to update the interface whenever a change has occurred to the objects that have a listener
+                   and adjust this change accordingly to the change. Note that the property that the observer is listening
+                   to depends on the object. For example, text fields have focusedProperty(), whereas toggle buttons have
+                   selectedProperty().
 
 Strategy:
 -ConversionStrategy/ParserStrategy: Because each Savable (an object in the program we want to save) is different and has

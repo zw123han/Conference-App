@@ -35,7 +35,8 @@ public class MessageInboxGUI extends Application implements MessageInboxPresente
     private ScrollPane messagesScrollable;
 
     /**
-     * Initiates a new MessageInboxGUI
+     * Sets the elements of a MessageInboxGUI. The presenter manages the view's interaction with the model,
+     * while the MessageOutboxGUI contains a new pop-up window for the outbox.
      *
      * @param messageInboxPresenter        MessageInboxController
      * @param messageOutboxGUI             MessageOutboxGUI
