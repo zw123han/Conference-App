@@ -3,8 +3,7 @@ Mandatory Extensions:
 
 Optional Extensions:
 1. Enhanced the user's messaging experience by allowing for message deletion, mark as read/unread (including counters
-   for unread messages in a chatroom and total unread messages), pin/unpin message, unread message notifications, real-time
-   chatroom options search/filter by username or display name.
+   for unread messages in a chatroom and total unread messages), pin/unpin message (a substitute for archiving messages)
 
 2. Program will produce a neatly formatted html schedule for a user's registered events, which can be downloaded through
    Events -> Download Event Schedule
@@ -17,4 +16,6 @@ Our own features:
 5. Added login music. We're using O Canada because it's legal to download.
 6. Extensive administrator options to view, modify and delete users, in addition to mandatory extension to create users.
    Refer to README for details.
-7. A profanity filter that will censor profanity from our family-friendly event and replace known bad words with math terms such as "integral" or "derivative". Example: The man's a wasteyouth -> The man's a integral.
+7. A profanity filter that will censor profanity from our family-friendly event and replace known bad words with math
+   terms such as "integral" or "derivative". Example: The man's a wasteyouth -> The man's a integral.
+8. Real-time chatroom options searching/filtering by username or display name.
