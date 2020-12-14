@@ -144,7 +144,6 @@ public class MessageInboxPresenter {
     /**
      * Marks a message with id in the logged in user's chatroom with recipient as read if the message is unread.
      * Otherwise, the message will be marked as unread.
-     * The request is passed directly onto the messageInboxController.
      *
      * @param recipient     username of the recipient
      * @param id            index of the message
@@ -158,7 +157,6 @@ public class MessageInboxPresenter {
      * Checks whether the logged in user can delete a message. They can delete a message when:
      * - The logged in user is the sender;
      * - The logged in user is an admin.
-     * The request is passed directly onto the messageInboxController.
      *
      * @param username      String of the message's sender's username
      * @return boolean      True if length is not 0, false otherwise
@@ -170,7 +168,6 @@ public class MessageInboxPresenter {
     /**
      * Checks whether the message with id in the logged in user's chatroom with
      * recipient is a pinned message.
-     * The request is passed directly onto the messageInboxController.
      *
      * @param id         id of the message
      * @param recipient  username of the recipient
@@ -183,7 +180,6 @@ public class MessageInboxPresenter {
     /**
      * Checks whether the message with id in the logged in user's chatroom with
      * recipient is read already.
-     * The request is passed directly onto the messageInboxController.
      *
      * @param id         id of the message
      * @param recipient  username of the recipient
@@ -196,7 +192,6 @@ public class MessageInboxPresenter {
     /**
      * Checks whether the logged in user can send a group message. They can send a group message
      * when the logged in user is an admin, an organizer, or a speaker.
-     * The request is passed directly onto the messageInboxController.
      *
      * @return boolean      True if the logged in user can send a group message.
      */
