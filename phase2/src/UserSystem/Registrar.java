@@ -35,16 +35,31 @@ public class Registrar implements Savable {
         this.users = new ArrayList<>();
     }
 
+    /**
+     * Gets the collection name for this object.
+     *
+     * @return "registrar".
+     */
     @Override
     public String getCollectionName() {
         return "registrar";
     }
 
+    /**
+     * Gets the conversion strategy for this object.
+     *
+     * @return An instance of RegistrarConverter.
+     */
     @Override
     public ConversionStrategy getConversionStrategy() {
         return new RegistrarConverter();
     }
 
+    /**
+     * Gets the parser for this object.
+     *
+     * @return An instance of ParseToRegistrar.
+     */
     @Override
     public ParserStrategy getDocumentParserStrategy() {
         return new ParseToRegistrar();
