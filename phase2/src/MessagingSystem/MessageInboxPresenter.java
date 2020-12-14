@@ -234,14 +234,50 @@ public class MessageInboxPresenter {
     }
 
     /**
-     * Interface for the view.
+     * Interface for the MessageInbox's view.
      */
     public interface MessageInboxView {
-        void setChatroomOption(ArrayList<String> option);
-        void setMessageCanvasTitle(String newTitle);
-        void setChatroomCanvasTitle(String newTitle);
+
+        /**
+         * Adds options containing chatroom data to the chatroom options area in the chatroom canvas.
+         * Each set of chatroom data is stored in an ArrayList in the following form:
+         * [Display name of the other user, username of the other user, number of unread messages]
+         *
+         * @param chatroomData  an Arraylist of chatroom data
+         */
+        void setChatroomOption(ArrayList<String> chatroomData);
+
+        /**
+         * Sets the title of the message canvas to be the recipient's display name.
+         *
+         * @param recipientName  String of the display name of the recipient
+         */
+        void setMessageCanvasTitle(String recipientName);
+
+        /**
+         * Sets the title of the inbox to include the number of total unread messages.
+         *
+         * @param numberUnread  String of number of total unread messages
+         */
+        void setChatroomCanvasTitle(String numberUnread);
+
+        /**
+         * Adds a message containing message data to the message display area of the message canvas.
+         * The message data is stored in an Arraylist in the following form:
+         * [Sender username, local date time, filtered message, message id]
+         *
+         * @param messageData  an Arraylist of message data
+         */
         void setMessageArea(ArrayList<String> messageData);
+
+        /**
+         * Clears all messages from message canvas display.
+         */
         void clearMessages();
+
+        /**
+         * Clears all chatrooms from chatroom canvas display.
+         */
         void clearChatroomOptions();
     }
 }
