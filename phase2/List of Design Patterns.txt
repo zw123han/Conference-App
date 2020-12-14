@@ -35,6 +35,26 @@ Dependency Injection:
                                 presenters only update the view and the controllers only makes decisions on whether an
                                 operation is allowed on the part of the client.
 
+- ManageAccountMenu: Dependency Injection was used in order to provide access to an instance of Registrar. This grants access to all the
+                     stored users, which is requried in order to display them onto the screen. Furthermore, instances of UserMenuGetter and LoginOptionsFacade were also
+                     injected in to the class, in order to have access to deletion and creation of users as well as their modifications(update name, type etc.) and
+                     the ability to return to the home menu.
+
+- ManageEventMenu: Features of EventCreatorPresenter, RoomPresenter, LoginOptionsFacade are necessary to for the creation(and displaying the rooms), removal and modification of events.
+	       	       This was made possible through injecting instances of such classes were directly into ManageEventMenu. This also saves us from creating unecessary dependencies and coupling between
+		           between the classes. Furthermore, instance of UserMenuGetter was also injected in to the class, granting the ability to return to the home menu.
+
+- RoomMenu: An Instance of Room Presenter was injected into the class in order to provide access to add and remove rooms. Furthermore, instance of UserMenuGetter was also injected in to the class,
+	        granting the ability to return to the home menu. This also saves us from creating unecessary dependencies and coupling between
+		    between the classes.
+- FriendsMenuGUI: Instances of FriendsController and User are necessary to perform the tasks of creating and removing other users from the users friends list. Furthermore, instance of UserMenuGetter was also injected in to the class,
+	              granting the ability to return to the home menu. This also saves us from creating unecessary dependencies and coupling between
+		          between the classes.
+- EventMenuGUI: EventSignUpPresenter and User were injected in the class in order to perform the necessary tasks of joining and leaving an event, and extracting event info. Furthermore, instance of UserMenuGetter was also injected in to the class,
+	            granting the ability to return to the home menu.  This also saves us from creating unecessary dependencies and coupling between
+		        between the classes.
+- FriendsController - instances of FriendInterface, FriendsPresenter, Registrar, User are injected into the class in order to perform their necessary tasks and to reduce coupling.
+
 Facade:
 -LoginOptionsFacade: This controller class gives a variety of options to modify user information for logged in and stored users.
                      It mainly calls upon methods in private classes such as use cases and other controllers since there are multiple responsibilities.
@@ -57,6 +77,17 @@ Observer:
                    to depends on the object. For example, text fields have focusedProperty(), whereas toggle buttons have
                    selectedProperty(). Since this was worked into JavaFX already, there was no point in us implementing our
                    own observer pattern.
+- ManageEventMenu: Our event menu allows the user to select their desire speakers from a ListView of available speakers upon creating an event.
+                   We used the built-in pattern inside javaFX ListViews. Elements of the ListView are stored within the items ObservableList.
+                   Any changes made within an ObservableList are automatically shown inside it's associated ListView object, since the ObservableList is automatically observed
+                   by the ListView object. Therefore, any user selections changes are automatically noted, and the speakers the system takes
+                   in are only the final selections made by the user. In the end, this generates a cleaner user experience.
+
+- ManageAccountMenu: As stated in MessageOutBoxUI, we made use of the pattern that was
+                     already worked into JavaFX's property events.  the user is able to specify the type of user they want to be displayed through their selections made by the ChoiceBox(the dropdown).
+                     The reason for this is to create a more interactable user interface that is also less error prone. This was made possible by adding a listener
+                     to the choice box, which also adds a ChangeListener that is notified whenever the value of the choice box changes. For this reason, any changes
+                     made to the the choice box will display the users accordingly to their selection (admin, speaker, attendee, organizer).
 
 Strategy:
 -ConversionStrategy/ParserStrategy: Because each Savable (an object in the program we want to save) is different and has
