@@ -1,7 +1,7 @@
 SETUP: Follow the instructions in SETUP INSTRUCTIONS.mp4 to setup mongodb. Make sure to hit apply.
 You can find the driver pre downloaded in our phase 2 folder (mongo-java-driver-3.12.7.jar).
 Alternatively, if you cannot setup mongodb, watch the video demo of our program instead.
-[LINK COMING SOON]
+[https://youtu.be/b-LFwrDeQXw]
 
 1. Run main. This will create an application window. Login music will play, turn your volume down!
    NOTE: Please do not resize the window to be bigger/smaller if possible. A maximum/minimum window size is not set
@@ -66,7 +66,7 @@ password: 123
 
 7. There is List of Design Patterns.txt, which are the design patterns we implemented.
 
-8. Again, here is a video of us demoing our program [LINK COMING SOON].
+8. Again, here is a video of us demoing our program [https://youtu.be/b-LFwrDeQXw].
 
 
 
