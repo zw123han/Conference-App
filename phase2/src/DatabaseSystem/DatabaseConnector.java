@@ -31,7 +31,7 @@ public class DatabaseConnector {
      */
     public DB connect() {
         try {
-            mongoClient = new MongoClient(new MongoClientURI("mongodb+srv://admin:82Fo6ZA64t3gSNRk@conferenceapp.pfgil.mongodb.net/ConferenceApp?retryWrites=true&w=majority"));
+            mongoClient = new MongoClient(new MongoClientURI(System.getenv("DBPATH")));
 
             System.out.println("Connected to MongoDB!");
             return mongoClient.getDB("ConferenceApp");
